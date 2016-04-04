@@ -8,7 +8,20 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('login', {
+        url: "/login",
+        abstract: false,
+        templateUrl: "app/components/login/login.html",
+        data: { pageTitle: 'Register', specialClass: 'gray-bg' },
+        "authenticate": false
+      })
+      .state('signup', {
+        url: "/signup",
+        templateUrl: "app/components/singup/singup.html",
+        data: { pageTitle: 'Register', specialClass: 'gray-bg' },
+        "authenticate": false
 
+      })
       .state('index', {
         abstract: true,
         url: "/index",
@@ -17,7 +30,9 @@
       .state('index.main', {
         url: "/main",
         templateUrl: "app/main/main.html",
-        data: { pageTitle: 'Example view' }
+        data: { pageTitle: 'Example view' },
+        "authenticate": true
+
       })
       .state('index.mail', {
         url: "/mailbox",
