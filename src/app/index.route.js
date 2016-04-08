@@ -16,11 +16,10 @@
         "authenticate": false
       })
       .state('signup', {
-        url: "/signup",
-        templateUrl: "app/components/singup/singup.html",
-        data: { pageTitle: 'Register', specialClass: 'gray-bg' },
-        "authenticate": false
-
+            url: "/signup",
+            templateUrl: "app/components/singup/apply.html",
+            data: { pageTitle: 'Wizard form' },
+            "authenticate": false
       })
       .state('index', {
         abstract: true,
