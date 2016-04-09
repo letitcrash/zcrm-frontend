@@ -9,22 +9,35 @@ angular.module('inspinia')
     vm.helloText = 'Welcome in INSPINIA Gulp SeedProject';
     vm.descriptionText = 'It is an application skeleton for a typical AngularJS web app. You can use it to quickly bootstrap your angular webapp projects.';
 
-    $scope.apply = function() {
+    $scope.apply = function(email) {
+      
+      console.log($scope.email);
 
       var data = {
-        login: $scope.email,
+        email: $scope.email,
         url: "https://crm-multimedianordic.c9users.io/"
       };
+      
+      console.log("setting header");
+      console.log(data);
+      
+      $http({
+        method: 'POST',
+        url: 'https://crm-multimedianordic.c9users.io:8081/signup',
+        data: data,
+        headers: {
+          "Content-Type": 'application/json'
+          }
+      }).then(function(response) {
+          			console.log(response);
 
-      var res = $http.post('https://crm-multimedianordic.c9users.io:8081/singup', data);
-		res.success(function(data, status, headers, config) {
-			console.log(data);
-		});
-		res.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
-		});		
+      }, function(response) {
+          			console.log(response);
+
+      });
+
+
 
 	}
-
 
   });

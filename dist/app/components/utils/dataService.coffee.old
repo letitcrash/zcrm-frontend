@@ -1,0 +1,90 @@
+'use strict'
+
+angular.module('timetedApp').factory('dataService', ($cookieStore) ->
+
+  APP_VERSION = '0.0.2'
+
+  #BASE_URL = "http://localhost:9000/"
+  #BASE_URL = "http://timeted-services.herokuapp.com/"
+
+  #BASE_URL = "http://timeted-services.herokuapp.com/"
+  #BASE_URL = "http://timeted-prod.herokuapp.com/"
+
+  C_USER = "C_USER"
+  C_TOKEN = "C_TOKEN"
+  C_EMPLOYMENTS = "C_EMPLOYMENTS"
+  C_CURRENT_COMPANY_ID = "C_CURRENT_COMPANY_ID"
+  C_CURRENT_COMPANY_NAME = "C_CURRENT_COMPANY_NAME"
+
+  constants = {}
+  data = {}
+  {
+    getAppVersion: () -> APP_VERSION
+    getBaseServiceURL: () -> constants.BASE_URL
+    setBaseServiceURL: (b) -> constants.BASE_URL = b
+    getData: () -> data
+    clearData: () ->
+      console.log("Clearing data")
+      data = {}
+
+      console.log("Clearing cache")
+      $cookieStore.remove(C_USER)
+      $cookieStore.remove(C_TOKEN)
+      $cookieStore.remove(C_EMPLOYMENTS)
+      $cookieStore.remove(C_CURRENT_COMPANY_ID)
+      $cookieStore.remove(C_CURRENT_COMPANY_NAME)
+
+    getUser: () ->
+      if(!data.user)
+        data.user = $cookieStore.get(C_USER)
+      data.user
+    setUser: (user) ->
+      data.user = user
+      $cookieStore.put(C_USER, user)
+
+    getUserId:             () -> if (this.getUser()?) then this.getUser().id
+    getUserLevel:          () -> if (this.getUser()?) then this.getUser().userLevel
+    getUserContactProfile: () -> if (this.getUser()?) then this.getUser().contactProfile
+
+    getSessionToken: () ->
+      if(!data.token)
+        data.token = $cookieStore.get(C_TOKEN)
+      data.token
+    setSessionToken: (token) ->
+      data.token = token
+      $cookieStore.put(C_TOKEN, token)
+
+    setCurrentCompany: (company) ->
+      data.currentCompanyId = company.id
+      $cookieStore.put(C_CURRENT_COMPANY_ID, company.id)
+      $cookieStore.put(C_CURRENT_COMPANY_NAME, company.name)
+    getCurrentCompanyId: () ->
+      if(!data.currentCompanyId)
+        data.currentCompanyId = $cookieStore.get(C_CURRENT_COMPANY_ID)
+      if(!data.currentCompanyId)
+        #If current company id not set then we just choose first in employmentslist
+        data.currentCompanyId = this.getEmployments()[0].companyId
+      data.currentCompanyId
+    getCurrentCompanyStr: () ->
+      if(!data.currentCompanyName)
+        data.currentCompanyName = $cookieStore.get(C_CURRENT_COMPANY_NAME)
+      data.currentCompanyName
+
+    getCurrentEmployment: () ->
+      if(!data.currentEmployment)
+        companyId = this.getCurrentCompanyId()
+        data.currentEmployment = _.find(this.getEmployments(), ((e) -> e.companyId == companyId ) )
+      data.currentEmployment
+    getCurrentEmployeeLevel: () ->
+      if (this.getCurrentEmployment()?) then this.getCurrentEmployment().employeeLevel
+
+    getEmployments: () ->
+      if(!data.employments)
+        data.employments = $cookieStore.get(C_EMPLOYMENTS)
+      data.employments
+    setEmployments: (employments) ->
+      data.employments = employments
+      $cookieStore.put(C_EMPLOYMENTS, employments)
+
+  }
+)

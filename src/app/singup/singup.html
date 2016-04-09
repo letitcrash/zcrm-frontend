@@ -1,30 +1,43 @@
-<div class="middle-box text-center loginscreen   animated fadeInDown">
+<div class="middle-box text-center loginscreen   animated fadeInDown" ng-controller="SignupCtrl">
     <div>
         <div>
 
-            <h1 class="logo-name">IN+</h1>
+            <h1 class="logo-name">CRM</h1>
 
         </div>
         <h3>Register to IN+</h3>
         <p>Create account to see it in action.</p>
-        <form class="m-t" role="form" action="login.html">
+
+        <form class="m-t" role="form" ng-submit="register()">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Name" required="">
+                <input type="hidden" class="form-control" placeholder="token" ng-model="token" value="{{token}}">
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" required="">
+                <input type="text" class="form-control" placeholder="First Name" ng-model="contactProfile.firstname">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="">
+                <input type="text" class="form-control" placeholder="Last Name" ng-model="contactProfile.lastname">
             </div>
             <div class="form-group">
-                <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+                <input type="email" class="form-control" placeholder="Email" ng-model="email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Company name" ng-model="companyName">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" ng-model="password">
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks">
+                    <label>
+                        <input type="checkbox"><i></i> Agree the terms and policy </label>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
             <p class="text-muted text-center"><small>Already have an account?</small></p>
-            <a class="btn btn-sm btn-white btn-block"  ui-sref="login">Login</a>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
         </form>
-        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2016</small> </p>
     </div>
 </div>

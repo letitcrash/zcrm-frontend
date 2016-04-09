@@ -15,10 +15,18 @@
         data: { pageTitle: 'Register', specialClass: 'gray-bg' },
         "authenticate": false
       })
-      .state('signup', {
-            url: "/signup",
-            templateUrl: "app/components/singup/apply.html",
+      .state('apply', {
+            url: "/apply",
+            templateUrl: "app/singup/apply.html",
             data: { pageTitle: 'Wizard form' },
+            controller: 'SignupCtrl',
+            "authenticate": false
+      })
+      .state('singup', {
+            url: "/singup",
+            templateUrl: "app/singup/singup.html",
+            data: { pageTitle: 'Wizard form' },
+            controller: 'SignupCtrl',
             "authenticate": false
       })
       .state('index', {
@@ -30,7 +38,7 @@
         url: "/main",
         templateUrl: "app/main/main.html",
         data: { pageTitle: 'Example view' },
-        "authenticate": true
+        "authenticate": false
 
       })
       .state('index.mail', {

@@ -2,7 +2,7 @@
 
 'use strict';
 
-angular.module('inspinia').factory('singupService', function($http, Session) {
+angular.module('inspinia').factory('SignupService', function($http, Session) {
   var authService = {};
   
   authService.login = function (credentials) {
