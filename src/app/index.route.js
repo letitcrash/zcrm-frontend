@@ -23,7 +23,7 @@
             "authenticate": false
       })
       .state('singup', {
-            url: "/singup",
+            url: "/singup?token&email",
             templateUrl: "app/singup/singup.html",
             data: { pageTitle: 'Wizard form' },
             controller: 'SignupCtrl',
@@ -38,7 +38,7 @@
         url: "/main",
         templateUrl: "app/main/main.html",
         data: { pageTitle: 'Example view' },
-        "authenticate": false
+        "authenticate": true
 
       })
       .state('index.mail', {

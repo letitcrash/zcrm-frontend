@@ -6,11 +6,11 @@
 
         </div>
         <h3>Register to IN+</h3>
-        <p>Create account to see it in action.</p>
+        <p>Create account to see it in action. {{email}} </p>
 
         <form class="m-t" role="form" ng-submit="register()">
             <div class="form-group">
-                <input type="hidden" class="form-control" placeholder="token" ng-model="token" value="{{token}}">
+                <input type="text" class="form-control" placeholder="token" ng-model="token" value="{{token}}">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="First Name" ng-model="contactProfile.firstname">
@@ -19,7 +19,7 @@
                 <input type="text" class="form-control" placeholder="Last Name" ng-model="contactProfile.lastname">
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" ng-model="email">
+                <input type="text" class="form-control" placeholder="Email" ng-model="email" value="{{email}}">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Company name" ng-model="companyName">
