@@ -1,4 +1,4 @@
-<div class="middle-box text-center loginscreen   animated fadeInDown" ng-controller="SignupCtrl">
+<div class="middle-box text-center loginscreen   animated fadeInDown" ng-controller="SignupUserCtrl">
     <div>
         <div>
 
@@ -8,7 +8,7 @@
         <h3>Register to IN+</h3>
         <p>Create account to see it in action. {{email}} </p>
 
-        <form class="m-t" role="form" ng-submit="register()">
+        <form class="m-t" role="form" ng-submit="createUser()">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="token" ng-model="token" value="{{token}}">
             </div>

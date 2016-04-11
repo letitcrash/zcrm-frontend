@@ -1,4 +1,4 @@
-<div class="middle-box text-center loginscreen" ng-controller="SignupCtrl">
+<div class="middle-box text-center loginscreen" ng-controller="LoginCtrl">
     <div>
         <div>
             <h1 class="logo-name">IN+</h1>
@@ -8,7 +8,11 @@
             pavelsmal+tt@gmail.com
         </p>
         <p>Login in. To see it in action.</p>
-        <form class="m-t" role="form" ng-submit="login()">
+        <form class="m-t" role="form" ng-submit="login(username, password)">
+           <div class="form-group">
+                    <alert type="success" ng-show="alertPassword.success && alertPassword.success!=''" close="alertPassword.success = ''" >{{alertPassword.success}}</alert>
+                    <alert type="danger" ng-show="alertPassword.failed && alertPassword.failed!=''" close="alertPassword.failed = ''" >{{alertPassword.failed}}</alert>
+                </div>
             <div class="form-group">
                 <input type="email" class="form-control" placeholder="Username" required="" ng-model="username">
             </div>

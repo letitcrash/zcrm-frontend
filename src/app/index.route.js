@@ -11,7 +11,7 @@
       .state('login', {
         url: "/login",
         abstract: false,
-        templateUrl: "app/components/login/login.html",
+        templateUrl: "app/login/login.html",
         data: { pageTitle: 'Register', specialClass: 'gray-bg' },
         "authenticate": false
       })

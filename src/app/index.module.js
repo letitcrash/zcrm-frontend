@@ -6,12 +6,41 @@
 
 
    angular.module("inspinia")
-  .run(function ($rootScope, $state) {
+  .run(function ($rootScope, $state, dataService, generalUtils, roleService) {
+
+    
+  var companyName, initConstants, user;
+  //$rootScope.$route = $route;
+  //$rootScope.routeService = routeService;
+  //$rootScope.generalUtils = generalUtils;
+  $rootScope.setUser = function(user) {
+    $rootScope.userStr = generalUtils.formatUser(user);
+    return $rootScope.isSystemAdmin = roleService.isSystemAdmin();
+  };
+  $rootScope.setCompanyStr = function(companyName) {
+    return $rootScope.companyStr = companyName;
+  };
+  user = dataService.getUser();
+  if ((user != null)) {
+    $rootScope.setUser(user);
+  }
+  companyName = dataService.getCurrentCompanyStr();
+  if ((companyName != null)) {
+    $rootScope.setCompanyStr(companyName);
+  }
+  $rootScope.logout = function() {
+    dataService.clearData();
+    $state.transitionTo("login");
+  };
+
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
       if (toState.authenticate){
-        // User isn’t authenticated
-        $state.transitionTo("login");
-        event.preventDefault(); 
+          // User isn’t authenticated
+          if (!dataService.getSessionToken()) {
+            console.log("User is not logged in and is located on a non-public page, redirecting to login");
+            $state.transitionTo("login");
+            event.preventDefault(); 
+        }
       }
     });
   });

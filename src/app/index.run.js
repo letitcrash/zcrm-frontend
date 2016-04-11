@@ -3,10 +3,14 @@
 
   angular
     .module('inspinia')
-    .run(runBlock);
+    .run(initConstants);
+
 
   /** @ngInject */
-  function runBlock($log) {
+  function initConstants($log, $rootScope, dataService) {
+  	dataService.setBaseServiceURL('http://desk-it.com:9000/');
+  	$rootScope.isOnSignup = false;
+    $rootScope.JSON_PRINT = true;
     $log.debug('runBlock end');
   }
 
