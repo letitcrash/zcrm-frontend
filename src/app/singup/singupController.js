@@ -80,7 +80,7 @@ angular.module('inspinia')
 
       var data = {
         email: $scope.email,
-        url: 'http://localhost:8080/#/singup',
+        url: 'http://http://desk-it.com//#/singup',
       };
       
       console.log("setting header");
