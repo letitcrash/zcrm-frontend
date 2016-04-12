@@ -32,13 +32,13 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       console.log()
       var args, url;
       args = {};
-      args.username = emp.user.contactProfile.email;
+      args.username = emp.contactProfile.email;
       //args.employmentNumberType = emp.employmentNumberType;
       //args.employmentNumberValue = emp.employmentNumberValue;
 
       //args.subContractorCompanyName = emp.subContractorCompanyName;
       //args.subContractorOrgNr = emp.subContractorOrgNr;
-      args.contactProfile = emp.user.contactProfile;
+      args.contactProfile = emp.contactProfile;
       //args.employeeLevel = Number(emp.employeeLevel);
       args.employeeType = emp.employeeType;
       args.comment = emp.comment;

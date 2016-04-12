@@ -22,6 +22,13 @@
             controller: 'SignupCtrl',
             "authenticate": false
       })
+      .state('passwordrecovery', {
+            url: "/password-recovery/{userId}/{token}",
+            templateUrl: "app/singup/password-recovery.html",
+            data: { pageTitle: 'Wizard form' },
+            controller: 'SignupCtrl',
+            "authenticate": false
+      })
       .state('singup', {
             url: "/singup?token&email",
             templateUrl: "app/singup/singup.html",

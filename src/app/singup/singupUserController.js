@@ -1,6 +1,8 @@
 'use strict';
 angular.module('inspinia').controller("SignupUserCtrl", function($scope, $state, $window, signupServices, generalUtils, $rootScope) {
   console.log("SignupUserCtrl initializing");
+  
+
   $scope.createUser = function() {
     var companyName, contactProfile, email, password, token, vatId;
     contactProfile = $scope.contactProfile;
