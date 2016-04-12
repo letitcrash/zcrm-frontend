@@ -29,20 +29,17 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       return requestService.ttGet(url);
     },
     create: function(emp) {
+      console.log()
       var args, url;
       args = {};
       args.username = emp.user.contactProfile.email;
-      args.employmentNumberType = emp.employmentNumberType;
-      args.employmentNumberValue = emp.employmentNumberValue;
-      if (emp.isSubContractor === void 0) {
-        args.isSubContractor = false;
-      } else {
-        args.isSubContractor = emp.isSubContractor;
-      }
-      args.subContractorCompanyName = emp.subContractorCompanyName;
-      args.subContractorOrgNr = emp.subContractorOrgNr;
+      //args.employmentNumberType = emp.employmentNumberType;
+      //args.employmentNumberValue = emp.employmentNumberValue;
+
+      //args.subContractorCompanyName = emp.subContractorCompanyName;
+      //args.subContractorOrgNr = emp.subContractorOrgNr;
       args.contactProfile = emp.user.contactProfile;
-      args.employeeLevel = Number(emp.employeeLevel);
+      //args.employeeLevel = Number(emp.employeeLevel);
       args.employeeType = emp.employeeType;
       args.comment = emp.comment;
       args.baseUrl = routeService.getBaseServiceURL() + "/password-recovery";
