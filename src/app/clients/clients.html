@@ -17,12 +17,13 @@
 
     </div>
 </div>
-<div class="wrapper wrapper-content  animated fadeInRight">
+<div class="wrapper wrapper-content  animated fadeInRight"  ng-controller="EmployeeCtrl">
     <div class="row">
         <div class="col-sm-8">
             <div class="ibox">
                 <div class="ibox-content">
-                    <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span>
+                    <!--span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span-->
+                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="client = 0" ><strong>Add Employeee</strong></button>
                     <h2>Clients</h2>
                     <p>
                         All clients need to be verified before you can send email and set a project.
@@ -189,30 +190,7 @@
                                                 <td> +432 955 908</td>
                                                 <td class="client-status"><span class="label label-primary">Active</span></td>
                                             </tr>
-                                            <tr>
-                                                <td class="client-avatar"><a href=""><img alt="image" src="img/a5.jpg"></a> </td>
-                                                <td><a ng-click="client = 1" class="client-link">Edan Randall</a></td>
-                                                <td>Integer Sem Corp.</td>
-                                                <td class="contact-type"><i class="fa fa-phone"> </i></td>
-                                                <td> +422 600 213</td>
-                                                <td class="client-status"><span class="label label-info">Phoned</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="client-avatar"><a href=""><img alt="image" src="img/a2.jpg"></a> </td>
-                                                <td><a ng-click="client = 2" class="client-link">Anthony Jackson</a></td>
-                                                <td> Tellus Institute</td>
-                                                <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                                                <td> gravida@rbisit.com</td>
-                                                <td class="client-status"><span class="label label-warning">Waiting</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="client-avatar"><a href=""><img alt="image" src="img/a7.jpg"></a> </td>
-                                                <td><a ng-click="client = 4" class="client-link">Reuben Pacheco</a></td>
-                                                <td>Magna Associates</td>
-                                                <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                                                <td> pacheco@manga.com</td>
-                                                <td class="client-status"></td>
-                                            </tr>
+                                          
                                             </tbody>
                                         </table>
                                     </div>
@@ -365,6 +343,29 @@
 
                 <div class="ibox-content">
                     <div class="tab-content">
+                        <div id="contact-0" class="tab-pane active" ng-show="client == 0" ng-init="client = 0">
+
+                            <form method="get" class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-2 control-label">Normal</label>
+
+                                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Help text</label>
+                                    <div class="col-sm-10"><input type="text" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                           
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 col-sm-offset-2">
+                                        <button class="btn btn-white" type="submit">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        
+                        </div>
                         <div id="contact-1" class="tab-pane active" ng-show="client == 1" ng-init="client = 1">
                             <div class="row m-b-lg">
                                 <div class="col-lg-4 text-center">

@@ -7,10 +7,10 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
     args.username = username;
     args.password = password;
     $scope.alertPassword = {};
-    return requestService.ttPost('login', args).then(function(response) {
-      return $scope.successfulLogin(response);
+    requestService.ttPost('login', args).then(function(response) {
+       $scope.successfulLogin(response);
     }, function(response) {
-      return $scope.failedLogin(response);
+       $scope.failedLogin(response);
     });
   };
   $scope.successfulLogin = function(response) {
