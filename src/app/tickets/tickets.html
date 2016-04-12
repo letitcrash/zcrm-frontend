@@ -1,4 +1,4 @@
-<div class="row wrapper border-bottom white-bg page-heading">
+<div class="row wrapper border-bottom white-bg page-heading" ng-controller="TicketsCtrl">
     <div class="col-lg-10">
         <h2>Issue List</h2>
         <ol class="breadcrumb">
@@ -59,13 +59,13 @@
                     <div class="table-responsive">
                         <table class="table table-hover issue-tracker">
                             <tbody>
-                            <tr>
+                            <tr ng-repeat="ticket in tickets">
                                 <td>
                                     <span class="label label-primary">Added</span>
                                 </td>
                                 <td class="issue-info">
                                     <a href="#">
-                                        ISSUE-23
+                                        ISSUE-23{{ticket}}
                                     </a>
 
                                     <small>
@@ -88,7 +88,7 @@
                                     <button class="btn btn-white btn-xs"> Rag</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>
                                     <span class="label label-primary">Added</span>
                                 </td>
@@ -513,7 +513,7 @@
                                     <button class="btn btn-white btn-xs"> Mag</button>
                                     <button class="btn btn-white btn-xs"> Dag</button>
                                 </td>
-                            </tr>
+                            </tr>-->
                             </tbody>
                         </table>
                     </div>
