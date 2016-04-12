@@ -8,11 +8,15 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
       console.log(response);
       $scope.showLoadingMessage = false;
       $scope.mail = response;
-       $scope.totalItems = response.totalSize;
+      $scope.totalItems = response.totalSize;
     }, function(response) {
       console.log("Could not get employees");
        console.log(response);
     });
+  };
+  $scope.showInbox = function() {
+    $scope.activeMail = false;
+    getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
 
   $scope.showMail = function(mail) {
