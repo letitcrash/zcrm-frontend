@@ -346,7 +346,9 @@
                         <div id="contact-0" class="tab-pane active" ng-show="client == 0" ng-init="client = 0">
 
                             <form method="get" class="form-horizontal" ng-submit="create(user)">
-                                
+
+
+
                                 <div class="form-group"><label class="col-sm-3 control-label">Firstname</label>
 
                                     <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.firstname" class="form-control"></div>
@@ -399,9 +401,12 @@
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
+                                <div class="alert alert-danger">
+                                How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
+                            </div>
                                 <div class="form-group">
                                     <div class="col-sm-12 col-sm-offset-2">
-                                        <button class="btn btn-white" type="button" ng-click="clear()">Cancel</button>
+                                        <button class="btn btn-white" type="button" ng-click="cancel()">Cancel</button>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

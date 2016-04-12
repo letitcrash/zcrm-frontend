@@ -158,8 +158,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   };
   $scope.cancel = function() {
     console.log("Cancel");
-    $scope.employees = $scope.generalUtils.withoutUndefined($scope.employees);
-    return $scope.editId = void 0;
+    $scope.user = {};
+
   };
   $scope.edit = function(employee) {
     $scope.cancel();
