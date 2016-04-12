@@ -31,7 +31,7 @@
                     <div class="input-group">
                         <input type="text" placeholder="Search client " class="input form-control">
                                 <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                                        <button type="utton" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
                                 </span>
                     </div>
                     <div class="clients-list">
@@ -345,21 +345,48 @@
                     <div class="tab-content">
                         <div id="contact-0" class="tab-pane active" ng-show="client == 0" ng-init="client = 0">
 
-                            <form method="get" class="form-horizontal">
-                                <div class="form-group"><label class="col-sm-2 control-label">Normal</label>
+                            <form method="get" class="form-horizontal" ng-submit="create(user)">
+                                <div class="form-group"><label class="col-sm-2 control-label">Firstname</label>
 
-                                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.firstname" class="form-control"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Help text</label>
-                                    <div class="col-sm-10"><input type="text" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                <div class="form-group"><label class="col-sm-3 control-label">Lastname</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.lastname" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
                                     </div>
                                 </div>
-                           
+                                <div class="form-group"><label class="col-sm-3 control-label">Email</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.email" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">Address</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.address" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">City</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">ZipCode</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.zipCode" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">Phone(M)</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecityphoneNumberMobile" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">phoneN(H)</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.phoneNumberHome" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">phoneN(W)"</label>
+                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.phoneNumberWork" class="form-control"> <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-12 col-sm-offset-2">
-                                        <button class="btn btn-white" type="submit">Cancel</button>
+                                        <button class="btn btn-white" type="button" ng-click="clear()">Cancel</button>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
