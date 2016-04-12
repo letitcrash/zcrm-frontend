@@ -193,7 +193,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     }
   };
   $scope.create = function(emp) {
-    return employeeService.create(emp).then(function(response) {
+    employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
       console.log(response);
       $scope.cancel();
@@ -202,7 +202,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
       return setEmpChange(true, "Medarbetaren har skapats.");
     }, function(response) {
       console.log("Employee could not be created");
-      return setEmpChange(false, "Medarbetaren kunde inte skapas.");
+      $scope.useralert = "Employee could not be created";
     });
   };
   $scope.updatePeriod = function(emp, p) {
