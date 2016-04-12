@@ -12,26 +12,6 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
         }
       }
       return requestService.ttGet(url);
-    },
-    get: function(id) {
-      var url;
-      url = "companies/" + id;
-      return requestService.ttGet(url);
-    },
-    update: function(cp) {
-      var url;
-      url = "companies/" + cp.id;
-      return requestService.ttPut(url, cp);
-    },
-    "delete": function(id) {
-      var url;
-      url = "companies/" + id;
-      return requestService.ttDelete(url);
-    },
-    post: function(cp) {
-      var url;
-      url = "companies";
-      return requestService.ttPost(url, cp);
     }
   };
 });
