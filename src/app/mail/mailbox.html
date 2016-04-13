@@ -41,6 +41,7 @@
     </div>
 </div>
 
+
 <div class="col-lg-9" ng-show="activeMail">
             <div class="mail-box-header">
                 <div class="pull-right tooltip-demo">
@@ -164,6 +165,11 @@
         Inbox (16)
     </h2>
 
+    <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+    <hr>
+    <div uib-collapse="isCollapsed">
+        <div class="well well-lg">Some content</div>
+    </div>
     <div class="mail-tools tooltip-demo m-t-md">
         <div class="btn-group pull-right">
             <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>

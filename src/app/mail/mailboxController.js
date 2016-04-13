@@ -33,6 +33,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     $scope.searchTerm = "";
     $scope.newPeriods = [];
     getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+    $scope.isCollapsed = false;
 
   };
   
