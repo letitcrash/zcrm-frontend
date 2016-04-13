@@ -33,7 +33,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.searchTerm = "";
     $scope.newPeriods = [];
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-
+    $scope.isCollapsed = true;
   };
   
   $scope.init();

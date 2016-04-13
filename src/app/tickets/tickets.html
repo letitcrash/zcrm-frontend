@@ -1,93 +1,162 @@
-<div class="row wrapper border-bottom white-bg page-heading" ng-controller="TicketsCtrl">
-    <div class="col-lg-10">
-        <h2>Issue List</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a>App views</a>
-            </li>
-            <li class="active">
-                <strong>Issue Tracker</strong>
-            </li>
-        </ol>
+<div class="wrapTicketsCtrl" ng-controller="TicketsCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading" >
+        <div class="col-lg-10">
+            <h2>Issue List</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a>App views</a>
+                </li>
+                <li class="active">
+                    <strong>Issue Tracker</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
     </div>
-    <div class="col-lg-2">
-
-    </div>
-</div>
-<div class="wrapper wrapper-content  animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Issue list</h5>
-                    <div class="ibox-tools">
-                        <a href="" class="btn btn-primary btn-xs">Add new issue</a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-
-                    <div class="m-b-lg">
-
-                        <div class="input-group">
-                            <input type="text" placeholder="Search issue by name..." class=" form-control">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-white"> Search</button>
-                                    </span>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Issue list</h5>
+                        <div class="ibox-tools">
+                            <!--<a href="" class="btn btn-primary btn-xs">Add new issue</a>-->
+                            <button class="btn btn-primary btn-xs" ng-class="{'active':!isCollapsed}" data-toggle="tooltip" data-placement="left" title="Refresh inbox" ng-click="isCollapsed = !isCollapsed" aria-pressed="true">Add new issue</button>
                         </div>
-                        <div class="m-t-md">
+                        <div uib-collapse="isCollapsed">
+                            <br>
+                            <h3>
+                                Create new issue
+                            </h3>
+                            <p>
+                                Select emails you would like to be attached.
+                            </p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Title</label>
+                                        <div class="controls">
+                                            <input name="textinput" type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="selected.user.contactProfile.firstname" required="" tt-required-text="">
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-pencil"></i> </button>
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
-                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Requester</label>
+                                        <div class="controls">
+                                            <input name="textinput" type="text" class="form-control" value="{{userStr}}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Description</label>
+                                        <textarea ng-model="tkt.desc" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" rows="3" required="" tt-required-text=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Due date</label>
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    John Appleseed
+                                </div>
+
+                                <div class="col-md-12" manager-required="">
+                                    <div class="control-group pull-left">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control m-b" name="account">
+                                            <option>Open</option>
+                                            <option>option 2</option>
+                                            <option>option 3</option>
+                                            <option>option 4</option>
+                                        </select>
+                                    </div>
+
+                                </div>                   
+                                <div class="col-md-12">
+                                    <div class="control-group pull-right" ng-show="!emp.id">
+                                        <button id="button1id" name="button1id" class="btn btn-danger btn-sm" ng-click="cancelAdd()">Avbryt</button>
+                                        <button id="button2id" type="submit" name="button2id" class="btn btn-primary btn-sm">Lägg till</button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <strong>Found 61 issues.</strong>
-
-
-
                         </div>
 
                     </div>
+                    <div class="ibox-content">
 
-                    <div class="table-responsive">
-                        <table class="table table-hover issue-tracker">
-                            <tbody>
-                            <tr ng-repeat="ticket in tickets">
-                                <td>
-                                    <span class="label label-primary">Added</span>
-                                </td>
-                                <td class="issue-info">
-                                    <a href="#">
-                                        ISSUE-23{{ticket}}
-                                    </a>
+                        <div class="m-b-lg">
 
-                                    <small>
-                                        This is issue with the coresponding note
-                                    </small>
-                                </td>
-                                <td>
-                                    Adrian Novak
-                                </td>
-                                <td>
-                                    12.02.2015 10:00 am
-                                </td>
-                                <td>
-                                    <span class="pie">0.52,1.041</span>
-                                    2d
-                                </td>
-                                <td class="text-right">
-                                    <button class="btn btn-white btn-xs"> Tag</button>
-                                    <button class="btn btn-white btn-xs"> Mag</button>
-                                    <button class="btn btn-white btn-xs"> Rag</button>
-                                </td>
-                            </tr>
+                            <div class="input-group">
+                                <input type="text" placeholder="Search issue by name..." class=" form-control">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-white"> Search</button>
+                                </span>
+                            </div>
+                            <div class="m-t-md">
+
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-pencil"></i> </button>
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
+                                    <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+                                </div>
+
+                                <strong>Found 61 issues.</strong>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover issue-tracker">
+                                <tbody>
+                                    <tr ng-repeat="ticket in tickets">
+                                        <td>
+                                            <span class="label label-primary">Added</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                ISSUE-23{{ticket}}
+                                            </a>
+
+                                            <small>
+                                                This is issue with the coresponding note
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Adrian Novak
+                                        </td>
+                                        <td>
+                                            12.02.2015 10:00 am
+                                        </td>
+                                        <td>
+                                            <span class="pie">0.52,1.041</span>
+                                            2d
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-white btn-xs"> Tag</button>
+                                            <button class="btn btn-white btn-xs"> Mag</button>
+                                            <button class="btn btn-white btn-xs"> Rag</button>
+                                        </td>
+                                    </tr>
                             <!--<tr>
                                 <td>
                                     <span class="label label-primary">Added</span>
@@ -514,14 +583,15 @@
                                     <button class="btn btn-white btn-xs"> Dag</button>
                                 </td>
                             </tr>-->
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 
 
+</div>
 </div>
