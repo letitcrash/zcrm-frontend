@@ -4,7 +4,7 @@
     <div class="ibox float-e-margins">
         <div class="ibox-content mailbox-content">
             <div class="file-manager">
-                <a class="btn btn-block btn-primary compose-mail" ui-sref="email_compose">Compose Mail</a>
+                <a class="btn btn-block btn-primary compose-mail" ng-click="composeMail()" >Compose Mail</a>
 
                 <div class="space-25"></div>
                 <h5>Folders</h5>
@@ -147,7 +147,61 @@
                 </div>
             </div>
 
-<div class="col-lg-9" ng-show="!activeMail" >
+
+<div class="col-lg-9" ng-show="compose">
+            <div class="mail-box-header">
+                <div class="pull-right tooltip-demo">
+                    <a ui-sref="inbox" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+                    <a ui-sref="inbox" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
+                </div>
+                <h2>
+                    Compse mail
+                </h2>
+            </div>
+            <div class="mail-box">
+
+
+                <div class="mail-body">
+
+                    <form class="form-horizontal" method="get">
+                        <div class="form-group"><label class="col-sm-2 control-label">To:</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" value="alex.smith@corporat.com"></div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" value=""></div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="mail-text h-200">
+
+                    <div summernote class="summernote"  ng-model="main.summernoteText">
+                        <h3>Hello Jonathan! </h3>
+                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        <br/>
+                        <br/>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="mail-body text-right tooltip-demo">
+                    <a ui-sref="inbox" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i> Send</a>
+                    <a ui-sref="inbox" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
+                    <a ui-sref="inbox" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+                </div>
+                <div class="clearfix"></div>
+
+
+            </div>
+        </div>
+
+
+<div class="col-lg-9" ng-show="!activeMail" ng-hide="compose" >
 <div class="mail-box-header">
 
     <form method="get" action="index.html" class="pull-right mail-search">
@@ -165,31 +219,101 @@
         Inbox (16)
     </h2>
 
-    <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
     <hr>
-    <div uib-collapse="isCollapsed">
-        <div class="well well-lg">Some content</div>
-    </div>
+    
     <div class="mail-tools tooltip-demo m-t-md">
         <div class="btn-group pull-right">
             <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
             <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
 
         </div>
+        <button class="btn btn-white btn-sm" ng-class="{'active':!isCollapsed}" data-toggle="tooltip" data-placement="left" title="Refresh inbox" ng-click="isCollapsed = !isCollapsed" aria-pressed="true" ><i class="fa fa-refresh"></i> Create task</button>
         <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
         <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i></button>
         <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-exclamation"></i></button>
         <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i></button>
 
+
+<div uib-collapse="isCollapsed">
+                <br>
+                            <h3>
+                                Create new task
+                            </h3>
+                            <p>
+                                Select emails you would like to be attached.
+                            </p>
+                <hr>
+
+                           
+        <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <div class="controls">
+                                <input name="textinput" type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="selected.user.contactProfile.firstname" required="" tt-required-text="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                            <label class="form-label">Requester</label>
+                            <div class="controls">
+                                <input name="textinput" type="text" class="form-control" value="{{userStr}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea ng-model="message.body" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" rows="3" required="" tt-required-text=""></textarea>
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        <div class="form-group">
+                            <label class="form-label">Due date</label>
+                             <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                </div>
+                    
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                        John Appleseed
+                    </div>
+
+                    <div class="col-md-12" manager-required="">
+                        <div class="control-group pull-left">
+                            <label class="form-label">Status</label>
+                            <select class="form-control m-b" name="account">
+                                        <option>Open</option>
+                                        <option>option 2</option>
+                                        <option>option 3</option>
+                                        <option>option 4</option>
+                                    </select>
+                        </div>
+
+                    </div>                   
+                    <div class="col-md-12">
+                        <div class="control-group pull-right" ng-show="!emp.id">
+                            <button id="button1id" name="button1id" class="btn btn-danger btn-sm" ng-click="cancelAdd()">Avbryt</button>
+                            <button id="button2id" type="submit" name="button2id" class="btn btn-primary btn-sm">Lägg till</button>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
     </div>
 </div>
+
+
 <div class="mail-box">
 
     <table class="table table-hover table-mail">
         <tbody>
         <tr class="unread" ng-repeat="m in mail">
             <td class="check-mail">
-                <input icheck type="checkbox" ng-model="main.checkOne">
+                <input icheck type="checkbox" ng-model="m.selected">
             </td>
             <td class="mail-ontact"><a ng-click="showMail(m)">{{m.fromName}}</a></td>
             <td class="mail-subject"><a ng-click="showMail(m)">{{m.subject}}</a></td>

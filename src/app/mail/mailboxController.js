@@ -16,9 +16,14 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
   };
   $scope.showInbox = function() {
     $scope.activeMail = false;
+    $scope.compose = false;
+
     getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
-
+  $scope.composeMail = function() {
+    $scope.activeMail = false;
+    $scope.compose = true;
+  };
   $scope.showMail = function(mail) {
     $scope.activeMail = true;
     $scope.currentMail = mail;
@@ -33,7 +38,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     $scope.searchTerm = "";
     $scope.newPeriods = [];
     getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    $scope.isCollapsed = false;
+    $scope.isCollapsed = true;
 
   };
   
