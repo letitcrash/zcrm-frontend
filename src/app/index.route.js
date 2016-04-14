@@ -6,12 +6,18 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+
+    $ocLazyLoadProvider.config({
+        // Set to true if you want to see what and when is dynamically loaded
+        debug: false
+    });
+
     $stateProvider
       .state('login', {
         url: "/login",
         abstract: false,
-        templateUrl: "app/login/login.html",
+        templateUrl: "app/login/login_two_columns.html",
         data: { pageTitle: 'Register', specialClass: 'gray-bg' },
         "authenticate": false
       })
@@ -51,7 +57,24 @@
       .state('index.mail', {
         url: "/mailbox",
         templateUrl: "app/mail/mailbox.html",
-        data: { pageTitle: 'Mailbox' }
+        data: { pageTitle: 'Mailbox' },
+        resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'bootstrap',
+                            files: ['https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js']
+                        },
+                        {
+                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js']
+                        },
+                        {
+                            name: 'summernote',
+                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
+                        }
+                    ]);
+                }
+        }
       })
       .state('index.teams', {
         url: "/teams",
