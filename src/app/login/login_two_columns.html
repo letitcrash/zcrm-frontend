@@ -32,26 +32,40 @@
             </div>
                     <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
+            <div class="alert alert-danger"  ng-show="alertPassword.success && alertPassword.success!=''" close="alertPassword.success = ''">
+                                    {{alertPassword.failed}}
+            </div>
+            <div class="alert alert-danger" ng-show="alertPassword.failed && alertPassword.failed!=''" close="alertPassword.failed = ''">
+                                    {{alertPassword.failed}}
+            </div>
                     <a href="#">
                         <small>Forgot password?</small>
                     </a>
-                     <br><br><br><br>
+              
 
-                    <p class="text-muted text-center">
+                </form>
+                    <p ng-hide="applied" class="text-muted text-center m-t">
                         <small>Do not have an account? Apply now </small>
                     </p>
-                </form>
 
-                        <form class="m-t" role="form" ng-submit="apply(username, password)">
+                    <p ng-show="applied" class="text-muted text-center m-t">
+                                            <br>
+                                            <br>
+                                            <br>
 
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="Your email" required="" ng-model="signupEmail">
-            </div>
-  
-            <a type="submit" class="btn btn-sm btn-warning btn-block" >Create an account</a>
-        </form>
+                        Följ länken i mailet för att fortsätta registreringen!
+                                                                    <br>
+                                            <br>
+                                            <br>
+
+                    </p>
+
+                    <div class="form-group" ng-hide="applied">
+                        <input type="email" ladda="loginLoading" class="form-control" placeholder="Your email" required="" ng-model="signupEmail">
+                    </div>
+          
+                    <a ng-hide="applied" type="submit" class="btn btn-sm btn-warning btn-block" ng-click="apply(signupEmail)" >Request an account</a>
                 <p class="m-t">
-                    <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
                 </p>
             </div>
         </div>

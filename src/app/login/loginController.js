@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, $state, signupServices, routeService, requestService, dataService, passwordServices, companyService) {
+angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, $state, $log, signupServices, routeService, requestService, dataService, passwordServices, companyService) {
   $scope.login = function(username, password) {
     var args;
     $scope.loginFailed = false;
@@ -59,6 +59,27 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
       return console.log("Failure");
     });
   };
+
+  $scope.apply = function(email) {
+    $log.log("start loading");
+    // start loading
+    $scope.loginLoading = true;
+
+    var args = {
+        email: email,
+        url: 'http://http://desk-it.com//#/singup',
+      };
+
+    requestService.ttPost('signup', args).then(function(response) {
+        $log.log(response);
+        $scope.loginLoading = false;
+        $scope.applied = true;
+    }, function(response) {
+        $log.log(response);
+    });
+
+  }
+
   $scope.failedLogin = function(response) {
     console.log("failed login");
     $scope.alertPassword = {};

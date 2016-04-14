@@ -58,6 +58,7 @@
         url: "/mailbox",
         templateUrl: "app/mail/mailbox.html",
         data: { pageTitle: 'Mailbox' },
+        "authenticate": true,
         resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -79,32 +80,43 @@
       .state('index.teams', {
         url: "/teams",
         templateUrl: "app/teams/teams.html",
-        data: { pageTitle: 'Teams' }
+        data: { pageTitle: 'Teams' },
+        "authenticate": true
       })
       .state('index.clients', {
         url: "/clients",
         templateUrl: "app/clients/clients.html",
-        data: { pageTitle: 'Clients' }
+        data: { pageTitle: 'Clients' },
+                "authenticate": true
+
       })
       .state('index.docs', {
         url: "/documents",
         templateUrl: "app/docs/docs.html",
-        data: { pageTitle: 'Documents' }
+        data: { pageTitle: 'Documents' },
+                "authenticate": true
+
       })
       .state('index.calendar', {
         url: "/calendar",
         templateUrl: "app/calendar/calendar.html",
-        data: { pageTitle: 'Calendar' }
+        data: { pageTitle: 'Calendar' },
+                "authenticate": true
+
       })
       .state('index.tickets', {
         url: "/tickets",
         templateUrl: "app/tickets/tickets.html",
-        data: { pageTitle: 'Tickets' }
+        data: { pageTitle: 'Tickets' },
+                "authenticate": true
+
       })
       .state('index.projects', {
         url: "/minor",
         templateUrl: "app/projects/projects.html",
-        data: { pageTitle: 'Projects' }
+        data: { pageTitle: 'Projects' },
+                "authenticate": true
+
       });
 
     $urlRouterProvider.otherwise('/index/main');
