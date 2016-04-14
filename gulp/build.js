@@ -78,6 +78,17 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
 });
 
+
+gulp.task('summernotecss', function() {
+  return gulp.src('./src/css/plugins/summernote/*')
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/css/plugins/summernote/')));
+});
+
+gulp.task('summernotejs', function() {
+  return gulp.src('./src/js/plugins/summernote/*')
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/js/plugins/summernote/')));
+});
+
 gulp.task('other', function () {
   var fileFilter = $.filter(function (file) {
     return file.stat.isFile();
@@ -95,4 +106,4 @@ gulp.task('clean', function () {
   return $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')]);
 });
 
-gulp.task('build', ['html', 'fonts', 'other']);
+gulp.task('build', ['html', 'fonts', 'other','summernotecss','summernotejs']);
