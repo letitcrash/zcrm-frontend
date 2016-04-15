@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService) {
+angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService) {
   var getMail,getOutbox;
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
@@ -47,6 +47,37 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     $scope.compose = true;
   };
 
+
+  $scope.selectMail = function(m) {
+
+    if(m.selected) {
+      $scope.selectedEmails.push(m);
+    } else {
+      $scope.selectedEmails.splice(m);
+    } 
+
+
+
+  };
+
+  $scope.createTicket = function(tkt) {
+    console.log($scope.selectedEmails)
+  
+
+    ticketService.post(tkt, $scope.selectedEmails).then(function(response) {
+      console.log("tkt created");
+      console.log(response);
+     
+    }, function(response) {
+      console.log("tkt creation failed");
+       console.log(response);
+    });
+
+    $scope.activeMail = false;
+    $scope.compose = true;
+  };
+
+
   $scope.sendMail = function(email, recp) {
     email.to = [];
     email.to.push(recp);
@@ -72,6 +103,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
   };
   $scope.init = function() {
     console.log("Running init in mailboxController");
+    $scope.selectedEmails = [];
     $scope.activeMail = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;

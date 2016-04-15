@@ -1,9 +1,9 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $state, ticketsService) {
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $state, ticketService) {
   var getTickets;
 
   getTickets = function(force, pageSize, pageNr, searchTerm) {
-   ticketsService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+   ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
       console.log(response);
       $scope.showLoadingMessage = false;
@@ -19,11 +19,21 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
 
-  /*$scope.showMail = function(mail) {
-    $scope.activeMail = true;
-    $scope.currentMail = mail;
-  
-  };*/
+
+  $scope.create = function(tkt) {
+    ticketsService.create(tkt).then(function(response) {
+      console.log("Tkt created succesfully");
+      console.log(response);
+     
+      $scope.tickets.push(response);
+      $scope.setSelected(response.id);
+      return setEmpChange(true, "Medarbetaren har skapats.");
+    }, function(response) {
+      console.log("Employee could not be created");
+      $scope.useralert = "Employee could not be created";
+    });
+  };
+
   $scope.init = function() {
     console.log("Running init in mailboxController");
     //$scope.activeMail = false;

@@ -192,6 +192,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
       return $scope.create(emp);
     }
   };
+  
   $scope.create = function(emp) {
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
