@@ -1,9 +1,10 @@
 'use strict';
 angular.module('inspinia').factory('dataService', function($cookieStore) {
-  var APP_VERSION, C_CURRENT_COMPANY_ID, C_CURRENT_COMPANY_NAME, C_EMPLOYMENTS, C_TOKEN, C_USER, constants, data;
+  var APP_VERSION, C_CURRENT_COMPANY_ID, C_CURRENT_COMPANY_NAME, C_EMPLOYMENTS, C_TOKEN, C_MAILBOXID, C_USER, constants, data;
   APP_VERSION = '0.0.2';
   C_USER = "C_USER";
   C_TOKEN = "C_TOKEN";
+  C_MAILBOXID = "C_MAILBOXID";
   C_EMPLOYMENTS = "C_EMPLOYMENTS";
   C_CURRENT_COMPANY_ID = "C_CURRENT_COMPANY_ID";
   C_CURRENT_COMPANY_NAME = "C_CURRENT_COMPANY_NAME";
@@ -56,6 +57,16 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
       if ((this.getUser() != null)) {
         return this.getUser().contactProfile;
       }
+    },
+    getUserMailboxId: function() {
+      if (!data.mailbox) {
+        data.mailbox = $cookieStore.get(C_MAILBOXID);
+      }
+      return data.mailbox;
+    },
+    setUserMailboxId: function(mailbox) {
+      data.mailbox = mailbox;
+      return $cookieStore.put(C_MAILBOXID, mailbox);
     },
     getSessionToken: function() {
       if (!data.token) {

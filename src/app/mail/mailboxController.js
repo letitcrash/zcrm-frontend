@@ -1,9 +1,14 @@
 'use strict';
 angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService) {
-  var getMail,getOutbox;
+  var getMail,getOutbox,getMailboxes;
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
-   mailboxService.getInbox(force, pageSize, pageNr, searchTerm).then(function(response) {
+
+    var mailbox = $rootScope.getMailboxList();
+    console.log("mailbox");
+    console.log(mailbox);
+
+    mailboxService.getInbox(force, pageSize, pageNr, searchTerm, mailbox[0].id).then(function(response) {
       console.log("got mail");
       console.log(response);
       $scope.showLoadingMessage = false;
@@ -14,7 +19,8 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
-  
+
+
   getOutbox = function(force, pageSize, pageNr, searchTerm) {
    mailboxService.getOutbox(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got mail");
@@ -55,8 +61,6 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     } else {
       $scope.selectedEmails.splice(m);
     } 
-
-
 
   };
 
@@ -110,6 +114,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     $scope.newPeriods = [];
+    //getMailboxes();
     getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.isCollapsed = true;
 

@@ -111,6 +111,13 @@
                 "authenticate": true
 
       })
+      .state('index.settings', {
+        url: "/settings",
+        templateUrl: "app/settings/main.html",
+        data: { pageTitle: 'Settings' },
+                "authenticate": true
+
+      })
       .state('index.projects', {
         url: "/minor",
         templateUrl: "app/projects/projects.html",

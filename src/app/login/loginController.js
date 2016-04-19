@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, $state, $log, signupServices, routeService, requestService, dataService, passwordServices, companyService) {
+angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, $state, $log, signupServices, routeService, requestService, dataService, passwordServices, companyService, mailboxService) {
   $scope.login = function(username, password) {
     var args;
     $scope.loginFailed = false;
@@ -21,15 +21,14 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
       dataService.setEmployments(response.employee);
       dataService.setSessionToken(response.sessionToken);
       
+    
       
-
       companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
         dataService.setCurrentCompany(response);
         return $rootScope.setCompanyStr(response.name);
       }, function(response) {
         return console.log("Failed to get company");
       });
-      
 
       $rootScope.setUser(response.user);
       $state.transitionTo("index.main");

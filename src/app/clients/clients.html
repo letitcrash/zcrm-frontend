@@ -1,19 +1,10 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Clients</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a>App views</a>
-            </li>
-            <li class="active">
-                <strong>Clients</strong>
-            </li>
-        </ol>
+        <h2>Employees</h2>
+
     </div>
     <div class="col-lg-2">
+
 
     </div>
 </div>
@@ -22,8 +13,18 @@
         <div class="col-sm-8">
             <div class="ibox">
                 <div class="ibox-content">
+
+
+
                     <!--span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span-->
-                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="client = 0"><strong>Add Employeee</strong></button>
+                    <!--button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="client = 0"><strong>Add Employeee</strong></button-->
+                    <button class="btn btn-white btn-sm pull-right" ng-class="{'active':!isCollapsed}" data-toggle="tooltip" data-placement="left" ng-click="isCollapsed = !isCollapsed" aria-pressed="true" ><i class="fa fa-thumb-tack"></i> Add Employee</button>
+
+
+                        <ul ng-hide="true" class="nav nav-tabs">
+                            <li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-user"></i> Contacts</a></li>
+                            <li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i> Companies</a></li>
+                        </ul>
                     <h2>Clients</h2>
                     <p>
                         All clients need to be verified before you can send email and set a project.
@@ -34,12 +35,79 @@
                                         <button type="utton" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
                                 </span>
                     </div>
+
+                     <div uib-collapse="isCollapsed">
+                    <br>
+                    <h3>
+                        Create new task
+                    </h3>
+                    <p>
+                        Select emails you would like to be attached.
+                    </p>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Title</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="tkt.title" required="" tt-required-text="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Requester</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" value="{{userStr}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea ng-model="tkt.desc" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" rows="3" required="" tt-required-text=""></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Due date</label>
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            John Appleseed
+                        </div>
+
+                        <div class="col-md-12" manager-required="">
+                            <div class="control-group pull-left">
+                                <label class="form-label">Status</label>
+                                <select class="form-control m-b" name="account">
+                                    <option>Open</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                </select>
+                            </div>
+
+                        </div>                   
+                        <div class="col-md-12">
+                            <div class="control-group pull-right" ng-show="!emp.id">
+                                <button id="button1id" name="button1id" class="btn btn-danger btn-sm" ng-click="cancelAdd()">Avbryt</button>
+                                <button id="button2id" type="submit" name="button2id" class="btn btn-primary btn-sm" ng-click="createTicket(tkt)">Lägg till</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                     <div class="clients-list">
-                        <ul class="nav nav-tabs">
-                            <span class="pull-right small text-muted">1406 Elements</span>
-                            <li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-user"></i> Contacts</a></li>
-                            <li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i> Companies</a></li>
-                        </ul>
+
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active" ng-show="tab == 1">
                                 <div class="full-height-scroll" full-scroll>
