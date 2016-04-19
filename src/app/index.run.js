@@ -15,15 +15,6 @@
 
       console.log("getting mailboxes")
 
-  
-  mailboxService.get(dataService.getEmployments().id).then(function(response) {
-        console.log(response);
-        //dataService.setDefaultMailboxId(response);
-        $rootScope.setMailboxList(response);
-      }, function(response) {
-        return console.log("Failed to get mailboxlist");
-  });
-
   }
 
 })();

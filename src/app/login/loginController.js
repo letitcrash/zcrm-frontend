@@ -21,8 +21,6 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
       dataService.setEmployments(response.employee);
       dataService.setSessionToken(response.sessionToken);
       
-    
-      
       companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
         dataService.setCurrentCompany(response);
         return $rootScope.setCompanyStr(response.name);

@@ -1,23 +1,36 @@
 'use strict';
-angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService) {
+angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService) {
   var getMail,getOutbox,getMailboxes;
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
+
+      mailboxService.get(dataService.getEmployments().id).then(function(response) {
+        console.log(response);
+        //dataService.setDefaultMailboxId(response);
+        $rootScope.setMailboxList(response);
+
+          mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[0].id).then(function(response) {
+            console.log("got mail");
+            console.log(response);
+            $scope.showLoadingMessage = false;
+            $scope.mail = response;
+            $scope.totalItems = response.totalSize;
+          }, function(response) {
+            console.log("Could not get employees");
+             console.log(response);
+          });
+
+
+
+          }, function(response) {
+            return console.log("Failed to get mailboxlist");
+      });
 
     var mailbox = $rootScope.getMailboxList();
     console.log("mailbox");
     console.log(mailbox);
 
-    mailboxService.getInbox(force, pageSize, pageNr, searchTerm, mailbox[0].id).then(function(response) {
-      console.log("got mail");
-      console.log(response);
-      $scope.showLoadingMessage = false;
-      $scope.mail = response;
-      $scope.totalItems = response.totalSize;
-    }, function(response) {
-      console.log("Could not get employees");
-       console.log(response);
-    });
+
   };
 
 
