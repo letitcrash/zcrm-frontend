@@ -20,8 +20,6 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
              console.log(response);
           });
 
-
-
           }, function(response) {
             return console.log("Failed to get mailboxlist");
       });

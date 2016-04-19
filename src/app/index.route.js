@@ -113,7 +113,7 @@
       })
       .state('index.settings', {
         url: "/settings",
-        templateUrl: "app/settings/main.html",
+        templateUrl: "app/settings/setting.html",
         data: { pageTitle: 'Settings' },
                 "authenticate": true
 
