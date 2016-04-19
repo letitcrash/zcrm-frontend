@@ -14,9 +14,16 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
+
+
   $scope.showInbox = function() {
     $scope.activeMail = false;
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+  };
+  
+  $scope.openTkt = function(tkt) {
+    $scope.showTicket = true;
+    $scope.activeTicket = tkt;
   };
 
 
@@ -35,7 +42,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   };
 
   $scope.init = function() {
-    console.log("Running init in mailboxController");
+    console.log("Running init in ticket Controller");
     //$scope.activeMail = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;

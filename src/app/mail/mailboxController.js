@@ -1,6 +1,6 @@
 'use strict';
 angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService) {
-  var getMail,getOutbox,getMailboxes;
+  var getMail,getOutbox,getMailboxes, activeMailbox;
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
 
@@ -8,7 +8,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
         console.log(response);
         //dataService.setDefaultMailboxId(response);
         $rootScope.setMailboxList(response);
-
+        activeMailbox = response[0];
           mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[0].id).then(function(response) {
             console.log("got mail");
             console.log(response);
@@ -100,7 +100,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     email.to.push(recp);
     console.log(email);
 
-    mailboxService.post(email).then(function(response) {
+    mailboxService.post(email, activeMailbox.id).then(function(response) {
       console.log("sent mail");
       console.log(response);
      

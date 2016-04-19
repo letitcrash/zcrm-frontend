@@ -3,7 +3,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
   return {
     getList: function(force, pageSize, pageNr, searchTerm) {
       var url;
-        url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + dataService.getEmployments().id + "/tickets";
+        url = "companies/" + dataService.getCurrentCompanyId() + "/tasks";
       if (pageSize && pageNr) {
         if (searchTerm) {
           url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;

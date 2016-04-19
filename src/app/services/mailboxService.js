@@ -25,9 +25,9 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
       }
       return requestService.ttGet(url);
     },
-    post: function(email) {
+    post: function(email, mailboxId) {
       var url;
-        url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + dataService.getEmployments().id + "/mail/send";
+        url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/send";
       return requestService.ttPost(url, email);
     },
     get: function(id) {
