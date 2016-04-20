@@ -1,5 +1,22 @@
 <div class="wrapper wrapper-content" ng-controller="MailboxCtrl">
-    <div class="row">
+
+    <div class="row" ng-hide="mailboxes.length > 0">
+        <div class="col-lg-12">
+            <div class="text-center m-t-lg">
+                <h3>
+                    You have no mailbox created yet
+                </h1>
+                <small>
+                    Please create mailbox in your settings
+
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </small>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" ng-show="mailboxes.length > 0">
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-content mailbox-content">

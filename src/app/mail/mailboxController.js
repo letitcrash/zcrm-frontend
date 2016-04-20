@@ -6,21 +6,24 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
 
       mailboxService.get(dataService.getEmployments().id).then(function(response) {
         console.log(response);
-        //dataService.setDefaultMailboxId(response);
-        $rootScope.setMailboxList(response);
-        activeMailbox = response[0];
-          mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[0].id).then(function(response) {
-            console.log("got mail");
-            console.log(response);
-            $scope.showLoadingMessage = false;
-            $scope.mail = response;
-            $scope.totalItems = response.totalSize;
-          }, function(response) {
-            console.log("Could not get employees");
-             console.log(response);
-          });
-
-          }, function(response) {
+        if(response.length > 0) {
+          //dataService.setDefaultMailboxId(response);
+            $rootScope.setMailboxList(response);
+            activeMailbox = response[0];
+              mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[0].id).then(function(response) {
+                console.log("got mail");
+                console.log(response);
+                $scope.showLoadingMessage = false;
+                $scope.mail = response;
+                $scope.totalItems = response.totalSize;
+              }, function(response) {
+              console.log("Could not get mails");
+               console.log(response);
+            });
+          } else {
+            console.log("You have no mailboxes");
+          }
+        }, function(response) {
             return console.log("Failed to get mailboxlist");
       });
 

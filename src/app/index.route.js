@@ -35,11 +35,10 @@
             controller: 'SignupCtrl',
             "authenticate": false
       })
-      .state('singup', {
-            url: "/singup?token&email",
+      .state('signup', {
+            url: "/signup/user?token&email",
             templateUrl: "app/singup/singup.html",
             data: { pageTitle: 'Wizard form' },
-            controller: 'SignupCtrl',
             "authenticate": false
       })
       .state('index', {
