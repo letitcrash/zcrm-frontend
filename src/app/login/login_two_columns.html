@@ -48,23 +48,23 @@
                         <small>Do not have an account? Apply now </small>
                     </p>
 
-                    <p ng-show="applied" class="text-muted text-center m-t">
+                    <p ng-show="emailHasBeenSent" class="text-muted text-center m-t">
                                             <br>
                                             <br>
                                             <br>
 
-                        Följ länken i mailet för att fortsätta registreringen!
+                                            Følg linken i e-posten for å fortsette registrering!
                                                                     <br>
                                             <br>
                                             <br>
 
                     </p>
 
-                    <div class="form-group" ng-hide="applied">
+                    <div class="form-group" ng-hide="emailHasBeenSent">
                         <input type="email" ladda="loginLoading" class="form-control" placeholder="Your email" required="" ng-model="signupEmail">
                     </div>
           
-                    <a ng-hide="applied" type="submit" class="btn btn-sm btn-warning btn-block" ng-click="apply(signupEmail)" >Request an account</a>
+                    <a ng-hide="emailHasBeenSent" type="submit" class="btn btn-sm btn-warning btn-block" ng-click="registerUser(signupEmail)" >Request an account</a>
                 <p class="m-t">
                 </p>
             </div>

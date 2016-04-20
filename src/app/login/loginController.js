@@ -52,6 +52,8 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
     console.log(baseUrl);
     return signupServices.sendSignupEmail(email, baseUrl).then(function(response) {
       return console.log("Success");
+      $scope.applied = true;
+
     }, function(response) {
       return console.log("Failure");
     });
