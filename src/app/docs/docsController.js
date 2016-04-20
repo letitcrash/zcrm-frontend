@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('inspinia')
-  .controller('DocsController', function ($http, $scope, Upload, dataService) {
+  .controller('DocsController', function ($http, $scope, Upload,$timeout, dataService) {
 
     var upUrl = "http://desk-it.com:9000/users/" + dataService.getEmployments().id + "/files";
 
@@ -11,7 +11,7 @@ angular.module('inspinia')
         angular.forEach(files, function(file) {
             file.upload = Upload.upload({
                 url: upUrl,
-                data: {file: file}
+                data: {fileUpload: file}
             });
 
             file.upload.then(function (response) {
