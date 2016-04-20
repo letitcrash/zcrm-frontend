@@ -19,6 +19,9 @@
     <!-- css files will be automatically insert here -->
     <!-- endinject -->
     <!-- endbuild -->
+
+
+
   </head>
   <body ng-controller="MainController as main" class="skin-1">
     <!--[if lt IE 10]>
@@ -32,7 +35,9 @@
     <!-- run `gulp inject` to automatically populate bower script dependencies -->
     <!-- endbower -->
     <!-- endbuild -->
-
+    <script type="text/javascript">
+        XMLHttpRequest.prototype = Object.getPrototypeOf(new XMLHttpRequest);
+    </script>
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
     <!-- js files will be automatically insert here -->

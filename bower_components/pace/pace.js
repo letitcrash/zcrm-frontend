@@ -932,4 +932,6 @@
     }
   }
 
+  XMLHttpRequest.prototype = Object.getPrototypeOf(new XMLHttpRequest);
+
 }).call(this);
