@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('inspinia')
-  .controller('SettingsCtrl', function ($http, $scope, mailboxService,dataService) {
+  .controller('SettingsCtrl', function ($http, $scope, mailboxService, dataService) {
 
     var vm = this;
     var getMailboxes;
@@ -11,19 +11,16 @@ angular.module('inspinia')
     vm.descriptionText = 'It is an application skeleton for a typical AngularJS web app. You can use it to quickly bootstrap your angular webapp projects.';
 
     $scope.addMailbox = function(mailbox) {  
-      alert("add");
       mailboxService.create(mailbox).then(function(response){
          console.log(response);
-          console.log("add good mail");
       },function(response){
          console.log(response);
-          console.log("not good add mail");
       });
 
    }
 
   getMailboxes = function() {
-   mailboxService.get(dataService.getgetUserId().id).then(function(response) {
+   mailboxService.get(dataService.getEmployments().id).then(function(response) {
       console.log("got mailbox list");
       console.log(response);
       $scope.showLoadingMessage = false;
