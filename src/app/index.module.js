@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'oc.lazyLoad', 'ui.calendar', 'ui.bootstrap', 'ladda', 'ngFileUpload']);
+    .module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'ngMessages', 'ngAria', 'ngResource', 'ui.router', 'oc.lazyLoad', 'ui.calendar', 'ui.bootstrap', 'ui.select', 'ladda', 'ngFileUpload']);
 
 
    angular.module("inspinia")

@@ -296,17 +296,37 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                             <div class="form-group">
+                                <label class="form-label">Assign member(s)</label>
+
+
+                                      <ui-select ng-model="emp" multiple theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">
+                                        <ui-select-match placeholder="Select person...">{{$item.user.contactProfile.firstname}} {{$item.user.contactProfile.lastname}} &lt;{{$item.user.contactProfile.email}}&gt;</ui-select-match>
+                                        <ui-select-choices repeat="person in employees">
+                                          <div ng-bind-html="person.user.contactProfile.firstname + person.user.contactProfile.lastname | highlight: $select.search"></div>
+                                          <small>
+                                            email: {{person.user.contactProfile.email}}
+                                          </small>
+                                        </ui-select-choices>
+                                      </ui-select>
+
+
+                                <!--div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                </div-->
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
                                 <label class="form-label">Due date</label>
+
+
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            John Appleseed
-                        </div>
-
                         <div class="col-md-12" manager-required="">
                             <div class="control-group pull-left">
                                 <label class="form-label">Status</label>

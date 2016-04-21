@@ -1,6 +1,22 @@
 'use strict';
-angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService) {
-  var getMail,getOutbox,getMailboxes, activeMailbox;
+angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService, employeeService) {
+  var getMail,getOutbox,getEmployees, activeMailbox;
+
+
+
+
+  getEmployees =  function(force, pageSize, pageNr, searchTerm) {
+      employeeService.getList(true, pageSize, pageNr, searchTerm).then(function(response) {
+                console.log("got employee list");
+                console.log(response);
+                $scope.employees = response;
+              }, function(response) {
+              console.log("Could not get employee");
+               console.log(response);
+            });
+
+
+  };
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
 
@@ -128,7 +144,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     $scope.newPeriods = [];
-    //getMailboxes();
+    getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     getMail(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.isCollapsed = true;
 

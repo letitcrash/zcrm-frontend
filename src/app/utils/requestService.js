@@ -90,8 +90,7 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
       token = dataService.getSessionToken();
       userId = dataService.getUserId();
       console.log("setting header");
-      console.log("data:");
-      console.log(data);
+     
       $http({
         method: method,
         url: url,
