@@ -23,8 +23,10 @@ angular.module('inspinia')
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
+                console.log(evt);
                 file.progress = Math.min(100, parseInt(100.0 * 
-                                         evt.loaded / evt.total));
+                                       evt.loaded / evt.total));
+                console.log(file.progress);
             });
         });
     }

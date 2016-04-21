@@ -23,7 +23,7 @@ angular.module('inspinia')
    }
 
   getMailboxes = function() {
-   mailboxService.get(dataService.getEmployments().id).then(function(response) {
+   mailboxService.get(dataService.getgetUserId().id).then(function(response) {
       console.log("got mailbox list");
       console.log(response);
       $scope.showLoadingMessage = false;
