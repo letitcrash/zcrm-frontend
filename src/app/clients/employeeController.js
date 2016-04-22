@@ -322,11 +322,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
       console.log("got employees");
       console.log(response);
       $scope.showLoadingMessage = false;
-      $scope.employees = _.sortBy(response.data, function(emp) {
-        if ((emp != null) && (emp.user != null) && (emp.user.contactProfile != null)) {
-          return emp.user.contactProfile.lastname.toLowerCase();
-        }
-      });
+      $scope.employees = response;
       return $scope.totalItems = response.totalSize;
     }, function(response) {
       console.log("Could not get employees");
@@ -410,6 +406,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   };
   $scope.init = function() {
     console.log("Running init in employeesController");
+
+    $scope.isCollapsed = true;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;
     $scope.pageNr = 1;
