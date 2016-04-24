@@ -27,7 +27,7 @@
                                         <h2 class="no-margins">
                                             Alex Smith
                                         </h2>
-                                        <h4>Founder of Groupeq</h4>
+                                        <h4>Position</h4>
                                         <small>
                                             There are many variations of passages of Lorem Ipsum available, but the majority
                                             have suffered alteration in some form Ipsum available.
@@ -80,66 +80,103 @@
                         <uib-tab heading="Profile">
                         <div class="panel-body">
                            <div uib-collapse="isCollapsed">
-                            <div class="row">
-                            <div class="col-sm-12">
-                                 <h3>
-                                    Profile
-                                </h3>
-                                <p>Please change up your profile</p>
-                                <br><br>
+         
 
 
-                                <form role="form" ng-submit="addMailbox()">
-                                    <div class="row">
+<table class="table m-b-xs">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong>First name</strong> Alex Apple
+                            </td>
+                            <td>
+                                <strong>Last Name</strong> Followers
+                            </td>
 
-                                        <!--div class="col-md-3">
-                                <div class="form-group">
-                                        <label for="showDuration">Show Duration</label>
-                                        <input id="showDuration" type="text" placeholder="ms" class="form-control" value="400">
-                                </div>
-                                <div class="form-group">
-                                        <label for="hideDuration">Hide Duration</label>
-                                        <input id="hideDuration" type="text" placeholder="ms" class="form-control" value="1000">
-                                </div>
-                                <div class="form-group">
-                                        <label for="timeOut">Time out</label>
-                                        <input id="timeOut" type="text" placeholder="ms" class="form-control" value="7000">
-                                </div>
-                                <div class="form-group">
-                                        <label for="extendedTimeOut">Extended time out</label>
-                                        <input id="extendedTimeOut" type="text" placeholder="ms" class="form-control" value="1000">
-                                </div>
-                            </div-->
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>E-mail</strong> Comments
+                            </td>
+                            <td>
+                                <strong>54</strong> Articles
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>154</strong> Tags
+                            </td>
+                            <td>
+                                <strong>32</strong> Friends
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                                        <div class="col-sm-6 b-r">
-                                            <div class="form-group"><label>Username</label> <input type="text" placeholder="Username" class="form-control" ng-model="mailbox.login"></div>
-                                            <div class="form-group"><label>First Name</label> <input type="text" placeholder="First Name" class="form-control" ng-model="mailbox.login"></div>
-                                            <div class="form-group"><label>Last Name</label> <input type="text" placeholder="Last Name" class="form-control" ng-model="mailbox.login"></div>
-                                            <div class="form-group"><label>address</label> <input type="password" placeholder="address" class="form-control" ng-model="mailbox.password"></div>
-                                            <div class="form-group"><label>phoneNumberMobile</label> <input type="password" placeholder="phoneNumberMobile" class="form-control" ng-model="mailbox.password"></div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group"><label>phoneNumberWork</label> <input type="password" placeholder="phoneNumberWork" class="form-control" ng-model="mailbox.password"></div>
-                                            <div class="form-group"><label>phoneNumberHome</label> <input type="password" placeholder="phoneNumberHome" class="form-control" ng-model="mailbox.password"></div>
-                                            <div class="form-group"><label>Password</label> <input type="password" placeholder="New Password" class="form-control" ng-model="mailbox.password"></div>
-                                            <div class="form-group"><label>New Password</label> <input type="password" placeholder="New Password" class="form-control" ng-model="mailbox.password"></div>
-                                            <div>
-                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Save</strong></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+         <div class="row" ng-hide="true">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.firstname">
+                                </div>
                             </div>
-                           <!-- <div class="col-sm-6"><h4>Dont have one?</h4>
-                                <p>You can create a request:</p>
-                                <p class="text-center">
-                                    <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                                </p>
-
-                            </div>-->
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.lastname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Cell Phone</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.phoneNumberMobile">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">E-mail</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Address</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.address">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Zip Code</label>
+                                <div class="controls">
+                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.zipCode">
+                                </div>
+                            </div>
+                        </div>     
+                        <div class="col-md-12">
+                            <div class="control-group pull-right" ng-show="!emp.id">
+                                <button id="button1id" name="button1id" class="btn btn-danger btn-sm" ng-click="cancelAdd()">Avbryt</button>
+                                <button id="button2id" type="submit" name="button2id" class="btn btn-primary btn-sm" ng-click="create(user)">Lägg till</button>
+                            </div>
+                        </div>
                     </div>
+
+          
+
+                            </div>
                 </div>
             </uib-tab>
             <uib-tab heading="Mailbox settings">
@@ -195,6 +232,33 @@
                          <span class="pull-right"><b>Server address</b>
                             {{maimlboxe.server}}
                         </span>
+                        <span><b>Union</b>
+                            {{maimlboxe.login}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </uib-tab>
+
+                <uib-tab heading="Additional fieldsets">
+            <div class="panel-body">
+
+                <div class="col-sm-12">
+
+
+
+                <h3 style="display:inline;">
+                    Add additional member property fileds
+                </h3>
+
+                <ul class="list-group clear-list m-t">
+                    <li class="list-group-item fist-item" ng-repeat="maimlboxe in mailboxes">
+                        <span class="label label-info">{{$index + 1}}</span>
+                         <span class="pull-right"><b>Server address</b>
+                            {{maimlboxe.server}}
+                        </span>
                         <span><b>login</b>
                             {{maimlboxe.login}}
                         </span>
@@ -204,6 +268,33 @@
 
         </div>
     </uib-tab>
+    <uib-tab heading="Open cases">
+            <div class="panel-body">
+
+                <div class="col-sm-12">
+
+
+
+                <h3 style="display:inline;">
+                    Add additional member property fileds
+                </h3>
+
+                <ul class="list-group clear-list m-t">
+                    <li class="list-group-item fist-item" ng-repeat="maimlboxe in mailboxes">
+                        <span class="label label-info">{{$index + 1}}</span>
+                         <span class="pull-right"><b>Server address</b>
+                            {{maimlboxe.server}}
+                        </span>
+                        <span><b>login</b>
+                            {{maimlboxe.login}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </uib-tab>
+
 </uib-tabset>
 
 </div>

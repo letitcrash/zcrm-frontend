@@ -26,24 +26,48 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                        <a href="#" class="btn btn-white btn-sm pull-right">Edit ticket</a>
                                         <h2>TICKET: #001 {{activeTicket.title}}</h2>
                                     </div>
                                     <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label label-primary">{{activeTicket.status}}</span></dd>
+
+
+                                        <dt>Status:</dt> 
+                                        <dd>
+
+                                                        <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-primary btn-xs" uib-dropdown-toggle>
+                        {{activeTicket.status}} <span class="caret"></span>
+                    </button>
+                    <ul role="menu" uib-dropdown-menu="">
+                        <li><a href="">In Progress</a></li>
+                        <li><a href="">Completed</a></li>
+                        <li><a href="">On Hold</a></li>
+                        <li><a href="">Closed</a></li>
+                        <li><a href="">Deleted</a></li>
+                    </ul>
+                </div>
+
+                                    </dd>
+                                      <dt>Project:</dt> 
+                                        <dd>
+                                            Sample project
+                                    </dd>
+
                                     </dl>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</dd>
-                                        <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
+                                                Appen har inte bra koll på var man är i förhållande till arbetsplatserna. Jag testade att checka in långt från SEB och det gick självklart inte, men när jag sen kom till SEB, så gick det inte heller, utan jag var tvungen att manuellt uppdatera listan med arbetsplatser för att appen skulle förstå att jag var på SEB. För mycket tamagotchi över det hela
                                     </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal">
+                                        <dt>Created by:</dt> <dd> <a href>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</a></dd>
+                                        <dt>Owner:</dt> <dd>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</dd>
+                                        <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
 
                                         <dt>Last Updated:</dt> <dd>16.08.2016 12:15:57</dd>
                                         <dt>Created:</dt> <dd>  10.07.2016 23:36:57 </dd>
@@ -75,8 +99,10 @@
 
                                 <div class="tab-content">
                                 <div class="tab-pane active" id="tab-1">
-                                    
+                                    <button class="btn btn-success btn-circle btn-lg pull-right m-r-sm" type="button" ng-click="createTimelineItem()"><i class="fa fa-comment"></i></button>
+                                    <button class="btn btn-warning btn-circle btn-lg pull-right" type="button"><i class="fa fa-link"></i></button>
                                     <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+
                             
                             <div class="vertical-timeline-block" ng-repeat="mail in activeTicket.attachedMails">
                                 <div class="vertical-timeline-icon navy-bg">

@@ -84,7 +84,7 @@
       })
       .state('index.clients', {
         url: "/clients",
-        templateUrl: "app/clients/clients.html",
+        templateUrl: "app/clients/persons.html",
         data: { pageTitle: 'Clients' },
                 "authenticate": true
 
@@ -115,6 +115,13 @@
         templateUrl: "app/settings/setting.html",
         data: { pageTitle: 'Settings' },
                 "authenticate": true
+
+      })
+      .state('index.users', {
+        url: "/users",
+        templateUrl: "app/users/users.html",
+        data: { pageTitle: 'users' },
+        "authenticate": true
 
       })
       .state('index.projects', {

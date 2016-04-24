@@ -27,6 +27,14 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   };
 
 
+  $scope.createTimelineItem = function() {
+    var item = {};
+    item.subject = "asdfasdf asdf asdf asdfasd";
+    $scope.activeTicket.attachedMails.unshift(item);
+
+  };
+
+
   $scope.create = function(tkt) {
     ticketsService.create(tkt).then(function(response) {
       console.log("Tkt created succesfully");

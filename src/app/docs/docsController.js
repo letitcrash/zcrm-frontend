@@ -36,7 +36,7 @@ angular.module('inspinia')
         $http.get(upUrl).then(function(response) {
           console.log("got files list");
           console.log(response);
-          $scope.allfiels = response.data;
+          $scope.files = response.data;
           $scope.showLoadingMessage = false;
       }, function(response) {
           console.log("Could not get files");
