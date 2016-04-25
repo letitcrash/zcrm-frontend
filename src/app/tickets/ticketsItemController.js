@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state, ticketService) {
+angular.module('inspinia').controller("ItemTicketsCtrl", function($scope, $rootScope, $location, $state, ticketService) {
   var getTickets;
 
   getTickets = function(force, pageSize, pageNr, searchTerm) {
@@ -14,24 +14,9 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
-
-
-  $scope.create = function(tkt) {
-    ticketsService.create(tkt).then(function(response) {
-      console.log("Tkt created succesfully");
-      console.log(response);
-     
-      $scope.tickets.push(response);
-      $scope.setSelected(response.id);
-      return setEmpChange(true, "Medarbetaren har skapats.");
-    }, function(response) {
-      console.log("Employee could not be created");
-      $scope.useralert = "Employee could not be created";
-    });
-  };
-
+  
   $scope.init = function() {
-    console.log("Running init in ticket Controller");
+    console.log("Running init in ticket ItemController");
     //$scope.activeMail = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;
@@ -40,7 +25,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.newPeriods = [];
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.isCollapsed = true;
-    $scope.showTicket = false;
+    $scope.showTicket = true;
 
   };
   

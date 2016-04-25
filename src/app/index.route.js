@@ -106,9 +106,17 @@
       .state('index.tickets', {
         url: "/tickets",
         templateUrl: "app/tickets/tickets.html",
+        controller: 'TicketsCtrl',
         data: { pageTitle: 'Tickets' },
                 "authenticate": true
 
+      })
+      .state('index.ticket_item', {
+        url: "/tickets/:id",
+        templateUrl: "app/tickets/tickets.html",
+        controller: 'ItemTicketsCtrl',
+        data: { pageTitle: 'Tickets' },
+                "authenticate": true
       })
       .state('index.settings', {
         url: "/settings",

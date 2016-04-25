@@ -28,7 +28,7 @@
             <li ui-sref-active="active">
                 <a ui-sref="index.mail"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox</span></a>
             </li>
-            <li ui-sref-active="active">
+            <li ng-class="{active: ('index.tickets' | includedByState) || ('index.ticket_item' | includedByState)}">
                 <a ui-sref="index.tickets"><i class="fa fa-check"></i> <span class="nav-label">Tickets</span></a>
             </li>
             <li ui-sref-active="active">
