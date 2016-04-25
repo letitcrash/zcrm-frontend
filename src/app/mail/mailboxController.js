@@ -36,6 +36,18 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
               console.log("Could not get mails");
                console.log(response);
             });
+            
+            ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+                console.log("got tickets");
+                console.log(response);
+                $scope.showLoadingMessage = false;
+                $scope.tickets = response;
+                $scope.totalItems = response.totalSize;
+              }, function(response) {
+                console.log("Could not get employees");
+                 console.log(response);
+              });
+
           } else {
             console.log("You have no mailboxes");
           }

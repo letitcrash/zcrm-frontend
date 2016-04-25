@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="text-center m-t-lg">
                 <h3>
-                    You have no mailbox created yet
+                    You have no mailbox created yet {{tkt}}
                 </h1>
                 <small>
                     Please create mailbox in your settings
@@ -22,6 +22,7 @@
                 <div class="ibox-content mailbox-content">
                     <div class="file-manager">
                         <a class="btn btn-block btn-primary compose-mail" ng-click="composeMail()">Compose Mail</a>
+
                         <div class="space-15"></div>
                         <h5 style="display:inline;" class="m-b-md">Mailbox</h5>
                         <select class="pull-right">
@@ -36,9 +37,9 @@
                             <li><a ui-sref="inbox"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li>
                             <li><a ui-sref="inbox"> <i class="fa fa-trash-o"></i> Trash</a></li>
                         </ul>
-                        <h5>Categories</h5>
+                        <h5>recent cases</h5>
                         <ul class="category-list" style="padding: 0">
-                            <li><a href=""> <i class="fa fa-circle text-navy"></i> Work </a></li>
+                            <li ng-repeat="tkt in tickets"><a href=""> <i class="fa fa-circle text-navy"></i>  {{tkt.title}} </a></li>
                             <li><a href=""> <i class="fa fa-circle text-danger"></i> Documents</a></li>
                             <li><a href=""> <i class="fa fa-circle text-primary"></i> Social</a></li>
                             <li><a href=""> <i class="fa fa-circle text-info"></i> Advertising</a></li>
