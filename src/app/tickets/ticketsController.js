@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state, ticketService) {
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService) {
   var getTickets;
 
   getTickets = function(force, pageSize, pageNr, searchTerm) {
@@ -15,6 +15,13 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     });
   };
 
+
+  $scope.openTicket = function (tkt) {
+    $scope.activeTicket = tkt;
+    $scope.showTicket = true;
+    //$window.location.href = '/#/index/tickets/' + tkt.id;
+
+  };
 
   $scope.create = function(tkt) {
     ticketsService.create(tkt).then(function(response) {

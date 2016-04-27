@@ -2,7 +2,7 @@
     <div class="row wrapper border-bottom white-bg page-heading" >
         <div class="col-lg-10">
             <h2>Issue List</h2>
-            {{test}}
+
             <ol class="breadcrumb">
                 <li>
                     <a href="index.html">Home</a>
@@ -21,319 +21,364 @@
 
 
 
-  <div class="wrapper wrapper-content animated fadeIn" ng-show="showTicket">
-                    <div class="ibox">
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
-                                        <a href="#" class="btn btn-white btn-sm pull-right">Edit ticket</a>
-                                        <h2>TICKET: #001 {{activeTicket.title}}</h2>
-                                    </div>
-                                    <dl class="dl-horizontal">
-
-
-                                        <dt>Status:</dt> 
-                                        <dd>
-
-                                                        <div class="btn-group" uib-dropdown>
-                    <button type="button" class="btn btn-primary btn-xs" uib-dropdown-toggle>
-                        {{activeTicket.status}} <span class="caret"></span>
-                    </button>
-                    <ul role="menu" uib-dropdown-menu="">
-                        <li><a href="">In Progress</a></li>
-                        <li><a href="">Completed</a></li>
-                        <li><a href="">On Hold</a></li>
-                        <li><a href="">Closed</a></li>
-                        <li><a href="">Deleted</a></li>
-                    </ul>
-                </div>
-
-                                    </dd>
-                                      <dt>Project:</dt> 
-                                        <dd>
-                                            Sample project
-                                    </dd>
-
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-                                                Appen har inte bra koll på var man är i förhållande till arbetsplatserna. Jag testade att checka in långt från SEB och det gick självklart inte, men när jag sen kom till SEB, så gick det inte heller, utan jag var tvungen att manuellt uppdatera listan med arbetsplatser för att appen skulle förstå att jag var på SEB. För mycket tamagotchi över det hela
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal">
-                                        <dt>Created by:</dt> <dd> <a href>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</a></dd>
-                                        <dt>Owner:</dt> <dd>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</dd>
-                                        <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
-
-                                        <dt>Last Updated:</dt> <dd>16.08.2016 12:15:57</dd>
-                                        <dt>Created:</dt> <dd>  10.07.2016 23:36:57 </dd>
-                                        <dt>Participants:</dt>
-                                        <dd class="project-people">
-                                        <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-
-                            <div class="row m-t-sm">
-                                <div class="col-lg-12">
-                                <div class="panel blank-panel">
-                                <div class="panel-heading">
-                                    <div class="panel-options">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" aria-expanded="true">Timeline</a></li>
-                                            <li class=""><a data-toggle="tab" aria-expanded="false">Last activity</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-
-                                <div class="tab-content">
-                                <div class="tab-pane active" id="tab-1">
-                                    <button class="btn btn-success btn-circle btn-lg pull-right m-r-sm" type="button" ng-click="createTimelineItem()"><i class="fa fa-comment"></i></button>
-                                    <button class="btn btn-warning btn-circle btn-lg pull-right" type="button"><i class="fa fa-link"></i></button>
-                                    <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
-
-                            
-                            <div class="vertical-timeline-block" ng-repeat="mail in activeTicket.attachedMails">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-envelope"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Email from : {{mail.fromEmail}} </h2>
-                                    <p>{{mail.subject}}
-                                    </p>
-                                    <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                                    <span class="vertical-date">
-                                        Today <br>
-                                        <small>Dec 24</small>
-                                    </span>
-                                </div>
-                            </div>
-
-
+    <div class="wrapper wrapper-content animated fadeIn" ng-show="showTicket">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="m-b-md">
+                            <a href="#" class="btn btn-white btn-sm pull-right">Edit ticket</a>
+                            <h2>TICKET: #001 {{activeTicket.title}}</h2>
                         </div>
 
-                                </div>
-                                <div class="tab-pane" id="tab-2">
-
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Title</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                            </td>
-                                            <td>
-                                               Create project in webapp
-                                            </td>
-                                            <td>
-                                               12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                            <p class="small">
-                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                            </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                            </td>
-                                            <td>
-                                                Various versions
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                There are many variations
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                            </td>
-                                            <td>
-                                                Latin words
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Latin words, combined with a handful of model sentence structures
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                            </td>
-                                            <td>
-                                                The generated Lorem
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                The first line
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                            </td>
-                                            <td>
-                                                The standard chunk
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                            </td>
-                                            <td>
-                                                Lorem Ipsum is that
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                Contrary to popular
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                </p>
-                                            </td>
-
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                </div>
-
-                                </div>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6" id="cluster_info">
+                        <dl class="dl-horizontal">
+                            <dt>Created by:</dt> <dd> <a href>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</a></dd>
+                            <dt>Owner:</dt> <dd>{{activeTicket.createdByUser.contactProfile.firstname}} {{activeTicket.createdByUser.contactProfile.lastname}}</dd>
+                            <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
+
+                            
+                        </dl>
+                    </div>
+                                        <div class="col-lg-6" id="cluster_info">
+                        <dl class="dl-horizontal">
+                           
+                            <dt>Last Updated:</dt> <dd>16.08.2016 12:15:57</dd>
+                            <dt>Created:</dt> <dd>  10.07.2016 23:36:57 </dd>
+                            <dt>Participants:</dt>
+                            <dd class="project-people">
+                                <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+                                <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
+                                <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
+                                <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
+                                <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-lg-12">
+                        <dl class="dl-horizontal">
+                            <dt>Description:</dt>
+                            <dd>Appen har inte bra koll på var man är i förhållande till arbetsplatserna. Jag testade att checka in långt från SEB och det gick självklart inte, men när jag sen kom till SEB, så gick det inte heller, utan jag var tvungen att manuellt uppdatera listan med arbetsplatser för att appen skulle förstå att jag var på SEB. För mycket tamagotchi över det hela</dd>
+                        </dl>
+                    </div>
+
+                </div>
+
+                
+                <div class="row m-t-sm">
+<div class="col-lg-12">
+<div class="panel blank-panel ui-tab">
+
+<uib-tabset>
+    <uib-tab heading="Conversations" active="tab.active" class="dsads">
+            <div class="ibox float-e-margins">
+<div class="ibox-content ibox-heading">
+
+    <h3><i class="fa fa-envelope-o"></i> Attached conversations
+                                                        <button ng-click="newMailDialog = !newMailDialog" type="button" class="btn btn-w-m btn-info pull-right">New email</button>
+
+    </h3>
+                    <p>
+                        All clients need to be verified before you can send email and set a project.
+                    </p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Search client " class="input form-control">
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                                </span>
+                    </div>
+
+    </div>
+
+
+                             <div uib-collapse="newMailDialog">
+                                            
+                                                    <div class="mail-box">
+
+
+            <div class="mail-body">
+
+                <form class="form-horizontal" method="get">
+                    <div class="form-group"><label class="col-sm-2 control-label">To:</label>
+
+                        <div class="col-sm-10"><input ng-model="recp" type="text" class="form-control" value="alex.smith@corporat.com"></div>
+                    </div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
+
+                        <div class="col-sm-10"><input ng-model="email.subject" type="text" class="form-control" value=""></div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="mail-text h-300">
+
+                <div ng-model="email.body" summernote class="summernote">
+                    <h3>Hello Jonathan! </h3>
+                    dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                    <br/>
+                    <br/>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="mail-body text-right tooltip-demo">
+                <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send" ng-click="sendMail(email,recp)"><i class="fa fa-reply"></i> Send</a>
+                <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
+                <a class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+            </div>
+            <div class="clearfix"></div>
+
+
+        </div>
+
+
+                        </div>
+        <div class="ibox-content">
+
+            <div class="feed-activity-list">
+
+                <div class="feed-element" ng-repeat="email in activeTicket.attachedMails" >
+                    <div>
+                        <small class="pull-right text-navy">1m ago</small>
+                        <strong>{{email.fromEmail}} </strong>
+                        <div>{{email.subject}} </div>
+                         <div uib-collapse="isCollapsed">
+                                            <br>
+
+                        Appen har inte bra koll på var man är i förhållande till arbetsplatserna. Jag testade att checka in långt från SEB och det gick självklart inte, men när jag sen kom till SEB, så gick det inte heller, utan jag var tvungen att manuellt uppdatera listan med arbetsplatser för att appen skulle förstå att jag var på SEB. För mycket tamagotchi över det hela
+
+                        </div>
+
+                        <span class="pull-right"><a>Reply</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </uib-tab>
+            <uib-tab heading="Timeline" class="dsads">
+
+
+    </uib-tab>
+
+
+    <uib-tab heading="Last activity">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Title</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Comments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                </td>
+                <td>
+                    Create project in webapp
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                </td>
+                <td>
+                    Various versions
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                </td>
+                <td>
+                    There are many variations
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                </td>
+                <td>
+                    Latin words
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        Latin words, combined with a handful of model sentence structures
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                </td>
+                <td>
+                    The generated Lorem
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                </td>
+                <td>
+                    The first line
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                </td>
+                <td>
+                    The standard chunk
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                </td>
+                <td>
+                    Lorem Ipsum is that
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                    </p>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                </td>
+                <td>
+                    Contrary to popular
+                </td>
+                <td>
+                    12.07.2014 10:10:1
+                </td>
+                <td>
+                    14.07.2014 10:16:36
+                </td>
+                <td>
+                    <p class="small">
+                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+                    </p>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </uib-tab>
+
+
+
+</uib-tabset>
+
+</div>
+</div>
+</div>
+
+
+            </div>
+
+
+        </div>
+    </div>
 
     <div class="wrapper wrapper-content" ng-hide="showTicket">
         <div class="row">
@@ -380,6 +425,8 @@
                         
                       
 
+
+
                         <div class="table-responsive">
                             <table class="table table-hover issue-tracker">
                                 <tbody>
@@ -388,7 +435,7 @@
                                             <span class="label label-primary">{{tkt.status}}</span>
                                         </td>
                                         <td class="issue-info">
-                                                <a ui-sref="index.ticket_item({ id: tkt.id })">ISSUE-1  {{tkt.title}}</a>
+                                                <a ng-click="openTicket(tkt)">ISSUE-1  {{tkt.title}}</a>
 
                                             <small>
                                                 {{tkt.description}}

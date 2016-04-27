@@ -26,7 +26,7 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
           //dataService.setDefaultMailboxId(response);
             $rootScope.setMailboxList(response);
             activeMailbox = response[0];
-              mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[0].id).then(function(response) {
+              mailboxService.getInbox(force, pageSize, pageNr, searchTerm, response[2].id).then(function(response) {
                 console.log("got mail");
                 console.log(response);
                 $scope.showLoadingMessage = false;
