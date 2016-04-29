@@ -55,7 +55,7 @@
       })
       .state('index.mail', {
         url: "/mailbox",
-        templateUrl: "app/mail/mailbox.html",
+        templateUrl: "app/mail/outlook.html",
         data: { pageTitle: 'Mailbox' },
         "authenticate": true,
         resolve: {
@@ -76,6 +76,11 @@
                 }
         }
       })
+      .state('outlook', {
+            url: "/outlook",
+            templateUrl: "app/mail/outlook.html",
+            data: { pageTitle: 'Outlook view', specialClass: 'fixed-sidebar' }
+        })
       .state('index.teams', {
         url: "/teams",
         templateUrl: "app/teams/teams.html",
@@ -84,7 +89,7 @@
       })
       .state('index.clients', {
         url: "/clients",
-        templateUrl: "app/clients/clients.html",
+        templateUrl: "app/clients/persons.html",
         data: { pageTitle: 'Clients' },
                 "authenticate": true
 
