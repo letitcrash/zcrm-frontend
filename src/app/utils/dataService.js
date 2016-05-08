@@ -1,8 +1,9 @@
 'use strict';
 angular.module('inspinia').factory('dataService', function($cookieStore) {
-  var APP_VERSION, C_CURRENT_COMPANY_ID, C_CURRENT_COMPANY_NAME, C_EMPLOYMENTS, C_TOKEN, C_MAILBOXID, C_USER, constants, data;
+  var APP_VERSION, C_CURRENT_COMPANY_ID, C_CURRENT_COMPANY_NAME, C_EMPLOYMENTS, C_TOKEN, C_MAILBOXID, C_USER, C_USER_LANGUAGE, constants, data;
   APP_VERSION = '0.0.2';
   C_USER = "C_USER";
+  C_USER_LANGUAGE = "C_USER_LANGUAGE";
   C_TOKEN = "C_TOKEN";
   C_MAILBOXID = "C_MAILBOXID";
   C_EMPLOYMENTS = "C_EMPLOYMENTS";
@@ -28,6 +29,7 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
       data = {};
       console.log("Clearing cache");
       $cookieStore.remove(C_USER);
+      $cookieStore.remove(C_USER_LANGUAGE);
       $cookieStore.remove(C_TOKEN);
       $cookieStore.remove(C_EMPLOYMENTS);
       $cookieStore.remove(C_CURRENT_COMPANY_ID);
@@ -42,6 +44,16 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
     setUser: function(user) {
       data.user = user;
       return $cookieStore.put(C_USER, user);
+    },
+    getUserLanguage: function() {
+      if (!data.language) {
+        data.language = $cookieStore.get(C_USER_LANGUAGE);
+      }
+      return data.language;
+    },
+    setUserLanguage: function(language) {
+      data.language = language;
+      return $cookieStore.put(C_USER_LANGUAGE, language);
     },
     getUserId: function() {
       if ((this.getUser() != null)) {
