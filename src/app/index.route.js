@@ -137,10 +137,10 @@
         "authenticate": true
 
       })
-      .state('index.projects', {
-        url: "/minor",
-        templateUrl: "app/projects/projects.html",
-        data: { pageTitle: 'Projects' },
+      .state('index.employees', {
+		url: "/employees",
+		templateUrl: "app/employees/employees.html",
+		data: { pageTitle: 'Employees' },
                 "authenticate": true
 
       });
