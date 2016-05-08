@@ -89,7 +89,7 @@
       })
       .state('index.clients', {
         url: "/clients",
-        templateUrl: "app/clients/persons.html",
+        templateUrl: "app/clients/clients.html",
         data: { pageTitle: 'Clients' },
                 "authenticate": true
 

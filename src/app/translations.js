@@ -12,7 +12,7 @@ function config($translateProvider) {
             MAILBOX: 'Mailbox',
             TICKETS: 'Tickets',
             EMPLOYEES: 'Employees',
-            CLIENTS: 'Forms',
+            CLIENTS: 'Clients',
             TEAMS: 'Teams',
             PROJECTS: 'Projects',
             CALENDAR: 'Calendar',

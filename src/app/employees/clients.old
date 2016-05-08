@@ -25,7 +25,7 @@
                             <li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-user"></i> Contacts</a></li>
                             <li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i> Companies</a></li>
                         </ul>
-                    <h2>Members</h2>
+                    <h2>{{ 'EMPLOYEES' | translate }}</h2>
                     <p>
                         All clients need to be verified before you can send email and set a project.
                     </p>

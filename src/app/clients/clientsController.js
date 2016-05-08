@@ -1,7 +1,7 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout) {
+angular.module('inspinia').controller("ClientsCtrl", function($scope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout) {
   var del, getEmployees, getWorkplaces, setEmpChange, setPasswordChange, uglyGetTime;
   $scope.setSelected = function(id) {
     console.log("selecting " + id);
@@ -405,7 +405,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
   $scope.init = function() {
-    console.log("Running init in employeesController");
+    console.log("Running init in clientsController");
 
     $scope.isCollapsed = true;
     $scope.showLoadingMessage = true;

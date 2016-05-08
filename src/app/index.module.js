@@ -28,7 +28,7 @@
   };
 
   $rootScope.languages = [{name: 'English', alias: 'en' },{ name: 'Norwegian', alias:'no' },{ name: 'Spanish', alias: 'es' }];
-  $rootScope.language = $rootScope.languages[1];
+  $rootScope.language = $rootScope.languages[0];
   $translate.use($rootScope.language.alias);
 
   $rootScope.changeLanguage = function (language) {
