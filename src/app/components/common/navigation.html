@@ -28,17 +28,21 @@
             <li ui-sref-active="active">
                 <a ui-sref="index.mail"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'MAILBOX' | translate }}</span></a>
             </li>
-            <li ng-class="{active: ('index.tickets' | includedByState) || ('index.ticket_item' | includedByState)}">
-                <a ui-sref="index.tickets"><i class="fa fa-check"></i> <span class="nav-label">{{ 'TICKETS' | translate }}</span></a>
+
+            <li ui-sref-active="active">
+                <a ui-sref="index.employees"><i class="fa fa-users"></i> <span class="nav-label">{{ 'EMPLOYEES' | translate }}</span></a>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="index.clients"><i class="fa fa-user"></i> <span class="nav-label">{{ 'CLIENTS' | translate }}</span></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="index.projects"><i class="fa fa-tasks"></i> <span class="nav-label">{{ 'PROJECTS' | translate }}</span></a>
+                <a ui-sref="index.teams"><i class="fa fa-users"></i> <span class="nav-label">{{ 'TEAMS' | translate }}</span></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="index.teams"><i class="fa fa-users"></i> <span class="nav-label">{{ 'TEAMS' | translate }}</span></a>
+                <a ui-sref="index.projects"><i class="fa fa-tasks"></i> <span class="nav-label">{{ 'PROJECTS' | translate }}</span></a>
+            </li>
+            <li ng-class="{active: ('index.tickets' | includedByState) || ('index.ticket_item' | includedByState)}">
+                <a ui-sref="index.tickets"><i class="fa fa-check"></i> <span class="nav-label">{{ 'TICKETS' | translate }}</span></a>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="index.calendar"><i class="fa fa-calendar"></i> <span class="nav-label">{{ 'CALENDAR' | translate }}</span></a>
@@ -50,14 +54,6 @@
                 <a ui-sref="index.settings"><i class="fa fa-cog"></i> <span class="nav-label">{{ 'SETTINGS' | translate }}</span></a>
             </li>
 
-            <li ui-sref-active="active">
-                <a ui-sref="index.users"><i class="fa fa-users"></i> <span class="nav-label">Users and Companies</span></a>
-            </li>
-
-
-            <li ui-sref-active="active">
-                <a ui-sref="index.employees"><i class="fa fa-users"></i> <span class="nav-label">Employees</span></a>
-            </li>
         </ul>
 
     </div>

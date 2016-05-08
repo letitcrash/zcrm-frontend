@@ -108,6 +108,14 @@
                 "authenticate": true
 
       })
+      .state('index.projects', {
+        url: "/projects",
+        templateUrl: "app/projects/projects.html",
+        controller: 'ProjectsCtrl',
+        data: { pageTitle: 'projects' },
+                "authenticate": true
+
+      })
       .state('index.tickets', {
         url: "/tickets",
         templateUrl: "app/tickets/tickets.html",
