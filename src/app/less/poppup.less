@@ -1,3 +1,62 @@
-.poppup {
-  
+.full {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+    z-index: -1;
+}
+.buttnclose {
+  font-size: 16px;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  background: #444;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none
+}
+@media (max-width: 1600px) {
+  [class*="poppup"] {
+    z-index: 4000;
+	position: absolute;
+    width: 100%;
+    background: rgba(244, 246, 250, .9);
+    height: 100%;
+  }
+  [class*="poppup"] .ibox {
+	position: absolute;
+	box-shadow: 0 10px 60px rgba(0,0,0,.1);
+	left: 16.5%;
+    width: 66.6%;
+    overflow: hidden;
+  }
+  [class*="poppup"] .ibox-content {
+    padding-top: 40px;
+    padding-bottom: 0;
+  }
+  .buttnclose {
+	display: block;
+  }
+}
+@media (max-width: 1200px) {
+  [class*="poppup"] {
+  }
+  [class*="poppup"] .ibox {
+	width: 66.6%;
+	min-width: 580px;
+    left: calc(~"50% - 300px");
+  }
+}
+@media (max-width: 800px) {
+  [class*="poppup"] {
+  }
+  [class*="poppup"] .ibox {
+	width: 100%;
+    left: 0;
+    right: 60px;
+  }
 }

@@ -404,6 +404,16 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   $scope.changePage = function() {
     return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
+  
+  $scope.open = function(emp) {
+	$scope.activeEmp = true;
+	$scope.curentEmp = emp;
+  }
+  $scope.close = function(emp) {
+	$scope.activeEmp = false;
+	$scope.curentEmp = emp;
+  }
+  
   $scope.init = function() {
     console.log("Running init in employeesController");
 
@@ -415,6 +425,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     $scope.newPeriods = [];
     getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     //getWorkplaces(true);
+	$scope.activeEmp = false;
+	$scope.activeUsr = false;
   };
   return $scope.init();
 });
