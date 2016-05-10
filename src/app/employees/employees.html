@@ -20,7 +20,7 @@
 </div>
 <div class="wrapper wrapper-content  animated fadeIn" ng-controller="EmployeeCtrl">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-xl-8">
             <div class="ibox">
                 <div class="ibox-content">
                     <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span>
@@ -38,7 +38,7 @@
                         <ul class="nav nav-tabs">
                             <span class="pull-right small text-muted">1406 Elements</span>
                             <li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-users"></i>{{ 'EMPLOYEES' | translate }}</a></li>
-                            <li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'DELEGATES' | translate }}</a></li>
+                            <li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'Delegates' | translate }}</a></li>
 
                         </ul>
                         <div class="tab-content">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="col-sm-12 poppup">
+        <div class="col-sm-4 poppup">
             <div class="ibox ">
 
                 <div class="ibox-content">
@@ -861,8 +861,9 @@
                     </div>
                 </div>
             </div>
-        </div>-->
-         <!--form method="get" class="form-horizontal" ng-submit="create(user)">
+        </div>
+        <div class="poppup-forewer">
+        <form method="get" class="form-horizontal" ng-submit="create(user)">
 
                                 <div class="form-group"><label class="col-sm-3 control-label">Firstname</label>
 
