@@ -1,7 +1,7 @@
 <div class="modal-body">
-                            <div class="row">
+                            <div class="row m-b-sm">
                                 <div class="col-sm-11">
-                                    <h3 class="m-t-none m-b">Sign in</h3>
+                                    <h3 class="m-t-none m-b">Create new Employee</h3>
                                 </div>
                                 <div class="col-sm-1">
                                     <div class="ibox-tools">
@@ -14,18 +14,18 @@
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form role="form">
-                                        <div class="form-group"><label>First name*</label> <input type="fName" placeholder="Enter first name" class="form-control"></div>
-                                        <div class="form-group"><label>Last Name*</label> <input type="lName" placeholder="Enter last name" class="form-control"></div>
-                                        <div class="form-group"><label>Email*</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-                                        <label class="crm-required-field">*These fields are required</label>
-                                    </form>
-                                    <form role="form">
+                                    <form role="form" ng-submit="ok(user)">
+                                        <div class="form-group"><label>First name*</label> <input ng-model="user.contactProfile.firstname" type="fName" placeholder="Enter first name" class="form-control"></div>
+                                        <div class="form-group"><label>Last Name*</label> <input ng-model="user.contactProfile.lastname" type="lName" placeholder="Enter last name" class="form-control"></div>
+                                        <div class="form-group"><label>Email*</label> <input ng-model="user.contactProfile.email"  type="email" placeholder="Enter email" class="form-control"></div>
+
+                                        <label class="crm-required-field small pull-right">*These fields are required</label>
+
                                         <div class="form-group"><label>Address</label> <input type="address" placeholder="Enter your address" class="form-control"></div>
                                          <div class="form-group"><label>City</label> <input type="city" placeholder="Enter your city" class="form-control"></div>
                                          <div class="form-group"><label>ZIP code</label> <input type="zipCode" placeholder="Enter your ZIP code" class="form-control"></div>
                                          <div class="form-group"><label>Phone(M)</label> <input type="mPhone" placeholder="Enter your mobile number" class="form-control"></div>
-                                        <div class="form-group"><label>Phone(H)</label> <input type="hPhone" placeholder="Enter your home number" class="form-control"></div>
+                                        <!--div class="form-group"><label>Phone(H)</label> <input type="hPhone" placeholder="Enter your home number" class="form-control"></div-->
                                         
                                         <label>Choose a role</label>
                                         <select class="form-control m-b" name="account">
@@ -33,8 +33,16 @@
                                             <option>Manager</option>
                                             <option>Owner</option>
                                     </select>
-                                        <button class="btn btn-sm btn-danger pull-right m-t-n-xs" type="submit"><strong>Cancel</strong></button>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Add user</strong></button>
+
+                                    <div class="pull-right">
+
+                                        <button type="button" ng-click="cancel()" class="btn btn-sm btn-danger">Cancel</button>
+
+                                        <button type="submit" class="btn btn-sm btn-primary"> Add</button>
+
+                                    </div>
+
+
                                     </form>
                                 </div>
                                 </div>

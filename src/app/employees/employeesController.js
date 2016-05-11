@@ -199,8 +199,9 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
       console.log(response);
       $scope.cancel();
       $scope.employees.push(response);
-      $scope.setSelected(response.id);
-      return setEmpChange(true, "Medarbetaren har skapats.");
+      //$uibModalInstance.dismiss('cancel');
+      //$scope.setSelected(response.id);
+      //setEmpChange(true, "Medarbetaren har skapats.");
     }, function(response) {
       console.log("Employee could not be created");
       $scope.useralert = "Employee could not be created";
@@ -429,10 +430,21 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
 
 
 
-function ModalInstanceCtrl ($scope, $uibModalInstance) {
+function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
 
-    $scope.ok = function () {
+    $scope.ok = function (user) {
         $uibModalInstance.close();
+        employeeService.create(user).then(function(response) {
+          console.log("Employee created succesfully");
+          console.log(response);
+          $scope.employees.push(response);
+          //$uibModalInstance.dismiss('cancel');
+          //$scope.setSelected(response.id);
+          //setEmpChange(true, "Medarbetaren har skapats.");
+        }, function(response) {
+          console.log("Employee could not be created");
+          $scope.useralert = "Employee could not be created";
+        });
     };
 
     $scope.cancel = function () {
@@ -440,58 +452,6 @@ function ModalInstanceCtrl ($scope, $uibModalInstance) {
     };
 
 
-    $scope.states = [
-        'Alabama',
-        'Alaska',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'Florida',
-        'Georgia',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Pennsylvania',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming'
-    ];
 
 };
 
