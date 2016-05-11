@@ -1,7 +1,7 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout) {
+angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal) {
   var del, getEmployees, getWorkplaces, setEmpChange, setPasswordChange, uglyGetTime;
   $scope.setSelected = function(id) {
     console.log("selecting " + id);
@@ -405,10 +405,96 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
   
-  $scope.open = function(emp) {
-	$scope.activeEmp = true;
-	$scope.curentEmp = emp;
+  $scope.openEmp = function(emp) {
+  	$scope.activeEmp = true;
+  	$scope.curentEmp = emp;
   }
+
+  $scope.open = function () {
+    var w = window.innerWidth;
+      console.log(w)
+      if(w < 1600) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'app/employees/addEmployeeModal.html',
+            controller: ModalInstanceCtrl,
+            windowClass: "modal.slide-right"
+
+        });
+      } else {
+        console.log("sidebar")
+            $scope.activeEmp = true;
+
+      } 
+  };
+
+
+
+function ModalInstanceCtrl ($scope, $uibModalInstance) {
+
+    $scope.ok = function () {
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+
+    $scope.states = [
+        'Alabama',
+        'Alaska',
+        'Arizona',
+        'Arkansas',
+        'California',
+        'Colorado',
+        'Connecticut',
+        'Delaware',
+        'Florida',
+        'Georgia',
+        'Hawaii',
+        'Idaho',
+        'Illinois',
+        'Indiana',
+        'Iowa',
+        'Kansas',
+        'Kentucky',
+        'Louisiana',
+        'Maine',
+        'Maryland',
+        'Massachusetts',
+        'Michigan',
+        'Minnesota',
+        'Mississippi',
+        'Missouri',
+        'Montana',
+        'Nebraska',
+        'Nevada',
+        'New Hampshire',
+        'New Jersey',
+        'New Mexico',
+        'New York',
+        'North Carolina',
+        'North Dakota',
+        'Ohio',
+        'Oklahoma',
+        'Oregon',
+        'Pennsylvania',
+        'Rhode Island',
+        'South Carolina',
+        'South Dakota',
+        'Tennessee',
+        'Texas',
+        'Utah',
+        'Vermont',
+        'Virginia',
+        'Washington',
+        'West Virginia',
+        'Wisconsin',
+        'Wyoming'
+    ];
+
+};
+
   $scope.close = function(emp) {
 	$scope.activeEmp = false;
 	$scope.curentEmp = emp;

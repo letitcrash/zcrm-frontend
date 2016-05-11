@@ -1,11 +1,11 @@
 <div class="wrapper wrapper-content  animated fadeIn" ng-controller="EmployeeCtrl">
   <div class="row">
-	<div class="col-sm-12 col-xl-8">
+	<div class="col-sm-12 " ng-class="{'col-xl-8' : activeEmp}">
 	  <div class="ibox">
 		<div class="ibox-content">
 		  <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span>
 		  <h2>{{ 'Employees' | translate }}</h2>
-		  <button type="button col-sm-2" ng-click="activeCrt=true" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>{{ 'Create user' | translate }}</button>
+		  <button type="button col-sm-2" ng-click="open()" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>{{ 'Create user' | translate }}</button>
 		  <p>
 			All clients need to be verified before you can send email and set a project.
 		  </p>
