@@ -4,6 +4,6 @@ dist/*
 .gitignore
 node_modules/*
 bower_components/*
-kdev4/*
-kdev5/*
-
+.kdev4/*
+.kdev5/*
+npm-debug.log
