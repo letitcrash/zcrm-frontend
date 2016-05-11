@@ -1,7 +1,9 @@
 .DS_Store
 .tmp/*
 dist/*
-./.gitignore
-./node_modules
-./kdev4
-./kdev5
+.gitignore
+node_modules/*
+bower_components/*
+kdev4/*
+kdev5/*
+
