@@ -22,7 +22,7 @@
 
 		  <h2>{{ 'Employees' | translate }}</h2>
 		  <p class="m-t-sm small">
-			<i class="fa fa-user "></i> 360 Employees 
+			<i class="fa fa-user "></i> 360 Employees 80 Industri Energi 20 Safe
 		  </p>
 		  <div class="input-group">
 			<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" />
@@ -34,13 +34,48 @@
 		  </div>
 		  <a class="pull-right small m-t-sm" ng-click="isCollapsed = !isCollapsed">Advanced search</a>
 
-		  <div uib-collapse="isCollapsed">
-					<div class="row">
+		  <div ng-if="isCollapsed">
+			
+				<div class="row m-t-lg">
+                    <div class="col-md-3">
+                        <div class="control-group">
+                            <label class="form-label">Union</label>
+                            <div class="controls">
+                            	    <input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+                            </div>
 
-			           <div class="col-xs-12">
-			           <br><br><br><br>
+                            	    <div class="margin-bottom-15 ng-scope" ng-repeat="cp in filter.moderbolag">
+							            <company cp="cp" class="ng-binding ng-isolate-scope">netSolution</company>
+							            <button class="delete-filter pull-right" ng-click="removeFilterModerbolag(cp)">X</button>
+							        </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="control-group">
+                            <label class="form-label">Department</label>
+                            <div class="controls">
+                                <input name="textinput" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" ng-model="selected.user.contactProfile.lastname" required="" tt-required-text="">
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="control-group">
+                            <label class="form-label">Position</label>
+                            <div class="controls">
+                                <input name="textinput" type="tel" class="form-control ng-pristine ng-untouched ng-valid" ng-model="selected.user.contactProfile.phoneNumberMobile">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="control-group">
+                            <label class="form-label">Shift</label>
+                            <div class="controls">
+                                <input name="textinput" type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-valid ng-valid-required" ng-model="selected.user.contactProfile.email" required="" tt-required-text="">
+                            </div>
+                        </div>
+                    </div>
+                           
+                </div>
 
 		</div>
 

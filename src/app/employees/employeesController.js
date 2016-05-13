@@ -13,6 +13,9 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     })));
     return $scope.setSelectedButton(0);
   };
+
+  $scope.states = ['Industri Energi', 'Safe'];
+
   $scope.setSelectedButton = function(i) {
     switch (i) {
       case 1:
