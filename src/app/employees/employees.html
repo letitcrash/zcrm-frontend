@@ -1,7 +1,652 @@
 <div class="wrapper wrapper-content  animated fadeIn" ng-controller="EmployeeCtrl">
   <div class="row">
 	<div class="col-sm-12 " ng-class="{'col-xl-8' : activeEmp}">
-	  <div class="ibox">
+        <!--Employee page-->
+        <div class="ibox" ng-show="true">
+                <!--Employee info start-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--Button group start-->
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Status bar</h5>
+                            </div>
+                            <div class="ibox-content">                                
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-exclamation"></i>Not active</button>                                
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-check"></i>IE industri Energi</button>                                
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fa fa-ticket"></i>3 tickets created</button>
+                                <button type="button" class="btn btn-info btn-sm">
+                                    <i class="fa fa-plus"></i>Add new ticket</button>
+                                <button type="button" class="btn btn-primary btn-sm btn-outline pull-right">
+                                    <i class="fa fa-plus"></i>Add new user</button>
+                            </div>
+                        </div>
+                        <!--Button group end-->
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-4">
+                     <!--Main info start-->
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Informason om kontakt</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="tab-content">
+                                    <div id="contact-1" class="tab-pane active">
+                                        <div class="row m-b-lg text-center">
+                                            <div class="m-b-sm">
+                                            <img alt="image" class="img-circle" src="img/a2.jpg" style="width: 170px" data-pin-nopin="true">
+                                        </div>
+                                        <h2>Alan Hay</h2>
+                                        <p>Started working from Mar 13, 2014</p>
+                                    </div>
+                                    <div class="client-detail">
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll" style="overflow: hidden; width: auto; height: 100%;">
+
+                                        <ul class="list-group clear-list">
+                                            <li class="list-group-item fist-item">
+                                                <span class="pull-right">Alan Hay</span>
+                                                <strong>Full navn</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">Tourpusher</span>
+                                                <strong>Stilling</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">447525216326</span>
+                                                <strong>Telefon, privat</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">-</span>
+                                                <strong>Mobiltelefon</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">alahay@rowancompanies.com</span>
+                                                <strong>E-post</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">-</span>
+                                                <strong>E-post adresse 2</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">Hvilken som helst</span>
+                                                <strong>Foretrukket informasjon</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">-</span>
+                                                <strong>Firma</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right text-right">6 Oakdrive, Stainburn Workington, Cumbria
+CA141WY</span>
+                                                <strong>Adresse</strong>
+                                            </li>
+                                                    <li class="list-group-item">
+                                                <span class="pull-right">ROV</span>
+                                                <strong>Innretning</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">F</span>
+                                                <strong>Skift</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">Nei</span>
+                                                <strong>Individuelt avlonnet</strong>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right">United Kingdom</span>
+                                                <strong>Flypass</strong>
+                                            </li>
+                                        </ul>
+                          
+                                    </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 405.058px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!--Main info end-->  
+                        
+                    </div>
+                    <div class="col-md-8">
+                     <!--ACCORDIONS start-->
+                        <!--1 Siste saker start-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Siste saker (hovedkontakt)</h5>
+                                <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="ibox-content" style="display: block;">
+                                <table class="table table-hover no-margins">
+                                    <thead>
+                                        <th>Sakstittel</th>
+                                        <th>Saksnummer</th>
+                                        <th>Prioritet</th>
+                                        <th>Opprinnelse</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ingen Sak-oppforinger ble funnet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--1 Siste saker end-->
+
+                        <!--2 Medlemskapslogg start-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Medlemskapslogg</h5>
+                                <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="ibox-content" style="display: block;">
+                                <table class="table table-hover no-margins">
+                                    <thead>
+                                        <th>Sakstittel</th>
+                                        <th>Saksnummer</th>
+                                        <th>Prioritet</th>
+                                        <th>Opprinnelse</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ingen Sak-oppforinger ble funnet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--2 Medlemskapslogg end-->
+
+                        <!--3 Alle saker start-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Alle saker</h5>
+                                <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="ibox-content" style="display: block;">
+                                <table class="table table-hover no-margins">
+                                    <thead>
+                                        <th>Sakstittel</th>
+                                        <th>Saksnummer</th>
+                                        <th>Prioritet</th>
+                                        <th>Opprinnelse</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ingen Sak-oppforinger ble funnet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--3 Alle saker end-->
+
+                        <!--4 Verv start-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Siste saker (hovedkontakt)</h5>
+                                <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="ibox-content" style="display: block;">
+                                <table class="table table-hover no-margins">
+                                    <thead>
+                                        <th>Sakstittel</th>
+                                        <th>Saksnummer</th>
+                                        <th>Prioritet</th>
+                                        <th>Opprinnelse</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ingen Sak-oppforinger ble funnet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--4 Verv end-->
+                        <!--ACCORDIONS end-->
+                    </div>
+                </div>
+            
+            <div class="row">
+                    <div class="col-md-12">
+                     <!--Teams list start-->
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>Teams</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                <div class="col-md-4 m-b-lg">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Search team by name..." class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-white">Search</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="m-t-md">
+                                    <strong>Found 3 teams</strong>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover issue-tracker">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span class="label label-primary">New</span>
+                                                </td>
+                                                <td class="issue-info">
+                                                    <a href="#">IT-01 - Design Team</a>
+                                                    <small>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</small>
+                                                </td>
+                                                <td class="team-members">
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a1.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a2.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a3.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a4.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a5.jpg">
+                                                    </a>                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="label label-danger">Deadline</span>
+                                                </td>
+                                                <td class="issue-info">
+                                                    <a href="#">IT-02 - Developers Team</a>
+                                                    <small>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</small>
+                                                </td>
+                                                <td class="team-members">
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a1.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a2.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a3.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a4.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a5.jpg">
+                                                    </a>                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="label label-default">Closed</span>
+                                                </td>
+                                                <td class="issue-info">
+                                                    <a href="#">IT-02 - Graphic Team</a>
+                                                    <small>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</small>
+                                                </td>
+                                                <td class="team-members">
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a1.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a2.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a3.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a4.jpg">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img alt="member" class="img-circle" src="img/a5.jpg">
+                                                    </a>                                                    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Teams list end-->
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-12">
+                    <!--BLOG start-->
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <div class="panel blank-panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-options">
+                                            <ul class="nav nav-tabs">
+                                                <li class=""><a href="#tab-1" data-toggle="tab" aria-expanded="false">Aktiviteter</a></li>
+                                                <li class="active"><a href="#tab-2" data-toggle="tab" aria-expanded="true">Innleg</a></li>
+                                                <li class=""><a href="#tab-3" data-toggle="tab" aria-expanded="false">Notater</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="tab-1">
+                                                <div class="feed-activity-list">
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">2h ago</small>
+                                                            <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                            <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                                                            <div class="well">
+                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/a3.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">2h ago</small>
+                                                            <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                                            <small class="text-muted">2 days ago at 8:30am</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/a4.jpg" data-pin-nopin="true">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right text-navy">5h ago</small>
+                                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                                            <div class="actions">
+                                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                                <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/a5.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">2h ago</small>
+                                                            <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                            <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                                                            <div class="well">
+                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/profile.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">23h ago</small>
+                                                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="feed-element">
+                                                        <a href="#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="img/a7.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">46h ago</small>
+                                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                                            <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="tab-pane active" id="tab-2">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Angi innlegg her" class="input-sm form-control"> 
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary">Innleg</button> 
+                                            </span>
+                                        </div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Title</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Comments</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                                            </td>
+                                            <td>
+                                               Create project in webapp
+                                            </td>
+                                            <td>
+                                               12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                            <p class="small">
+                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                                            </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                                            </td>
+                                            <td>
+                                                Various versions
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                                            </td>
+                                            <td>
+                                                There are many variations
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                                            </td>
+                                            <td>
+                                                Latin words
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    Latin words, combined with a handful of model sentence structures
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
+                                            </td>
+                                            <td>
+                                                The generated Lorem
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                                            </td>
+                                            <td>
+                                                The first line
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
+                                            </td>
+                                            <td>
+                                                The standard chunk
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
+                                            </td>
+                                            <td>
+                                                Lorem Ipsum is that
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
+                                            </td>
+                                            <td>
+                                                Contrary to popular
+                                            </td>
+                                            <td>
+                                                12.07.2014 10:10:1
+                                            </td>
+                                            <td>
+                                                14.07.2014 10:16:36
+                                            </td>
+                                            <td>
+                                                <p class="small">
+                                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+                                                </p>
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--BLOG end-->
+                    </div>
+                </div>
+        </div>
+	  <div class="ibox" ng-show="false">
 		<div class="ibox-content">
 				  <!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
 
