@@ -3,41 +3,63 @@
 angular.module('inspinia')
   .controller('MainController', function ($http, $scope) {
 
-    var vm = this;
 
-    vm.userName = 'Example user';
-    vm.helloText = 'Welcome in CRM SeedProject';
-    vm.descriptionText = 'It is an application skeleton for a typical AngularJS web app. You can use it to quickly bootstrap your angular webapp projects.';
 
-    $scope.apply = function(email) {
-      
-      console.log($scope.email);
+// Simple GET request example:
+$http({
+  method: 'GET',
+  url: 'http://192.168.1.50:9000/companies/3/positions'
+}).then(function successCallback(response) {
 
-      var data = {
-        email: $scope.email,
-        url: "https://crm-multimedianordic.c9users.io/"
-      };
-      
-      console.log("setting header");
-      console.log(data);
-      
-      $http({
-        method: 'POST',
-        url: 'https://crm-multimedianordic.c9users.io:8081/signup',
-        data: data,
-        headers: {
-          "Content-Type": 'application/json'
-          }
-      }).then(function(response) {
-          			console.log(response);
+    console.log(response)
+    $scope.positionsList = response.data.body; 
 
-      }, function(response) {
-          			console.log(response);
-
-      });
+  }, function errorCallback(response) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
 
 
 
-	}
+
+
+
+  var person = {name:"Alex",age:19};
+  var employment = {title:"Software Developer",sellary:100500};
+  var company = {name:"Multimedia Nordic",employees:8};
+ 
+  var array = ["Samsung", "Apple", "HTC" ];
+  person.gadgets = array;
+  person.employment = employment;
+  person.employment.company = company;
+  $scope.obj = person;
+
+  console.log($scope.obj);
+
+      $scope.addEmptyPosition = function() {
+        var position = {};
+        $scope.positionsList.push(position);
+
+      }
+
+
+  $scope.save = function(position) {
+    console.log(position)
+    if(position.id) {
+      var url = "http://192.168.1.50:9000/companies/3/positions/" + position.id;
+      $http.put(url, position).success(function(response, status) {
+                  console.log(response);
+      })
+    } else {
+      var url = "http://192.168.1.50:9000/companies/3/positions";
+      $http.post(url, position).success(function(response, status) {
+                  console.log(response);
+      })
+    }
+
+
+    $scope.editMode = false;
+
+  }
 
   });

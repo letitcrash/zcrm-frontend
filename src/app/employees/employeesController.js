@@ -414,6 +414,12 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   	$scope.curentEmp = emp;
   }
 
+  $scope.showEmployees = function() {
+    $scope.activeEmp = false;
+    $scope.curentEmp = undefined;
+  }
+
+
   $scope.open = function () {
     var w = window.innerWidth;
       console.log(w)
@@ -426,7 +432,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
         });
       } else {
         console.log("sidebar")
-            $scope.activeEmp = true;
+        $scope.activeEmp = true;
 
       } 
   };
@@ -466,7 +472,7 @@ function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
   $scope.init = function() {
     console.log("Running init in employeesController");
 
-    $scope.isCollapsed = true;
+    $scope.isCollapsed = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;
     $scope.pageNr = 1;

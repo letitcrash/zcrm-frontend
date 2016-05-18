@@ -138,10 +138,10 @@
                 "authenticate": true
 
       })
-      .state('index.users', {
-        url: "/users",
-        templateUrl: "app/users/users.html",
-        data: { pageTitle: 'users' },
+      .state('index.companies', {
+        url: "/companies",
+        templateUrl: "app/companies/companies.html",
+        data: { pageTitle: 'companies' },
         "authenticate": true
 
       })
