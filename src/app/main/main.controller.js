@@ -3,7 +3,7 @@
 angular.module('inspinia')
   .controller('MainController', function ($http, $scope) {
 
-
+/*
 
 // Simple GET request example:
 $http({
@@ -59,7 +59,9 @@ $http({
 
 
     $scope.editMode = false;
+    }
+    */
 
-  }
+  
 
   });

@@ -12,7 +12,8 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
   };
   $scope.getCompanyList = function(force, pageSize, pageNr, searchTerm) {
     return companyService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
-      $scope.companies = response.data;
+      $scope.companies = response;
+      console.log($scope.companies)
       return $scope.totalItems = response.totalSize;
     }, function(response) {
       return console.log("Failed to get companies");
@@ -113,6 +114,18 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
   $scope.changePage = function() {
     return $scope.getCompanyList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
+
+  $scope.openCp = function(cp) {
+    console.log(cp)
+    $scope.activeEmp = true;
+    $scope.curentCp = cp;
+  };
+
+  $scope.showCompanies = function() {
+    $scope.activeEmp = false;
+    $scope.curentCp = undefined;
+  }
+
   $scope.init = function() {
     $scope.pageSize = 10;
     $scope.pageNr = 1;

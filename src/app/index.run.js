@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function initConstants($log, $rootScope, dataService, mailboxService) {
-  	dataService.setBaseServiceURL('https://desk-it.com:9443/');
+  	dataService.setBaseServiceURL('http://uat.desk-it.com:10000/');
   	$rootScope.isOnSignup = false;
     $rootScope.JSON_PRINT = true;
     $log.debug('runBlock end');
