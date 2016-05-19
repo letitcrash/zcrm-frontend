@@ -9,16 +9,8 @@
   /** @ngInject */
   function initConstants($log, $rootScope, dataService, mailboxService) {
 
-    if(window.location.protocol == "https:" && window.location.host == "desk-it.com") 
-        dataService.setBaseServiceURL('https://desk-it.com:9443/')
-    else if (window.location.protocol == "https:" && window.location.host == "uat.desk-it.com")
-        dataService.setBaseServiceURL('https://desk-it.com:10443/')
-    else if(window.location.protocol == "http:" && window.location.host == "desk-it.com")
-        dataService.setBaseServiceURL('http://desk-it.com:9000/')
-    else if(window.location.protocol == "http:" && window.location.host == "uat.desk-it.com")
-        dataService.setBaseServiceURL('http://desk-it.com:10000/')
-    else 
-      dataService.setBaseServiceURL('http://desk-it.com:10000/')
+
+    dataService.setBaseServiceURL('https://desk-it.com:10443/')
 
 
   	$rootScope.isOnSignup = false;
