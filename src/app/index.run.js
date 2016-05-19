@@ -21,7 +21,6 @@
       dataService.setBaseServiceURL('http://desk-it.com:10000/')
 
 
-  	dataService.setBaseServiceURL('http://uat.desk-it.com:10000/');
   	$rootScope.isOnSignup = false;
     $rootScope.JSON_PRINT = true;
     $log.debug('runBlock end');
