@@ -414,6 +414,12 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   	$scope.curentEmp = emp;
   }
 
+
+  $scope.addUser = function() {
+    $scope.activeEmp = true;
+    $scope.curentEmp = {};
+  }
+
   $scope.showEmployees = function() {
     $scope.activeEmp = false;
     $scope.curentEmp = undefined;

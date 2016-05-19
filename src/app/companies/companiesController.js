@@ -117,9 +117,27 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
 
   $scope.openCp = function(cp) {
     console.log(cp)
-    $scope.activeEmp = true;
-    $scope.curentCp = cp;
+    return companyService.get(cp.id).then(function(response) {
+      $scope.curentCp = response;
+      $scope.activeEmp = true;
+      var positions = ["Driller","Electrican"];
+      $scope.curentCp.positions = positions;
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
   };
+
+
+  $scope.removePosition = function(p) {
+    $scope.activeEmp = false;
+    $scope.curentCp = undefined;
+  }
+
+  $scope.addPosition = function(p) {
+    $scope.curentCp.positions.push(p);
+    $scope.position = undefined;
+  }
 
   $scope.showCompanies = function() {
     $scope.activeEmp = false;
