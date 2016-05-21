@@ -10,7 +10,7 @@
 							<i class="fa fa-user-plus "></i> {{ 'Create user' | translate }} <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-							<li role="menuitem"><a href="#">Delete User</a></li>
+							<li role="menuitem"><a ng-click="createUserAction()">Create User</a></li>
 							<li role="menuitem"><a href="#">Another action</a></li>
 							<li role="menuitem"><a href="#">Something else here</a></li>
 							<li class="divider"></li>
@@ -106,7 +106,7 @@
 													<th><a class="list-refresh" href=""><i class="fa fa-filter"></i></a> <a class="list-refresh" href=""><i class="fa fa-refresh"></i></a> </th>
 													<th>Owner Name <a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
 													<th>Email</th>
-												
+
 												</tr>
 											</thead>
 											<tbody>
@@ -154,295 +154,205 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 " ng-class="{'col-lg-12 col-xl-4' : activeEmp}" ng-show="activeEmp">
+		<div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : activeEmp}" ng-show="activeEmp">
 			
-			<div class="ibox-content">
-                <div>
-                                    <div class="m-b-lg">
-                                            <h2>{{curentCp.name}}
-												<a class="pull-right" href="" style="font-width:18px;" ng-click="showCompanies()"><i class="fa fa-times"></i></a>
-
-                                            </h2>
-
-                                            <p>
-                                                Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,written in 45 BC. This book is a treatise on.
-                                            </p>
-                                    
-                                    </div>
-                                    <div class="client-detail">
-                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll" style="overflow: hidden; width: auto; height: 100%;">
-                                            <div class="row">
+			<div class="contact-box center-version col-xl-12">
+				<div class="contact-box-top">
+					<div class="visible-xl">
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-pencil"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(emp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 
-                                            	<div class="col-sm-12 col-md-6 col-xl-12 m-b-lg">
+					</div>
 
-		                                            <div class="ibox-tools m-b-sm">
-		                                            	<strong class="pull-left">Positions</strong>
-				                                        <a class="collapse-link" ng-click="collapsePositions = !collapsePositions">
-				                                            <i class="fa fa-chevron-down" ng-show="collapsePositions"></i>
-				                                            <i class="fa fa-chevron-up" ng-hide="collapsePositions"></i>
-				                                        </a>
-				                                      
+					<div class="hidden-xl">
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="editUser = true"> <i class="fa fa-pencil"></i> Edit</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
+						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="editUser = false" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
-				                                        <ul class="dropdown-menu dropdown-user">
-				                                            <li><a href="#">Config option 1</a>
-				                                            </li>
-				                                            <li><a href="#">Config option 2</a>
-				                                            </li>
-				                                        </ul>
+					</div>
 
-														<button type="button" class="btn btn-info btn-xs" ng-click="editPositions = true" ng-hide="editPositions">EDIT</button>
-														<button type="button" class="btn btn-danger btn-xs" ng-click="editPositions = false" ng-show="editPositions">SAVE</button>
-				                                    
-				                                    </div>
+				</div>
 
+				<a href="profile.html" class="p-n col-sm-5 col-xl-12">
+					<div class="col-xl-6 col-sm-12">
+						<img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
 
-		                                            <ul class="list-group clear-list" uib-collapse="collapsePositions">
-														<div class="input-group m-b-sm" ng-show="editPositions">
-															<input type="text" ng-model="position" placeholder="Add new position" class="input form-control">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn btn-default" ng-click="addPosition(position)"> <i class="fa fa-plus"></i></button>
-															</span>
-														</div>
+						<h3 class="m-b-xs"><strong>{{curentCp.name}}</strong></h3>
 
+						<div class="font-bold">Indastri Energy <b class="caret"></b></div>
 
-														<div class="input-group m-b-sm" ng-show="editPositions" ng-repeat="position in curentCp.positions">
-															<input type="text" placeholder="Enter position name" class="input form-control" value="{{position}}">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn btn-default" ng-click="removePosition(position)"> <i class="fa fa-trash"></i></button>
-															</span>
-														</div>
+					</div>
+
+					<div class="col-xl-6 col-sm-12 m-t-lg">
+						Active <br>
+						Union <br>
+						Status<br>
+					</div>
+
+				</a>
 
 
 
-													
-													                                                
-		                                                <li class="list-group-item fist-item" ng-hide="editPositions" ng-repeat="position in curentCp.positions">
-		                                                	<span class="pull-right"> 
-	 														<a ng-click="addNewPosition = !addNewPosition" ng-show="editPositions">
-					                                            <i class="fa fa-trash" ></i>
-					                                        </a>
-		                                                 	</span>
-		                                                    {{position}}
-		                                                </li>
+				<div class="col-sm-7 col-xl-12 p-t-sm">
 
-		                                               
-                                            	</div>
-           										<div class="col-sm-12 col-md-6 col-xl-12 m-b-lg">
-
-		                                            <div class="ibox-tools m-b-sm">
-		                                            	<strong class="pull-left">Departments</strong>
-				                                        <a class="collapse-link" ng-click="collapseDepartments = !collapseDepartments">
-				                                            <i class="fa fa-chevron-up" ng-show="collapseDepartments"></i>
-				                                            <i class="fa fa-chevron-down" ng-hide="collapseDepartments"></i>
-				                                        </a>
-				                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				                                            <i class="fa fa-plus"></i>
-				                                        </a>
-				                                        <ul class="dropdown-menu dropdown-user">
-				                                            <li><a href="#">Config option 1</a>
-				                                            </li>
-				                                            <li><a href="#">Config option 2</a>
-				                                            </li>
-				                                        </ul>
-				                                        <a class="close-link">
-				                                            <i class="fa fa-times"></i>
-				                                        </a>
-				                                    </div>
-
-
-		                                            <ul class="list-group clear-list" uib-collapse="collapseDepartments">
-		                                                <li class="list-group-item fist-item">
-		                                                	<span class="pull-right"> <span class="label label-info">EDIT</span> </span>
-		                                                    Rowan Stavanger
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                	<span class="pull-right"> <span class="label label-info">ROV</span> </span>
-		                                                    Rowan Viking
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                	<span class="pull-right"> <span class="label label-info">RVG</span> </span>
-		                                                    Rowan Norway
-		                                                </li>
-		                                            </ul>
-                                            	</div>
-                                            </div>
-
-                                            <div class="row">
-                                            	<div class="col-sm-12 col-md-6 col-xl-12 m-b-lg">
-
-		                                            <div class="ibox-tools">
-		                                            	<strong class="pull-left">Unions</strong>
-				                                        <a class="collapse-link" ng-click="collapseUnions = !collapseUnions">
-				                                            <i class="fa fa-chevron-up" ng-show="collapseUnions"></i>
-				                                            <i class="fa fa-chevron-down" ng-hide="collapseUnions"></i>
-				                                        </a>
-				                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				                                            <i class="fa fa-plus"></i>
-				                                        </a>
-				                                        <ul class="dropdown-menu dropdown-user">
-				                                            <li><a href="#">Config option 1</a>
-				                                            </li>
-				                                            <li><a href="#">Config option 2</a>
-				                                            </li>
-				                                        </ul>
-				                                        <a class="close-link">
-				                                            <i class="fa fa-times"></i>
-				                                        </a>
-				                                    </div>
-
-
-		                                            <ul class="list-group clear-list" uib-collapse="collapseUnions">
-		                                                <li class="list-group-item fist-item">
-		                                                    Crane Operator
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                    Wine drinker
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                    Thorpusher
-		                                                </li>
-		                                            </ul>
-                                            	</div>
-           										<div class="col-sm-12 col-md-6 col-xl-12 m-b-lg">
-
-		                                            <div class="ibox-tools">
-		                                            	<strong class="pull-left">Unions Roles</strong>
-				                                        <a class="collapse-link" ng-click="collapseRoles = !collapseRoles">
-				                                            <i class="fa fa-chevron-up" ng-show="collapseRoles"></i>
-				                                            <i class="fa fa-chevron-down" ng-hide="collapseRoles"></i>
-				                                        </a>
-				                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				                                            <i class="fa fa-plus"></i>
-				                                        </a>
-				                                        <ul class="dropdown-menu dropdown-user">
-				                                            <li><a href="#">Config option 1</a>
-				                                            </li>
-				                                            <li><a href="#">Config option 2</a>
-				                                            </li>
-				                                        </ul>
-				                                        <a class="close-link">
-				                                            <i class="fa fa-times"></i>
-				                                        </a>
-				                                    </div>
-
-
-		                                            <ul class="list-group clear-list" uib-collapse="collapseRoles">
-		                                                <li class="list-group-item fist-item">
-		                                                	<span class="pull-right"> <span class="label label-info">BLOCKED</span> </span>
-		                                                    Crane Operator
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                    Wine drinker
-		                                                </li>
-		                                                <li class="list-group-item">
-		                                                    Thorpusher
-		                                                </li>
-		                                            </ul>
-                                            	</div>
-                                            </div>
-
-
-                                    
-                                      
-                                        </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 440.321px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-                                    </div>
-                </div>
-            </div>
-
-
-	
-		</div>
-		<div class="col-sm-12 col-xl-4 poppup" ng-show="activeCrt">
-			<div class="ibox">
-				<div class="ibox-content">
-					<div class="buttnclose" ng-click="close(emp)">close</div>
-					<form method="get" class="form-horizontal" ng-submit="create(user)">
-
+					<form method="get" class="form-horizontal m-t-lg" ng-show="editUser">
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Firstname</label>
-
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.firstname" class="form-control" />
+							<label class="text-left col-sm-4 control-label">Full navn</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="Alan Hay">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="form-group"><label class="col-sm-3 control-label">Lastname</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.lastname" class="form-control"/> 
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Email</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.email" class="form-control"/> 
+							<label class="col-sm-4 control-label">Stilling</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="Tourpusher">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Address</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.address" class="form-control"/> 
+							<label class="col-sm-4 control-label">Telefon privat</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="447525216326">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">City</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.city" class="form-control"/> 
+							<label class="col-sm-4 control-label">Mobiltelefon</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="-">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">ZipCode</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfilecity.zipCode" class="form-control"/> 
+							<label class="col-sm-4 control-label">E-post</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="alahay@rowancompanies.com">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Phone(M)</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfile.phoneNumberMobile" class="form-control"/> 
+							<label class="col-sm-4 control-label">E-post adresse 2</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="-">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">phoneN(H)</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfilecity.phoneNumberHome" class="form-control"/> 
+							<label class="col-sm-4 control-label">Foretrukket informasjon</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="Hvilken som helst">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label">phoneN(W)"</label>
-							<div class="col-sm-9">
-								<input type="text" ng-model="user.contactProfilecity.phoneNumberWork" class="form-control"/> 
+							<label class="col-sm-4 control-label">Adresse</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="6 Oakdrive, Stainburn Workington, Cumbria">
 							</div>
 						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="alert alert-danger" ng-if="useralert">
-							{{useralert}}
-						</div>
+
 						<div class="form-group">
-							<div class="col-sm-12 col-sm-offset-2">
-								<button class="btn btn-white" type="button" ng-click="cancel()">Cancel</button>
-								<button class="btn btn-primary" type="submit">Save changes</button>
+							<label class="col-sm-4 control-label">Innretning</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="ROV">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Skift</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="F">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Individuelt avlonnet</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="Nei">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Flypass</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" placeholder="United Kingdom">
 							</div>
 						</div>
 					</form>
+
+					<ul class="list-group clear-list p-lg" ng-hide="editUser">
+						<li class="list-group-item fist-item">
+							<span class="pull-right">Alan Hay</span>
+							<strong>Full navn</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">Tourpusher</span>
+							<strong>Stilling</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">447525216326</span>
+							<strong>Telefon, privat</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">-</span>
+							<strong>Mobiltelefon</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">alahay@rowancompanies.com</span>
+							<strong>E-post</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">-</span>
+							<strong>E-post adresse 2</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">Hvilken som helst</span>
+							<strong>Foretrukket informasjon</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right">-</span>
+							<strong>Firma</strong>
+						</li>
+						<li class="list-group-item">
+							<span class="pull-right text-right">6 Oakdrive, Stainburn Workington, Cumbria
+								CA141WY</span>
+								<strong>Adresse</strong>
+							</li>
+							<li class="list-group-item">
+								<span class="pull-right">ROV</span>
+								<strong>Innretning</strong>
+							</li>
+							<li class="list-group-item">
+								<span class="pull-right">F</span>
+								<strong>Skift</strong>
+							</li>
+							<li class="list-group-item">
+								<span class="pull-right">Nei</span>
+								<strong>Individuelt avlonnet</strong>
+							</li>
+							<li class="list-group-item">
+								<span class="pull-right">United Kingdom</span>
+								<strong>Flypass</strong>
+							</li>
+						</ul>
+					</div>
+
 				</div>
+
 			</div>
-			<div class="full" ng-click="activeCrt=false">
-			</div>
+
 		</div>
 	</div>
-</div>

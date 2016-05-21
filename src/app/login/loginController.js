@@ -23,7 +23,8 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
       
       companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
         dataService.setCurrentCompany(response);
-        return $rootScope.setCompanyStr(response.name);
+        $rootScope.setCompanyStr(response.name);
+        $rootScope.setCompany(response);
       }, function(response) {
         return console.log("Failed to get company");
       });

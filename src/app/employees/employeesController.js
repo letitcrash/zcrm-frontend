@@ -1,7 +1,7 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal) {
+angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal) {
   var del, getEmployees, getWorkplaces, setEmpChange, setPasswordChange, uglyGetTime;
   $scope.setSelected = function(id) {
     console.log("selecting " + id);
@@ -189,6 +189,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
     }
   };
   $scope.save = function(emp) {
+    console.log(emp)
     if ((emp.id != null)) {
       return $scope.update(emp);
     } else {
@@ -197,6 +198,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   };
   
   $scope.create = function(emp) {
+    console.log(emp)
+
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
       console.log(response);
@@ -410,19 +413,37 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, requestSe
   };
   
   $scope.openEmp = function(emp) {
+    console.log(emp)
   	$scope.activeEmp = true;
-  	$scope.curentEmp = emp;
+  	$scope.currentEmp = emp;
+  }
+  $scope.changeUnion = function(union) {
+    console.log(union)
+    $scope.currentEmp.user.union = union;
   }
 
 
+  $scope.createUserAction = function() {
+    $scope.activeEmp = true;
+    $scope.editUser = true;
+    $scope.currentEmp = {};
+    $scope.currentEmp.id = null;
+
+  };
+
+  $scope.createUser = function(user) {
+    $scope.activeEmp = false;
+
+  };
+
   $scope.addUser = function() {
     $scope.activeEmp = true;
-    $scope.curentEmp = {};
+    $scope.currentEmp = {};
   }
 
   $scope.showEmployees = function() {
     $scope.activeEmp = false;
-    $scope.curentEmp = undefined;
+    $scope.currentEmp = undefined;
   }
 
 

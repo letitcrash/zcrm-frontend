@@ -15,7 +15,7 @@ angular.module('inspinia').factory('companyService', function(requestService) {
     },
     get: function(id) {
       var url;
-      url = "companies/" + id;
+      url = "companies/" + id + "/expand";
       return requestService.ttGet(url);
     },
     update: function(cp) {

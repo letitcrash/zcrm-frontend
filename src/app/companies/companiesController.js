@@ -128,6 +128,17 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
 
   };
 
+  $scope.createUserAction = function() {
+    $scope.activeEmp = true;
+    $scope.editUser = true;
+    $scope.curentCp = {};
+
+  };
+
+  $scope.createUser = function(user) {
+    $scope.activeEmp = false;
+
+  };
 
   $scope.removePosition = function(p) {
     $scope.activeEmp = false;
