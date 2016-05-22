@@ -29,10 +29,10 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       return requestService.ttGet(url);
     },
     create: function(emp) {
-      console.log()
       var args, url;
       args = {};
       args.username = emp.contactProfile.email;
+      args.union = emp.union;
       //args.employmentNumberType = emp.employmentNumberType;
       //args.employmentNumberValue = emp.employmentNumberValue;
 
@@ -44,6 +44,7 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       args.comment = emp.comment;
       args.baseUrl = routeService.getBaseServiceURL() + "/password-recovery";
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
+      console.log(args);
       return requestService.ttPost(url, args);
     },
     update: function(emp) {

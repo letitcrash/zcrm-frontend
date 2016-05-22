@@ -198,7 +198,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
   
   $scope.create = function(emp) {
-    console.log(emp)
+    emp.union = $rootScope.cp.unions[0];
 
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
