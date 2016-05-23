@@ -20,7 +20,11 @@
     return $rootScope.isSystemAdmin = roleService.isSystemAdmin();
   };
   $rootScope.setCompanyStr = function(companyName) {
-    return $rootScope.companyStr = companyName;
+    $rootScope.companyStr = companyName;
+  };
+  
+  $rootScope.setCompany = function(cp) {
+    $rootScope.cp = cp;
   };
 
   $rootScope.setMailboxList = function(mailboxes) {
