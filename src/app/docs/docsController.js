@@ -43,5 +43,9 @@ angular.module('inspinia')
           console.log(response);
       });
     };
-    $scope.getUserFiles();
-});
+	$scope.getUserFiles();
+  });
+  
+  angular.module('ui.bootstrap').controller('Collapse', function ($scope) {
+	$scope.isCollapsed = false;
+  });
