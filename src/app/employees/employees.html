@@ -20,7 +20,7 @@
 
 					<h2>{{ 'Employees' | translate }}</h2>
 					<p class="m-t-sm small">
-						<i class="fa fa-user "></i> 360 Employees 80 Industri Energi 20 Safe
+						<i class="fa fa-user "></i> {{currentEmp}}
 					</p>
 					<div class="input-group">
 						<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" />
@@ -153,7 +153,13 @@
 										</table>
 									</div>
 								</div>
-							</div>				
+
+
+
+							</div>		
+							<uib-pagination total-items="totalItems" ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"></uib-pagination>
+
+
 						</div>
 
 					</div>
@@ -168,11 +174,11 @@
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
-						<button type="button" class="btn btn-sm btn-white" ng-click="editUser = true"> <i class="fa fa-pencil"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> </button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
-						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
-						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp.user)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 
 					</div>
@@ -181,28 +187,27 @@
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
-						<button type="button" class="btn btn-sm btn-white" ng-click="editUser = true"> <i class="fa fa-pencil"></i> Edit</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
-						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
-						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp.user)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 					</div>
 
 				</div>
 
-				<a href="profile.html" class="p-n col-sm-5 col-xl-12">
-
-					
+				<a class="p-n col-sm-5 col-xl-12">
 
 					<div class="col-xl-6 col-sm-12">
 						<img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
-						<span class="img-circle" ng-show="editUser">AP</span>
+						<span class="img-circle" ng-show="editUser">Union</span>
 
 						<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
 
-						<!--div class="font-bold">Indastri Energy <b class="caret"></b></div-->
-            			<select class="m-t-xs" ng-model="currentEmp.user.union" ng-change="changeUnion(union)" ng-options="union.name for union in cp.unions"></select>
+						<div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
+
+    					<input ng-show="editUser" type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
 					</div>
 
@@ -216,76 +221,8 @@
 
 
 
-
- <!--form method="get" class="form-horizontal" ng-submit="create(user)">
-
-                                <div class="form-group"><label class="col-sm-3 control-label">Firstname</label>
-
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.firstname" class="form-control"></div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group"><label class="col-sm-3 control-label">Lastname</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.lastname" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">Email</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.email" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">Address</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.address" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">City</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.city" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">ZipCode</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.zipCode" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">Phone(M)</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfile.phoneNumberMobile" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">phoneN(H)</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.phoneNumberHome" class="form-control"> 
-                                    </div>
-                                </div>
-                                                                                                <div class="hr-line-dashed"></div>
-
-                                <div class="form-group"><label class="col-sm-3 control-label">phoneN(W)"</label>
-                                    <div class="col-sm-9"><input type="text" ng-model="user.contactProfilecity.phoneNumberWork" class="form-control"> 
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="alert alert-danger" ng-if="useralert">
-                                {{useralert}}
-                            </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12 col-sm-offset-2">
-                                        <button class="btn btn-white" type="button" ng-click="cancel()">Cancel</button>
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                    </div>
-                                </div>
-                            </form-->
-
-
-
 				<div class="col-sm-7 col-xl-12 p-t-sm">
-					<div class="alert alert-danger alert-dismissable" ng-if="useralert"> 
+					<div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
                                 {{useralert}}. <a class="alert-link">check</a>.
                     </div>
@@ -305,7 +242,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label">Stilling</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Stilling" ng-model="currentEmp.user.contactProfile.position">
+    							<input ng-show="editUser" type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.position | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 							</div>
 						</div>
 
@@ -340,28 +277,28 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label">Foretrukket informasjon</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Hvilken som helst" ng-model="currentEmp.user.contactProfile.phone">
+								<input type="text" class="form-control" placeholder="Hvilken som helst" ng-model="currentEmp.contactProfile.phone">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-sm-4 control-label">Adresse</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="6 Oakdrive, Stainburn Workington, Cumbria" ng-model="currentEmp.user.contactProfile.address">
+								<input type="text" class="form-control" placeholder="6 Oakdrive, Stainburn Workington, Cumbria" ng-model="currentEmp.contactProfile.address">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-sm-4 control-label">Innretning</label>
 							<div class="col-sm-8">
-            					<select class="m-t-xs" ng-model="language" ng-change="changeLanguage(language)" ng-options="language.name for language in languages"></select>
+								<input ng-show="editUser" type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.department | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-sm-4 control-label">Skift</label>
 							<div class="col-sm-8">
-            					<select class="m-t-xs" ng-model="language" ng-change="changeLanguage(language)" ng-options="language.name for language in languages"></select>
+								<input ng-show="editUser" type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shift | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 							</div>
 						</div>
 
@@ -382,7 +319,11 @@
 
 					<ul class="list-group clear-list p-lg" ng-hide="editUser">
 						<li class="list-group-item fist-item">
-							<span class="pull-right">Alan Hay</span>
+							<span class="pull-right">{{currentEmp.user.contactProfile.firstname}}</span>
+							<strong>Full navn</strong>
+						</li>
+						<li class="list-group-item fist-item">
+							<span class="pull-right">{{currentEmp.user.contactProfile.lastname}}</span>
 							<strong>Full navn</strong>
 						</li>
 						<li class="list-group-item">

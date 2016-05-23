@@ -1,7 +1,7 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal) {
+angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
   var del, getEmployees, getWorkplaces, setEmpChange, setPasswordChange, uglyGetTime;
   $scope.setSelected = function(id) {
     console.log("selecting " + id);
@@ -14,7 +14,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
     return $scope.setSelectedButton(0);
   };
 
-  $scope.states = ['Industri Energi', 'Safe'];
+
 
   $scope.setSelectedButton = function(i) {
     switch (i) {
@@ -198,8 +198,6 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
   
   $scope.create = function(emp) {
-    emp.union = $rootScope.cp.unions[0];
-
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
       console.log(response);
@@ -208,6 +206,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
       //$uibModalInstance.dismiss('cancel');
       //$scope.setSelected(response.id);
       //setEmpChange(true, "Medarbetaren har skapats.");
+      $scope.closeCurrentEmp();
     }, function(response) {
       console.log("Employee could not be created");
       $scope.useralert = "Employee could not be created";
@@ -329,8 +328,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
       console.log("got employees");
       console.log(response);
       $scope.showLoadingMessage = false;
-      $scope.employees = response;
-      return $scope.totalItems = response.totalSize;
+      $scope.employees = response.data;
+      $scope.totalItems = response.totalCount;
     }, function(response) {
       console.log("Could not get employees");
       return console.log(response);
@@ -415,21 +414,43 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   $scope.openEmp = function(emp) {
     console.log(emp)
   	$scope.activeEmp = true;
-  	$scope.currentEmp = emp;
+    $scope.currentEmp = emp;
+
   }
   $scope.changeUnion = function(union) {
     console.log(union)
-    $scope.currentEmp.user.union = union;
+    $scope.currentEmp.union = union;
   }
 
 
   $scope.createUserAction = function() {
-    $scope.activeEmp = true;
-    $scope.editUser = true;
-    $scope.currentEmp = {};
-    $scope.currentEmp.id = null;
+
+
+      $scope.activeEmp = true;
+      $scope.editUser = true;
+      $scope.currentEmp = {};
+      $scope.currentEmp.id = null;
+
+
 
   };
+
+  $scope.editCurrentUser = function() {
+
+    $scope.currentEmp = angular.copy($scope.currentEmp);
+    $scope.editUser = true;
+
+  };
+
+
+  $scope.closeCurrentEmp = function() {
+
+    $scope.activeEmp = false;
+    $scope.editUser = false;
+
+  };
+
+
 
   $scope.createUser = function(user) {
     $scope.activeEmp = false;
@@ -443,7 +464,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
 
   $scope.showEmployees = function() {
     $scope.activeEmp = false;
-    $scope.currentEmp = undefined;
+    $scope.currentEmp = {};
   }
 
 
@@ -499,6 +520,18 @@ function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
   $scope.init = function() {
     console.log("Running init in employeesController");
 
+        companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
+      
+      $scope.mycp = response;
+
+      //$scope.currentEmp.union = $scope.mycp.unions[0];
+      console.log(response)
+    }, function(response) {
+      console.log("Failed to get company");
+    });
+
+
+
     $scope.isCollapsed = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;
@@ -507,8 +540,9 @@ function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
     $scope.newPeriods = [];
     getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     //getWorkplaces(true);
-	$scope.activeEmp = false;
-	$scope.activeUsr = false;
+  	$scope.activeEmp = false;
+  	$scope.activeUsr = false;
+    $scope.currentEmp = {};
   };
   return $scope.init();
 });

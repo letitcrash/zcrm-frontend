@@ -87,6 +87,7 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
       url = BASE_URL + suburl;
       deferred = $q.defer();
       console.log("Making " + method + " request to " + url);
+      console.log(data);
       token = dataService.getSessionToken();
       userId = dataService.getUserId();
       console.log("setting header");
