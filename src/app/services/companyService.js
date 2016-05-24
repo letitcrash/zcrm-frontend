@@ -32,6 +32,32 @@ angular.module('inspinia').factory('companyService', function(requestService) {
       var url;
       url = "companies";
       return requestService.ttPost(url, cp);
+    },
+    addPosition: function(id, position) {
+      var url;
+      url = "companies/" + id + "/positions";
+      return requestService.ttPost(url,position);
+    },
+    addUnion: function(id, union) {
+      var url;
+      url = "companies/" + id + "/unions";
+      return requestService.ttPost(url, union);
+    },
+    addDepartment: function(id, dept) {
+
+      var url;
+      url = "companies/" + id + "/departments";
+      return requestService.ttPost(url, dept);
+    },
+    addShift: function(id, shift) {
+      var url;
+      url = "companies/" + id + "/shifts";
+      return requestService.ttPost(url, shift);
+    },
+    addRole: function(id , role) {
+      var url;
+      url = "companies/" + id + "/delegates";
+      return requestService.ttPost(url, role);
     }
   };
 });

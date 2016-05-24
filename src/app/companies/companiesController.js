@@ -12,7 +12,7 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
   };
   $scope.getCompanyList = function(force, pageSize, pageNr, searchTerm) {
     return companyService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
-      $scope.companies = response;
+      $scope.companies = response.data;
       console.log($scope.companies)
       return $scope.totalItems = response.totalSize;
     }, function(response) {
@@ -120,16 +120,82 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
     return companyService.get(cp.id).then(function(response) {
       $scope.curentCp = response;
       $scope.activeEmp = true;
-      var positions = ["Driller","Electrican"];
-      $scope.curentCp.positions = positions;
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
+  };
+  
+  $scope.createPosition = function() {
+    companyService.addPosition($scope.curentCp.id, $scope.newPosition).then(function(response) {
+      $scope.addingPosition = false;
+      $scope.curentCp.positions.push(response);
+      $scope.newPosition = {};
     }, function(response) {
       return console.log("Failed to get companany");
     });
 
   };
 
-  $scope.createUserAction = function() {
-    $scope.activeEmp = true;
+  $scope.createUnion = function() {
+    companyService.addUnion($scope.curentCp.id, $scope.newUnion).then(function(response) {
+      $scope.addingUnion = false;
+      $scope.curentCp.unions.push(response);
+      $scope.newUnion = {};
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
+  };
+
+  $scope.createDepartment = function() {
+    console.log($scope.curentCp.id)
+    console.log($scope.newDept)
+    companyService.addDepartment($scope.curentCp.id, $scope.newDept).then(function(response) {
+      $scope.addingDept = false;
+      $scope.curentCp.departmets.push(response);
+      $scope.newDept = {};
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
+  };
+
+
+  $scope.createShift = function() {
+    companyService.addShift($scope.curentCp.id, $scope.newShift).then(function(response) {
+      $scope.addingShift = false;
+      $scope.curentCp.shifts.push(response);
+      $scope.newUShift = {};
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
+  };
+
+
+  $scope.createRole = function() {
+    companyService.addRole($scope.curentCp.id, $scope.newRole).then(function(response) {
+      $scope.addingRole = false;
+      $scope.curentCp.delegates.push(response);
+      $scope.newDelegate = {};
+    }, function(response) {
+      return console.log("Failed to get companany");
+    });
+
+  };
+
+
+
+  $scope.createPositionAction = function() {
+    $scope.tab = 2;
+    $scope.addingPosition = true;
+    $scope.curentCp = {};
+
+  };
+
+  $scope.createUnionAction = function() {
+    $scope.tab = 3;
     $scope.editUser = true;
     $scope.curentCp = {};
 

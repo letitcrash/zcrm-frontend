@@ -7,10 +7,14 @@
 					<!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
 					<div class="btn-group pull-right" uib-dropdown is-open="status.isopen">
 						<button id="single-button" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-							<i class="fa fa-user-plus "></i> {{ 'Create user' | translate }} <span class="caret"></span>
+							<i class="fa fa-user-plus "></i> {{ 'Create new' | translate }} <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-							<li role="menuitem"><a ng-click="createUserAction()">Create User</a></li>
+							<li role="menuitem"><a ng-click="createRoleAction()">Delegate Role</a></li>
+							<li role="menuitem"><a ng-click="createPositionAction()">Position</a></li>
+							<li role="menuitem"><a ng-click="createDepartmentAction()">Department</a></li>
+							<li role="menuitem"><a ng-click="createUnionAction()">Union</a></li>
+							<li role="menuitem"><a ng-click="createShiftAction()">Shift</a></li>
 							<li role="menuitem"><a href="#">Another action</a></li>
 							<li role="menuitem"><a href="#">Something else here</a></li>
 							<li class="divider"></li>
@@ -88,12 +92,15 @@
 
 					</div>
 
+
 					<div class="clients-list">
 						<ul class="nav nav-tabs">
-							<li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-users"></i>{{ 'Employees' | translate }}</a></li>
-							<li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'Delegates' | translate }}</a></li>
+							<li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-users"></i>{{ 'Companies' | translate }}</a></li>
+							<li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'Positions' | translate }}</a></li>
+
 
 						</ul>
+
 						<div class="tab-content">
 							<div id="tab-1" class="tab-pane active" ng-show="tab == 1">
 								<div class="full-height-scroll" full-scroll>
@@ -111,7 +118,7 @@
 											</thead>
 											<tbody>
 
-												<tr ng-repeat="cp in companies" cp-element="cp" on-edit="openCp(cp)"></tr>
+												<tr ng-repeat="cp in companies" cp-element="cp" on-edit="openCp(cp)">{{cp}}</tr>
 												
 											</tbody>
 										</table>
@@ -124,21 +131,16 @@
 									<div class="table-responsive">
 										<table class="table table-striped table-hover">
 											<tbody>
+											<thead>
+												<tr>
+													<th style="width:35px;border-left: 1px solid #DDDDDD;"> <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+													<th>Name</th>
+													<th>Created</th>
+												</tr>
+											</thead>
 
-												<tr ng-repeat="emp in employees">
-													<td class="client-avatar"><img alt="image" src="img/a2.jpg"> </td>
-													<td><a ng-click="open(emp)" class="client-link">{{emp.user.contactProfile.firstname}} {{emp.user.contactProfile.lastname}}</a></td>
-													<td>
-														<span class="label label-primary">HKVO</span>
-														<span class="label label-primary">VO</span>
-														<span class="label label-primary">TV</span>
-														<span class="label label-primary">SD</span>
-														<span class="label label-primary">UR</span>
-
-													</td>
-													<td>24.03.2015</td>
-													<td>24.03.2015</td>
-													<td>F(Shift)</td>
+												<tr>
+													<td style="width:35px;"> <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
 													<td>DEP</td>
 													<td>Union</td>
 
@@ -159,12 +161,12 @@
 			<div class="contact-box center-version col-xl-12">
 				<div class="contact-box-top">
 					<div class="visible-xl">
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-pencil"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1"> <i class="fa fa-comments"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2"> <i class="fa fa-user"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3"> <i class="fa fa-list"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4"> <i class="fa fa-pencil"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 5"> <i class="fa fa-print"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 6"> <i class="fa fa-cogs"></i> </button>
 						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(emp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
@@ -172,12 +174,12 @@
 					</div>
 
 					<div class="hidden-xl">
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
-						<button type="button" class="btn btn-sm btn-white" ng-click="editUser = true"> <i class="fa fa-pencil"></i> Edit</button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1"> <i class="fa fa-comments"></i> Positions</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2"> <i class="fa fa-user"></i> Unions</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3"> <i class="fa fa-list"></i> Departments</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4"> <i class="fa fa-pencil"></i> Shifts</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 5"> <i class="fa fa-print"></i> Roles</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 6"> <i class="fa fa-cogs"></i> Settings</button>
 						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="editUser = false" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
@@ -185,168 +187,117 @@
 
 				</div>
 
-				<a href="profile.html" class="p-n col-sm-5 col-xl-12">
-					<div class="col-xl-6 col-sm-12">
-						<img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
 
-						<h3 class="m-b-xs"><strong>{{curentCp.name}}</strong></h3>
+				<div class="col-xl-12 p-lg" ng-show="subtab == 1">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Positions</strong>
 
-						<div class="font-bold">Indastri Energy <b class="caret"></b></div>
+							<span class="pull-right">
+								<a ng-click="addingPosition = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
 
+							<div ng-show="addingPosition">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newPosition.name" class="form-control m-b-sm" placeholder="Enter new position name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createPosition(newPosition)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingPosition = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.positions.length > 0">
+							No positions, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="position in curentCp.positions">
+							{{position.name}}
+						</li>
+												
+						</ul>
 					</div>
 
-					<div class="col-xl-6 col-sm-12 m-t-lg">
-						Active <br>
-						Union <br>
-						Status<br>
+
+					
+				<div class="col-xl-12 p-lg" ng-show="subtab == 2">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Unions</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingUnion = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingUnion">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newUnion.name" class="form-control m-b-sm" placeholder="Enter new union name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createUnion(newPosition)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingUnion = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.unions.length > 0">
+							No unions, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="union in curentCp.unions">
+							{{union.name}}
+						</li>
+												
+						</ul>
 					</div>
 
-				</a>
+					<div class="col-xl-12 p-lg" ng-show="subtab == 3">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Departments</strong>
 
+							<span class="pull-right">
+								<a ng-click="addingDept = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
 
+							<div ng-show="addingDept">
+								<div class="m-t-md m-b-md">
 
-				<div class="col-sm-7 col-xl-12 p-t-sm">
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newDept.name" class="form-control m-b-sm" placeholder="Enter new department name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createDepartment(newDept)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingDept = false">Cancel</button>
 
-					<form method="get" class="form-horizontal m-t-lg" ng-show="editUser">
-						<div class="form-group">
-							<label class="text-left col-sm-4 control-label">Full navn</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Alan Hay">
+			                                    </div>
+		                                </form>
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Stilling</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Tourpusher">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Telefon privat</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="447525216326">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Mobiltelefon</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="-">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">E-post</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="alahay@rowancompanies.com">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">E-post adresse 2</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="-">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Foretrukket informasjon</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Hvilken som helst">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Adresse</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="6 Oakdrive, Stainburn Workington, Cumbria">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Innretning</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="ROV">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Skift</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="F">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Individuelt avlonnet</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Nei">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Flypass</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="United Kingdom">
-							</div>
-						</div>
-					</form>
-
-					<ul class="list-group clear-list p-lg" ng-hide="editUser">
-						<li class="list-group-item fist-item">
-							<span class="pull-right">Alan Hay</span>
-							<strong>Full navn</strong>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">Tourpusher</span>
-							<strong>Stilling</strong>
+						<li class="list-group-item" ng-hide="curentCp.departmets.length > 0">
+							No departments, please add one
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">447525216326</span>
-							<strong>Telefon, privat</strong>
+
+						<li class="list-group-item" ng-repeat="dept in curentCp.departmets">
+							{{dept.name}}
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>Mobiltelefon</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right">alahay@rowancompanies.com</span>
-							<strong>E-post</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>E-post adresse 2</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right">Hvilken som helst</span>
-							<strong>Foretrukket informasjon</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>Firma</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right text-right">6 Oakdrive, Stainburn Workington, Cumbria
-								CA141WY</span>
-								<strong>Adresse</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">ROV</span>
-								<strong>Innretning</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">F</span>
-								<strong>Skift</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">Nei</span>
-								<strong>Individuelt avlonnet</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">United Kingdom</span>
-								<strong>Flypass</strong>
-							</li>
+												
 						</ul>
 					</div>
 
