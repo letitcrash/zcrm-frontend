@@ -197,6 +197,19 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
     }
   };
   
+  $scope.changeUnion = function(union) {
+    console.log("sss")
+    employeeService.setEmployeeUnion($scope.currentEmp.id , union.id).then(function(response) {
+      console.log("Employee union updated succesfully");
+      console.log(response);
+      $scope.currentEmp.union = union;
+
+    }, function(response) {
+      console.log("Employee could not be created");
+      $scope.useralert = "Employee could not be created";
+    });
+  };
+
   $scope.create = function(emp) {
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
@@ -417,10 +430,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
     $scope.currentEmp = emp;
 
   }
-  $scope.changeUnion = function(union) {
-    console.log(union)
-    $scope.currentEmp.union = union;
-  }
+
 
 
   $scope.createUserAction = function() {

@@ -25,14 +25,14 @@
             url: "/apply",
             templateUrl: "app/singup/apply.html",
             data: { pageTitle: 'Wizard form' },
-            controller: 'SignupCtrl',
+            //controller: 'SignupCtrl',
             "authenticate": false
       })
       .state('passwordrecovery', {
             url: "/password-recovery/{userId}/{token}",
             templateUrl: "app/singup/password-recovery.html",
             data: { pageTitle: 'Wizard form' },
-            controller: 'SignupCtrl',
+            //controller: 'SignupCtrl',
             "authenticate": false
       })
       .state('signup', {

@@ -197,21 +197,24 @@
 
 				</div>
 
-				<a class="p-n col-sm-5 col-xl-12">
+				<a class="p-n col-sm-6 col-xl-12">
 
-					<div class="col-xl-6 col-sm-12">
+					<div class="col-xl-12 col-sm-12">
 						<img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
-						<span class="img-circle" ng-show="editUser">Union</span>
+						<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" ng-show="editUser">
 
 						<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
 
 						<div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
 
+
+
+
     					<input ng-show="editUser" type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
 					</div>
 
-					<div class="col-xl-6 col-sm-12 m-t-lg">
+					<div class="col-xl-6 col-sm-12 m-t-lg hidden-xl">
 						Active <br>
 						Union <br>
 						Status<br>
@@ -221,160 +224,291 @@
 
 
 
-				<div class="col-sm-7 col-xl-12 p-t-sm">
-					<div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
-                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
-                                {{useralert}}. <a class="alert-link">check</a>.
-                    </div>
-					<form class="form-horizontal m-t-lg" ng-show="editUser">
-						<div class="form-group">
-							<label class="text-left col-sm-4 control-label">First navn</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="First navn" ng-model="currentEmp.user.contactProfile.firstname">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="text-left col-sm-4 control-label">Last navn</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Last navn" ng-model="currentEmp.user.contactProfile.lastname">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Stilling</label>
-							<div class="col-sm-8">
-    							<input ng-show="editUser" type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.position | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-							</div>
-						</div>
+				<div class="col-sm-6 col-xl-12 p-t-sm">
 
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Telefon privat</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Telefon privat" ng-model="currentEmp.user.contactProfile.phone">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Mobiltelefon</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Mobiltelefon">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">E-post</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="E-post" ng-model="currentEmp.user.contactProfile.email">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">E-post adresse 2</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="-">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Foretrukket informasjon</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Hvilken som helst" ng-model="currentEmp.contactProfile.phone">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Adresse</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="6 Oakdrive, Stainburn Workington, Cumbria" ng-model="currentEmp.contactProfile.address">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Innretning</label>
-							<div class="col-sm-8">
-								<input ng-show="editUser" type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.department | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Skift</label>
-							<div class="col-sm-8">
-								<input ng-show="editUser" type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shift | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Individuelt avlonnet</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="Nei">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-4 control-label">Flypass</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" placeholder="United Kingdom">
-							</div>
-						</div>
-					</form>
-
-					<ul class="list-group clear-list p-lg" ng-hide="editUser">
+					
+					<ul class="list-group clear-list m-t-md" ng-hide="editUser">
 						<li class="list-group-item fist-item">
-							<span class="pull-right">{{currentEmp.user.contactProfile.firstname}}</span>
-							<strong>Full navn</strong>
+							<strong>CONTACT INFORMATION</strong>
+                        </li>
+						<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+									Full navn
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+									<a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editNameAction">
+	                                    <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
+	                                    	<div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
+	                                    <div>
+		                                    <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+						                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+						                                {{useralert}}. <a class="alert-link">check</a>.
+						                    </div>
+	                                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
+
 						</li>
+
+						<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
+									Telefon
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phone}}</span>
+									<a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editPhoneAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.phone" class="form-control m-b-sm">
+	                                    	<a><i class="fa fa-plus"></i> Add another telefon </a>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
+						</li>
+
+						<li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
+									E-post
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editEmailAction">{{currentEmp.user.contactProfile.email}}</span>
+									<a  class="pull-right" ng-show="editEmail && !editEmailAction" href ng-click="editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editEmailAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+	                                    	<a><i class="fa fa-plus"></i> Add another e-post </a>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
+						</li>
+
+						<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
+									Adresse
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editAddressAction">{{currentEmp.user.contactProfile.address}}</span>
+									<a  class="pull-right" ng-show="editAddress && !editAddressAction" href ng-click="editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editAddressAction">
+	                                    <div class="form-group">
+	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
+						</li>
+						
+						</ul>
+
+
+					<ul class="list-group clear-list" ng-hide="editUser">
 						<li class="list-group-item fist-item">
-							<span class="pull-right">{{currentEmp.user.contactProfile.lastname}}</span>
-							<strong>Full navn</strong>
+							<strong>EMPLOYMENT INFORMATION</strong>
+                        </li>
+						<li class="list-group-item" ng-mouseenter="editFirm = true" ng-mouseleave="editFirm = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editFirmAction}">
+									Firma
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editFirmAction">Rowan</span>
+									<a  class="pull-right" ng-show="editFirm && !editFirmAction" href ng-click="editFirmAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editFirmAction">
+	                                    <div class="form-group"><input type="text" ng-model="currentEmp.user.company" placeholder="First name" class="form-control"></div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editFirmAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
+
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">Tourpusher</span>
-							<strong>Stilling</strong>
+
+						<li class="list-group-item" ng-mouseenter="editPosition = true" ng-mouseleave="editPosition = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editPositionAction}">
+									Stilling
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editPositionAction">{{currentEmp.user.contactProfile.phone}}</span>
+									<a  class="pull-right" ng-show="editPosition && !editPositionAction" href ng-click="editPositionAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editPositionAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.phone" class="form-control m-b-sm">
+	                                    	<a><i class="fa fa-plus"></i> Add another telefon </a>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editPositionAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">447525216326</span>
-							<strong>Telefon, privat</strong>
+
+						<li class="list-group-item" ng-mouseenter="editUnion = true" ng-mouseleave="editUnion = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editUnionAction}">
+									Union
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editUnionAction">{{currentEmp.union.name}}</span>
+									<a  class="pull-right" ng-show="editUnion && !editUnionAction" href ng-click="editUnionAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editUnionAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary" ng-click="changeUnion(currentEmp.union)">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editUnionAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>Mobiltelefon</strong>
+
+						<li class="list-group-item" ng-mouseenter="editDepartment = true" ng-mouseleave="editDepartment = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editDepartmentAction}">
+									Innretning
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editDepartmentAction">{{currentEmp.user.contactProfile.address}}</span>
+									<a  class="pull-right" ng-show="editDepartment && !editDepartmentAction" href ng-click="editDepartmentAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editDepartmentAction">
+	                                    <div class="form-group">
+	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editDepartmentAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">alahay@rowancompanies.com</span>
-							<strong>E-post</strong>
+
+						<li class="list-group-item" ng-mouseenter="editShift = true" ng-mouseleave="editShift = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editShiftAction}">
+									Skift
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editShiftAction">{{currentEmp.user.contactProfile.address}}</span>
+									<a  class="pull-right" ng-show="editShift && !editShiftAction" href ng-click="editShiftAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editShiftAction">
+	                                    <div class="form-group">
+	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editShiftAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>E-post adresse 2</strong>
+						
+						<li class="list-group-item" ng-mouseenter="editAavlonnet = true" ng-mouseleave="editAavlonnet = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editAavlonnetAction}">
+									Individuelt avlonnet
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editAavlonnetAction">{{currentEmp.user.contactProfile.address}}</span>
+									<a  class="pull-right" ng-show="editAavlonnet && !editAavlonnetAction" href ng-click="editAavlonnetAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editAavlonnetAction">
+	                                    <div class="form-group">
+	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editAavlonnetAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">Hvilken som helst</span>
-							<strong>Foretrukket informasjon</strong>
+
+						<li class="list-group-item" ng-mouseenter="editFlypass = true" ng-mouseleave="editFlypass = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editFlypassAction}">
+									Flypass
+								</div>
+								<div class="col-sm-8">
+									<span ng-hide="editFlypassAction">{{currentEmp.user.contactProfile.address}}</span>
+									<a  class="pull-right" ng-show="editFlypass && !editFlypassAction" href ng-click="editFlypassAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editFlypassAction">
+	                                    <div class="form-group">
+	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editFlypassAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+								</div>
+							</div>
 						</li>
-						<li class="list-group-item">
-							<span class="pull-right">-</span>
-							<strong>Firma</strong>
-						</li>
-						<li class="list-group-item">
-							<span class="pull-right text-right">6 Oakdrive, Stainburn Workington, Cumbria
-								CA141WY</span>
-								<strong>Adresse</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">ROV</span>
-								<strong>Innretning</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">F</span>
-								<strong>Skift</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">Nei</span>
-								<strong>Individuelt avlonnet</strong>
-							</li>
-							<li class="list-group-item">
-								<span class="pull-right">United Kingdom</span>
-								<strong>Flypass</strong>
-							</li>
+
 						</ul>
 					</div>
 
