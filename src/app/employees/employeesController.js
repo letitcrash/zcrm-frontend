@@ -203,6 +203,15 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
       console.log("Employee union updated succesfully");
       console.log(response);
       $scope.currentEmp.union = union;
+      var emp = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+
+      console.log(emp);
+      emp[0].union = union;
+      //$scope.employees.push($scope.currentEmp);
+      //$scope.currentEmp = response;
+      $scope.editUnionAction = false;
 
     }, function(response) {
       console.log("Employee could not be created");
@@ -253,12 +262,26 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
   $scope.update = function(emp) {
     console.log(emp);
-    return employeeService.update(emp).then(function(response) {
+    return employeeService.updateProfile(emp.user.contactProfile).then(function(response) {
       console.log("Employee updated succesfully");
       setEmpChange(true, "Medarbetaren har uppdaterats.");
       $scope.cancel();
       console.log("response");
-      return console.log(response);
+      $scope.currentEmp.user.contactProfile = response;
+      var emp = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+
+      console.log(emp);
+      emp[0].user.contactProfile = response;
+      $scope.editNameAction = false;
+      $scope.editPhoneAction = false;
+      $scope.editEmailAction = false;
+      $scope.editAddressAction = false;
+
+
+
+
     }, function(response) {
       console.log("Employee could not be updated");
       return setEmpChange(false, "Medarbetaren kunde inte ändras.");
@@ -427,7 +450,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   $scope.openEmp = function(emp) {
     console.log(emp)
   	$scope.activeEmp = true;
-    $scope.currentEmp = emp;
+    $scope.currentEmp = angular.copy(emp);
 
   }
 

@@ -20,10 +20,10 @@
 
 					<h2>{{ 'Employees' | translate }}</h2>
 					<p class="m-t-sm small">
-						<i class="fa fa-user "></i> {{currentEmp}}
+						<i class="fa fa-user "></i>
 					</p>
 					<div class="input-group">
-						<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" />
+						<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
 						<span class="input-group-btn">
 							<button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
 
@@ -265,16 +265,16 @@
 									Telefon
 								</div>
 								<div class="col-sm-8">
-									<span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phone}}</span>
+									<span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phoneNumberMobile}}</span>
 									<a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
 									<form role="form" ng-show="editPhoneAction">
 	                                    <div class="form-group">
-	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.phone" class="form-control m-b-sm">
+	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
 	                                    	<a><i class="fa fa-plus"></i> Add another telefon </a>
 	                                    </div>
 	                                    <div>
-	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
 	                                        <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
 
 	                                    </div>
@@ -299,7 +299,7 @@
 	                                    	<a><i class="fa fa-plus"></i> Add another e-post </a>
 	                                    </div>
 	                                    <div>
-	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
 	                                        <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>
 
 	                                    </div>
@@ -323,7 +323,7 @@
 	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
 	                                    </div>
 	                                    <div>
-	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
 	                                        <button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>
 
 	                                    </div>
