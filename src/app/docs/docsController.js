@@ -3,52 +3,22 @@
 angular.module('inspinia')
 .controller('DocsController', function ($http, $scope, Upload, $timeout, dataService, docsService) {
   
+  var getFiles;
+  
+  getFiles = function(force, pageSize, pageNr, searchTerm) {
+	docsService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+	  console.log("got files");
+	  console.log(response);
+	  $scope.showLoadingMessage = false;
+	  $scope.files = response.data;
+	  $scope.totalItems = response.totalCount;
+	}, function(response) {
+	  console.log("Could not get files");
+	  return console.log(response);
+	});
+  };
+  
   // File lists
-  var files = [
-  {
-	"id": 1,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "Filename.txt"
-  },
-  {
-	"id": 1,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "Filename.odt"
-  },
-  {
-	"id": 3,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "fasdf.pdf"
-  },
-  {
-	"id": 4,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "sdfgsdfgwer.ods"
-  },
-  {
-	"id": 5,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "wertwert.txt"
-  },
-  {
-	"id": 6,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "wertwert.odt"
-  },
-  {
-	"id": 7,
-	"userId": 2,
-	"hash": "asbwklaow",
-	"fileName": "wertew.pdf"
-  }
-  ];
-  $scope.files = files;
   
   $scope.uploadFiles = function(files, errFiles) {
 
@@ -84,20 +54,18 @@ angular.module('inspinia')
 	  });
 	});
   }
-  /*
-  $scope.getUserFiles = function() {
-	//docsService.get(dataService.getEmployments().id).then(function(response) {
-	$http.get(upUrl).then(function(response) {
-	  console.log("got files list");
-	  console.log(response);
-	  $scope.files = response.data;
-	  $scope.showLoadingMessage = false;
-	}, function(response) {
-	  console.log("Could not get files");
-	  console.log(response);
-	});
+
+  
+  
+  $scope.init = function() {
+	$scope.isCollapsed = false;
+	$scope.showLoadingMessage = true;
+	$scope.pageSize = 20;
+	$scope.pageNr = 1;
+	$scope.searchTerm = "";
+	getFiles(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
-  $scope.getUserFiles();*/
+  return $scope.init();
 
 });
 
