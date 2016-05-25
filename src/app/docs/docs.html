@@ -1,4 +1,5 @@
 <div class="wrapper wrapper-content animated fadeIn" ng-controller="DocsController">
+  
   <div class="row">
 	<div class="ibox">
 	  <div class="col-lg-3">
@@ -6,43 +7,10 @@
 		  <div class="file-manager folders">
 			<button class="btn btn-primary btn-block">Upload Document</button>
 			<div ng-controller="Collapse">
-			  <h5 ng-click="isCollapsed = !isCollapsed"><i class="fa fa-file"></i>PRIVATE DOCUMENTS</h5>
-			  <ul uib-collapse="isCollapsed">
-				<li>Folder One</li>
-				<li>Folder Two</li>
-				<li>Three</li>
-				<li>Four</li>
-			  </ul>
-			</div>
-			<div ng-controller="Collapse">
-			  <h5 ng-click="isCollapsed = !isCollapsed"><i class="fa fa-bookmark"></i>PROJECTS</h5>
-			  <ul uib-collapse="!isCollapsed">
-				<li>Folder One</li>
-				<li>Folder Two</li>
-				<li>Three</li>
-				<li>Four</li>
-			  </ul>
-			</div>
-			<div ng-controller="Collapse">
-			  <h5 ng-click="isCollapsed = !isCollapsed"><i class="fa fa-users"></i>TEAMS</h5>
-			  <ul uib-collapse="!isCollapsed">
-				<li>Folder One</li>
-				<li>Folder Two</li>
-				<li>Three</li>
-				<li>Four</li>
-			  </ul>
-			</div>
-			<div ng-controller="Collapse">
-			  <h5 ng-click="isCollapsed = !isCollapsed"><i class="fa fa-info-circle"></i>TICKETS</h5>
-			  <ul uib-collapse="!isCollapsed">
-				<li>Folder One</li>
-				<li>Folder Two</li>
-				<li>Three</li>
-				<li>Four</li>
-			  </ul>
+			  <h5><i class="fa fa-user"></i>{{ 'Private documents' | translate }}</h5>
 			</div>
 			<div>
-			  <h5><i class="fa fa-file"></i>DROPBOX</h5>
+			  <h5><i class="fa fa-dropbox"></i>DROPBOX</h5>
 			</div>
 		  </div>
 		</div>
@@ -50,190 +18,165 @@
 	  <div class="col-lg-9">
 		<div class="ibox float-e-margins">
 		  <div class="ibox-title">
-			<h2>Three docs</h2>
+			<h2>{{ 'Private documents' | translate }}</h2>
 		  </div>
 		  <div class="ibox-content">
 			<div class="row">
-			  <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
-				  <option value="0">Option 1</option>
-				  <option value="1">Option 2</option>
-				  <option value="2">Option 3</option>
-				  <option value="3">Option 4</option>
-				</select>
+			  <div class="col-sm-5">
+				<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchText"> <span class="input-group-btn">
+					  <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+				</div>
+				<div class="col-sm-5 m-b-xs">
+				  <div data-toggle="buttons" class="btn-group">
+					<label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options" value="" ng-model="searchText" checked /> All </label>
+					<label class="btn btn-sm btn-white"> <input type="radio" id="option2" name="options" value="odt" ng-model="searchText"/> Docs </label>
+					<label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options" value="ods" ng-model="searchText" /> Tables </label>
+					<label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options" value="jpg" ng-model="searchText"/> Images </label>
+				  </div>
+				</div>
+				<div class="col-sm-2 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+					<option value="0">Delete</option>
+				  </select>
+				</div>
 			  </div>
-			  <div class="col-sm-4 m-b-xs">
-				<div data-toggle="buttons" class="btn-group">
-				  <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
-					<label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
-					  <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-					  </div>
-					</div>
-					<div class="col-sm-3">
-					  <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-							<button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-					  </div>
-					</div>
-					<div class="table-responsive">
-					  <table class="table table-striped">
-						<thead>
-						  <tr>
-							<th></th>
-							<th>{{ 'Filename' | translate }}</th>
-							<th>{{ 'Type' | translate }} </th>
-							<th>{{ 'Create date' | translate }}</th>
-							<th>{{ 'Last edit' | translate }}</th>
-						  </tr>
-						</thead>
-						<tbody>
-						  <tr>
-							<td><input type="checkbox" class="green-check" /></td>
-							  <td>Project<small>This is example of project</small></td>
-							  <td><span class="pie" style="display: none;">0.52/1.561</span></td>
-							  <td>20%</td>
-							  <td>Jul 14, 2013</td>
-							</tr>
-							<tr>
-							  <td><input type="checkbox" class="green-check" /></td>
-								<td>Alpha project</td>
-								<td><span class="pie" style="display: none;">6,9</span></td>
-								<td>40%</td>
-								<td>Jul 16, 2013</td>
-							  </tr>
-							  <tr>
-								<td><input type="checkbox" class="green-check" /></td>
-								  <td>Betha project</td>
-								  <td><span class="pie" style="display: none;">3,1</span></td>
-								  <td>75%</td>
-								  <td>Jul 18, 2013</td>
-								</tr>
-								<tr>
-								  <td><input type="checkbox" class="green-check" /></td>
-									<td>Gamma project</td>
-									<td><span class="pie" style="display: none;">4,9</span></td>
-									<td>18%</td>
-									<td>Jul 22, 2013</td>
-								  </tr>
-								</tbody>
-							  </table>
-							</div>
-							
-						  </div>
+			  <div class="table-responsive">
+				<table class="table table-striped" id="searchTextResults">
+				  <thead>
+					<tr>
+					  <th></th>
+					  <th class="col-sm-10">{{ 'Filename' | translate }}</th>
+					  <th class="col-sm-1">{{ 'Type' | translate }} </th>
+					  <th class="col-sm-1">{{ 'Create date' | translate }}</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr ng-repeat="file in files | filter:searchText">
+					  <td><input type="checkbox" class="green-check" /></td>
+					  <td><a href="/users/{{file.userId + '/files/:' + file.id}}">{{file.fileName}}</a></td>
+					  <td>{{file.type}}</td>
+					  <td>Jul 14, 2013</td>
+					</tr>
+				  </tbody>
+				</table>
+			  </div>
+			  
+			</div>
 		  </div>
 		</div>
 	  </div>
 	</div>
-</div>
-				
-				<!--div class="wrapper wrapper-content" ng-controller="DocsController">
-				<div class="row">
-				<div class="col-lg-3">
-				<div class="ibox float-e-margins">
-				<div class="ibox-content">
-				<div class="file-manager">
-				<h5>Show:</h5>
-				<a href="" class="file-control active">Ale</a>
-				<a href="" class="file-control">Documents</a>
-				<a href="" class="file-control">Audio</a>
-				<a href="" class="file-control">Images</a>
-				
-				<div class="hr-line-dashed"></div>
-				<button class="btn btn-primary btn-block" ngf-select="uploadFiles($files, $invalidFiles)" multiple
-				accept="image/*" ngf-max-size="55MB">Upload Files</button>
-				<div class="hr-line-dashed"></div>
-				<h5>Folders</h5>
-				<ul class="folder-list" style="padding: 0">
-				<li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-				<li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-				<li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-				<li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-				<li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-				<li><a href=""><i class="fa fa-folder"></i> Books</a></li>
-				</ul>
-				<h5 class="tag-title">Tags</h5>
-				<ul class="tag-list" style="padding: 0">
-				<li><a href="">Family</a></li>
-				<li><a href="">Work</a></li>
-				<li><a href="">Home</a></li>
-				<li><a href="">Children</a></li>
-				<li><a href="">Holidays</a></li>
-				<li><a href="">Music</a></li>
-				<li><a href="">Photography</a></li>
-				<li><a href="">Film</a></li>
-				</ul>
-				<div class="clearfix"></div>
-				</div>
-				</div>
-				</div>
-				</div>
-				<div class="col-lg-9">
-				<div class="row">
-				<div class="col-lg-12">
-				
-				<small>You have 42 messages and 6 notifications.</small>
-				<ul class="list-group clear-list m-t">
-				
-				
-				
-				<li class="list-group-item fist-item">
-				<span class="pull-right">
-				1Mb
-				</span>
-				<a href=""><i class="fa fa-file"></i> Project_document.docx</a>
-				</li>
-				<li class="list-group-item fist-item">
-				<span class="pull-right">
-				1Mb
-				</span>
-				<a href=""><i class="fa fa-file"></i> Project_document.docx</a>
-				</li>
-				<li class="list-group-item fist-item">
-				<span class="pull-right">
-				1Mb
-				</span>
-				<a href=""><i class="fa fa-file"></i> Project_document.docx</a>
-				</li>
-				<li class="list-group-item fist-item">
-				<span class="pull-right">
-				1Mb
-				</span>
-				<a href="" class="pull-right"><i class="fa fa-tag"></i> Zender</a>
-				
-				<a href=""><i class="fa fa-file"></i> Project_document.docx</a>
-				</li>
-				
-				
-				</ul>
-				
-				
-				<div class="file-box" ng-repeat="f in files">
-				<div ng-bind="f.progress + '%'"></div>
-				<div class="file">
-				<a href="">
-				<span class="corner"></span>
-				
-				<div class="image">
-				<div style="width:{{f.progress}}%; background-color: #16977D; height:2px"></div>
-				<img alt="image" class="img-responsive" ngf-src="f" ngf-resize="{width: 100%, height: auto}">
-				</div>
-				<div class="file-name">
-				{{f.name}}
-				<br/>
-				<small>Added: Jan 6, 2014</small>
-				</div>
-				</a>
-				
-				</div>
-				</div>
-				<!--div class="row">
-				<div class="col-lg-12">
-				<h2>list foto</h2>
-				<ul>
-				<li ng-repeat="fiel in allfiels">{{fiel.fileName}}</li>
-				</ul>
-				</div>
-				</div   
-				</div>
-				</div>
-				</div>
-				</div>
-				</div-->
+  </div>
+  
+  <!--div class="wrapper wrapper-content" ng-controller="DocsController">
+  <div class="row">
+  <div class="col-lg-3">
+  <div class="ibox float-e-margins">
+  <div class="ibox-content">
+  <div class="file-manager">
+  <h5>Show:</h5>
+  <a href="" class="file-control active">Ale</a>
+  <a href="" class="file-control">Documents</a>
+  <a href="" class="file-control">Audio</a>
+  <a href="" class="file-control">Images</a>
+  
+  <div class="hr-line-dashed"></div>
+  <button class="btn btn-primary btn-block" ngf-select="uploadFiles($files, $invalidFiles)" multiple
+  accept="image/*" ngf-max-size="55MB">Upload Files</button>
+  <div class="hr-line-dashed"></div>
+  <h5>Folders</h5>
+  <ul class="folder-list" style="padding: 0">
+  <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
+  <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
+  <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
+  <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
+  <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
+  <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
+  </ul>
+  <h5 class="tag-title">Tags</h5>
+  <ul class="tag-list" style="padding: 0">
+  <li><a href="">Family</a></li>
+  <li><a href="">Work</a></li>
+  <li><a href="">Home</a></li>
+  <li><a href="">Children</a></li>
+  <li><a href="">Holidays</a></li>
+  <li><a href="">Music</a></li>
+  <li><a href="">Photography</a></li>
+  <li><a href="">Film</a></li>
+  </ul>
+  <div class="clearfix"></div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-9">
+  <div class="row">
+  <div class="col-lg-12">
+  
+  <small>You have 42 messages and 6 notifications.</small>
+  <ul class="list-group clear-list m-t">
+  
+  
+  
+  <li class="list-group-item fist-item">
+  <span class="pull-right">
+  1Mb
+  </span>
+  <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+  </li>
+  <li class="list-group-item fist-item">
+  <span class="pull-right">
+  1Mb
+  </span>
+  <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+  </li>
+  <li class="list-group-item fist-item">
+  <span class="pull-right">
+  1Mb
+  </span>
+  <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+  </li>
+  <li class="list-group-item fist-item">
+  <span class="pull-right">
+  1Mb
+  </span>
+  <a href="" class="pull-right"><i class="fa fa-tag"></i> Zender</a>
+  
+  <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+  </li>
+  
+  
+  </ul>
+  
+  
+  <div class="file-box" ng-repeat="f in files">
+  <div ng-bind="f.progress + '%'"></div>
+  <div class="file">
+  <a href="">
+  <span class="corner"></span>
+  
+  <div class="image">
+  <div style="width:{{f.progress}}%; background-color: #16977D; height:2px"></div>
+  <img alt="image" class="img-responsive" ngf-src="f" ngf-resize="{width: 100%, height: auto}">
+  </div>
+  <div class="file-name">
+  {{f.name}}
+  <br/>
+  <small>Added: Jan 6, 2014</small>
+  </div>
+  </a>
+  
+  </div>
+  </div>
+  <!--div class="row">
+  <div class="col-lg-12">
+  <h2>list foto</h2>
+  <ul>
+  <li ng-repeat="fiel in allfiels">{{fiel.fileName}}</li>
+  </ul>
+  </div>
+  </div   
+  </div>
+  </div>
+  </div>
+  </div>
+  </div-->
