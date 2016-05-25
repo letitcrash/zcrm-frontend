@@ -51,12 +51,21 @@ angular.module('inspinia')
   $scope.files = files;
   
   $scope.uploadFiles = function(files, errFiles) {
+
+  	var token = dataService.getSessionToken();
+    var userId = dataService.getUserId();
+	var upUrl = "http://uat.desk-it.com:10000/users/" + userId + "/files";
 	$scope.files = files;
 	$scope.errFiles = errFiles;
 	angular.forEach(files, function(file) {
 	  file.upload = Upload.upload({
 		url: upUrl,
-		data: {fileUpload: file}
+		data: {fileUpload: file},
+		headers: {
+          "Content-Type": "multipart/mixed",
+          "X-Access-Token": token,
+          "X-User-Id": userId
+        }
 	  });
 	  
 	  file.upload.then(function (response) {
