@@ -47,7 +47,7 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
     },
     setEmployeeUnion: function(id, uid) {
       var url;
-      url = "companies/" + dataService.getCurrentCompanyId() + "/unions/" + uid + "/employees/" + id;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/unions/" + uid;
       return requestService.ttPut(url);
     },
     "delete": function(id) {
