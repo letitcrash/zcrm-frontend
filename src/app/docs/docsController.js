@@ -10,7 +10,7 @@ angular.module('inspinia')
 	  console.log("got files");
 	  console.log(response);
 	  $scope.showLoadingMessage = false;
-	  $scope.files = response.data;
+	  $scope.files = response;
 	  $scope.totalItems = response.totalCount;
 	}, function(response) {
 	  console.log("Could not get files");
