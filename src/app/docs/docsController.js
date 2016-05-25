@@ -75,7 +75,7 @@ angular.module('inspinia')
 	  });
 	});
   }
-  
+  /*
   $scope.getUserFiles = function() {
 	//docsService.get(dataService.getEmployments().id).then(function(response) {
 	$http.get(upUrl).then(function(response) {
@@ -88,7 +88,7 @@ angular.module('inspinia')
 	  console.log(response);
 	});
   };
-  $scope.getUserFiles();
+  $scope.getUserFiles();*/
 
 });
 
