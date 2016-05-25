@@ -229,6 +229,12 @@
 					
 				<div class="col-xl-12 p-lg" ng-show="subtab == 2">
 					<ul class="list-group clear-list">
+						
+
+
+
+
+
 						<li class="list-group-item fist-item m-b-md">
 							<strong>Unions</strong>
 
@@ -257,8 +263,27 @@
 							No unions, please add one
 						</li>
 
-						<li class="list-group-item" ng-repeat="union in curentCp.unions">
-							{{union.name}}
+	
+
+						<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false" ng-repeat="union in curentCp.unions">
+							<div class="row">
+
+									<span ng-hide="editPhoneAction">{{union.name}}</span>
+									<a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editPhoneAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="currentEmp.user.contactProfile.phone" class="form-control m-b-sm">
+	                                    	<a><i class="fa fa-plus"></i> Add another telefon </a>
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+
+							</div>
 						</li>
 												
 						</ul>

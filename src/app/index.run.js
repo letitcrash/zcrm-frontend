@@ -10,7 +10,8 @@
   function initConstants($log, $rootScope, dataService, mailboxService) {
 
 
-    dataService.setBaseServiceURL('https://desk-it.com:10443/')
+//    dataService.setBaseServiceURL('https://desk-it.com:10443/')
+    dataService.setBaseServiceURL('http://192.168.1.50:9000/')
 
 
   	$rootScope.isOnSignup = false;

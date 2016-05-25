@@ -39,10 +39,10 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
       return requestService.ttPost(url, args);
     },
-    update: function(emp) {
+    updateProfile: function(emp) {
       var url;
       emp.employeeLevel = Number(emp.employeeLevel);
-      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id + "/profile";
       return requestService.ttPut(url, emp);
     },
     setEmployeeUnion: function(id, uid) {
