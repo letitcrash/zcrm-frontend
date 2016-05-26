@@ -319,6 +319,43 @@
 						</ul>
 					</div>
 
+					<div class="col-xl-12 p-lg" ng-show="subtab == 4">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Shifts</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingShift = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingShift">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newShift.name" class="form-control m-b-sm" placeholder="Enter new shift name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createShift(newShift)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingShift = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.shifts.length > 0">
+							No shifts, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="shift in curentCp.shifts">
+							{{shift.name}}
+						</li>
+												
+						</ul>
+					</div>
+
 				</div>
 
 			</div>

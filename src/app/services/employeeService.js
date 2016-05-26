@@ -35,6 +35,9 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       args.username = emp.user.contactProfile.email;
       args.contactProfile = emp.user.contactProfile;
       args.union = emp.union;
+      args.position = emp.position;
+      args.department = emp.department;
+      args.shift = emp.shift;
       args.baseUrl = routeService.getBaseServiceURL() + "/password-recovery";
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
       return requestService.ttPost(url, args);
@@ -50,6 +53,25 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/unions/" + uid;
       return requestService.ttPut(url);
     },
+
+    setEmployeeDepartment: function(id, uid) {
+      var url;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/departments/" + uid;
+      return requestService.ttPut(url);
+    },
+
+    setEmployeePosition: function(id, uid) {
+      var url;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/positions/" + uid;
+      return requestService.ttPut(url);
+    },
+
+    setEmployeeShift: function(id, uid) {
+      var url;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/shifts/" + uid;
+      return requestService.ttPut(url);
+    },
+
     "delete": function(id) {
       var url;
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id;

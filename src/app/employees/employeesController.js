@@ -219,16 +219,89 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
     });
   };
 
+
+    $scope.changeShift = function(shift) {
+    if(shift) 
+    employeeService.setEmployeeShift($scope.currentEmp.id , shift.id).then(function(response) {
+      console.log("Employee shift updated succesfully");
+      console.log(response);
+      $scope.currentEmp.shift = shift;
+      var emp = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+
+      console.log(emp);
+      emp[0].shift = shift;
+      //$scope.employees.push($scope.currentEmp);
+      //$scope.currentEmp = response;
+      $scope.editShiftAction = false;
+
+    }, function(response) {
+      console.log("Employee could not be created");
+      $scope.useralert = "Employee could not be created";
+    });
+  };
+
+
+    $scope.changeDepartment = function(dept) {
+    if(dept) 
+    employeeService.setEmployeeDepartment($scope.currentEmp.id , dept.id).then(function(response) {
+      console.log("Employee department updated succesfully");
+      console.log(response);
+      $scope.currentEmp.department = dept;
+      var emp = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+
+      console.log(emp);
+      emp[0].department = dept;
+      //$scope.employees.push($scope.currentEmp);
+      //$scope.currentEmp = response;
+      $scope.editDepartmentAction = false;
+
+    }, function(response) {
+      console.log("Employee could not be created");
+      $scope.useralert = "Employee could not be created";
+    });
+  };
+
+
+    $scope.changePosition = function(position) {
+    if(position) 
+    employeeService.setEmployeePosition($scope.currentEmp.id , position.id).then(function(response) {
+      console.log("Employee position updated succesfully");
+      console.log(response);
+      $scope.currentEmp.position = position;
+      var emp = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+
+      console.log(emp);
+      emp[0].position = position;
+      //$scope.employees.push($scope.currentEmp);
+      //$scope.currentEmp = response;
+      $scope.editPositionAction = false;
+
+    }, function(response) {
+      console.log("Employee could not be created");
+      $scope.useralert = "Employee could not be created";
+    });
+  };
+
   $scope.create = function(emp) {
     employeeService.create(emp).then(function(response) {
       console.log("Employee created succesfully");
       console.log(response);
       $scope.cancel();
       $scope.employees.push(response);
+      $scope.userFormStep = undefined;
+
+      $scope.currentEmp = angular.copy(response);
+
       //$uibModalInstance.dismiss('cancel');
       //$scope.setSelected(response.id);
       //setEmpChange(true, "Medarbetaren har skapats.");
-      $scope.closeCurrentEmp();
+      //$scope.closeCurrentEmp();
     }, function(response) {
       console.log("Employee could not be created");
       $scope.useralert = "Employee could not be created";
@@ -460,10 +533,9 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
 
 
       $scope.activeEmp = true;
-      $scope.editUser = true;
       $scope.currentEmp = {};
       $scope.currentEmp.id = null;
-
+      $scope.userFormStep = 1;
 
 
   };
