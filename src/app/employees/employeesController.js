@@ -570,14 +570,16 @@ function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
-    $scope.newPeriods = [];
     getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     //getWorkplaces(true);
   	$scope.activeEmp = false;
   	$scope.activeUsr = false;
     $scope.currentEmp = {};
   };
-  return $scope.init();
+
+    
+
+    $scope.init();
 });
 
 //# sourceMappingURL=employeesController.js.map
