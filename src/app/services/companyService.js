@@ -43,6 +43,11 @@ angular.module('inspinia').factory('companyService', function(requestService) {
       url = "companies/" + id + "/unions";
       return requestService.ttPost(url, union);
     },
+    modUnion: function(id, union) {
+      var url;
+      url = "companies/" + id + "/unions/" + union.id;
+      return requestService.ttPut(url, union);
+    },
     addDepartment: function(id, dept) {
 
       var url;

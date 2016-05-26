@@ -198,7 +198,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
   
   $scope.changeUnion = function(union) {
-    console.log("sss")
+    if(union) 
     employeeService.setEmployeeUnion($scope.currentEmp.id , union.id).then(function(response) {
       console.log("Employee union updated succesfully");
       console.log(response);

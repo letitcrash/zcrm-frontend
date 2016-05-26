@@ -186,6 +186,15 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
   };
 
 
+  $scope.modUnion = function(union) {
+    companyService.modUnion($scope.curentCp.id,union).then(function(response) {
+      $scope.editOptionAction = false;
+      console.log("mod union");
+
+    }, function(response) {
+      console.log("Failed to mod union");
+    });
+  };
 
   $scope.createPositionAction = function() {
     $scope.tab = 2;
