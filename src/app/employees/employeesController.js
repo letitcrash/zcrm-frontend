@@ -15,7 +15,6 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
 
 
-
   $scope.setSelectedButton = function(i) {
     switch (i) {
       case 1:
