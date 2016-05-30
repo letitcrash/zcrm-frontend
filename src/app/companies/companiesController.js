@@ -166,7 +166,7 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
     companyService.addShift($scope.curentCp.id, $scope.newShift).then(function(response) {
       $scope.addingShift = false;
       $scope.curentCp.shifts.push(response);
-      $scope.newUShift = {};
+      $scope.newShift = {};
     }, function(response) {
       return console.log("Failed to get companany");
     });

@@ -520,9 +520,23 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
   };
   
   $scope.openEmp = function(emp) {
-    console.log(emp)
-  	$scope.activeEmp = true;
-    $scope.currentEmp = angular.copy(emp);
+
+  companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
+      console.log("Getting company");
+
+      $scope.mycp = response;
+      console.log(emp)
+      $scope.activeEmp = true;
+      $scope.currentEmp = angular.copy(emp);
+
+    }, function(response) {
+      console.log("Failed to get company");
+    });
+
+
+
+
+  
 
   }
 
@@ -530,12 +544,21 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
 
   $scope.createUserAction = function() {
 
+    companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
+      console.log("Getting company");
 
+      $scope.mycp = response;
       $scope.activeEmp = true;
       $scope.currentEmp = {};
       $scope.currentEmp.id = null;
       $scope.userFormStep = 1;
 
+    }, function(response) {
+      console.log("Failed to get company");
+    });
+
+
+    
 
   };
 
@@ -623,17 +646,6 @@ function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
   
   $scope.init = function() {
     console.log("Running init in employeesController");
-
-        companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
-      
-      $scope.mycp = response;
-
-      //$scope.currentEmp.union = $scope.mycp.unions[0];
-      console.log(response)
-    }, function(response) {
-      console.log("Failed to get company");
-    });
-
 
 
     $scope.isCollapsed = false;
