@@ -52,10 +52,10 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
       return this.ttRequest(suburl, data, 'PUT');
     },
     ttGet: function(suburl) {
-      return this.ttRequest(suburl, '', 'GET');
+      return this.ttRequest(suburl, 'void 0', 'GET');
     },
     ttDelete: function(suburl) {
-      return this.ttRequest(suburl, '', 'DELETE');
+      return this.ttRequest(suburl, 'void 0', 'DELETE');
     },
     octetStreamRequest: function(url, method, data, callback) {
       var baseUrl, deferred, token, userId;
