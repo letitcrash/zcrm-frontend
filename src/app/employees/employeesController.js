@@ -1,7 +1,7 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScope, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
+angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
   var del, getEmployees, getWorkplaces, setEmpChange, setPasswordChange, uglyGetTime;
   $scope.setSelected = function(id) {
     console.log("selecting " + id);
@@ -431,6 +431,33 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
       return getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     });
   };
+
+/*
+  getEmployees = function(force, pageSize, pageNr, searchTerm) {
+
+    var token = dataService.getSessionToken();
+    var userId = dataService.getUserId();
+
+
+    $http({
+        method : "GET",
+        url : "http://104.155.46.243:9000/companies/" + dataService.getCurrentCompanyId() + "/employees",
+        data: '',
+        headers: {
+          "Content-Type": "application/json",
+          "X-Access-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDUk0iLCJleHAiOjE0NjQ2MDYzNjgzODMsImlhdCI6MTQ2NDYwNDU2ODM4MywidWlkIjoyLCJ1bHZsIjo5OTk5LCJjbHZsIjp7ImVtcGxveWVlSWQiOjIsImNvbXBhbnlJZCI6MiwiZW1wbG95ZWVMZXZlbCI6OTl9fQ.XDeeLXK6tr9ktmhZOVoIzbImITv3S0Uw34uXS7VJdnQ",
+          "X-User-Id": "2"
+        }
+    }).then(function mySucces(response) {
+        console.log(response)
+
+        $scope.employees = response.data;
+    }, function myError(response) {
+        console.log(response)
+    });
+  };
+*/
+
   getEmployees = function(force, pageSize, pageNr, searchTerm) {
     return employeeService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got employees");
@@ -443,6 +470,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $rootScop
       return console.log(response);
     });
   };
+
   getWorkplaces = function(force) {
     return workplaceService.getList(force).then(function(response) {
       return $scope.workplaces = response.data;

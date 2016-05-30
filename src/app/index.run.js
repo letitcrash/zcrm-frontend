@@ -10,7 +10,7 @@
   function initConstants($log, $rootScope, dataService, mailboxService) {
 
 
-    dataService.setBaseServiceURL('http://104.155.46.243:9000/')
+    dataService.setBaseServiceURL('https://desk-it.com:9443')
     //dataService.setBaseServiceURL('http://192.168.1.50:9000/')
 
 
