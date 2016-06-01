@@ -387,26 +387,60 @@
                          <div class="ibox float-e-margins">
                              <div class="ibox-title">
                                 <h5>Ticket list</h5>
-                                <button type="button" class="btn btn-primary btn-xs pull-right"><i class="fa fa-plus"></i>Add new ticket</button>
+                                <!--BUTTONS start-->
+
+                                <!--settings btn-->
+
+                                <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
+                                      <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
+                                      <i class="fa fa-cog"></i> 
+                                      </button>
+                                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                        <li role="menuitem"><a href="#"></a></li>
+                                        <li role="menuitem"><a href="#">Option1</a></li>
+                                        <li role="menuitem"><a href="#">Option2</a></li>
+                                        <li role="menuitem"><a href="#">Option3</a></li>
+                                        <li class="divider"></li>
+                                        <li role="menuitem"><a href="#">Option4</a></li>
+                                      </ul>
+                                </div>
+
+
+                                <!--create user btn-->
+                                    <button ng-click="createUserAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+                                        <i class="fa fa-plus"></i> {{ 'Add new ticket' | translate }}
+                                    </button>
+                                <!--BUTTONS end--> 
+                                 
                             </div>
                             <div class="ibox-content">
-                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                   <div class="input-group col-md-12">
-                                       <input type="text" class="form-control" placeholder="Search ticket by name..." ng-model="globalSearch.$">
-                                       <div class="input-group-btn">
-                                            <button type="button" class="btn btn-default btn-outline"><i class="fa fa-search"></i>Search</button>
-                                       </div>
-                                    </div>
-                                </div>
-                                </div>
-                              
-                                <a ng-click="isCollapsed = !isCollapsed">
-                                        <button type="button" class="btn btn-primary" style="margin-top:10px;">
-                                            <i class="fa fa-eye"></i>Show filters</button>
-                                    </a>
-                                        <!--Advanced filters start-->
-                                    <div ng-if="isCollapsed">
+                                 <!--FILTERS start-->
+                    <!--main search-->
+					<div class="input-group col-md-6 m-b-sm">
+						<input type="text" placeholder="Search..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
+
+						</span>
+
+					</div>
+                    
+                    
+                    <!--btns-->
+                    <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary">
+                        <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
+                    </button>
+                    
+                    <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
+                        <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
+                    </button>
+                    
+                    <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
+                        <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
+                    </button> 
+                    
+                    <!--advanced filters start-->
+                      <div ng-if="isCollapsed">
                                             <form role="form" class="form-inline">
                                                 <div class="form-group" style="margin-right:10px;">
                                                     <!--status-->
@@ -468,97 +502,109 @@
                                                     </div>    
                                                 </div>                                               
                                             </form> 
-                                            <!--Button group start-->
-                                            <div style="margin-top:10px;">
-                                                <button type="button" class="btn btn-warning">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                    Hide filters
-                                                </button>
-                                                <button type="button" class="btn btn-info" style="margin-left:10px;">
-                                                    <i class="fa fa-floppy-o"></i>
-                                                    Save filters
-                                                </button> 
-                                            </div>
-                                             <!--Button group end-->
                                         </div>
                                     <!--Advanced filters end-->
-                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Found tickets</div>
-                                <table class="table table-striped table-bordered table-hover dataTables-example dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" role="grid">
-                                    <thead>
-                                        <tr>
-                                            <th>Status<i class="fa fa-sort-amount-asc pull-right"></i>
-                                            </th>
-                                            <th>Priority<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Ticket<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Client<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Team<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Person<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Created<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                            <th>Deadline<i class="fa fa-sort-amount-asc pull-right"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="ticket in tickets | limitTo:10 | filter:globalSearch"  role="row"> <!--sets display limit of 10 tickets per page-->
-                                            <td>
-                                                <button type="button" class="btn btn-xs" ng-class="{'btn-success': ticket.update === 'new', 'btn-warning': ticket.update === 'overdue', 'btn-default': ticket.update === 'closed'}">{{ticket.update | uppercase}}</button>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 'high', 'btn-warning': ticket.priority === 'mid', 'btn-info': ticket.priority === 'low'}">{{ticket.priority |uppercase}}</button>
-                                            </td>
-                                            <td>
-                                                {{ticket.number | uppercase}} 
-                                            </td>
-                                            <td>
-                                                {{ticket.client}}
-                                            </td>
-                                            <td>
-                                                {{ticket.team}}
-                                            </td>
-                                            <td>
-                                                {{ticket.person}}
-                                            </td>
-                                            <td>
-                                                {{ticket.created}}
-                                            </td>
-                                            <td>
-                                                {{ticket.deadline}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                     <!--pagination start-->           
-                                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button previous disabled" id="DataTables_Table_0_previous">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a>
-                                            </li>
-                                            <li class="paginate_button active">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a>
-                                            </li>
-                                            <li class="paginate_button ">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a>
-                                            </li>
-                                            <li class="paginate_button ">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a>
-                                            </li>
-                                            <li class="paginate_button ">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a>
-                                            </li>
-                                            <li class="paginate_button ">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a>
-                                            </li>
-                                            <li class="paginate_button ">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a>
-                                            </li>
-                                            <li class="paginate_button next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">Next</a>
-                                            </li>
-                                        </ul>
+                                
+                                    
+                                    <!--Table start-->
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="margin-top:20px; font-weight:bold;">Found {{pageSize}} tickets</div>
+                    
+					               <div class="clients-list">
+								        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <i class="fa fa-check"></i>
+                                                        </th>
+                                                        <th style="margin-left:5px;">Status</th>
+                                                        <th>Priority</th>
+                                                        <th>Ticket</th>
+                                                        <th>Client</th>
+                                                        <th>Team</th>
+                                                        <th>Person</th>
+                                                        <th>Created</th>
+                                                        <th>Deadline</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <!--1-->
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" />
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-xs btn-primary">NEW</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-xs btn-outline btn-danger">HIGH</button>
+                                                        </td>
+                                                        <td>ISSUE-1</td>
+                                                        <td>Client1</td>
+                                                        <td>Team1</td>
+                                                        <td>person1@gmail.com</td>
+                                                        <td>May 12, 2016</td>
+                                                        <td>May 20, 2016</td>
+                                                    </tr>  
+                                                    
+                                                    <!--2-->
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" />
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-xs btn-default">CLOSED</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-xs btn-outline btn-warning">MID</button>
+                                                        </td>
+                                                        <td>ISSUE-2</td>
+                                                        <td>Client2</td>
+                                                        <td>Team2</td>
+                                                        <td>person2@gmail.com</td>
+                                                        <td>May 11, 2016</td>
+                                                        <td>May 13, 2016</td>
+                                                    </tr>  
+                                                </tbody>
+                                            </table>
+                                        <!--PAGINATION start-->
+							             <uib-pagination class="pull-right" total-items="totalItems" ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"></uib-pagination>
+                                        <!--PAGINATION end-->
                                     </div>
-                                    <!--pagination end--> 
-                            </table> 
-                        </div>
+                                </div>
+                                <!--Table end-->
+                                
+                                <!--Opened ticket start-->
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>ISSUE-1</h5>
+                                        <a href="#" class="btn btn-danger btn-xs btn-outline pull-right">HIGH</a>
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"  style="margin-right:5px;">NEW</a>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <dl class="dl-horizontal">
+                                                    <dt>Client:</dt> <dd>Client1</dd>
+                                                    <dt>Team:</dt> <dd>Team1</dd>
+                                                    <dt>Deadline:</dt> <dd>May 13, 2016</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-lg-10" id="cluster_info">
+                                                <dl class="dl-horizontal">
+                                                    <dt>Project description:</dt> <dd>Bacon ipsum dolor amet ribeye cow pork belly spare ribs cupim. Ground round hamburger turkey pork belly alcatra. Alcatra tongue tail hamburger chuck, pork chop turkey rump drumstick. Sirloin frankfurter tongue capicola ball tip picanha. Filet mignon beef chicken tenderloin, ground round ham hock boudin kevin pork belly short ribs turkey. Tail tenderloin cupim, kevin pork loin short loin ball tip. Jowl bacon swine ham pastrami venison bresaola fatback prosciutto strip steak, meatball pork chop.</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Opened ticket end-->
+                                
                     </div>
                 </div>
-            </div>
-                    
-           
+            </div>   
 </div>

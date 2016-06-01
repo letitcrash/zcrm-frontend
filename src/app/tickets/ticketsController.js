@@ -1,6 +1,22 @@
 'use strict';
 angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService) {
   var getTickets;
+    var dataTable;
+    
+//Inserted START
+   /* var dataTable = angular.module('inspinia');
+    dataTable.controller('dataTableCtrl', function ($scope) {
+         $scope.dataTable = [
+        {status: "new", priority: "high"},
+        {status: "closed", priority: "low"}
+    ];
+});*/
+    
+     $scope.dataTable = [
+        {status: "new", priority: "high"},
+        {status: "closed", priority: "low"}
+    ];
+//Inserted END
 
   getTickets = function(force, pageSize, pageNr, searchTerm) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
@@ -14,7 +30,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
-
+    
 
   $scope.openTicket = function (tkt) {
     $scope.activeTicket = tkt;
