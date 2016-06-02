@@ -1,390 +1,369 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Teams board</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a>App views</a>
-            </li>
-            <li class="active">
-                <strong>Teams board</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-2">
+<div class="wrapper wrapper-content  animated fadeIn" ng-controller="TeamCtrl">
+	<div class="row">
+		<div class="col-sm-12" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
+			<!--Employee page-->
+			<div class="ibox">
+				<div class="ibox-content">
+					<!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
+					<div class="btn-group pull-right" uib-dropdown is-open="status.isopen">
+					
+                    <!--create user btn-->
+						<button ng-click="createTeamAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+							<i class="fa fa-user-plus"></i> {{ 'Create team' | translate }}
+                        </button>
+                        
+						<!--<button id="single-button" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+							<i class="fa fa-user-plus "></i> {{ 'Create new' | translate }} <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+							<li role="menuitem"><a ng-click="createRoleAction()">Delegate Role</a></li>
+							<li role="menuitem"><a ng-click="createPositionAction()">Position</a></li>
+							<li role="menuitem"><a ng-click="createDepartmentAction()">Department</a></li>
+							<li role="menuitem"><a ng-click="createUnionAction()">Union</a></li>
+							<li role="menuitem"><a ng-click="createShiftAction()">Shift</a></li>
+							<li role="menuitem"><a href="#">Another action</a></li>
+							<li role="menuitem"><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li role="menuitem"><a href="#">Send group email</a></li>
+						</ul>-->
+					</div>
 
-    </div>
-</div>
-<div class="wrapper wrapper-content">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <span class="label label-primary pull-right">NEW</span>
-                    <h5>IT-01 - Design Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a5.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        It is a long established fact that a reader will be distracted by the readable content
-                        of a page when looking at its layout. The point of using Lorem Ipsum is that it has.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">48%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 48%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            12
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            4th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $200,913 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
+					<h2>{{ 'Employees' | translate }}</h2>
+					<p class="m-t-sm small">
+						<i class="fa fa-user "></i> 360 Employees 80 Industri Energi 20 Safe
+					</p>
+					<div class="input-group">
+						<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
 
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-04 - Marketing Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a5.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">32%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 32%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            24
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            3th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $190,325 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
+						</span>
 
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-07 - Finance Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">73%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 73%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            11
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            6th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $560,105 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
+					</div>
+					<a class="pull-right small m-t-sm" ng-click="isCollapsed = !isCollapsed">Advanced search</a>
 
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-02 - Developers Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">61%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 61%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            43
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            1th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $705,913 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
+					<div ng-if="isCollapsed">
 
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <span class="label label-warning pull-right">DEADLINE</span>
-                    <h5>IT-05 - Administration Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">14%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 14%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            8
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            7th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $40,200 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
+						<div class="row m-t-lg">
+							<div class="col-md-3">
+								<div class="control-group">
+									<label class="form-label">Union</label>
+									<div class="controls">
+										<input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+									</div>
 
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-08 - Lorem ipsum Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Many desktop publishing packages and web page editors now use Lorem Ipsum as their. ometimes by accident, sometimes on purpose (injected humour and the like).
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">25%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 25%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            25
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            4th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $140,105 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="ibox">
-                <div class="ibox-title">
-
-                    <h5>IT-02 - Graphic Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">82%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 82%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            68
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            2th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $701,400 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-06 - Standard  Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">26%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 26%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            16
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            8th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $160,100 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>IT-09 - Modern Team</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="team-members">
-                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg"></a>
-                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                    </div>
-                    <h4>Info about Design Team</h4>
-                    <p>
-                        Words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in.
-                    </p>
-                    <div>
-                        <span>Status of current project:</span>
-                        <div class="stat-percent">18%</div>
-                        <div class="progress progress-mini">
-                            <div style="width: 18%;" class="progress-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row  m-t-sm">
-                        <div class="col-sm-4">
-                            <div class="font-bold">PROJECTS</div>
-                            53
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="font-bold">RANKING</div>
-                            9th
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <div class="font-bold">BUDGET</div>
-                            $60,140 <i class="fa fa-level-up text-navy"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+									<ul class="list-group clear-list m-t">
+										<li class="list-group-item fist-item">
+											<span class="">
+												IE Industri Enegry
+											</span>
+											<span class="label label-success pull-right">x</span>
+										</li>
 
 
-</div>
+									</ul>
+
+									<div class="margin-bottom-15 ng-scope" >
+										<team cp="tm" class="ng-binding ng-isolate-scope">netSolution</team>
+										<button class="btn-success pull-right" ng-click="removeFilterModerbolag(tm)">X</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="control-group">
+									<label class="form-label">Department</label>
+									<div class="controls">
+										<input name="textinput" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" ng-model="selected.user.contactProfile.lastname" required="" tt-required-text="">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="control-group">
+									<label class="form-label">Position</label>
+									<div class="controls">
+										<input name="textinput" type="tel" class="form-control ng-pristine ng-untouched ng-valid" ng-model="selected.user.contactProfile.phoneNumberMobile">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="control-group">
+									<label class="form-label">Shift</label>
+									<div class="controls">
+										<input name="textinput" type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-valid ng-valid-required" ng-model="selected.user.contactProfile.email" required="" tt-required-text="">
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+
+					<div class="clients-list">
+						<ul class="nav nav-tabs">
+							<li ng-class="{'active' : tab == 1}"><a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-users"></i>{{ 'Teams' | translate }}</a></li>
+							<li ng-class="{'active' : tab == 2}"><a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'Positions' | translate }}</a></li>
+
+
+						</ul>
+
+						<div class="tab-content">
+							<div id="tab-1" class="tab-pane active" ng-show="tab == 1">
+								<div class="full-height-scroll" full-scroll>
+									<div class="table-responsive">
+										<table class="table table-striped table-hover">
+
+											<thead>
+												<tr>
+													<th style="width:35px;border-left: 1px solid #DDDDDD;"> <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+													<th><a class="list-refresh" href=""><i class="fa fa-filter"></i></a> <a class="list-refresh" href=""><i class="fa fa-refresh"></i></a> </th>
+													<th>Team Name <a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
+													<th>Email</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr ng-repeat="tm in teams" tm-element="tm" on-edit="openCp(tm)">{{tm}}</tr>
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<div id="tab-2" class="tab-pane active" ng-show="tab == 2">
+								<div class="full-height-scroll" full-scroll>
+									<div class="table-responsive">
+										<table class="table table-striped table-hover">
+											<tbody>
+											<thead>
+												<tr>
+													<th style="width:35px;border-left: 1px solid #DDDDDD;"> <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+													<th>Name</th>
+													<th>Created</th>
+												</tr>
+											</thead>
+
+												<tr>
+													<td style="width:35px;"> <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
+													<td>DEP</td>
+													<td>Union</td>
+
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>				
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- currentCp.*** is team info -->
+		<div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : activeEmp}" ng-show="activeEmp">
+			<h2>{{curentCp.name}}</h2>
+			<div class="contact-box center-version col-xl-12 tabs-container">
+				<div class="contact-box-top nav-tabs">
+					<div class="visible-xl">
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
+						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(emp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+
+
+					</div>
+
+					<div class="hidden-xl">
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1"> <i class="fa fa-comments"></i> Positions</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2"> <i class="fa fa-user"></i> Unions</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3"> <i class="fa fa-list"></i> Departments</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4"> <i class="fa fa-pencil"></i> Shifts</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 5"> <i class="fa fa-print"></i> Roles</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 6"> <i class="fa fa-cogs"></i> Settings</button>
+						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="editUser = false" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+
+					</div>
+
+				</div>
+
+
+				<div class="col-xl-12 p-lg" ng-show="subtab == 1">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Positions</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingPosition = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingPosition">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newPosition.name" class="form-control m-b-sm" placeholder="Enter new position name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createPosition(newPosition)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingPosition = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.positions.length > 0">
+							No positions, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="position in curentCp.positions">
+							{{position.name}}
+						</li>
+												
+						</ul>
+					</div>
+
+
+					
+				<div class="col-xl-12 p-lg" ng-show="subtab == 2">
+					<ul class="list-group clear-list">
+						
+
+
+
+
+
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Unions</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingUnion = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingUnion">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newUnion.name" class="form-control m-b-sm" placeholder="Enter new union name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createUnion(newPosition)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingUnion = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.unions.length > 0">
+							No unions, please add one
+						</li>
+
+						<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false" ng-repeat="union in curentCp.unions">
+									<span ng-hide="editOptionAction">{{union.name}}</span>
+									<a  class="pull-right" ng-show="editPhone && !editOptionAction" href ng-click="editOptionAction = true"><i class="fa fa-pencil"></i> Edit </a>
+
+									<form role="form" ng-show="editOptionAction">
+	                                    <div class="form-group">
+	                                    	<input type="text" ng-model="union.name" class="form-control m-b-sm">
+	                                    </div>
+	                                    <div>
+	                                        <button class="btn btn-sm btn-primary" ng-click="modUnion(union)">Save</button>
+	                                        <button class="btn btn-sm btn-default" ng-click="editOptionAction = false">Cancel</button>
+
+	                                    </div>
+                                </form>
+						</li>
+												
+						</ul>
+					</div>
+
+					<div class="col-xl-12 p-lg" ng-show="subtab == 3">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Departments</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingDept = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingDept">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newDept.name" class="form-control m-b-sm" placeholder="Enter new department name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createDepartment(newDept)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingDept = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.departmets.length > 0">
+							No departments, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="dept in curentCp.departmets">
+							{{dept.name}}
+						</li>
+												
+						</ul>
+					</div>
+
+					<div class="col-xl-12 p-lg" ng-show="subtab == 4">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Shifts</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingShift = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingShift">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newShift.name" class="form-control m-b-sm" placeholder="Enter new shift name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createShift(newShift)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingShift = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.shifts.length > 0">
+							No shifts, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="shift in curentCp.shifts">
+							{{shift.name}}
+						</li>
+												
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
