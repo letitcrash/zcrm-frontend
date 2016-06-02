@@ -626,7 +626,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     $scope.currentFilters = {};
     $scope.isCollapsed = false;
     $scope.showLoadingMessage = true;
-    $scope.pageSize = 10;
+    $scope.pageSize = 15;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     //getWorkplaces(true);
