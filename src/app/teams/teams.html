@@ -228,8 +228,14 @@
 
 											<form role="form">
 			                                    <div class="form-group">
-			                                    	<input type="text" ng-model="newTeamMember.name" class="form-control m-b-sm" placeholder="Enter employee name or email">
+												  
+			                                    	<input	type="text" class="form-control m-b-sm" placeholder="Enter employee name or email"
+															ng-model="newTeamMember.name"
+															uib-typeahead="emp.user.contactProfile.firstname for emp in employees | limitTo:10"
+															typeahead-loading="loadingLocations"
+															typeahead-no-results="noResults">
 			                                    </div>
+			                                    <pre>{{employees}}</pre>
 			                                    <div>
 			                                        <button class="btn btn-sm btn-primary" ng-click=addTeamMember(newTeamMember)>Add</button>
 			                                        <button class="btn btn-sm btn-default" ng-click="addingPosition = false">Cancel</button>
@@ -257,6 +263,109 @@
 				</div>
 
 			</div>
+
+       <!--NEW EMPLOYEE start-->
+
+        <div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : activeEmp}" ng-show="activeEmp">
+
+
+			<div class="contact-box center-version col-xl-12" ng-if="currentEmp.id == null">
+				<div class="contact-box-top">
+
+
+					<h2>{{ 'Create new team' | translate }}
+
+					<a ng-click="closeCurrentEmp()" class="pull-right"><i class="fa fa-times"></i></a>
+
+					</h2>
+
+
+				</div>
+
+
+
+				<div class="col-sm-6 col-xl-12 p-t-sm">
+
+					
+					<ul class="list-group clear-list m-t-md" ng-show="userFormStep == 1">
+						<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+									{{ 'Create Team' | translate }}
+								</div>
+								<div class="col-sm-8">
+
+							
+	                                    <input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="{{ 'Team Name' | translate }}" class="form-control m-b-sm">
+	                                   
+
+								</div>
+							</div>
+
+						</li>
+
+						<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+							<div class="row">
+								<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
+									{{ 'Add Team Members' | translate }}
+								</div>
+								<div class="col-sm-8"><!--
+
+								    <input	type="text" ng-model="customSelected" placeholder="{{ 'Enter User Name' | translate }}"
+											uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}"
+											typeahead-template-url="customTemplate.html" class="form-control"
+											typeahead-show-hint="true" typeahead-min-length="0">-->
+								    
+									<input type="text" placeholder="{{ 'Enter User Name' | translate }}" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+	                                    	<a><i class="fa fa-plus"></i> {{ 'Enter Another User' | translate }}</a>
+	                                
+								</div>
+							</div>
+						</li>
+
+						</ul>
+
+
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)"><i class="fa fa-floppy-o"></i>  {{ 'Create' | translate }}</button>
+					</div>
+
+				</div>
+
+			
+			<div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
+				<div class="contact-box-top">
+					<div class="visible-xl">
+						<button type="button" class="btn btn-sm btn-white m-r-lg"> <i class="fa fa-chevron-left"></i> </button>
+						
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+
+
+					</div>
+
+					<div class="hidden-xl">
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
+						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
+						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
 
 		</div>
 	</div>

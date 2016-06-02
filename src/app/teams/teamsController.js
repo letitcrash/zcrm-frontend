@@ -1,6 +1,6 @@
 'use strict';
-angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, teamService, generalUtils, dataService) {
-  var del;
+angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, teamService, generalUtils, dataService, employeeService) {
+  var del, getEmployees, force, pageSize, pageNr, searchTerm;
   $scope.cancel = function() {
     $scope.teams = generalUtils.withoutUndefined($scope.teams);
     if (($scope.editId != null)) {
@@ -10,6 +10,15 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
       return $scope.editId = void 0;
     }
   };
+  
+  employeeService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+	console.log("got employees");
+	console.log(response);
+	$scope.employees = response.data;
+  }, function(response) {
+	console.log("Could not get employees");
+	return console.log(response);
+  });
   
   $scope.createTeamAction = function() {
 	
