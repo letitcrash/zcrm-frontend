@@ -1,7 +1,20 @@
 'use strict';
 angular.module('inspinia').factory('employeeService', function(requestService, dataService, routeService) {
-  var getListRequest;
-  getListRequest = function(pageSize, pageNr, searchTerm) {
+  var getListRequest, getStringFromJSON;
+  
+  getStringFromJSON = function(obj, searchFileld) {
+    var k, str, v;
+    str = "";
+    for (k in obj) {
+      v = obj[k];
+      console.log(k + " is " + v);
+      str = str + "&"+searchFileld+"=" + k;
+    }
+    return str;
+  };
+
+
+  getListRequest = function(pageSize, pageNr, searchTerm, filter) {
     var url;
     if (pageSize !== void 0 && pageNr !== void 0) {
       if (searchTerm) {
@@ -12,6 +25,10 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
     } else {
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
     }
+
+    if(filter) {
+      url = url + getStringFromJSON(filter.unions, "unionIds");
+    }
     return requestService.ttGet(url);
   };
   return {
@@ -20,8 +37,8 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       Used to retrieve list of employees. The employees are stored in the service for reuse.
       In order to update the list of employees a page refresh is needed or calling this function with param force
      */
-    getList: function(force, pageSize, pageNr, searchTerm) {
-      return getListRequest(pageSize, pageNr, searchTerm);
+    getList: function(force, pageSize, pageNr, searchTerm, filter) {
+      return getListRequest(pageSize, pageNr, searchTerm, filter);
     },
     get: function(id) {
       var url;
