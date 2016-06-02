@@ -164,7 +164,6 @@
 		</div>
 		<!-- currentCp.*** is team info -->
 		<div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : activeTeam}" ng-show="activeTeam">
-			<h2>{{currentTeam.name}}</h2>
 			<div class="contact-box center-version col-xl-12 tabs-container">
 				<div class="contact-box-top nav-tabs">
 					<div class="visible-xl">
@@ -253,136 +252,7 @@
 
 				</div>
 
-			
-					
-				<div class="col-xl-12 p-lg" ng-show="subtab == 2">
-					<ul class="list-group clear-list">
-						
 
-
-
-
-
-						<li class="list-group-item fist-item m-b-md">
-							<strong>Unions</strong>
-
-							<span class="pull-right">
-								<a ng-click="addingUnion = true"> <i class="fa fa-plus"></i> Add</a>
-                            </span>
-
-							<div ng-show="addingUnion">
-								<div class="m-t-md m-b-md">
-
-											<form role="form">
-			                                    <div class="form-group">
-			                                    	<input type="text" ng-model="newUnion.name" class="form-control m-b-sm" placeholder="Enter new union name">
-			                                    </div>
-			                                    <div>
-			                                        <button class="btn btn-sm btn-primary" ng-click=createUnion(newPosition)>Save</button>
-			                                        <button class="btn btn-sm btn-default" ng-click="addingUnion = false">Cancel</button>
-
-			                                    </div>
-		                                </form>
-								</div>
-							</div>
-
-						</li>
-						<li class="list-group-item" ng-hide="curentCp.unions.length > 0">
-							No unions, please add one
-						</li>
-
-						<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false" ng-repeat="union in curentCp.unions">
-									<span ng-hide="editOptionAction">{{union.name}}</span>
-									<a  class="pull-right" ng-show="editPhone && !editOptionAction" href ng-click="editOptionAction = true"><i class="fa fa-pencil"></i> Edit </a>
-
-									<form role="form" ng-show="editOptionAction">
-	                                    <div class="form-group">
-	                                    	<input type="text" ng-model="union.name" class="form-control m-b-sm">
-	                                    </div>
-	                                    <div>
-	                                        <button class="btn btn-sm btn-primary" ng-click="modUnion(union)">Save</button>
-	                                        <button class="btn btn-sm btn-default" ng-click="editOptionAction = false">Cancel</button>
-
-	                                    </div>
-                                </form>
-						</li>
-												
-						</ul>
-					</div>
-
-					<div class="col-xl-12 p-lg" ng-show="subtab == 3">
-					<ul class="list-group clear-list">
-						<li class="list-group-item fist-item m-b-md">
-							<strong>Departments</strong>
-
-							<span class="pull-right">
-								<a ng-click="addingDept = true"> <i class="fa fa-plus"></i> Add</a>
-                            </span>
-
-							<div ng-show="addingDept">
-								<div class="m-t-md m-b-md">
-
-											<form role="form">
-			                                    <div class="form-group">
-			                                    	<input type="text" ng-model="newDept.name" class="form-control m-b-sm" placeholder="Enter new department name">
-			                                    </div>
-			                                    <div>
-			                                        <button class="btn btn-sm btn-primary" ng-click=createDepartment(newDept)>Save</button>
-			                                        <button class="btn btn-sm btn-default" ng-click="addingDept = false">Cancel</button>
-
-			                                    </div>
-		                                </form>
-								</div>
-							</div>
-
-						</li>
-						<li class="list-group-item" ng-hide="curentCp.departmets.length > 0">
-							No departments, please add one
-						</li>
-
-						<li class="list-group-item" ng-repeat="dept in curentCp.departmets">
-							{{dept.name}}
-						</li>
-												
-						</ul>
-					</div>
-
-					<div class="col-xl-12 p-lg" ng-show="subtab == 4">
-					<ul class="list-group clear-list">
-						<li class="list-group-item fist-item m-b-md">
-							<strong>Shifts</strong>
-
-							<span class="pull-right">
-								<a ng-click="addingShift = true"> <i class="fa fa-plus"></i> Add</a>
-                            </span>
-
-							<div ng-show="addingShift">
-								<div class="m-t-md m-b-md">
-
-											<form role="form">
-			                                    <div class="form-group">
-			                                    	<input type="text" ng-model="newShift.name" class="form-control m-b-sm" placeholder="Enter new shift name">
-			                                    </div>
-			                                    <div>
-			                                        <button class="btn btn-sm btn-primary" ng-click=createShift(newShift)>Save</button>
-			                                        <button class="btn btn-sm btn-default" ng-click="addingShift = false">Cancel</button>
-
-			                                    </div>
-		                                </form>
-								</div>
-							</div>
-
-						</li>
-						<li class="list-group-item" ng-hide="curentCp.shifts.length > 0">
-							No shifts, please add one
-						</li>
-
-						<li class="list-group-item" ng-repeat="shift in curentCp.shifts">
-							{{shift.name}}
-						</li>
-												
-						</ul>
-					</div>
 
 				</div>
 
