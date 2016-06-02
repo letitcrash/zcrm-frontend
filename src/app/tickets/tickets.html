@@ -384,7 +384,7 @@
         <div class="row">
             
                 <div class="col-md-12">
-                         <div class="ibox float-e-margins">
+                         <div class="ibox float-e-margins" ng-hide="showStuff">
                              <div class="ibox-title">
                                 <h5>Ticket list</h5>
                                 <!--BUTTONS start-->
@@ -529,42 +529,35 @@
                                                 </thead>
                                                 <tbody>
                                                      <!--1-->
-                                                    <tr>
+                                                    <tr ng-repeat="idata in itable | limitTo:10 | filter:globalSearch"  role="row"> <!--sets display limit of 10 tickets per page-->
                                                         <td>
                                                             <input type="checkbox" />
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-xs btn-primary">NEW</button>
+                                                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': idata.update === 'new', 'btn-warning': idata.update === 'overdue', 'btn-default': idata.update === 'closed'}">{{idata.update | uppercase}}</button>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-xs btn-outline btn-danger">HIGH</button>
-                                                        </td>
-                                                        <td>ISSUE-1</td>
-                                                        <td>Client1</td>
-                                                        <td>Team1</td>
-                                                        <td>person1@gmail.com</td>
-                                                        <td>May 12, 2016</td>
-                                                        <td>May 20, 2016</td>
-                                                    </tr>  
-                                                    
-                                                    <!--2-->
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" />
+                                                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': idata.priority === 'high', 'btn-warning': idata.priority === 'mid', 'btn-info': idata.priority === 'low'}">{{idata.priority |uppercase}}</button>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-xs btn-default">CLOSED</button>
+                                                            <a href ng-click="openTicket(idata)">{{idata.number | uppercase}} </a>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-xs btn-outline btn-warning">MID</button>
+                                                            {{idata.client}}
                                                         </td>
-                                                        <td>ISSUE-2</td>
-                                                        <td>Client2</td>
-                                                        <td>Team2</td>
-                                                        <td>person2@gmail.com</td>
-                                                        <td>May 11, 2016</td>
-                                                        <td>May 13, 2016</td>
-                                                    </tr>  
+                                                        <td>
+                                                            {{idata.team}}
+                                                        </td>
+                                                        <td>
+                                                            {{idata.person}}
+                                                        </td>
+                                                        <td>
+                                                            {{idata.created}}
+                                                        </td>
+                                                        <td>
+                                                            {{idata.deadline}}
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         <!--PAGINATION start-->
@@ -573,38 +566,839 @@
                                     </div>
                                 </div>
                                 <!--Table end-->
-                                
-                                <!--Opened ticket start-->
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <h5>ISSUE-1</h5>
-                                        <a href="#" class="btn btn-danger btn-xs btn-outline pull-right">HIGH</a>
-                                        <a href="#" class="btn btn-primary btn-xs pull-right"  style="margin-right:5px;">NEW</a>
-                                    </div>
+                    </div>
+                </div> <!--ibox end-->
+                    
+                <!--OPENED TICKET START-->
+                    <div class="row" ng-show="showStuff" >
+                        <div class="col-md-3" ng-hide="hideIssuesList">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Found 3 tickets</h5>
+                                    <button ng-click="hideIssuesList=true" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times" style="margin-right:5px;"></i>Close</button>
+                                </div>
+                                <div class="ibox-content">
+                                    <ul class="list-group elements-list">
+                                        <li ng-repeat="issue in issues" class="list-group-item">
+                                            <a data-toggle="tab" href="#tab-1">
+                                                <input type="checkbox" style="margin-right:5px;" />
+                                                <strong>{{issue.issueName}}</strong>
+                                                <span class="pull-right">By <strong>{{issue.issueCreatedBy}}</strong> {{issue.issueDate}}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                                <div class="col-md-9" ng-class="{'col-md-12': hideIssuesList}">
+                                    <div class="ibox">
+                                        <div class="ibox-title">
+                                            <h5>ISSUE-1</h5>
+                                            <span>by <b>Monica Smith</b> May 13, 2016</span>
+                                            <a href="#" class="btn btn-danger btn-xs btn-outline pull-right">HIGH</a>
+                                            <a href="#" class="btn btn-primary btn-xs pull-right"  style="margin-right:5px;">NEW</a>
+                                        </div>
+                                    
                                     <div class="ibox-content">
+                                        
                                         <div class="row">
                                             <div class="col-lg-2">
                                                 <dl class="dl-horizontal">
-                                                    <dt>Client:</dt> <dd>Client1</dd>
+                                                    <dt>Client:</dt><dd>Client1</dd>
                                                     <dt>Team:</dt> <dd>Team1</dd>
                                                     <dt>Deadline:</dt> <dd>May 13, 2016</dd>
                                                 </dl>
                                             </div>
                                             <div class="col-lg-10" id="cluster_info">
-                                                <dl class="dl-horizontal">
+                                                <dl class="dl-horizontal" style="margin-left:0; padding-left:0;">
                                                     <dt>Project description:</dt> <dd>Bacon ipsum dolor amet ribeye cow pork belly spare ribs cupim. Ground round hamburger turkey pork belly alcatra. Alcatra tongue tail hamburger chuck, pork chop turkey rump drumstick. Sirloin frankfurter tongue capicola ball tip picanha. Filet mignon beef chicken tenderloin, ground round ham hock boudin kevin pork belly short ribs turkey. Tail tenderloin cupim, kevin pork loin short loin ball tip. Jowl bacon swine ham pastrami venison bresaola fatback prosciutto strip steak, meatball pork chop.</dd>
                                                 </dl>
                                             </div>
                                         </div>
                                         
-                                        <div class="row">
+                                        <!--TABS START-->
+                                        <div class="tabs" ng-controller="TabsCtrl">
                                             
+                                            <div class="btn-group" role="group" style="margin: 30px 0;">
+                                                <button type="button" ng-class="{'active': (selected == 1)}" ng-click='selected=1' class="btn btn-default btn-md">Conversations</button>
+                                                <button type="button" ng-class="{'active': (selected == 2)}" ng-click='selected=2' class="btn btn-default btn-md">Timeline</button>
+                                                <button type="button" ng-class="{'active': (selected == 3)}" ng-click='selected=3' class="btn btn-default btn-md">Attached files</button>
+                                                <button type="button" ng-class="{'active': (selected == 4)}" ng-click='selected=4' class="btn btn-default btn-md">History</button>
+                                            </div>
+                                           
+                                            <div ng-show="selected == 1">
+                                                <!--1 CONVERSATIONS TAB START-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="fh-breadcrumb">
+
+                                                    <div class="fh-column">
+                                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll" style="overflow: hidden; width: auto; height: 100%;">
+                                                            <ul class="list-group elements-list">
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-1">
+                                                                        <small class="pull-right text-muted">Today</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Ann Smith</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p>
+                                                                                Survived not only five centuries, but also the leap scrambled it to make.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item active">
+                                                                    <a data-toggle="tab" href="#tab-2">
+                                                                        <small class="pull-right text-muted"> 11.10.2015</small>
+                                                                        <input type="checkbox" checked style="margin-right:5px;" />
+                                                                        <strong>Flygon</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                There are many variations of passages of Lorem Ipsum.
+                                                                                <br>
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-down" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                    
+                                                                </li>
+                                                                <!--thread-->
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-2">
+                                                                        <small class="pull-right text-muted"> 11.10.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Slowpoke</strong>
+                                                                    </a> 
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-2">
+                                                                        <small class="pull-right text-muted"> 11.10.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Flygon</strong>
+                                                                    </a> 
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-2">
+                                                                        <small class="pull-right text-muted"> 11.10.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Slowpoke</strong>
+                                                                    </a> 
+                                                                </li>
+                                                                <!--thread-->
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-3">
+                                                                        <small class="pull-right text-muted"> 08.04.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Michael Jackson</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                Look even slightly believable. If you are going to use a passage of.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-4">
+                                                                        <small class="pull-right text-muted"> 16.02.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Mark Smith</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                It was popularised in the 1960s with the release of Letraset sheets
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-1">
+                                                                        <small class="pull-right text-muted"> 21.04.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Monica Novak</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                Printer took a galley of type and scrambled.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-2">
+                                                                        <small class="pull-right text-muted"> 03.12.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Jack Smith</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                Also the leap into electronic typesetting, remaining.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                               <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-3">
+                                                                        <small class="pull-right text-muted"> 08.04.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Michael Jackson</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                Look even slightly believable. If you are going to use a passage of.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-4">
+                                                                        <small class="pull-right text-muted"> 16.02.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Mark Smith</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                It was popularised in the 1960s with the release of Letraset sheets
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                               <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <a data-toggle="tab" href="#tab-1"> 
+                                                                        <small class="pull-right text-muted"> 21.04.2015</small>
+                                                                        <input type="checkbox" style="margin-right:5px;" />
+                                                                        <strong>Monica Novak</strong>
+                                                                        <div class="small m-t-xs">
+                                                                            <p class="m-b-xs">
+                                                                                Printer took a galley of type and scrambled.
+                                                                            </p>
+                                                                            <p class="m-b-none">
+                                                                                <b><i class="fa fa-arrow-right" style="margin-right:5px;"></i>View thread</b>
+                                                                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                                                            </p>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 955.009px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                                                    </div>
+
+                                                    <div class="full-height">
+                                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll white-bg border-left" style="overflow: hidden; width: auto; height: 100%;">
+
+                                                            <div class="element-detail-box">
+
+                                                                <div class="tab-content">
+                                                                    <div id="tab-1" class="tab-pane">
+
+                                                                        <div class="pull-right">
+                                                                            <div class="tooltip-demo">
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="left" title="Plug this message"><i class="fa fa-plug"></i> Plug it</button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                            <i class="fa fa-clock-o"></i> Friday, 12 April 2014, 12:32 am
+                                                                        </div>
+
+                                                                        <h1>
+                                                                            Their separate existence is a myth
+                                                                        </h1>
+
+                                                                        <p>
+                                                                            The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.
+                                                                        </p>
+                                                                        <p>
+                                                                            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            The new common language will be more simple and regular than the existing European languages. It will be as simpl.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p>
+                                                                            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+                                                                        <p>
+                                                                            It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p class="small">
+                                                                            <strong>Best regards, Anthony Smith </strong>
+                                                                        </p>
+
+                                                                        <div class="m-t-lg">
+                                                                            <p>
+                                                                                <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
+                                                                                <a href="#">Download all</a>
+                                                                                |
+                                                                                <a href="#">View all images</a>
+                                                                            </p>
+
+                                                                            <div class="attachment">
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-file"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Document_2014.doc
+                                                                                                <br>
+                                                                                                <small>Added: Jan 11, 2014</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-line-chart"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Seels_2015.xls
+                                                                                                <br>
+                                                                                                <small>Added: May 13, 2015</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div id="tab-2" class="tab-pane active">
+                                                                        <div class="pull-right">
+                                                                            <div class="tooltip-demo">
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="left" title="Plug this message"><i class="fa fa-plug"></i> Plug it</button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                            <i class="fa fa-clock-o"></i> Monday, 21 May 2014, 10:32 am
+                                                                        </div>
+
+                                                                        <h1>
+                                                                            The European languages - same family.
+                                                                        </h1>
+
+                                                                        <p>
+                                                                            One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.
+                                                                        </p>
+                                                                        <p>
+                                                                            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p>
+                                                                            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p class="small">
+                                                                            <strong>Best regards, Anthony Smith </strong>
+                                                                        </p>
+
+                                                                        <div class="m-t-lg">
+                                                                            <p>
+                                                                                <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
+                                                                                <a href="#">Download all</a>
+                                                                                |
+                                                                                <a href="#">View all images</a>
+                                                                            </p>
+
+                                                                            <div class="attachment">
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-file"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Document_2014.doc
+                                                                                                <br>
+                                                                                                <small>Added: Jan 11, 2014</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-line-chart"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Seels_2015.xls
+                                                                                                <br>
+                                                                                                <small>Added: May 13, 2015</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div id="tab-3" class="tab-pane">
+                                                                        <div class="pull-right">
+                                                                            <div class="tooltip-demo">
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="left" title="Plug this message"><i class="fa fa-plug"></i> Plug it</button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                            <i class="fa fa-clock-o"></i> Tuesday, 15 May 2014, 10:32 am
+                                                                        </div>
+
+                                                                        <h1>
+                                                                            To take a trivial example
+                                                                        </h1>
+
+                                                                        <p>
+                                                                            But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.
+                                                                        </p>
+                                                                        <p>
+                                                                            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            he wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce.
+                                                                        </p>
+                                                                        <p class="small">
+                                                                            <strong>Best regards, Anthony Smith </strong>
+                                                                        </p>
+
+                                                                        <div class="m-t-lg">
+                                                                            <p>
+                                                                                <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
+                                                                                <a href="#">Download all</a>
+                                                                                |
+                                                                                <a href="#">View all images</a>
+                                                                            </p>
+
+                                                                            <div class="attachment">
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-file"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Document_2014.doc
+                                                                                                <br>
+                                                                                                <small>Added: Jan 11, 2014</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-line-chart"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Seels_2015.xls
+                                                                                                <br>
+                                                                                                <small>Added: May 13, 2015</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="tab-4" class="tab-pane">
+                                                                        <div class="pull-right">
+                                                                            <div class="tooltip-demo">
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="left" title="Plug this message"><i class="fa fa-plug"></i> Plug it</button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                                                                                <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                            <i class="fa fa-clock-o"></i> Thursday, 27 april 2014, 10:32 am
+                                                                        </div>
+
+                                                                        <h1>
+                                                                            Gregor Samsa woke from troubled dreams.
+                                                                        </h1>
+
+                                                                        <p>
+                                                                            His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p>
+                                                                            Travelling day in and day out. Doing business like this takes much more effort than doing your own business at home, and on top of that there's the curse of travelling, worries about making train connections, bad and irregular food, contact with different people all the time so that you can never get to know anyone or become friendly with them.
+                                                                        </p>
+
+                                                                        <p>
+                                                                            The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.
+                                                                        </p>
+                                                                        <p>
+                                                                            To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.
+                                                                        </p>
+                                                                        <p class="small">
+                                                                            <strong>Best regards, Anthony Smith </strong>
+                                                                        </p>
+
+                                                                        <div class="m-t-lg">
+                                                                            <p>
+                                                                                <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
+                                                                                <a href="#">Download all</a>
+                                                                                <a href="#">View all images</a>
+                                                                            </p>
+
+                                                                            <div class="attachment">
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-file"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Document_2014.doc
+                                                                                                <br>
+                                                                                                <small>Added: Jan 11, 2014</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="file-box">
+                                                                                    <div class="file">
+                                                                                        <a href="#">
+                                                                                            <span class="corner"></span>
+
+                                                                                            <div class="icon">
+                                                                                                <i class="fa fa-line-chart"></i>
+                                                                                            </div>
+                                                                                            <div class="file-name">
+                                                                                                Seels_2015.xls
+                                                                                                <br>
+                                                                                                <small>Added: May 13, 2015</small>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 958px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <!--1 CONVERSATIONS TAB END-->
+                                    </div>
+                                            <!--2 TIMELINE TAB START-->
+                                            <div ng-show="selected == 2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="feed-activity-list">
+
+                                                            <div class="feed-element" style="margin-top: 50px;">
+                                                                    <a href="profile.html" class="pull-left">
+                                                                        <img alt="image" class="img-circle" src="img/profile.jpg">
+                                                                    </a>
+                                                                    <div class="media-body ">
+                                                                        <small class="pull-right">5m ago</small>
+                                                                        <strong>Monica Smith</strong> posted a new blog. <br>
+                                                                        <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
+                                                                    </div>
+                                                                </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a2.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">2h ago</small>
+                                                                    <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                                    <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a3.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">2h ago</small>
+                                                                    <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                                                    <small class="text-muted">2 days ago at 8:30am</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">5h ago</small>
+                                                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a5.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">2h ago</small>
+                                                                    <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                                    <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                                                                    <div class="well">
+                                                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                                        Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="#" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a3.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">2h ago</small>
+                                                                    <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                                                    <small class="text-muted">2 days ago at 8:30am</small>
+                                                                    <div class="photos">
+                                                                        <a target="_blank" href="http://24.media.tumblr.com/20a9c501846f50c1271210639987000f/tumblr_n4vje69pJm1st5lhmo1_1280.jpg"> <img alt="image" class="feed-photo" src="img/p1.jpg"></a>
+                                                                        <a target="_blank" href="http://37.media.tumblr.com/9afe602b3e624aff6681b0b51f5a062b/tumblr_n4ef69szs71st5lhmo1_1280.jpg"> <img alt="image" class="feed-photo" src="img/p3.jpg"></a>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">23h ago</small>
+                                                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="feed-element">
+                                                                <a href="profile.html" class="pull-left">
+                                                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                                                </a>
+                                                                <div class="media-body ">
+                                                                    <small class="pull-right">46h ago</small>
+                                                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--2 TIMELINE TAB END-->
+                                            
+                                            <!--3 ATTACHED FILES TAB START-->
+                                            <div ng-show="selected == 3">
+                                                <div class="attached-files col-md-12" style="background-color:#f9f9f9; padding:20px; margin-bottom:20px;">
+                                                    <ul class="list-unstyled project-files">
+                                                        <li>
+                                                            <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+                                                            <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                                                            <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a>
+                                                            <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                                                            <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a>
+                                                            <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                                                            <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a>
+                                                            <a href="" style="margin-left:10x;"><i class="fa fa-download"></i></a>
+                                                            <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="m-t-md">
+                                                    <a href="#" class="btn btn-md btn-default"><i class="fa fa-paperclip" style="margin-right:5px;"></i>Attach</a>
+                                                </div>
+                                            </div>
+                                            <!--3 ATTACHED FILES END-->
+                                            
+                                            <!--4 HISTORY TAB START-->
+                                            <div ng-show="selected == 4">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>User</th>
+                                                        <th>Action</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>User1</td>
+                                                        <td>Action1</td>
+                                                        <td>Date1</td>
+                                                        <td>Status1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>User2</td>
+                                                        <td>Action2</td>
+                                                        <td>Date2</td>
+                                                        <td>Status2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>User3</td>
+                                                        <td>Action3</td>
+                                                        <td>Date3</td>
+                                                        <td>Status3</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!--HISTORY TAB END-->
+                                        </div>
+                                        <!--TABS END-->
+                                        
                                         </div>
                                     </div>
+                            
                                 </div>
-                                <!--Opened ticket end-->
-                                
                     </div>
-                </div>
+                    
+                         
+                                
+                        
+                                <!--Opened ticket end-->
             </div>   
 </div>

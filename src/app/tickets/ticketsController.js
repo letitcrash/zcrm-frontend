@@ -1,23 +1,30 @@
 'use strict';
 angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService) {
-  var getTickets;
-    var dataTable;
+    var getTickets;
     
-//Inserted START
-   /* var dataTable = angular.module('inspinia');
-    dataTable.controller('dataTableCtrl', function ($scope) {
-         $scope.dataTable = [
-        {status: "new", priority: "high"},
-        {status: "closed", priority: "low"}
+    //inserted
+    $scope.selected = 1;
+    $scope.issues = [
+        {issueName: "ISSUE-1", issueCreatedBy: "Monica", issueDate: "May 13, 2016"},
+        {issueName: "ISSUE-2", issueCreatedBy: "Jake", issueDate: "May 13, 2016" },
+        {issueName: "ISSUE-3", issueCreatedBy: "Flygon", issueDate: "May 13, 2016" }
     ];
-});*/
+    $scope.itable = [
+                    {update:'new', priority: 'high', number: 'Issue-1', client: 'Client-1', team: 'Team1', person: 'person1@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'overdue', priority: 'mid', number: 'Issue-2', client: 'Client-2', team: 'Team2', person: 'person2@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'closed', priority: 'low', number: 'Issue-3', client: 'Client-3', team: 'Team3', person: 'person3@gmail.com', created: '13.05.2016', deadline: 'Today'}, 
+                    {update:'new', priority: 'high', number: 'Issue-1', client: 'Client-1', team: 'Team1', person: 'person1@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'overdue', priority: 'mid', number: 'Issue-2', client: 'Client-2', team: 'Team2', person: 'person2@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'closed', priority: 'low', number: 'Issue-3', client: 'Client-3', team: 'Team3', person: 'person3@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'new', priority: 'high', number: 'Issue-1', client: 'Client-1', team: 'Team1', person: 'person1@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'overdue', priority: 'mid', number: 'Issue-2', client: 'Client-2', team: 'Team2', person: 'person2@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'closed', priority: 'low', number: 'Issue-3', client: 'Client-3', team: 'Team3', person: 'person3@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                     {update:'new', priority: 'high', number: 'Issue-1', client: 'Client-1', team: 'Team1', person: 'person1@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'overdue', priority: 'mid', number: 'Issue-2', client: 'Client-2', team: 'Team2', person: 'person2@gmail.com', created: '13.05.2016', deadline: 'Today'},
+                    {update:'closed', priority: 'low', number: 'Issue-3', client: 'Client-3', team: 'Team3', person: 'person3@gmail.com', created: '13.05.2016', deadline: 'Today'}
+                ];
+    //inserted
     
-     $scope.dataTable = [
-        {status: "new", priority: "high"},
-        {status: "closed", priority: "low"}
-    ];
-//Inserted END
-
   getTickets = function(force, pageSize, pageNr, searchTerm) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
@@ -34,7 +41,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.openTicket = function (tkt) {
     $scope.activeTicket = tkt;
-    $scope.showTicket = true;
+    $scope.showStuff = true;
     //$window.location.href = '/#/index/tickets/' + tkt.id;
 
   };
