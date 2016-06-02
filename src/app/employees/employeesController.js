@@ -533,21 +533,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
 
   $scope.createUserAction = function() {
 
-    companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
-      console.log("Getting company");
 
-      $scope.mycp = response;
       $scope.activeEmp = true;
       $scope.currentEmp = {};
       $scope.currentEmp.id = null;
       $scope.userFormStep = 1;
-
-    }, function(response) {
-      console.log("Failed to get company");
-    });
-
-
-    
 
   };
 
@@ -629,17 +619,9 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   
   $scope.init = function() {
     console.log("Running init in employeesController");
-        getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
 
 
-    companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
-      console.log("Getting company");
-
-      $scope.mycp = response;
-      
-    }, function(response) {
-      console.log("Failed to get company");
-    });
+ 
     $scope.unionFilterState = ''
     $scope.currentFilters = {};
     $scope.isCollapsed = false;
@@ -656,7 +638,17 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     $scope.filter.positions = {};
     $scope.filter.departments = {};
     $scope.filter.shifts = {};
+    getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
 
+
+   companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
+      console.log("Getting company");
+
+      $scope.mycp = response;
+      
+    }, function(response) {
+      console.log("Failed to get company");
+    });
 
   };
 
