@@ -13,19 +13,14 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
   
   $scope.createTeamAction = function() {
 	
-	teamService.get(dataService.getCurrentCompanyId()).then(function(response) {
-	  console.log("Getting company");
+
+	  $scope.activeTeam = true;
+	  $scope.currentTeam = {};
+	  $scope.currentTeam.id = null;
 	  
-	  $scope.mycp = response;
-	  $scope.activeEmp = true;
-	  $scope.currentEmp = {};
-	  $scope.currentEmp.id = null;
-	  $scope.userFormStep = 1;
-	  
-	}, function(response) {
-	  console.log("Failed to get company");
-	});
   };
+
+
   $scope.getTeamsList = function(force, pageSize, pageNr, searchTerm) {
     teamService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       $scope.teams = response.data;
@@ -131,15 +126,11 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
     return $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
 
-  $scope.openCp = function(cp) {
-    console.log(cp)
-    return teamService.get(cp.id).then(function(response) {
-      $scope.curentCp = response;
-      $scope.activeEmp = true;
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
-
+  $scope.openTeam = function(team) {
+    console.log(team)
+    $scope.currentTeam = team;
+    $scope.activeTeam = true;
+    
   };
   
   $scope.createPosition = function() {
