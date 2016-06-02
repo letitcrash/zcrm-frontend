@@ -306,32 +306,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
       $scope.useralert = "Employee could not be created";
     });
   };
-  $scope.updatePeriod = function(emp, p) {
-    var blip, date, empId, period;
-    empId = emp.id;
-    period = {
-      id: p.id,
-      workplaceId: p.workplace.id,
-      blips: p.blips
-    };
-    date = new Date();
-    blip = {
-      typeOf: 2,
-      timestamp: date.getTime()
-    };
-    period.blips.push(blip);
-    console.log("workplace id: " + period.workplaceId);
-    return periodService.update(empId, period).then(function(response) {
-      console.log("Successful");
-      $scope.selected = void 0;
-      $scope.setAlertMessage(true, "Utcheckad!");
-      return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    }, function(response) {
-      console.log("Failed");
-      console.log(response);
-      return $scope.setAlertMessage(false, "Utcheckningen kunde inte genomföras!");
-    });
-  };
+
   $scope.update = function(emp) {
     console.log(emp);
     return employeeService.updateProfile(emp.user.contactProfile).then(function(response) {
@@ -428,7 +403,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     DELAY_AMOUNT = 500;
     DELAY_KEY = "searchEmployeeDelay";
     return generalUtils.delayFunction(DELAY_KEY, DELAY_AMOUNT).then(function() {
-      return getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+      return getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
     });
   };
 
@@ -458,8 +433,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   };
 */
 
-  getEmployees = function(force, pageSize, pageNr, searchTerm) {
-    return employeeService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+  getEmployees = function(force, pageSize, pageNr, searchTerm, filter) {
+    employeeService.getList(force, pageSize, pageNr, searchTerm, filter).then(function(response) {
       console.log("got employees");
       console.log(response);
       $scope.showLoadingMessage = false;
@@ -548,23 +523,9 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   };
   
   $scope.openEmp = function(emp) {
-
-  companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
-      console.log("Getting company");
-
-      $scope.mycp = response;
       console.log(emp)
       $scope.activeEmp = true;
       $scope.currentEmp = angular.copy(emp);
-
-    }, function(response) {
-      console.log("Failed to get company");
-    });
-
-
-
-
-  
 
   }
 
@@ -642,50 +603,61 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
 
 
 
-function ModalInstanceCtrl ($scope, $uibModalInstance, employeeService) {
-
-    $scope.ok = function (user) {
-        $uibModalInstance.close();
-        employeeService.create(user).then(function(response) {
-          console.log("Employee created succesfully");
-          console.log(response);
-          $scope.employees.push(response);
-          //$uibModalInstance.dismiss('cancel');
-          //$scope.setSelected(response.id);
-          //setEmpChange(true, "Medarbetaren har skapats.");
-        }, function(response) {
-          console.log("Employee could not be created");
-          $scope.useralert = "Employee could not be created";
-        });
-    };
-
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
-
-
-};
-
   $scope.close = function(emp) {
 	$scope.activeEmp = false;
 	$scope.curentEmp = emp;
   }
+  var _selected;
+
+
+  $scope.$watch('currentFilters.union', function(union) {
+    console.log(union)
+    var exists;
+    if ((union != null) && !isNaN(union.id)) {
+      exists = $scope.filter.unions[union.id] !== void 0;
+      if (!exists) {
+        $scope.filter.unions[union.id] = union;
+        $scope.currentFilters.union = '';
+      } else {
+        console.log("Already added");
+      }
+      $scope.currentFilters.union = '';
+      getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+    }
+  });
+
   
   $scope.init = function() {
     console.log("Running init in employeesController");
+        getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
 
 
+    companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
+      console.log("Getting company");
+
+      $scope.mycp = response;
+      
+    }, function(response) {
+      console.log("Failed to get company");
+    });
+    $scope.unionFilterState = ''
+    $scope.currentFilters = {};
     $scope.isCollapsed = false;
     $scope.showLoadingMessage = true;
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
-    getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     //getWorkplaces(true);
   	$scope.activeEmp = false;
   	$scope.activeUsr = false;
     $scope.currentEmp = {};
+    $scope.filter = {};
+    $scope.filter.unions = [];
+    $scope.filter.positions = {};
+    $scope.filter.departments = {};
+    $scope.filter.shifts = {};
+
+
   };
 
     

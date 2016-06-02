@@ -2,7 +2,7 @@
 	<div class="row">
         
         <!--EMPLOYEE PAGE start-->
-		<div class="col-sm-12" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
+		<div class="col-sm-12" ng-class="{'visible-xl col-xl-8' : activeEmp}">
 			<div class="ibox">
 				<div class="ibox-content">
 					<!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
@@ -58,27 +58,24 @@
                     <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
                         <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
                     </button> 
-                    
                     <!--advanced filters start-->
                     <div ng-if="isCollapsed">
                         
                         <!--top search fields-->
                         <form role="form" class="form-inline" style="padding-top:20px;">
                             
-                            <!--delegate role-->
-                            <div class="form-group" style="margin-right:10px;">
-                                <h4>Delegate role</h4>
-                                <div class="input-group">
-                                    <input type="text" placeholder="Delegate role..." class="form-control">
-                                </div>
-                            </div>
-                            
-                                   <!--union-->
+                            <!--union-->
                             <div class="form-group" style="margin-right:10px;">
                                 <h4>Union</h4>
                                 <div class="input-group">
-                                    <input type="text" placeholder="Union..." class="form-control">
+
+	                                <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control">
+
+
                                 </div> 
+
+                                <ul>
+                                	<li ng-repeat="union in filter.unions">{{union.name}}</li>
                             </div>
                             
                              <!--position-->
