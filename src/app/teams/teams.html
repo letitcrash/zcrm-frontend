@@ -229,8 +229,14 @@
 
 											<form role="form">
 			                                    <div class="form-group">
-			                                    	<input type="text" ng-model="newTeamMember.name" class="form-control m-b-sm" placeholder="Enter employee name or email">
+												  
+			                                    	<input	type="text" class="form-control m-b-sm" placeholder="Enter employee name or email"
+															ng-model="newTeamMember.name"
+															uib-typeahead="emp.user.contactProfile.firstname for emp in employees | limitTo:10"
+															typeahead-loading="loadingLocations"
+															typeahead-no-results="noResults">
 			                                    </div>
+			                                    <pre>{{employees}}</pre>
 			                                    <div>
 			                                        <button class="btn btn-sm btn-primary" ng-click=addTeamMember(newTeamMember)>Add</button>
 			                                        <button class="btn btn-sm btn-default" ng-click="addingPosition = false">Cancel</button>
