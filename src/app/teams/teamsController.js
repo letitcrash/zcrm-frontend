@@ -24,11 +24,25 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
 	
 
 	  $scope.activeTeam = true;
-	  $scope.currentTeam = {};
+    $scope.currentTeam = {};
+    $scope.currentTeam.members = [];
 	  $scope.currentTeam.id = null;
 	  
   };
 
+
+$scope.create = function(team) {
+  teamService.post(team).then(function(response) {
+      $scope.activeTeam = false;
+      console.log(response.data);
+      $scope.teams.push(response.data.body);
+      $scope.currentTeam = response.data.body;
+
+    }, function(response) {
+      console.log("Failed to get teams");
+    });
+
+}
 
   $scope.getTeamsList = function(force, pageSize, pageNr, searchTerm) {
     teamService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
@@ -46,11 +60,11 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
     cp = {};
     return $scope.teams.unshift(cp);
   };
-  $scope.save = function(cp) {
-    if ((cp.id != null)) {
-      return $scope.update(cp);
+  $scope.save = function(team) {
+    if ((team.id != null)) {
+      return $scope.update(team);
     } else {
-      return console.log("Create not yet implemented");
+      return $scope.create(team);
     }
   };
   $scope.update = function(cp) {
@@ -136,9 +150,18 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
   };
 
   $scope.openTeam = function(team) {
-    console.log(team)
-    $scope.currentTeam = team;
-    $scope.activeTeam = true;
+
+    teamService.get(team.id).then(function(response) {
+       
+      console.log(response);
+      $scope.currentTeam = response;
+      $scope.activeTeam = true;
+
+    }, function(response) {
+      console.log("Failed to get team members");
+    });
+
+   
     
   };
   
@@ -201,6 +224,12 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
 
   };
 
+
+$scope.addTeamMember = function(member) {
+  $scope.currentTeam.members.push(member);
+  $scope.addingTeam = false;
+  $scope.newTeamMember = undefined;
+}
 
   $scope.modUnion = function(union) {
     teamService.modUnion($scope.curentCp.id,union).then(function(response) {
