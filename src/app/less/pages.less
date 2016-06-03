@@ -892,10 +892,41 @@ dd.project-people {
   overflow: scroll;
 }
 
+.clients-list table {
+  max-width: 100%;
+  table-layout:fixed;
+} 
+.clients-list table tr {
+  max-width: 100%;
+}
+
 .clients-list table tr td {
   height: 46px;
   vertical-align: middle;
   border: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.clients-list table tr td:hover {
+  overflow: visible;
+}
+
+.clients-list table tr td div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: 0.2s;
+  height: 100%;
+  line-height: 28px;
+}
+
+.clients-list table tr td:hover div {
+  background: #f5f5f5;
+  display: inline;
+  position: relative;
+  z-index: 800;
+  border-right: 5px solid #f5f5f5;
+  text-shadow: 0 2px 2px rgba(0,0,0,.1);
 }
 
 .client-link {
