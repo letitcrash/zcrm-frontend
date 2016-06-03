@@ -906,6 +906,11 @@ dd.project-people {
   border: none;
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
+}
+
+.checktable {
+  width: 48px;
 }
 
 .clients-list table tr td:hover {
@@ -914,19 +919,24 @@ dd.project-people {
 
 .clients-list table tr td div {
   text-overflow: ellipsis;
+  display: inline;
   overflow: hidden;
   transition: 0.2s;
   height: 100%;
-  line-height: 28px;
+  max-width: 100%;
+  line-height: 48px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .clients-list table tr td:hover div {
-  background: #f5f5f5;
-  display: inline;
-  position: relative;
+  background: #fff;
+  max-width: 600px;
   z-index: 800;
-  border-right: 5px solid #f5f5f5;
-  text-shadow: 0 2px 2px rgba(0,0,0,.1);
+  left: -16px;
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
 }
 
 .client-link {
