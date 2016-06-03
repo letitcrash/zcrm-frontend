@@ -16,10 +16,11 @@
 					      <i class="fa fa-cog"></i> 
 					      </button>
 					      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-					        <li role="menuitem"><a href="#"></a></li>
-					        <li role="menuitem"><a href="#">Assign ticket</a></li>
-					        <li role="menuitem"><a href="#">Send email</a></li>
-                            <li role="menuitem"><a href="#">Export in exel</a></li>
+					        <li role="menuitem"><a href></a></li>
+					        <li role="menuitem"><a href>Assign ticket</a></li>
+					        <li role="menuitem"><a href ng-click="assignRoleAction(currentEmp)">Assign delegate role</a></li>
+					        <li role="menuitem"><a href>Send email</a></li>
+                            <li role="menuitem"><a href>Export in exel</a></li>
 					        <li class="divider"></li>
 					        <li role="menuitem"><a href="#">Delete employee</a></li>
 					      </ul>
@@ -443,19 +444,7 @@
 									Flypass
 								</div>
 								<div class="col-sm-8">
-									<span ng-hide="editFlypassAction">{{currentEmp.user.contactProfile.address}}</span>
-									<a  class="pull-right" ng-show="editFlypass && !editFlypassAction" href ng-click="editFlypassAction = true"><i class="fa fa-pencil"></i> Edit </a>
-
-									<form role="form" ng-show="editFlypassAction">
-	                                    <div class="form-group">
-	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
-	                                    </div>
-	                                    <div>
-	                                        <button class="btn btn-sm btn-primary">Save</button>
-	                                        <button class="btn btn-sm btn-default" ng-click="editFlypassAction = false">Cancel</button>
-
-	                                    </div>
-                                </form>
+									<input type="text" class="form-control" ng-model="currentEmp.flypass">
 
 								</div>
 							</div>
@@ -476,12 +465,12 @@
 			<div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
 				<div class="contact-box-top">
 					<div class="visible-xl">
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
-						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
-						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
+
+
 						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
@@ -505,8 +494,7 @@
 				<a class="p-n col-sm-6 col-xl-12">
 
 					<div class="col-xl-12 col-sm-12">
-						<img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
-						<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" ng-show="editUser">
+						<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
 
 						<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
 
@@ -529,7 +517,7 @@
 
 
 
-				<div class="col-sm-6 col-xl-12 p-t-sm">
+				<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 1">
 
 					
 					<ul class="list-group clear-list m-t-md">
@@ -776,9 +764,16 @@
 									<a  class="pull-right" ng-show="editAavlonnet && !editAavlonnetAction" href ng-click="editAavlonnetAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
 									<form role="form" ng-show="editAavlonnetAction">
-	                                    <div class="form-group">
-	                                    	<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
-	                                    </div>
+	                         			
+	                         			<div class="col-sm-10">
+                                    
+
+                                        <div><label> <input type="radio" checked="" value="yes" name="optionsRadios"> YES </label></div>
+
+                                        <div><label> <input type="radio" value="no" name="optionsRadios"> NO </label></div>
+                                    </div>
+
+
 	                                    <div>
 	                                        <button class="btn btn-sm btn-primary" >Save</button>
 	                                        <button class="btn btn-sm btn-default" ng-click="editAavlonnetAction = false">Cancel</button>
@@ -816,6 +811,62 @@
 
 						</ul>
 					</div>
+
+					<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 2">
+
+						<ul class="list-group clear-list" ng-hide="editUser">
+						
+						<li class="list-group-item fist-item m-b-md">
+							<strong>DELEGATE ROLES</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingUnion = true"> <i class="fa fa-plus"></i> Assign</a>
+                            </span>
+
+							<div ng-show="addingUnion">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+										            <label class="font-noraml">Role</label>
+			                                    	<input type="text" ng-model="newUnion.name" class="form-control m-b-sm" placeholder="Type role name..">
+			                                    </div>
+
+			                                    <div class="form-group" id="data_1">
+										            <label class="font-noraml">Start date</label>
+
+										            <div class="input-group date">
+										                <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+										                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										            </div>
+										        </div>
+			                                    <div class="form-group" id="data_1">
+										            <label class="font-noraml">End date</label>
+
+										            <div class="input-group date">
+										                <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+										                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										            </div>
+										        </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createUnion(newPosition)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingUnion = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.unions.length > 0">
+							No assigned roles, please add one
+						</li>
+
+
+					</ul>
+
+					</div>
+
 
 				</div>
 

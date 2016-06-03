@@ -592,6 +592,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   };
 
 
+$scope.assignRoleAction = function(emp) {
+    $scope.activeEmp = true;
+    $scope.curentEmp = emp;
+
+}
 
   $scope.close = function(emp) {
 	$scope.activeEmp = false;

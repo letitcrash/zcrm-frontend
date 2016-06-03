@@ -166,6 +166,9 @@
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
+
+						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 5" ng-class="{active:subtab == 5}"> <i class="fa fa-pencil"></i> </button>
+
 						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="activeEmp = false"><i class="fa fa-times"></i> Close</button>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(emp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
@@ -229,9 +232,6 @@
 				<div class="col-xl-12 p-lg" ng-show="subtab == 2">
 					<ul class="list-group clear-list">
 						
-
-
-
 
 
 						<li class="list-group-item fist-item m-b-md">
@@ -350,6 +350,43 @@
 
 						<li class="list-group-item" ng-repeat="shift in curentCp.shifts">
 							{{shift.name}}
+						</li>
+												
+						</ul>
+					</div>
+
+					<div class="col-xl-12 p-lg" ng-show="subtab == 5">
+					<ul class="list-group clear-list">
+						<li class="list-group-item fist-item m-b-md">
+							<strong>Delagate roles</strong>
+
+							<span class="pull-right">
+								<a ng-click="addingRole = true"> <i class="fa fa-plus"></i> Add</a>
+                            </span>
+
+							<div ng-show="addingRole">
+								<div class="m-t-md m-b-md">
+
+											<form role="form">
+			                                    <div class="form-group">
+			                                    	<input type="text" ng-model="newRole.name" class="form-control m-b-sm" placeholder="Enter new role name">
+			                                    </div>
+			                                    <div>
+			                                        <button class="btn btn-sm btn-primary" ng-click=createRole(newRole)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingRole = false">Cancel</button>
+
+			                                    </div>
+		                                </form>
+								</div>
+							</div>
+
+						</li>
+						<li class="list-group-item" ng-hide="curentCp.delegates.length > 0">
+							No roles, please add one
+						</li>
+
+						<li class="list-group-item" ng-repeat="role in curentCp.delegates">
+							{{role.name}}
 						</li>
 												
 						</ul>
