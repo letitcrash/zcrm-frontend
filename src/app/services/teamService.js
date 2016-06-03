@@ -15,7 +15,7 @@ angular.module('inspinia').factory('teamService', function(requestService, dataS
     },
     get: function(id) {
       var url;
-      url = "companies/" + id + "/teams";
+      url = "companies/" + dataService.getCurrentCompanyId() + "/teams/" + id;
       return requestService.ttGet(url);
     },
     update: function(cp) {
@@ -28,10 +28,10 @@ angular.module('inspinia').factory('teamService', function(requestService, dataS
       url = "companies/" + id;
       return requestService.ttDelete(url);
     },
-    post: function(cp) {
+    post: function(team) {
       var url;
-      url = "companies";
-      return requestService.ttPost(url, cp);
+      url = "companies/" + dataService.getCurrentCompanyId() + "/teams";
+      return requestService.ttPost(url, team);
     },
     addPosition: function(id, position) {
       var url;

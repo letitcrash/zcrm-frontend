@@ -161,7 +161,16 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
 
   };
 
+$scope.getRoleABRV = function(name) {
+  var abrv = "";
+  var res = name.split(" ");
+  for (var i = 0; i < res.length; i++) {
+    var char = res[i].charAt(0);
+    abrv += char;
+  }
 
+  return abrv.toUpperCase();
+};
   $scope.createShift = function() {
     companyService.addShift($scope.curentCp.id, $scope.newShift).then(function(response) {
       $scope.addingShift = false;

@@ -30,7 +30,7 @@
 
 					<h2>{{ 'Employees' | translate }}</h2>
 					<p class="m-t-sm small">
-						<i class="fa fa-user "></i> 360 Employees 80 Industri Energi 20 Safe
+					{{currentTeam}}
 					</p>
 					<div class="input-group">
 						<input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" />
@@ -215,30 +215,33 @@
 					</ul>
 
 
+
 										<ul class="list-group clear-list">
 						<li class="list-group-item fist-item m-b-md">
 							<strong>TEAM MEMBERS</strong>
-
+					
 							<span class="pull-right">
-								<a ng-click="addingPosition = true"> <i class="fa fa-plus"></i> Add</a>
+								<a ng-click="addingTeam = true"> <i class="fa fa-plus"></i> Add</a>
                             </span>
 
-							<div ng-show="addingPosition">
+							<div ng-show="addingTeam">
 								<div class="m-t-md m-b-md">
 
 											<form role="form">
 			                                    <div class="form-group">
 												  
 			                                    	<input	type="text" class="form-control m-b-sm" placeholder="Enter employee name or email"
-															ng-model="newTeamMember.name"
-															uib-typeahead="emp.user.contactProfile.firstname for emp in employees | limitTo:10"
+															ng-model="newTeamMember"
+															uib-typeahead="emp as emp.user.contactProfile.firstname for emp in employees | limitTo:10"
 															typeahead-loading="loadingLocations"
 															typeahead-no-results="noResults">
+															 <label class="checkbox-inline pull-right">
+                                        <input type="checkbox" value="option3" id="inlineCheckbox3"> Group Admin </label>
+
 			                                    </div>
-			                                    <pre>{{employees}}</pre>
-			                                    <div>
+			                                   			                                    <div>
 			                                        <button class="btn btn-sm btn-primary" ng-click=addTeamMember(newTeamMember)>Add</button>
-			                                        <button class="btn btn-sm btn-default" ng-click="addingPosition = false">Cancel</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingTeam = false">Cancel</button>
 
 			                                    </div>
 		                                </form>
@@ -251,10 +254,14 @@
 						</li>
 
 						<li class="list-group-item" ng-repeat="member in currentTeam.members">
-							{{member.name}}
+							{{member.user.contactProfile.firstname}} 							{{member.user.contactProfile.lastname}}
+
 						</li>
 												
 						</ul>
+
+						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentTeam)"><i class="fa fa-floppy-o"></i> Create</button>
+
 
 				</div>
 
