@@ -187,7 +187,7 @@ $scope.getRoleABRV = function(name) {
     companyService.addRole($scope.curentCp.id, $scope.newRole).then(function(response) {
       $scope.addingRole = false;
       $scope.curentCp.delegates.push(response);
-      $scope.newDelegate = {};
+      $scope.newRole = {};
     }, function(response) {
       return console.log("Failed to get companany");
     });

@@ -69,8 +69,13 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
     delegateRole: function(emp, eid) {
       var url;
       var args = {};
-      url = "companies/" + dataService.getCurrentCompanyId() + "/delegates/" + emp.role.id + "/user/" + eid;
-      return requestService.ttPost(url);
+      args.userId = eid;
+      args.delegateId = emp.role.id;
+      args.startDate = new Date(emp.startDate).getTime();
+      args.endDate = new Date(emp.endDate).getTime();
+      console.log(args);
+      url = "companies/" + dataService.getCurrentCompanyId() + "/delegates/" + emp.role.id + "/users/" + eid;
+      return requestService.ttPost(url, args);
     },
 
     setEmployeeUnion: function(id, uid) {

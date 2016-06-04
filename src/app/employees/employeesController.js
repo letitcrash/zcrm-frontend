@@ -485,13 +485,12 @@ $scope.assignRoleAction = function(emp) {
 
 $scope.delegateRole = function(user) {
   employeeService.delegateRole(user, $scope.currentEmp.id).then(function(response) {
-    console.log("got employees");
+    console.log("role delegated");
     console.log(response);
-    $scope.showLoadingMessage = false;
-    $scope.employees = response.data;
-    $scope.totalItems = response.totalCount;
+    $scope.currentEmp.delegates.push(response);
+    $scope.addingDelegate = false;
   }, function(response) {
-    console.log("Could not get employees");
+    console.log("Could not delegate role");
     console.log(response);
   });
 }
@@ -520,16 +519,16 @@ $scope.close = function(emp) {
     }
   });
 
+
+$scope.timeConverter = function(UNIX_timestamp){
+  var dateTime = new Date( UNIX_timestamp );
+  return dateTime.toDateString();;
+};
+
   
   $scope.init = function() {
     console.log("Running init in employeesController");
 
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-
-    $scope.popup1 = {
-      opened: false
-    };
 
  
     $scope.unionFilterState = ''
