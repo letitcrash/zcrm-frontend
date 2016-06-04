@@ -65,6 +65,14 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id + "/profile";
       return requestService.ttPut(url, emp);
     },
+
+    delegateRole: function(emp, eid) {
+      var url;
+      var args = {};
+      url = "companies/" + dataService.getCurrentCompanyId() + "/delegates/" + emp.role.id + "/user/" + eid;
+      return requestService.ttPost(url);
+    },
+
     setEmployeeUnion: function(id, uid) {
       var url;
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/unions/" + uid;

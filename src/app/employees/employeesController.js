@@ -407,32 +407,6 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     });
   };
 
-/*
-  getEmployees = function(force, pageSize, pageNr, searchTerm) {
-
-    var token = dataService.getSessionToken();
-    var userId = dataService.getUserId();
-
-
-    $http({
-        method : "GET",
-        url : "http://104.155.46.243:9000/companies/" + dataService.getCurrentCompanyId() + "/employees",
-        data: '',
-        headers: {
-          "Content-Type": "application/json",
-          "X-Access-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDUk0iLCJleHAiOjE0NjQ2MDYzNjgzODMsImlhdCI6MTQ2NDYwNDU2ODM4MywidWlkIjoyLCJ1bHZsIjo5OTk5LCJjbHZsIjp7ImVtcGxveWVlSWQiOjIsImNvbXBhbnlJZCI6MiwiZW1wbG95ZWVMZXZlbCI6OTl9fQ.XDeeLXK6tr9ktmhZOVoIzbImITv3S0Uw34uXS7VJdnQ",
-          "X-User-Id": "2"
-        }
-    }).then(function mySucces(response) {
-        console.log(response)
-
-        $scope.employees = response.data;
-    }, function myError(response) {
-        console.log(response)
-    });
-  };
-*/
-
   getEmployees = function(force, pageSize, pageNr, searchTerm, filter) {
     employeeService.getList(force, pageSize, pageNr, searchTerm, filter).then(function(response) {
       console.log("got employees");
@@ -446,78 +420,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     });
   };
 
-  getWorkplaces = function(force) {
-    return workplaceService.getList(force).then(function(response) {
-      return $scope.workplaces = response.data;
-    }, function(response) {
-      return console.log("Could not get workplaces");
-    });
-  };
-  $scope.getPeriods = function(emp) {
-    var endDate, startDate;
-    startDate = emp.fromDate.getTime();
-    endDate = emp.untilDate.getTime();
-    return periodService.getEmployeePeriods(emp.id, startDate, endDate).then(function(response) {
-      var j, len, period, ref;
-      $scope.periods = response;
-      $scope.periodsDuration = 0;
-      ref = $scope.periods;
-      for (j = 0, len = ref.length; j < len; j++) {
-        period = ref[j];
-        period.duration = generalUtils.calcPeriodDuration(period);
-        $scope.periodsDuration = $scope.periodsDuration + period.duration;
-      }
-      return console.log($scope.periodsDuration);
-    }, function(response) {
-      return console.log("failed to get periods");
-    });
-  };
-  $scope.getLatesPeriod = function() {
-    return periodService.getLatestPeriodByEmployeeId(dataService.getUserId()).then(function(response) {
-      console.log("got latest period");
-      console.log(response);
-      console.log(response.blips[response.blips.length - 1].typeOf);
-      if (response.blips[response.blips.length - 1].typeOf !== 2) {
-        return $scope.activePeriod = response;
-      }
-    }, function(response) {
-      return console.log("Could not get lates blip");
-    });
-  };
-  $scope.startBlip = function(wp) {
-    return periodService.startBlip(wp).then(function(response) {
-      console.log("blip started");
-      console.log(response);
-      return $scope.activePeriod = response;
-    }, function(response) {
-      return console.log("Could not start blip");
-    });
-  };
-  $scope.stopBlip = function(wp) {
-    return periodService.stopBlip(wp, $scope.activePeriod).then(function(response) {
-      console.log("blip stopped");
-      console.log(response);
-      return $scope.activePeriod = void 0;
-    }, function(response) {
-      return console.log("Could not stop blip");
-    });
-  };
-  $scope.pauseBlip = function(wp) {
-    return periodService.pauseBlip(wp, $scope.activePeriod).then(function(response) {
-      console.log("blip paused");
-      return console.log(response);
-    }, function(response) {
-      return console.log("Could not pause blip");
-    });
-  };
-  $scope.resumeBlip = function(wp) {
-    return periodService.resumeBlip(wp, $scope.activePeriod).then(function(response) {
-      console.log("blip resumed");
-      return console.log(response);
-    }, function(response) {
-      return console.log("Could not resume blip");
-    });
-  };
+  
   $scope.changePage = function() {
     return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
@@ -532,7 +435,6 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
 
 
   $scope.createUserAction = function() {
-
 
       $scope.activeEmp = true;
       $scope.currentEmp = {};
@@ -574,31 +476,28 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   }
 
 
-  $scope.open = function () {
-    var w = window.innerWidth;
-      console.log(w)
-      if(w < 1600) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'app/employees/addEmployeeModal.html',
-            controller: ModalInstanceCtrl,
-            windowClass: "modal.slide-right"
-
-        });
-      } else {
-        console.log("sidebar")
-        $scope.activeEmp = true;
-
-      } 
-  };
-
-
 $scope.assignRoleAction = function(emp) {
     $scope.activeEmp = true;
     $scope.curentEmp = emp;
 
 }
 
-  $scope.close = function(emp) {
+
+$scope.delegateRole = function(user) {
+  employeeService.delegateRole(user, $scope.currentEmp.id).then(function(response) {
+    console.log("got employees");
+    console.log(response);
+    $scope.showLoadingMessage = false;
+    $scope.employees = response.data;
+    $scope.totalItems = response.totalCount;
+  }, function(response) {
+    console.log("Could not get employees");
+    console.log(response);
+  });
+}
+
+
+$scope.close = function(emp) {
 	$scope.activeEmp = false;
 	$scope.curentEmp = emp;
   }
@@ -625,6 +524,12 @@ $scope.assignRoleAction = function(emp) {
   $scope.init = function() {
     console.log("Running init in employeesController");
 
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+
+    $scope.popup1 = {
+      opened: false
+    };
 
  
     $scope.unionFilterState = ''

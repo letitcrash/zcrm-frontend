@@ -820,37 +820,43 @@
 							<strong>DELEGATE ROLES</strong>
 
 							<span class="pull-right">
-								<a ng-click="addingUnion = true"> <i class="fa fa-plus"></i> Assign</a>
+								<a ng-click="addingDelegate = true"> <i class="fa fa-plus"></i> Assign</a>
                             </span>
 
-							<div ng-show="addingUnion">
+							<div ng-show="addingDelegate">
 								<div class="m-t-md m-b-md">
 
 											<form role="form">
 			                                    <div class="form-group">
 										            <label class="font-noraml">Role</label>
-			                                    	<input type="text" ng-model="newUnion.name" class="form-control m-b-sm" placeholder="Type role name..">
-			                                    </div>
+	                               	 					
+	                               	 					<input id="unionFilter" placeholder="Type role name.." type="text" ng-model="user.role" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
+
+										            			                                    </div>
 
 			                                    <div class="form-group" id="data_1">
 										            <label class="font-noraml">Start date</label>
 
-										            <div class="input-group date">
-										                <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
-										                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										            </div>
+										                    <p class="input-group">
+													          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+													          <span class="input-group-btn">
+													            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+													          </span>
+													        </p>
+
+														
 										        </div>
 			                                    <div class="form-group" id="data_1">
 										            <label class="font-noraml">End date</label>
 
 										            <div class="input-group date">
-										                <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+										                <input type="datetime" class="form-control" date-time ng-model="user.endDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
 										                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										            </div>
 										        </div>
 			                                    <div>
-			                                        <button class="btn btn-sm btn-primary" ng-click=createUnion(newPosition)>Save</button>
-			                                        <button class="btn btn-sm btn-default" ng-click="addingUnion = false">Cancel</button>
+			                                        <button class="btn btn-sm btn-primary" ng-click=delegateRole(user)>Save</button>
+			                                        <button class="btn btn-sm btn-default" ng-click="addingDelegate = false">Cancel</button>
 
 			                                    </div>
 		                                </form>
