@@ -1226,12 +1226,20 @@ table.shoping-cart-table {
 
 /* Social feed */
 .social-feed-separated .social-feed-box {
-  margin-left: 62px;
+  margin: 0 62px;
 }
 
 .social-feed-separated .social-avatar {
   float: left;
   padding: 0;
+}
+
+.social-feed-separated {
+  margin: 10px 20px;
+}
+
+.social-feed-separated.from .social-avatar {
+  float: right;
 }
 
 .social-feed-separated .social-avatar img {
@@ -1250,6 +1258,25 @@ table.shoping-cart-table {
   border: 1px solid #e7eaec;
   background: #fff;
   margin-bottom: 15px;
+}
+
+.social-feed-box.gray {
+  background: #f5f5f5;
+}
+
+.social-feed-box h4 {
+  line-height: 20px;
+}
+
+.social-feed-box h4 p {
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.social-feed-box h4 div {
+  margin-left: 8px;
 }
 
 .article .social-feed-box {
@@ -1282,7 +1309,7 @@ table.shoping-cart-table {
 .social-avatar img {
   height: 40px;
   width: 40px;
-  margin-right: 10px;
+/*   margin-right: 10px; */
 }
 
 .social-avatar .media-body a {

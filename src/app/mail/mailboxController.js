@@ -166,6 +166,9 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
   
   $scope.init();
 
+  angular.module('ui.bootstrap').controller('Collapse', function ($scope) {
+	$scope.isCollapsed = false;
+  });
 
 });
 
