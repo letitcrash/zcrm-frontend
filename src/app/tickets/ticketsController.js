@@ -19,7 +19,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
                     {update:'overdue', priority: 'mid', number: 'Issue-2', client: 'Client-2', team: 'Team-2', person: 'person2@gmail.com', created: '1288323623006', deadline: '1288323623006'},
                     {update:'closed', priority: 'low', number: 'Issue-3', client: 'Client-3', team: 'Team-3', person: 'person3@gmail.com', created: '1288323623006', deadline: '1288323623006'}
                 ];
-
+    
+    
     //inserted
     
   getTickets = function(force, pageSize, pageNr, searchTerm) {
@@ -52,8 +53,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       $scope.setSelected(response.id);
       return setEmpChange(true, "Medarbetaren har skapats.");
     }, function(response) {
-      console.log("Employee could not be created");
-      $scope.useralert = "Employee could not be created";
+      console.log("Ticket could not be created");
+      $scope.useralert = "Ticket could not be created";
     });
   };
 
