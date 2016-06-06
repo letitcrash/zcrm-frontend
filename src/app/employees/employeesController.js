@@ -16,7 +16,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     emp.user.contactProfile = {};
     $scope.employees.unshift(emp);
     $scope.editId = void 0;
-    return $scope.selected = angular.copy(emp);
+    $scope.selected = angular.copy(emp);
   };
 
   $scope.cancel = function() {
@@ -24,25 +24,21 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     $scope.user = {};
 
   };
-  $scope.edit = function(employee) {
-    $scope.cancel();
-    return $scope.editId = employee.id;
-  };
 
 
   $scope.setAlertMessage = function(success, message) {
     $scope.alertMessage = {};
     if (!success) {
-      return $scope.alertMessage.failed = message;
+      $scope.alertMessage.failed = message;
     }
   };
 
   $scope.save = function(emp) {
     console.log(emp)
     if ((emp.id != null)) {
-      return $scope.update(emp);
+      $scope.update(emp);
     } else {
-      return $scope.create(emp);
+      $scope.create(emp);
     }
   };
   
@@ -151,7 +147,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
 
   $scope.update = function(emp) {
     console.log(emp);
-    return employeeService.updateProfile(emp.user.contactProfile).then(function(response) {
+    employeeService.updateProfile(emp.user.contactProfile).then(function(response) {
       console.log("Employee updated succesfully");
       setEmpChange(true, "Medarbetaren har uppdaterats.");
       $scope.cancel();
@@ -170,31 +166,31 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
 
     }, function(response) {
       console.log("Employee could not be updated");
-      return setEmpChange(false, "Medarbetaren kunde inte ändras.");
+      setEmpChange(false, "Medarbetaren kunde inte ändras.");
     });
   };
 
   $scope.changePassword = function(id, pwd, confirmPwd) {
     if ((pwd != null) && (confirmPwd != null) && pwd === confirmPwd) {
-      return passwordServices.setPassword(id, pwd, '').then(function(response) {
+      passwordServices.setPassword(id, pwd, '').then(function(response) {
         console.log("Password was set successfully");
-        return setPasswordChange(true, "Lösenordet har blivit satt.");
+        setPasswordChange(true, "Lösenordet har blivit satt.");
       }, function(response) {
         console.log("Password could not be set");
-        return setPasswordChange(false, "Ett fel uppstod, kunde inte sätta lösenordet.");
+        setPasswordChange(false, "Ett fel uppstod, kunde inte sätta lösenordet.");
       });
     } else {
-      return setPasswordChange(false, "Lösenorden matchar inte.");
+      setPasswordChange(false, "Lösenorden matchar inte.");
     }
   };
 
   del = function(id) {
-    return employeeService["delete"](id).then(function(response) {
+    employeeService["delete"](id).then(function(response) {
       console.log("deleted");
-      return getEmployees(true);
+      getEmployees(true);
     }, function(response) {
       console.log("not deleted");
-      return $scope.setEmpChange(false, "Medarbetaren kunde inte tas bort.");
+      $scope.setEmpChange(false, "Medarbetaren kunde inte tas bort.");
     });
   };
 
@@ -204,10 +200,10 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
       $scope.title = "Varning!";
       $scope.text = "Vill du verkligen ta bort användaren '" + generalUtils.formatUser(emp.user) + "'";
       $scope.del = function() {
-        return $modalInstance.close(1);
+        $modalInstance.close(1);
       };
-      return $scope.cancel = function() {
-        return $modalInstance.dismiss('cancel');
+      $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
       };
     };
     ModalInstanceCtrl.$inject = ['$scope', '$modalInstance'];
@@ -216,28 +212,28 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
       controller: ModalInstanceCtrl,
       size: 'sm'
     });
-    return modalInstance.result.then(function(res) {
-      return del(emp.id);
+    modalInstance.result.then(function(res) {
+      del(emp.id);
     }, function() {
-      return console.log('Modal dismissed at: ' + new Date());
+      console.log('Modal dismissed at: ' + new Date());
     });
   };
 
   setEmpChange = function(success, message) {
     $scope.empChange = {};
     if (success) {
-      return $scope.empChange.success = message;
+      $scope.empChange.success = message;
     } else {
-      return $scope.empChange.failed = message;
+      $scope.empChange.failed = message;
     }
   };
 
   setPasswordChange = function(success, message) {
     $scope.passwordChange = {};
     if (success) {
-      return $scope.passwordChange.success = message;
+      $scope.passwordChange.success = message;
     } else {
-      return $scope.passwordChange.failed = message;
+      $scope.passwordChange.failed = message;
     }
   };
 
@@ -247,8 +243,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
     console.log("Search with searchTerm:" + $scope.searchTerm);
     DELAY_AMOUNT = 500;
     DELAY_KEY = "searchEmployeeDelay";
-    return generalUtils.delayFunction(DELAY_KEY, DELAY_AMOUNT).then(function() {
-      return getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+    generalUtils.delayFunction(DELAY_KEY, DELAY_AMOUNT).then(function() {
+      getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
     });
   };
 
@@ -261,12 +257,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
       $scope.totalItems = response.totalCount;
     }, function(response) {
       console.log("Could not get employees");
-      return console.log(response);
     });
   };
 
   $scope.changePage = function() {
-    return getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+    getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
   
   $scope.openEmp = function(emp) {
