@@ -2,7 +2,7 @@
 	<div class="row">
 
 		<!--EMPLOYEE PAGE start-->
-		<div ng-class="{'col-sm-12' : mode == 0, 'col-sm-8' : mode == 1, 'col-sm-3' : mode == 2}">
+		<div ng-class="{'col-sm-12' : mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : mode == 2}">
 			<div class="ibox">
 				<div class="ibox-content">
 					<!--BUTTONS start-->
@@ -197,23 +197,27 @@
 
 				<!--NEW EMPLOYEE start-->
 
-				<div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : mode == 1, 'col-lg-12 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
+				<div class="white-bg" ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
 
 
 					<div class="contact-box center-version col-xl-12" ng-if="currentEmp.id == null">
 						<div class="contact-box-top">
 
 
-							<h2>Creating new employee
 
-								<a ng-click="closeCurrentEmp()" class="pull-right"><i class="fa fa-times"></i></a>
 
-							</h2>
+
+
+                                <h4>Create new employee
+
+									<button type="button" class="btn btn-sm btn-white pull-right" ng-click="closeCurrentEmp()"> <i class="fa fa-times"></i> </button>
+
+							</h4>
 
 
 						</div>
 
-						<div class="col-sm-6 col-xl-12 p-t-sm">
+						<div class="col-xl-12 p-t-sm">
 
 							<ul class="list-group clear-list m-t-md" ng-show="userFormStep == 1">
 								<li class="list-group-item fist-item">
@@ -425,7 +429,6 @@
 
 					<div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
 						<div class="contact-box-top">
-							<div class="visible-xl">
 
 								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
 								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
@@ -436,31 +439,17 @@
 								<div class=" pull-right">
 									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 2" ng-show="mode == 1"> <i class="fa fa-expand"></i> </button>
 									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 1" ng-show="mode == 2"> <i class="fa fa-compress"></i> </button>
-									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
+									<button type="button" class="btn btn-sm btn-white pull-right" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
 
 								</div>
 								<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
-
-
-							</div>
-
-							<div class="hidden-xl">
-								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
-								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
-								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
-								<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
-								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
-								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
-								<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
-								<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
-
-							</div>
+					
 
 						</div>
 
-						<a class="p-n col-sm-6 col-xl-12">
+						<a class="p-n" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
 
-							<div class="col-xl-12 col-sm-12">
+							<div class="col-sm-12">
 								<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
 
 								<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
@@ -484,7 +473,7 @@
 
 
 
-						<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 1">
+						<div class="p-t-sm" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}" ng-show="subtab == 1">
 
 
 							<ul class="list-group clear-list m-t-md">
@@ -780,7 +769,7 @@
 							</ul>
 						</div>
 
-						<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 2">
+						<div class="m-t-md" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}" ng-show="subtab == 2">
 
 							<ul class="list-group clear-list" ng-hide="editUser">
 
