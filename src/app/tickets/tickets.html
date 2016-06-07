@@ -280,22 +280,524 @@
 
         <div class="ibox float-e-margins" ng-if="currentTicket.id != null">
           <div class="ibox-title">
-            <h5>Ticket #{{currentTicket.id}}</h5>
+            <div class="btn-group" role="group">
+              <button type="button" ng-class="{'active': (selected == 1)}" ng-click="selected=1" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> 
+              <button type="button" ng-class="{'active': (selected == 2)}" ng-click="selected=2" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> <button type="button" ng-class="{'active': (selected == 3)}" ng-click="selected=3" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> 
+              <button type="button" ng-class="{'active': (selected == 4)}" ng-click="selected=4" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button>
+            </div>
+
             <div class="pull-right">
               <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1"> <i class="fa fa-expand"></i> </button>
               <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2"> <i class="fa fa-compress"></i> </button>
               <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
             </div>
           </div>
-          <div class="ibox-content">
-            
+          <!-- ticket info -->
+          <div class="ibox-content" ng-if="selected == 1">
+            <div class="row">
+              <dl class="dl-horizontal" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
+                <dt>Created by:</dt><dd class="ng-binding">person1@gmail.com</dd>
+                <dt>Date:</dt><dd class="ng-binding">Oct 29, 2010</dd>
+                <dt>Client:</dt><dd class="ng-binding">Client-1</dd>
+                <dt>Team:</dt><dd class="ng-binding">Team-1</dd>
+                <dt>Deadline:</dt><dd class="ng-binding">Oct 29, 2010</dd>
+              </dl>
 
-            content
+              <p ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
+                <strong>Ticket description:</strong><br>
+                Capicola bresaola shank beef ribs. Pancetta boudin jowl, sausage beef ball tip turducken pork salami t-bone brisket kielbasa kevin ham venison. Landjaeger turducken shankle, jerky biltong hamburger leberkas meatloaf pork boudin swine bacon tri-tip shank andouille. Doner corned beef frankfurter capicola biltong tri-tip ball tip porchetta drumstick chicken meatball jowl t-bone. Leberkas pork chop chuck, shankle bresaola pork loin porchetta meatloaf corned beef tongue.
+              </p>
+            </div>
 
+            <ul class="list-group clear-list m-t-md">
+              <li class="list-group-item fist-item">
+                TICKET INFORMATION
+              </li>
+              <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+                <div class="row">
+                  <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+                    <strong>Created by</strong>
+                  </div>
+                  <div class="col-sm-8">
+                    <span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+                    <a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editNameAction">
+                      <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
+                      <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
+                      <div>
+                        <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                          <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                          {{useralert}}. <a class="alert-link">check</a>.
+                        </div>
+                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>              <li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+                <div class="row">
+                  <div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
+                    Telefon
+                  </div>
+                  <div class="col-sm-8">
+                    <span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phoneNumberMobile}}</span>
+                    <a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editPhoneAction">
+                      <div class="form-group">
+                        <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+                        <a><i class="fa fa-plus"></i> Add another telefon </a>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>                      </div>
+                    </form>                  </div>
+                </div>
+              </li>              <li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
+                <div class="row">
+                  <div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
+                    E-post
+                  </div>
+                  <div class="col-sm-8">
+                    <span ng-hide="editEmailAction">{{currentEmp.user.contactProfile.email}}</span>
+                    <a  class="pull-right" ng-show="editEmail && !editEmailAction" href ng-click="editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editEmailAction">
+                      <div class="form-group">
+                        <input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+                        <a><i class="fa fa-plus"></i> Add another e-post </a>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>                      </div>
+                    </form>                  </div>
+                </div>
+              </li>              <li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
+                <div class="row">
+                  <div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
+                    Adresse
+                  </div>
+                  <div class="col-sm-8">
+                    <span ng-hide="editAddressAction">{{currentEmp.user.contactProfile.address}}</span>
+                    <a  class="pull-right" ng-show="editAddress && !editAddressAction" href ng-click="editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editAddressAction">
+                      <div class="form-group">
+                        <textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>                      </div>
+                    </form>                  </div>
+                </div>
+              </li>
 
+              </ul>
           </div>
-        </div>
+          <!-- ticket info end -->
+          <!-- ticket conversations -->
+          <div class="ibox-content" ng-if="selected == 2">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="fh-breadcrumb">
+                  <div class="fh-column">
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll" style="overflow: hidden; width: auto; height: 100%;">
+                      <ul class="list-group elements-list">
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-1">
+                            <small class="pull-right text-muted">Today</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Ann Smith</strong>
+                            <div class="small m-t-xs">
+                              <p>
+                                Survived not only five centuries, but also the leap scrambled it to make.
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item active">
+                          <a data-toggle="tab" href="#tab-2">
+                            <small class="pull-right text-muted"> 11.10.2015</small>
+                            <input type="checkbox" checked style="margin-right:5px;" />
+                            <strong>Flygon</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                There are many variations of passages of Lorem Ipsum.
+                                <br>
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-down" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-3">
+                            <small class="pull-right text-muted"> 11.10.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Slowpoke</strong>
+                          </a> 
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-4">
+                            <small class="pull-right text-muted"> 11.10.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Flygon</strong>
+                          </a> 
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-5">
+                            <small class="pull-right text-muted"> 11.10.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Slowpoke</strong>
+                          </a> 
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-6">
+                            <small class="pull-right text-muted"> 08.04.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Michael Jackson</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                Look even slightly believable. If you are going to use a passage of.
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-7">
+                            <small class="pull-right text-muted"> 16.02.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Mark Smith</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                It was popularised in the 1960s with the release of Letraset sheets
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-8">
+                            <small class="pull-right text-muted"> 21.04.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Monica Novak</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                Printer took a galley of type and scrambled.
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-9">
+                            <small class="pull-right text-muted"> 03.12.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Jack Smith</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                Also the leap into electronic typesetting, remaining.
+                              </p>
+                              <p class="m-b-none">
+                                 <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-1-">
+                            <small class="pull-right text-muted"> 08.04.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Michael Jackson</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                Look even slightly believable. If you are going to use a passage of.
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-11">
+                            <small class="pull-right text-muted"> 16.02.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Mark Smith</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                It was popularised in the 1960s with the release of Letraset sheets
+                              </p>
+                              <p class="m-b-none">
+                                 <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a data-toggle="tab" href="#tab-12"> 
+                            <small class="pull-right text-muted"> 21.04.2015</small>
+                            <input type="checkbox" style="margin-right:5px;" />
+                            <strong>Monica Novak</strong>
+                            <div class="small m-t-xs">
+                              <p class="m-b-xs">
+                                Printer took a galley of type and scrambled.
+                              </p>
+                              <p class="m-b-none">
+                                <b><i class="fa fa-caret-right" style="margin-right:5px;"></i>View thread</b>
+                                <i class="fa fa-trash pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 955.009px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                    </div>
 
+                   <div class="full-height">
+                      <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll white-bg border-left" style="overflow: hidden; width: auto; height: 100%;">
+                        <div class="element-detail-box">
+                          <div class="tab-content">
+                            <!--WTF?? start-->
+                            <div id="tab-5" class="tab-pane">
+                            </div>
+                            <!--WTF?? end-->
+                            
+                            <!--THREAD start-->
+                            <div class="col-md-12">
+                              <ul class="list-group elements-list">
+                                <li class="list-group-item">
+                                  <a data-toggle="tab" href="#tab-1">
+                                  <small class="pull-right text-muted"> 21.04.2015</small>
+                                  <p class="m-b-none">
+                                    <i class="fa fa-trash pull-right" style="margin-left:5px; margin-right:10px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                  </p>
+                                   <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag" style="margin-right:15px; margin-bottom: 10px;">
+                                  <strong>Flygon</strong>
+                                    <p class="m-b-xs">
+                                      Bacon ipsum dolor amet chuck kielbasa pork chop doner sausage spare ribs chicken pork loin. Shoulder porchetta chuck pork belly salami sausage andouille biltong short ribs prosciutto pork loin pancetta leberkas jowl. Shoulder pork belly corned beef tongue cow tri-tip. Hamburger boudin pancetta strip steak, pork belly tri-tip pig capicola ribeye fatback rump flank doner shankle. 
+                                    </p>
+                                  </a>
+                                </li>
+                                <li class="list-group-item">
+                                  <a data-toggle="tab" href="#tab-1">
+                                   <small class="pull-right text-muted"> 21.04.2015</small>
+                                  <p class="m-b-none">
+                                    <i class="fa fa-trash pull-right" style="margin-left:5px; margin-right:10px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                  </p>
+                                   <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag" style="margin-right:15px; margin-bottom: 10px;">
+                                  <strong>Slowpoke</strong>
+                                    <p class="m-b-xs">
+                                      Bacon ipsum dolor amet chuck kielbasa pork chop doner sausage spare ribs chicken pork loin. Shoulder porchetta chuck pork belly salami sausage andouille biltong short ribs prosciutto pork loin pancetta leberkas jowl. Shoulder pork belly corned beef tongue cow tri-tip. Hamburger boudin pancetta strip steak, pork belly tri-tip pig capicola ribeye fatback rump flank doner shankle. 
+                                    </p>
+                                  </a>
+                                </li>
+                                <li class="list-group-item">
+                                  <a data-toggle="tab" href="#tab-1">
+                                  <small class="pull-right text-muted"> 21.04.2015</small>
+                                  <p class="m-b-none">
+                                    <i class="fa fa-trash pull-right" style="margin-left:5px; margin-right:10px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-flag pull-right" style="margin-left:5px; color:#dbdbdb;"></i>
+                                    <i class="fa fa-reply pull-right"style="margin-left:5px; color:#dbdbdb;"></i>
+                                  </p>
+                                   <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag" style="margin-right:15px; margin-bottom: 10px;">
+                                  <strong>Flygon</strong>
+                                    <p class="m-b-xs">
+                                      Bacon ipsum dolor amet chuck kielbasa pork chop doner sausage spare ribs chicken pork loin. Shoulder porchetta chuck pork belly salami sausage andouille biltong short ribs prosciutto pork loin pancetta leberkas jowl. Shoulder pork belly corned beef tongue cow tri-tip. Hamburger boudin pancetta strip steak, pork belly tri-tip pig capicola ribeye fatback rump flank doner shankle. 
+                                    </p>
+                                  </a>
+                                </li>
+                                
+                                <li class="list-group-item">
+                                  <a data-toggle="tab" href="#tab-1">
+                                  <!--dropdown start-->
+                                  <small class="pull-right text-muted"> 21.04.2015</small>
+                                  <div class="btn-group pull-right" uib-dropdown style="margin-right:10px;">
+                                      <button id="split-button" type="button" class="btn btn-default btn-xs" style="color:#dbdbdb;"><i class="fa fa-reply"></i></button>
+                                      <button type="button" class="btn btn-default btn-xs" uib-dropdown-toggle style="color:#dbdbdb;"><i class="fa fa-caret-down"></i></button>
+                                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                      <li role="menuitem"><a href="#"><i class="fa fa-reply-all" style="margin-right:5px;"></i>Forward</a></li>
+                                      <li ng-click="flagIt=true" role="menuitem"><a href=""><i class="fa fa-flag" style="margin-right:5px;"></i>Flag</a></li>
+                                      <li role="menuitem"><a href="#"><i class="fa fa-envelope" style="margin-right:5px;"></i>Mark as unread</a></li>
+                                      <li role="menuitem"><a href="#"><i class="fa fa-trash" style="margin-right:5px;"></i>Delete</a></li>
+                                      <li role="menuitem"><a href="#"><i class="fa fa-print" style="margin-right:5px;"></i>Print</a></li>
+                                      </ul>
+                                  </div>
+                                  <!--dropdown end-->
+                                  <i class="fa fa-flag pull-right" ng-show="flagIt" style="margin-right:10px; color:#EC4758;"></i>
+                                  <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag" style="margin-right:15px; margin-bottom: 10px;">
+                                  <strong>Flygon</strong>
+                                  <div class="attached-tickets col-md-12" style="padding:20px; border:1px solid #d2d2d2; margin-bottom:10px;">
+                                    <h5>Attached tickets:</h5>
+                                    <div class="file-box">
+                                      <div class="file">
+                                        <a href="#">
+                                          <span class="corner"></span>
+                                          <div class="icon">
+                                            <i class="fa fa-ticket"></i>
+                                          </div>
+                                          <div class="file-name">
+                                             {{itable[0].number | uppercase}}
+                                            <br>
+                                            <small>{{itable[0].created | date: 'mediumDate'}}</small>
+                                          </div>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="file-box">
+                                      <div class="file">
+                                        <a href="#">
+                                          <span class="corner"></span>
+                                          <div class="icon">
+                                            <i class="fa fa-ticket"></i>
+                                          </div>
+                                          <div class="file-name">
+                                             {{itable[1].number | uppercase}}
+                                            <br>
+                                            <small>{{itable[1].created | date: 'mediumDate'}}</small>
+                                          </div>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="file-box">
+                                      <div class="file">
+                                        <a href="#">
+                                          <span class="corner"></span>
+                                          <div class="icon">
+                                            <i class="fa fa-ticket"></i>
+                                          </div>
+                                          <div class="file-name">
+                                            {{itable[2].number | uppercase}}
+                                            <br>
+                                            <small>{{itable[2].created | date: 'mediumDate'}}</small>
+                                          </div>
+                                        </a>
+                                      </div>
+                                    </div>   
+                                  </div>
+                                  <h1>Bacon ipsum letter</h1>
+                                      <p>Bacon ipsum dolor amet chuck kielbasa pork chop doner sausage spare ribs chicken pork loin. Shoulder porchetta chuck pork belly salami sausage andouille biltong short ribs prosciutto pork loin pancetta leberkas jowl. Shoulder pork belly corned beef tongue cow tri-tip. Hamburger boudin pancetta strip steak, pork belly tri-tip pig capicola ribeye fatback rump flank doner shankle. Ball tip kevin pig, drumstick turkey tri-tip frankfurter ground round hamburger kielbasa sausage tenderloin fatback. Turducken beef ribs prosciutto, jerky tenderloin strip steak landjaeger swine andouille.</p>
+                                      <p>Porchetta swine chuck pig jowl. Shankle ham hock salami pastrami. Short loin rump cow, ball tip bresaola turkey tail biltong frankfurter. Kevin salami boudin tail. Hamburger pastrami ground round short ribs jowl cow meatball pancetta, shoulder fatback tongue pork chop tri-tip venison. Andouille ball tip beef jowl pancetta bacon.</p>
+                                      <p>Spare ribs jerky leberkas shankle, pork ball tip cupim short loin pork loin ham hock flank beef ribs doner. Tongue hamburger pig meatloaf, brisket swine kevin filet mignon. Pancetta cow hamburger, landjaeger ball tip brisket jerky meatloaf tri-tip venison strip steak leberkas meatball. Corned beef tri-tip tenderloin, prosciutto ham meatball flank kielbasa tongue biltong ball tip bresaola turkey. Beef pork chop chuck fatback prosciutto. Meatloaf beef tri-tip strip steak chuck corned beef fatback turducken flank.</p>
+                                      <p>Shank cow salami pancetta t-bone beef ribs jowl hamburger landjaeger turkey chuck short loin strip steak pig spare ribs. Corned beef drumstick strip steak pork chop, jowl prosciutto ribeye pork. Filet mignon fatback kielbasa, ham hock spare ribs shoulder venison pancetta biltong rump turducken drumstick capicola. Porchetta brisket swine, frankfurter meatball ground round ball tip. Sausage hamburger landjaeger meatball venison. Filet mignon landjaeger ham cupim, pork loin t-bone jerky. Prosciutto short loin pork belly leberkas kevin strip steak sirloin rump meatloaf ribeye.</p>
+                                      <p>Capicola bresaola shank beef ribs. Pancetta boudin jowl, sausage beef ball tip turducken pork salami t-bone brisket kielbasa kevin ham venison. Landjaeger turducken shankle, jerky biltong hamburger leberkas meatloaf pork boudin swine bacon tri-tip shank andouille. Doner corned beef frankfurter capicola biltong tri-tip ball tip porchetta drumstick chicken meatball jowl t-bone. Leberkas pork chop chuck, shankle bresaola pork loin porchetta meatloaf corned beef tongue.</p>
+                                      <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
+                                      <p class="small">
+                                        <strong>Best regards, Flygon </strong>
+                                      </p>
+                                      <div class="m-t-lg">
+                                        <p>
+                                          <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
+                                          <a href="#">Download all</a>
+                                          |
+                                          <a href="#">View all images</a>
+                                        </p>
+                                        <div class="attachment">
+                                          <div class="file-box">
+                                            <div class="file">
+                                              <a href="#">
+                                                <span class="corner"></span>
+
+                                               <div class="icon">
+                                                  <i class="fa fa-file"></i>
+                                                </div>
+                                                <div class="file-name">
+                                                  Document_2014.doc
+                                                  <br>
+                                                  <small>Added: Jan 11, 2014</small>
+                                                </div>
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="file-box">
+                                            <div class="file">
+                                              <a href="#">
+                                                <span class="corner"></span>
+                                                <div class="icon">
+                                                  <i class="fa fa-line-chart"></i>
+                                                </div>
+                                                <div class="file-name">
+                                                  Seels_2015.xls
+                                                  <br>
+                                                  <small>Added: May 13, 2015</small>
+                                                </div>
+                                              </a>
+                                            </div>
+                                          </div>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                            <!--THREAD end-->
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      
+                      <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 958px; background: rgb(0, 0, 0);">
+                        
+                      </div>
+                      <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);">
+                        
+                      </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <!-- ticket conversations end -->
+          <!-- ticket files -->
+          <div class="ibox-content" ng-if="selected == 3">
+            files
+          </div>
+          <!-- ticket files end -->
+          <!-- ticket history -->
+          <div class="ibox-content" ng-if="selected == 4">
+            
+            history
+            
+          </div>
+          <!-- ticket history end -->
+        </div>
 
         <!-- opened ticket end -->
 
