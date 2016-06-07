@@ -1,7 +1,9 @@
 
 
 'use strict';
-angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, requestService, employeeService, passwordServices, workplaceService, periodService, generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
+angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, 
+  requestService, employeeService, passwordServices, workplaceService
+  , generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
   var del, getEmployees, setEmpChange, setPasswordChange;
   
 
@@ -266,7 +268,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, re
   
   $scope.openEmp = function(emp) {
       console.log(emp)
-      $scope.activeEmp = true;
+      $scope.mode = 1;
       $scope.currentEmp = angular.copy(emp);
   }
 

@@ -2,7 +2,7 @@
 	<div class="row">
         
         <!--EMPLOYEE PAGE start-->
-		<div class="col-sm-12" ng-class="{'visible-xl col-xl-8' : activeEmp}">
+		<div ng-class="{'col-sm-12' : mode == 0, 'col-sm-8' : mode == 1, 'col-sm-3' : mode == 2}">
 			<div class="ibox">
 				<div class="ibox-content">
 					<!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
@@ -200,7 +200,7 @@
                                  
         <!--NEW EMPLOYEE start-->
 
-        <div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : activeEmp}" ng-show="activeEmp">
+        <div class="col-sm-12  white-bg" ng-class="{'col-lg-12 col-xl-4' : mode == 1, 'col-lg-12 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
 
 
 			<div class="contact-box center-version col-xl-12" ng-if="currentEmp.id == null">
@@ -460,13 +460,19 @@
 			<div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
 				<div class="contact-box-top">
 					<div class="visible-xl">
+
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
 						<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
 
 
-						<button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<div class=" pull-right">
+						<button type="button" class="btn btn-sm btn-white" ng-click="mode = 2" ng-show="mode == 1"> <i class="fa fa-expand"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="mode = 1" ng-show="mode == 2"> <i class="fa fa-compress"></i> </button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
+
+						</div>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 
@@ -479,7 +485,7 @@
 						<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
 						<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
-						<button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="closeCurrentEmp()"><i class="fa fa-times"></i> Close</button>
+						<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
 						<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 					</div>
