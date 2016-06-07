@@ -59,7 +59,6 @@
 					</button> 
 					<!--advanced filters start-->
 					<div ng-if="isCollapsed">
-
 						<!--top search fields-->
 						<form role="form" class="form-inline" style="padding-top:20px;">
 
@@ -214,673 +213,641 @@
 
 						</div>
 
-        <!--a class="p-n col-sm-6 col-xl-12">
+						<div class="col-sm-6 col-xl-12 p-t-sm">
 
-          <div class="col-xl-12 col-sm-12">
-            <img alt="image" class="img-circle" src="img/a5.jpg"  ng-hide="editUser">
-            <img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" ng-show="editUser">
+							<ul class="list-group clear-list m-t-md" ng-show="userFormStep == 1">
+								<li class="list-group-item fist-item">
+									<strong>CONTACT INFORMATION</strong>
+								</li>
+								<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+											Full navn
+										</div>
+										<div class="col-sm-8">
 
-            <h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
 
-            <div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
+											<input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control m-b-sm">
+											<input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control">
 
 
+										</div>
+									</div>
 
+								</li>
 
-              <input ng-show="editUser" type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+								<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
+											Telefon
+										</div>
+										<div class="col-sm-8">
 
-          </div>
 
-          <div class="col-xl-6 col-sm-12 m-t-lg hidden-xl">
-            Active <br>
-            Union <br>
-            Status<br>
-          </div>
+											<input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+											<a><i class="fa fa-plus"></i> Add another telefon </a>
 
-      </a-->
+										</div>
+									</div>
+								</li>
 
+								<li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
+											E-post
+										</div>
+										<div class="col-sm-8">
 
 
-      <div class="col-sm-6 col-xl-12 p-t-sm">
+											<input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+											<a><i class="fa fa-plus"></i> Add another e-post </a>
 
 
-      	<ul class="list-group clear-list m-t-md" ng-show="userFormStep == 1">
-      		<li class="list-group-item fist-item">
-      			<strong>CONTACT INFORMATION</strong>
-      		</li>
-      		<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
-      					Full navn
-      				</div>
-      				<div class="col-sm-8">
+										</div>
+									</div>
+								</li>
 
 
-      					<input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control m-b-sm">
-      					<input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control">
+								<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
+											Adresse
+										</div>
+										<div class="col-sm-8">
 
+											<textarea rows="3" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
 
-      				</div>
-      			</div>
 
-      		</li>
+										</div>
+									</div>
+								</li>
 
-      		<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
-      					Telefon
-      				</div>
-      				<div class="col-sm-8">
+								<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
+											Arbetsroll
+										</div>
+										<div class="col-sm-8">
 
+											<div class="control-group">
+												<label class="form-label m-r-sm">Ägare</label>
+												<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="99" class="ng-pristine ng-untouched ng-valid" name="1644"></span>
+												<label class="form-label m-r-sm">Manager</label>
+												<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="999" class="ng-pristine ng-untouched ng-valid" name="1645"></span>
+												<label class="form-label m-r-sm">Medarbetare</label>
+												<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="9999" class="ng-pristine ng-untouched ng-valid" name="1646"></span>
+											</div>
 
-      					<input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-      					<a><i class="fa fa-plus"></i> Add another telefon </a>
+										</div>
+									</div>
+								</li>
 
-      				</div>
-      			</div>
-      		</li>
+							</ul>
 
-      		<li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
-      					E-post
-      				</div>
-      				<div class="col-sm-8">
 
+							<ul class="list-group clear-list m-t-md" ng-if="userFormStep == 2">
+								<li class="list-group-item fist-item">
+									<strong>EMPLOYMENT INFORMATION</strong>
+								</li>
+								<li class="list-group-item" ng-mouseenter="editFirm = true" ng-mouseleave="editFirm = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editFirmAction}">
+											Firma
+										</div>
+										<div class="col-sm-8">
 
-      					<input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
-      					<a><i class="fa fa-plus"></i> Add another e-post </a>
+											<input type="text" value="Rowan" class="form-control" disabled>
 
 
-      				</div>
-      			</div>
-      		</li>
+										</div>
+									</div>
 
+								</li>
 
+								<li class="list-group-item" ng-mouseenter="editPosition = true" ng-mouseleave="editPosition = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editPositionAction}">
+											Stilling
+										</div>
+										<div class="col-sm-8">
 
 
+											<input type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.positions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-      		<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
-      					Adresse
-      				</div>
-      				<div class="col-sm-8">
 
-      					<textarea rows="3" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
 
+										</div>
+									</div>
+								</li>
 
-      				</div>
-      			</div>
-      		</li>
+								<li class="list-group-item" ng-mouseenter="editUnion = true" ng-mouseleave="editUnion = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editUnionAction}">
+											Union
+										</div>
+										<div class="col-sm-8">
 
-      		<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
-      					Arbetsroll
-      				</div>
-      				<div class="col-sm-8">
+											<input type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-      					<div class="control-group">
-      						<label class="form-label m-r-sm">Ägare</label>
-      						<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="99" class="ng-pristine ng-untouched ng-valid" name="1644"></span>
-      						<label class="form-label m-r-sm">Manager</label>
-      						<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="999" class="ng-pristine ng-untouched ng-valid" name="1645"></span>
-      						<label class="form-label m-r-sm">Medarbetare</label>
-      						<span class="user-role"><input type="radio" ng-model="selected.employeeLevel" value="9999" class="ng-pristine ng-untouched ng-valid" name="1646"></span>
-      					</div>
 
-      				</div>
-      			</div>
-      		</li>
+										</div>
+									</div>
+								</li>
 
-      	</ul>
+								<li class="list-group-item" ng-mouseenter="editDepartment = true" ng-mouseleave="editDepartment = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editDepartmentAction}">
+											Innretning
+										</div>
+										<div class="col-sm-8">
 
 
-      	<ul class="list-group clear-list m-t-md" ng-if="userFormStep == 2">
-      		<li class="list-group-item fist-item">
-      			<strong>EMPLOYMENT INFORMATION</strong>
-      		</li>
-      		<li class="list-group-item" ng-mouseenter="editFirm = true" ng-mouseleave="editFirm = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editFirmAction}">
-      					Firma
-      				</div>
-      				<div class="col-sm-8">
+											<input type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.departmets | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-      					<input type="text" value="Rowan" class="form-control" disabled>
 
 
-      				</div>
-      			</div>
 
-      		</li>
+										</div>
+									</div>
+								</li>
 
-      		<li class="list-group-item" ng-mouseenter="editPosition = true" ng-mouseleave="editPosition = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editPositionAction}">
-      					Stilling
-      				</div>
-      				<div class="col-sm-8">
+								<li class="list-group-item" ng-mouseenter="editShift = true" ng-mouseleave="editShift = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editShiftAction}">
+											Skift
+										</div>
+										<div class="col-sm-8">
 
+											<input type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shifts | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-      					<input type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.positions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
 
+										</div>
+									</div>
+								</li>
 
-      				</div>
-      			</div>
-      		</li>
+								<li class="list-group-item" ng-mouseenter="editAavlonnet = true" ng-mouseleave="editAavlonnet = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editAavlonnetAction}">
+											Individuelt avlonnet
+										</div>
+										<div class="col-sm-8">
 
-      		<li class="list-group-item" ng-mouseenter="editUnion = true" ng-mouseleave="editUnion = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editUnionAction}">
-      					Union
-      				</div>
-      				<div class="col-sm-8">
+											<input type="radio" name="gender" value="male"> Yes <input type="radio" name="gender" value="female"> No<br>
 
-      					<input type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+										</div>
+									</div>
+								</li>
 
+								<li class="list-group-item" ng-mouseenter="editFlypass = true" ng-mouseleave="editFlypass = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editFlypassAction}">
+											Flypass
+										</div>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" ng-model="currentEmp.flypass">
 
-      				</div>
-      			</div>
-      		</li>
+										</div>
+									</div>
+								</li>
 
-      		<li class="list-group-item" ng-mouseenter="editDepartment = true" ng-mouseleave="editDepartment = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editDepartmentAction}">
-      					Innretning
-      				</div>
-      				<div class="col-sm-8">
+							</ul>
 
+							<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-if="userFormStep == 2"><i class="fa fa-floppy-o"></i> Create</button>
 
-      					<input type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.departmets | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+							<button type="button" class="btn btn-w-m btn-default btn-sm pull-right m-r-sm" ng-click="userFormStep = 1" ng-show="userFormStep == 2"><i class="fa fa-chevron-left"></i> Back</button>
 
+							<button type="button" class="btn btn-w-m btn-default btn-sm pull-right" ng-click="userFormStep = 2" ng-show="userFormStep == 1"><i class="fa fa-chevron-right"></i> Next</button>
+						</div>
 
+					</div>
 
 
-      				</div>
-      			</div>
-      		</li>
+					<div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
+						<div class="contact-box-top">
+							<div class="visible-xl">
 
-      		<li class="list-group-item" ng-mouseenter="editShift = true" ng-mouseleave="editShift = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editShiftAction}">
-      					Skift
-      				</div>
-      				<div class="col-sm-8">
+								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
+								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
+								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
+								<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
 
-      					<input type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shifts | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
+								<div class=" pull-right">
+									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 2" ng-show="mode == 1"> <i class="fa fa-expand"></i> </button>
+									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 1" ng-show="mode == 2"> <i class="fa fa-compress"></i> </button>
+									<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
 
+								</div>
+								<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
-      				</div>
-      			</div>
-      		</li>
 
-      		<li class="list-group-item" ng-mouseenter="editAavlonnet = true" ng-mouseleave="editAavlonnet = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editAavlonnetAction}">
-      					Individuelt avlonnet
-      				</div>
-      				<div class="col-sm-8">
+							</div>
 
-      					<input type="radio" name="gender" value="male"> Yes <input type="radio" name="gender" value="female"> No<br>
+							<div class="hidden-xl">
+								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
+								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
+								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
+								<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
+								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
+								<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
+								<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
+								<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
-      				</div>
-      			</div>
-      		</li>
+							</div>
 
-      		<li class="list-group-item" ng-mouseenter="editFlypass = true" ng-mouseleave="editFlypass = false">
-      			<div class="row">
-      				<div class="col-sm-4" ng-class="{'col-sm-12' : editFlypassAction}">
-      					Flypass
-      				</div>
-      				<div class="col-sm-8">
-      					<input type="text" class="form-control" ng-model="currentEmp.flypass">
+						</div>
 
-      				</div>
-      			</div>
-      		</li>
+						<a class="p-n col-sm-6 col-xl-12">
 
-      	</ul>
+							<div class="col-xl-12 col-sm-12">
+								<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
 
-      	<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-if="userFormStep == 2"><i class="fa fa-floppy-o"></i> Create</button>
+								<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
 
-      	<button type="button" class="btn btn-w-m btn-default btn-sm pull-right m-r-sm" ng-click="userFormStep = 1" ng-show="userFormStep == 2"><i class="fa fa-chevron-left"></i> Back</button>
+								<div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
 
-      	<button type="button" class="btn btn-w-m btn-default btn-sm pull-right" ng-click="userFormStep = 2" ng-show="userFormStep == 1"><i class="fa fa-chevron-right"></i> Next</button>
-      </div>
 
-  </div>
 
 
-  <div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
-  	<div class="contact-box-top">
-  		<div class="visible-xl">
+								<input ng-show="editUser" type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-  			<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1" ng-class="{active:subtab == 1}"> <i class="fa fa-briefcase"></i> </button>
-  			<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}"> <i class="fa fa-user"></i> </button>
-  			<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}"> <i class="fa fa-list"></i> </button>
-  			<button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}"> <i class="fa fa-pencil"></i> </button>
+							</div>
 
+							<div class="col-xl-6 col-sm-12 m-t-lg hidden-xl">
+								Active <br>
+								Union <br>
+								Status<br>
+							</div>
 
-  			<div class=" pull-right">
-  				<button type="button" class="btn btn-sm btn-white" ng-click="mode = 2" ng-show="mode == 1"> <i class="fa fa-expand"></i> </button>
-  				<button type="button" class="btn btn-sm btn-white" ng-click="mode = 1" ng-show="mode == 2"> <i class="fa fa-compress"></i> </button>
-  				<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
+						</a>
 
-  			</div>
-  			<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
 
-  		</div>
+						<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 1">
 
-  		<div class="hidden-xl">
-  			<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
-  			<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
-  			<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
-  			<button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()"> <i class="fa fa-pencil"></i> Edit</button>
-  			<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
-  			<button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
-  			<button type="button" class="btn btn-sm btn-white" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
-  			<button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
 
-  		</div>
+							<ul class="list-group clear-list m-t-md">
+								<li class="list-group-item fist-item">
+									<strong>CONTACT INFORMATION</strong>
+								</li>
+								<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+											Full navn
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+											<a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  	</div>
+											<form role="form" ng-show="editNameAction">
+												<div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
+												<div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
+												<div>
+													<div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+														<button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+														{{useralert}}. <a class="alert-link">check</a>.
+													</div>
+													<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
 
-  	<a class="p-n col-sm-6 col-xl-12">
+												</div>
+											</form>
 
-  		<div class="col-xl-12 col-sm-12">
-  			<img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
+										</div>
+									</div>
 
-  			<h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
+								</li>
 
-  			<div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
+								<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
+											Telefon
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phoneNumberMobile}}</span>
+											<a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
+											<form role="form" ng-show="editPhoneAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+													<a><i class="fa fa-plus"></i> Add another telefon </a>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
 
+												</div>
+											</form>
 
+										</div>
+									</div>
+								</li>
 
-  			<input ng-show="editUser" type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+								<li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
+											E-post
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editEmailAction">{{currentEmp.user.contactProfile.email}}</span>
+											<a  class="pull-right" ng-show="editEmail && !editEmailAction" href ng-click="editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  		</div>
+											<form role="form" ng-show="editEmailAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+													<a><i class="fa fa-plus"></i> Add another e-post </a>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>
 
-  		<div class="col-xl-6 col-sm-12 m-t-lg hidden-xl">
-  			Active <br>
-  			Union <br>
-  			Status<br>
-  		</div>
+												</div>
+											</form>
 
-  	</a>
+										</div>
+									</div>
+								</li>
 
+								<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
+											Adresse
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editAddressAction">{{currentEmp.user.contactProfile.address}}</span>
+											<a  class="pull-right" ng-show="editAddress && !editAddressAction" href ng-click="editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
+											<form role="form" ng-show="editAddressAction">
+												<div class="form-group">
+													<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>
 
-  	<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 1">
+												</div>
+											</form>
 
+										</div>
+									</div>
+								</li>
 
-  		<ul class="list-group clear-list m-t-md">
-  			<li class="list-group-item fist-item">
-  				<strong>CONTACT INFORMATION</strong>
-  			</li>
-  			<li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
-  						Full navn
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
-  						<a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>
+							</ul>
 
-  						<form role="form" ng-show="editNameAction">
-  							<div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
-  							<div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
-  							<div>
-  								<div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
-  									<button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
-  									{{useralert}}. <a class="alert-link">check</a>.
-  								</div>
-  								<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
 
-  							</div>
-  						</form>
+							<ul class="list-group clear-list" ng-hide="editUser">
+								<li class="list-group-item fist-item">
+									<strong>EMPLOYMENT INFORMATION</strong>
+								</li>
+								<li class="list-group-item" ng-mouseenter="editFirm = true" ng-mouseleave="editFirm = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editFirmAction}">
+											Firma
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editFirmAction">Rowan</span>
+											<a  class="pull-right" ng-show="editFirm && !editFirmAction" href ng-click="editFirmAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  					</div>
-  				</div>
+											<form role="form" ng-show="editFirmAction">
+												<div class="form-group"><input type="text" ng-model="currentEmp.user.company" placeholder="First name" class="form-control"></div>
+												<div>
+													<button class="btn btn-sm btn-primary">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editFirmAction = false">Cancel</button>
 
-  			</li>
+												</div>
+											</form>
 
-  			<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
-  						Telefon
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phoneNumberMobile}}</span>
-  						<a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
+										</div>
+									</div>
 
-  						<form role="form" ng-show="editPhoneAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-  								<a><i class="fa fa-plus"></i> Add another telefon </a>
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
+								</li>
 
-  							</div>
-  						</form>
+								<li class="list-group-item" ng-mouseenter="editPosition = true" ng-mouseleave="editPosition = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editPositionAction}">
+											Stilling
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editPositionAction">{{currentEmp.position.name}}</span>
+											<a  class="pull-right" ng-show="editPosition && !editPositionAction" href ng-click="editPositionAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  					</div>
-  				</div>
-  			</li>
+											<form role="form" ng-show="editPositionAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.positions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-  			<li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
-  						E-post
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editEmailAction">{{currentEmp.user.contactProfile.email}}</span>
-  						<a  class="pull-right" ng-show="editEmail && !editEmailAction" href ng-click="editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="changePosition(currentEmp.position)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editPositionAction = false">Cancel</button>
 
-  						<form role="form" ng-show="editEmailAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
-  								<a><i class="fa fa-plus"></i> Add another e-post </a>
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>
+												</div>
+											</form>
 
-  							</div>
-  						</form>
+										</div>
+									</div>
+								</li>
 
-  					</div>
-  				</div>
-  			</li>
+								<li class="list-group-item" ng-mouseenter="editUnion = true" ng-mouseleave="editUnion = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editUnionAction}">
+											Union
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editUnionAction">{{currentEmp.union.name}}</span>
+											<a  class="pull-right" ng-show="editUnion && !editUnionAction" href ng-click="editUnionAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  			<li class="list-group-item" ng-mouseenter="editAddress = true" ng-mouseleave="editAddress = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editAddressAction}">
-  						Adresse
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editAddressAction">{{currentEmp.user.contactProfile.address}}</span>
-  						<a  class="pull-right" ng-show="editAddress && !editAddressAction" href ng-click="editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>
+											<form role="form" ng-show="editUnionAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
 
-  						<form role="form" ng-show="editAddressAction">
-  							<div class="form-group">
-  								<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.user.contactProfile.address"></textarea>
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="changeUnion(currentEmp.union)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editUnionAction = false">Cancel</button>
 
-  							</div>
-  						</form>
+												</div>
+											</form>
 
-  					</div>
-  				</div>
-  			</li>
+										</div>
+									</div>
+								</li>
 
-  		</ul>
+								<li class="list-group-item" ng-mouseenter="editDepartment = true" ng-mouseleave="editDepartment = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editDepartmentAction}">
+											Innretning
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editDepartmentAction">{{currentEmp.department.name}}</span>
+											<a  class="pull-right" ng-show="editDepartment && !editDepartmentAction" href ng-click="editDepartmentAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
+											<form role="form" ng-show="editDepartmentAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.departmets | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="changeDepartment(currentEmp.department)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editDepartmentAction = false">Cancel</button>
 
-  		<ul class="list-group clear-list" ng-hide="editUser">
-  			<li class="list-group-item fist-item">
-  				<strong>EMPLOYMENT INFORMATION</strong>
-  			</li>
-  			<li class="list-group-item" ng-mouseenter="editFirm = true" ng-mouseleave="editFirm = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editFirmAction}">
-  						Firma
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editFirmAction">Rowan</span>
-  						<a  class="pull-right" ng-show="editFirm && !editFirmAction" href ng-click="editFirmAction = true"><i class="fa fa-pencil"></i> Edit </a>
+												</div>
+											</form>
 
-  						<form role="form" ng-show="editFirmAction">
-  							<div class="form-group"><input type="text" ng-model="currentEmp.user.company" placeholder="First name" class="form-control"></div>
-  							<div>
-  								<button class="btn btn-sm btn-primary">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editFirmAction = false">Cancel</button>
+										</div>
+									</div>
+								</li>
 
-  							</div>
-  						</form>
+								<li class="list-group-item" ng-mouseenter="editShift = true" ng-mouseleave="editShift = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editShiftAction}">
+											Skift
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editShiftAction">{{currentEmp.shift.name}}</span>
+											<a  class="pull-right" ng-show="editShift && !editShiftAction" href ng-click="editShiftAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  					</div>
-  				</div>
-
-  			</li>
+											<form role="form" ng-show="editShiftAction">
+												<div class="form-group">
+													<input type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shifts | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click="changeShift(currentEmp.shift)">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editShiftAction = false">Cancel</button>
 
-  			<li class="list-group-item" ng-mouseenter="editPosition = true" ng-mouseleave="editPosition = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editPositionAction}">
-  						Stilling
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editPositionAction">{{currentEmp.position.name}}</span>
-  						<a  class="pull-right" ng-show="editPosition && !editPositionAction" href ng-click="editPositionAction = true"><i class="fa fa-pencil"></i> Edit </a>
-
-  						<form role="form" ng-show="editPositionAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.position" uib-typeahead="position as position.name for position in mycp.positions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="changePosition(currentEmp.position)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editPositionAction = false">Cancel</button>
+												</div>
+											</form>
 
-  							</div>
-  						</form>
+										</div>
+									</div>
+								</li>
 
-  					</div>
-  				</div>
-  			</li>
+								<li class="list-group-item" ng-mouseenter="editAavlonnet = true" ng-mouseleave="editAavlonnet = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editAavlonnetAction}">
+											Individuelt avlonnet
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editAavlonnetAction || currentEmp.salarySystem == 0">Yes</span>
+											<span ng-hide="editAavlonnetAction || currentEmp.salarySystem == 1">No</span>
+											<a  class="pull-right" ng-show="editAavlonnet && !editAavlonnetAction" href ng-click="editAavlonnetAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  			<li class="list-group-item" ng-mouseenter="editUnion = true" ng-mouseleave="editUnion = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editUnionAction}">
-  						Union
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editUnionAction">{{currentEmp.union.name}}</span>
-  						<a  class="pull-right" ng-show="editUnion && !editUnionAction" href ng-click="editUnionAction = true"><i class="fa fa-pencil"></i> Edit </a>
+											<form role="form" ng-show="editAavlonnetAction">
 
-  						<form role="form" ng-show="editUnionAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+												<div class="col-sm-10">
 
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="changeUnion(currentEmp.union)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editUnionAction = false">Cancel</button>
 
-  							</div>
-  						</form>
-
-  					</div>
-  				</div>
-  			</li>
-
-  			<li class="list-group-item" ng-mouseenter="editDepartment = true" ng-mouseleave="editDepartment = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editDepartmentAction}">
-  						Innretning
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editDepartmentAction">{{currentEmp.department.name}}</span>
-  						<a  class="pull-right" ng-show="editDepartment && !editDepartmentAction" href ng-click="editDepartmentAction = true"><i class="fa fa-pencil"></i> Edit </a>
+													<div><label> <input type="radio" checked="" value="yes" name="optionsRadios"> YES </label></div>
 
-  						<form role="form" ng-show="editDepartmentAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.department" uib-typeahead="department as department.name for department in mycp.departmets | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="changeDepartment(currentEmp.department)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editDepartmentAction = false">Cancel</button>
+													<div><label> <input type="radio" value="no" name="optionsRadios"> NO </label></div>
+												</div>
 
-  							</div>
-  						</form>
 
-  					</div>
-  				</div>
-  			</li>
+												<div>
+													<button class="btn btn-sm btn-primary" >Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editAavlonnetAction = false">Cancel</button>
 
-  			<li class="list-group-item" ng-mouseenter="editShift = true" ng-mouseleave="editShift = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editShiftAction}">
-  						Skift
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editShiftAction">{{currentEmp.shift.name}}</span>
-  						<a  class="pull-right" ng-show="editShift && !editShiftAction" href ng-click="editShiftAction = true"><i class="fa fa-pencil"></i> Edit </a>
+												</div>
+											</form>
 
-  						<form role="form" ng-show="editShiftAction">
-  							<div class="form-group">
-  								<input type="text" ng-model="currentEmp.shift" uib-typeahead="shift as shift.name for shift in mycp.shifts | filter:$viewValue | limitTo:8" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click="changeShift(currentEmp.shift)">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editShiftAction = false">Cancel</button>
+										</div>
+									</div>
+								</li>
 
-  							</div>
-  						</form>
+								<li class="list-group-item" ng-mouseenter="editFlypass = true" ng-mouseleave="editFlypass = false">
+									<div class="row">
+										<div class="col-sm-4" ng-class="{'col-sm-12' : editFlypassAction}">
+											Flypass
+										</div>
+										<div class="col-sm-8">
+											<span ng-hide="editFlypassAction">{{currentEmp.flypass}}</span>
+											<a  class="pull-right" ng-show="editFlypass && !editFlypassAction" href ng-click="editFlypassAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-  					</div>
-  				</div>
-  			</li>
+											<form role="form" ng-show="editFlypassAction">
+												<div class="form-group">
+													<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.flypass"></textarea>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary">Save</button>
+													<button class="btn btn-sm btn-default" ng-click="editFlypassAction = false">Cancel</button>
 
-  			<li class="list-group-item" ng-mouseenter="editAavlonnet = true" ng-mouseleave="editAavlonnet = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editAavlonnetAction}">
-  						Individuelt avlonnet
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editAavlonnetAction || currentEmp.salarySystem == 0">Yes</span>
-  						<span ng-hide="editAavlonnetAction || currentEmp.salarySystem == 1">No</span>
-  						<a  class="pull-right" ng-show="editAavlonnet && !editAavlonnetAction" href ng-click="editAavlonnetAction = true"><i class="fa fa-pencil"></i> Edit </a>
-
-  						<form role="form" ng-show="editAavlonnetAction">
-
-  							<div class="col-sm-10">
-
-
-  								<div><label> <input type="radio" checked="" value="yes" name="optionsRadios"> YES </label></div>
-
-  								<div><label> <input type="radio" value="no" name="optionsRadios"> NO </label></div>
-  							</div>
-
-
-  							<div>
-  								<button class="btn btn-sm btn-primary" >Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editAavlonnetAction = false">Cancel</button>
+												</div>
+											</form>
 
-  							</div>
-  						</form>
+										</div>
+									</div>
+								</li>
 
-  					</div>
-  				</div>
-  			</li>
+							</ul>
+						</div>
 
-  			<li class="list-group-item" ng-mouseenter="editFlypass = true" ng-mouseleave="editFlypass = false">
-  				<div class="row">
-  					<div class="col-sm-4" ng-class="{'col-sm-12' : editFlypassAction}">
-  						Flypass
-  					</div>
-  					<div class="col-sm-8">
-  						<span ng-hide="editFlypassAction">{{currentEmp.flypass}}</span>
-  						<a  class="pull-right" ng-show="editFlypass && !editFlypassAction" href ng-click="editFlypassAction = true"><i class="fa fa-pencil"></i> Edit </a>
+						<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 2">
 
-  						<form role="form" ng-show="editFlypassAction">
-  							<div class="form-group">
-  								<textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentEmp.flypass"></textarea>
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary">Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="editFlypassAction = false">Cancel</button>
+							<ul class="list-group clear-list" ng-hide="editUser">
 
-  							</div>
-  						</form>
+								<li class="list-group-item fist-item m-b-md">
+									<strong>DELEGATE ROLES</strong>
 
-  					</div>
-  				</div>
-  			</li>
+									<span class="pull-right">
+										<a ng-click="addingDelegate = true"> <i class="fa fa-plus"></i> Assign</a>
+									</span>
 
-  		</ul>
-  	</div>
+									<div ng-show="addingDelegate">
+										<div class="m-t-md m-b-md">
 
-  	<div class="col-sm-6 col-xl-12 p-t-sm" ng-show="subtab == 2">
+											<form role="form">
+												<div class="form-group">
+													<label class="font-noraml">Role</label>
 
-  		<ul class="list-group clear-list" ng-hide="editUser">
+													<input id="unionFilter" placeholder="Type role name.." type="text" ng-model="user.role" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
 
-  			<li class="list-group-item fist-item m-b-md">
-  				<strong>DELEGATE ROLES</strong>
+												</div>
 
-  				<span class="pull-right">
-  					<a ng-click="addingDelegate = true"> <i class="fa fa-plus"></i> Assign</a>
-  				</span>
+												<div class="form-group">
+													<label class="font-noraml">Start date</label>
 
-  				<div ng-show="addingDelegate">
-  					<div class="m-t-md m-b-md">
+													<div class="input-group">
+														<datepicker>
+															<input class="form-control" ng-model="user.startDate" type="text"/>
+														</datepicker>
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="font-noraml">End date</label>
 
-  						<form role="form">
-  							<div class="form-group">
-  								<label class="font-noraml">Role</label>
+													<div class="input-group">
+														<datepicker>
+															<input class="form-control" ng-model="user.endDate" type="text"/>
+														</datepicker>
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													</div>
+												</div>
+												<div>
+													<button class="btn btn-sm btn-primary" ng-click=delegateRole(user)>Save</button>
+													<button class="btn btn-sm btn-default" ng-click="addingDelegate = false">Cancel</button>
 
-  								<input id="unionFilter" placeholder="Type role name.." type="text" ng-model="user.role" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
+												</div>
+											</form>
+										</div>
+									</div>
 
-  							</div>
+								</li>
+								<li class="list-group-item" ng-hide="currentEmp.delegates.length > 0">
+									No assigned roles, please add one
+								</li>
+								<li class="list-group-item" ng-repeat="role in currentEmp.delegates">
+									{{role.name}}<span class="pull-right">{{timeConverter(role.startDate)}} - {{timeConverter(role.endDate)}}</td>
+								</li>
 
-  							<div class="form-group">
-  								<label class="font-noraml">Start date</label>
+							</ul>
 
-  								<div class="input-group">
-  									<datepicker>
-  										<input class="form-control" ng-model="user.startDate" type="text"/>
-  									</datepicker>
-  									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-  								</div>
-  							</div>
-  							<div class="form-group">
-  								<label class="font-noraml">End date</label>
+						</div>
 
-  								<div class="input-group">
-  									<datepicker>
-  										<input class="form-control" ng-model="user.endDate" type="text"/>
-  									</datepicker>
-  									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-  								</div>
-  							</div>
-  							<div>
-  								<button class="btn btn-sm btn-primary" ng-click=delegateRole(user)>Save</button>
-  								<button class="btn btn-sm btn-default" ng-click="addingDelegate = false">Cancel</button>
 
-  							</div>
-  						</form>
-  					</div>
-  				</div>
+					</div>
 
-  			</li>
-  			<li class="list-group-item" ng-hide="currentEmp.delegates.length > 0">
-  				No assigned roles, please add one
-  			</li>
-  			<li class="list-group-item" ng-repeat="role in currentEmp.delegates">
-  				{{role.name}}<span class="pull-right">{{timeConverter(role.startDate)}} - {{timeConverter(role.endDate)}}</td>
-  			</li>
+				</div>
 
 
-  		</ul>
-
-  	</div>
-
-
-  </div>
-
-</div>
-
-
-</div>
-</div>
+			</div>
+		</div>
