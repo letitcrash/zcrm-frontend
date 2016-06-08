@@ -38,66 +38,84 @@
 
           </div>
 
-          <!--btns-->
-          <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary">
-            <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
-          </button>
-
-          <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
-            <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
-          </button>
-
-          <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
-            <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
-          </button> 
-          <!--advanced filters start-->
-          <div ng-if="isCollapsed">
-            <!--top search fields-->
-            <form role="form" class="form-inline" style="padding-top:20px;">
-
-              <!--union-->
-              <div class="form-group" style="margin-right:10px;">
-                <h4>Union</h4>
-                <div class="input-group">
-
-                  <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control">
-
-
-                </div> 
-
-                <ul>
-                  <li ng-repeat="union in filter.unions">{{union.name}}</li>
-                </ul>
-                
+         <!--btns-->
+                <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary btn-sm">
+                    <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
+                </button>
+                <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-default btn-sm">
+                    <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
+                </button>
+                <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-danger btn-sm">
+                 <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" ng-hide="isCollapsed==false">
+                    <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
+                </button> 
+                <!--advanced filters start-->
+                <div ng-if="isCollapsed">
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--status-->
+                            <h4>Status</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Status..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--ticket-->
+                            <h4>Ticket</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Ticket..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <h4>Team</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Team..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                        <!--created-->
+                            <h4>Created</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>
+                        </div>                                               
+                    </form>
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--priority-->
+                            <h4>Priority</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Priority..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--client-->
+                            <h4>Client</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Client..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--person-->
+                            <h4>Person</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Person..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--deadline-->
+                            <h4>Deadline</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>    
+                        </div>                                               
+                    </form> 
                 </div>
-
-                <!--position-->
-                <div class="form-group" style="margin-right:10px;">
-                  <h4>Position</h4>
-                  <div class="input-group">
-                    <input type="text" placeholder="Position..." class="form-control">
-                  </div>
-                </div>
-
-                <!--department-->
-                <div class="form-group" style="margin-right:10px;">
-                  <h4>Department</h4>
-                  <div class="input-group">
-                    <input type="text" placeholder="Department..." class="form-control">
-                  </div>
-                </div>
-
-                <!--shift-->
-                <div class="form-group" style="margin-right:10px;">
-                  <h4>Shift</h4>
-                  <div class="input-group">
-                    <input type="text" placeholder="Shift..." class="form-control" />
-                  </div>
-                </div>    
-
-            </form>
-          </div>
-            <!--advanced filters end-->
+                <!--advanced filters end-->
 
           <div class="clients-list">
               <!--TABS start-->
@@ -122,7 +140,7 @@
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
-                          <th>
+                          <th style="width:30px;">
                             <i class="fa fa-check"></i>
                           </th>
                           <th style="margin-left:5px;">Status</th>
@@ -210,37 +228,23 @@
           <div class="ibox-content">
             <form role="form" class="form-inline">
               <div class="row" style="margin-bottom:20px;">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <h4>Ticket name</h4>
                   <input type="text" class="form-control" placeholder="Ticket name..." style="width:100%;" />
                 </div>
-                <div class="col-lg-6">
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                 <div class="col-lg-6">
                   <h4>Deadline</h4>
                   <div id="reportrange" class="form-control" style="width:100%;">
                     <i class="fa fa-calendar"></i>
                     <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
                   </div>
                 </div>
-              </div>
-              <div class="row" style="margin-bottom:20px;">
-                <div class="col-lg-6">
-                  <h4>Assign to</h4>
-                  <div class="input-group" style="width:100%;">
-                    <input type="text" class="form-control" placeholder="Assign a ticket to employee...">
-                 </div>
-                  <div class="team-members">
-                    <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg"></a>
-                    <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg"></a>
-                    <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg"></a>
-                    <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg"></a>
-                    <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg"></a>
-                    <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg"></a>
-                  </div>
-                </div>
                 <div class="col-lg-3">
                   <h4>Status</h4>
                   <select class="form-control m-b" name="account" style="width:100%;">
-                    <option>New</option>
+                    <option selected>New</option>
                     <option>Overdue</option>
                     <option>Deadline</option>
                     <option>Closed</option>
@@ -250,29 +254,60 @@
                   <h4>Priority</h4>
                   <select class="form-control m-b" name="account" style="width:100%;">
                     <option>High</option>
-                    <option>Mid</option>
+                    <option selected>Mid</option>
                     <option>Low</option>
                   </select>       
                 </div>
               </div>
               <hr style="margin-bottom:35px;"/>
-              <div class="row" style="margin-bottom:50px;">
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                    <h4>Assign to</h4>
+                    <div class="input-group" style="width:100%;">
+                      <input type="text" class="form-control" placeholder="Assign a ticket to employee...">
+                   </div>
+                  <div class="employee-list" style="margin-top:10px">
+                    <ul style="list-style:none; margin:0; padding:0;">
+                      <li>
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                        <span>Employee1</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-lg-12" style="margin-bottom:20px;">
                   <h4>Description</h4>
                   <textarea class="form-control" placeholder="Add description here..." style="width:100%;"></textarea>
                 </div>
-                    <div class="col-lg-6">
-                  <h4>Team</h4>
-                  <div class="input-group" style="width:100%;">
-                    <input type="text" class="form-control" placeholder="Add a team...">
-                  </div>
-                </div>
-                <div class="col-lg-6">
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
                   <h4>Client</h4>
                   <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" placeholder="Add a client...">
                   </div>
                 </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                 <div class="col-lg-12">
+                  <h4>Project</h4>
+                  <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" placeholder="Add a project...">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Team</h4>
+                  <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" placeholder="Add a team...">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:50px;">
+                <button class="btn btn-default btn-sm" style="margin-left:15px;">Assign to yourself</button>
               </div>
             </form> 
           </div>
