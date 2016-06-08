@@ -249,6 +249,10 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       getEmployees(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
     });
   };
+  $scope.filterClear = function() {
+	console.log("filterClear");
+	$scope.currentFilters.union = false;
+  }
 
   getEmployees = function(force, pageSize, pageNr, searchTerm, filter) {
     employeeService.getList(force, pageSize, pageNr, searchTerm, filter).then(function(response) {

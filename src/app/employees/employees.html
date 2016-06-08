@@ -49,7 +49,11 @@
 
           <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
             <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
-          </button>
+		  </button>
+		  
+		  <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-info">
+			<i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+		  </button>
 
           <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
             <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
@@ -59,27 +63,23 @@
             <!--top search fields-->
             <form role="form" class="form-inline" style="padding-top:20px;">
 
-              <!--union-->
-              <div class="form-group" style="margin-right:10px;">
-                <h4>Union</h4>
-                <div class="input-group">
-
-                  <input id="unionFilter" type="text" ng-model="currentFilters.union"
-						 uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" 
-						 class="form-control" />
-
-
-                </div> 
-
-                <ul>
-                  <li ng-repeat="union in filter.unions">{{union.name}}</li>
-                </div>
+			  <!--union-->
+			  <div class="form-group" style="margin-right:10px; float: left">
+				<h4>{{ 'Union' | translate }}</h4>
+				<div class="input-group">
+				  <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" placeholder="{{ 'Union' | translate }}" value="{{filter.unions[1].name}}">
+				  </div> 
+				  
+				  <ul>
+					<li ng-repeat="union in filter.unions" ng-if="" ng-repeat-end>{{union.name}}</li>
+				  </ul>
+				</div>
 
                 <!--position-->
                 <div class="form-group" style="margin-right:10px;">
                   <h4>Position</h4>
                   <div class="input-group">
-                    <input type="text" placeholder="Position..." class="form-control">
+                    <input type="text" placeholder="Position..." class="form-control" />
                   </div>
                 </div>
 
@@ -87,7 +87,7 @@
                 <div class="form-group" style="margin-right:10px;">
                   <h4>Department</h4>
                   <div class="input-group">
-                    <input type="text" placeholder="Department..." class="form-control">
+                    <input type="text" placeholder="Department..." class="form-control" />
                   </div>
                 </div>
 
