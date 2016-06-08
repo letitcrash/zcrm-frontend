@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService) {
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService) {
     var getTickets;
     
     //inserted

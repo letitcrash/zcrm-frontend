@@ -260,12 +260,11 @@
                   </select>       
                 </div>
               </div>
-              <hr style="margin-bottom:35px;"/>
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
-                    <h4>Assign to</h4>
+                    <h4>Assign to an employee</h4>
                     <div class="input-group" style="width:100%;">
-                      <input type="text" ng-model="ticket.assignedToUserId" placeholder="Type employee name" uib-typeahead="emp.user.id as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" class="form-control">
+                      <input type="text" ng-model="ticket.assignedToUserId" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" class="form-control">
                    </div>
                   <div class="employee-list" style="margin-top:10px">
                     <ul style="list-style:none; margin:0; padding:0;">
@@ -275,8 +274,17 @@
                       </li>
                     </ul>
                   </div>
+              </div>
+              </div>
+                 <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Assign to a team</h4>
+                  <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" placeholder="Add a team...">
+                  </div>
                 </div>
               </div>
+                <hr/>
               <div class="row">
                 <div class="col-lg-12" style="margin-bottom:20px;">
                   <h4>Description</h4>
@@ -296,14 +304,6 @@
                   <h4>Project</h4>
                   <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" placeholder="Add a project...">
-                  </div>
-                </div>
-              </div>
-              <div class="row" style="margin-bottom:20px;">
-                <div class="col-lg-12">
-                  <h4>Team</h4>
-                  <div class="input-group" style="width:100%;">
-                    <input type="text" class="form-control" placeholder="Add a team...">
                   </div>
                 </div>
               </div>
