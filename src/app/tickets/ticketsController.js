@@ -35,11 +35,23 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
+  
+  $scope.getEmloyees = function(searchTerm) {
+    return employeeService.getTypeaheadList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
     
 
   $scope.openTicket = function (tkt) {
     $scope.mode = 1;
-    $scope.showStuff = true;
     $scope.currentTicket = tkt;
     //$window.location.href = '/#/index/tickets/' + tkt.id;
   };

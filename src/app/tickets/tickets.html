@@ -27,7 +27,7 @@
 
           <h2>{{ 'Tickets' | translate }}</h2>
           
-          {{ticket}}
+          {{currentTicket}}
 
           <!--FILTERS start-->
           <!--main search-->
@@ -164,7 +164,7 @@
                             <button type="button" class="btn btn-xs" ng-class="{'btn-success': ticket.status === 1, 'btn-warning': ticket.status === 2, 'btn-default': ticket.status === 3}">{{ticket.status | uppercase}}</button>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 'high', 'btn-warning': ticket.priority === 'mid', 'btn-info': ticket.priority === 'low'}">{{ticket.priority |uppercase}}</button>
+                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 0, 'btn-warning': ticket.priority === 2, 'btn-info': ticket.priority === 3}">{{ticket.priority |uppercase}}</button>
                           </td>
                           <td>
                             <a href ng-click="openTicket(ticket)">{{ticket.subject | uppercase}} </a>
@@ -220,7 +220,6 @@
       
     <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
         <!-- creation form -->
-
         <div class="ibox float-e-margins" ng-if="currentTicket.id == null">
           <div class="ibox-title">
             <h5>Create new ticket</h5>
@@ -254,10 +253,10 @@
                 </div>  
                 <div class="col-lg-3">
                   <h4>Priority</h4>
-                  <select class="form-control m-b" name="account" style="width:100%;">
-                    <option>High</option>
-                    <option selected>Mid</option>
-                    <option>Low</option>
+                  <select class="form-control m-b" ng-model="ticket.priority" name="account" style="width:100%;">
+                    <option value='0'>High</option>
+                    <option value='2' selected>Mid</option>
+                    <option value='3'>Low</option>
                   </select>       
                 </div>
               </div>
@@ -266,7 +265,7 @@
                 <div class="col-lg-12">
                     <h4>Assign to</h4>
                     <div class="input-group" style="width:100%;">
-                      <input type="text" class="form-control" placeholder="Assign a ticket to employee...">
+                      <input type="text" ng-model="ticket.assignedToUserId" placeholder="Type employee name" uib-typeahead="emp.user.id as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" class="form-control">
                    </div>
                   <div class="employee-list" style="margin-top:10px">
                     <ul style="list-style:none; margin:0; padding:0;">
@@ -316,19 +315,26 @@
         </div>
         <!-- creation form end -->
         <!-- opened ticket -->
-
         <div class="ibox float-e-margins" ng-if="currentTicket.id != null">
           <div class="ibox-title">
-            <div class="btn-group" role="group">
-              <button type="button" ng-class="{'active': (selected == 1)}" ng-click="selected=1" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> 
-              <button type="button" ng-class="{'active': (selected == 2)}" ng-click="selected=2" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> <button type="button" ng-class="{'active': (selected == 3)}" ng-click="selected=3" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button> 
-              <button type="button" ng-class="{'active': (selected == 4)}" ng-click="selected=4" class="btn btn-default btn-md"> <i class="fa fa-expand"></i> </button>
-            </div>
+            <div class="row">
+              <div class="btn-group" role="group" style="margin-left:20px;">
+                <button type="button" ng-class="{'active': (selected == 1)}" ng-click="selected=1" class="btn btn-default btn-md"> <i class="fa fa-info-circle"></i> </button>
+                <button type="button" ng-class="{'active': (selected == 2)}" ng-click="selected=2" class="btn btn-default btn-md"> <i class="fa fa-comments-o"></i> </button> 
+                <button type="button" ng-class="{'active': (selected == 3)}" ng-click="selected=3" class="btn btn-default btn-md"> <i class="fa fa-envelope"></i> </button> 
+                <button type="button" ng-class="{'active': (selected == 4)}" ng-click="selected=4" class="btn btn-default btn-md"> <i class="fa fa-paperclip"></i> </button> 
+                <button type="button" ng-class="{'active': (selected == 5)}" ng-click="selected=5" class="btn btn-default btn-md"> <i class="fa fa-history"></i> </button>
+              </div>
 
-            <div class="pull-right">
-              <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1"> <i class="fa fa-expand"></i> </button>
-              <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2"> <i class="fa fa-compress"></i> </button>
-              <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
+              <div class="pull-right" style="margin-right:20px;">
+                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1"> <i class="fa fa-expand"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
+              </div>
+            </div>
+             <div class="row" style="margin-top:20px;">
+              <h5 style="margin-left:20px;">{{currentTicket.subject | uppercase}}</h5>
+              <button class="btn btn-danger btn-sm pull-right" style="margin-right:20px;">{{currentTicket.status}}</button>
             </div>
           </div>
           <!-- ticket info -->
@@ -341,16 +347,13 @@
                 <dt>Team:</dt><dd class="ng-binding">Team-1</dd>
                 <dt>Deadline:</dt><dd class="ng-binding">Oct 29, 2010</dd>
               </dl>
-
-              <p ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
-                <strong>Ticket description:</strong><br>
-                Capicola bresaola shank beef ribs. Pancetta boudin jowl, sausage beef ball tip turducken pork salami t-bone brisket kielbasa kevin ham venison. Landjaeger turducken shankle, jerky biltong hamburger leberkas meatloaf pork boudin swine bacon tri-tip shank andouille. Doner corned beef frankfurter capicola biltong tri-tip ball tip porchetta drumstick chicken meatball jowl t-bone. Leberkas pork chop chuck, shankle bresaola pork loin porchetta meatloaf corned beef tongue.
-              </p>
+              <dl class="dl-horizontal" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
+                <dt>Ticket description:</dt><dd class="ng-binding">{{currentTicket.description}}</dd>
+              </dl>
             </div>
-
             <ul class="list-group clear-list m-t-md">
               <li class="list-group-item fist-item">
-                TICKET INFORMATION
+                Ticket info
               </li>
               <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                 <div class="row">
@@ -424,12 +427,109 @@
                     </form>                  </div>
                 </div>
               </li>
-
-              </ul>
+            </ul>
           </div>
           <!-- ticket info end -->
-          <!-- ticket conversations -->
+          <!--ticket timeline-->
           <div class="ibox-content" ng-if="selected == 2">
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="feed-activity-list">
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">5m ago</small>
+                                <strong>Monica Smith</strong> posted a new blog. <br>
+                                <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">2h ago</small>
+                                <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">2h ago</small>
+                                <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                <small class="text-muted">2 days ago at 8:30am</small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">5h ago</small>
+                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                            </div>
+                        </div>
+                            <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">2h ago</small>
+                                <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                                <div class="well">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">2h ago</small>
+                                <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                <small class="text-muted">2 days ago at 8:30am</small>
+                                <div class="photos">
+                                    <a target="_blank" href="#"> <img alt="image" class="feed-photo" src="http://placebeard.it/g/640x480/notag"></a>
+                                    <a target="_blank" href="#"> <img alt="image" class="feed-photo" src="http://placebeard.it/g/640x480/notag"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">23h ago</small>
+                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">46h ago</small>
+                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <!--ticket timeline end-->
+          <!-- ticket conversations -->
+          <div class="ibox-content" ng-if="selected == 3">
             <div class="row">
               <div class="col-md-12">
                 <div class="fh-breadcrumb">
@@ -825,15 +925,68 @@
           </div>
           <!-- ticket conversations end -->
           <!-- ticket files -->
-          <div class="ibox-content" ng-if="selected == 3">
-            files
+          <div class="ibox-content" ng-if="selected == 4">
+            <div class="attached-files col-md-12" style="background-color:#f9f9f9; padding:20px; margin-bottom:20px;">
+                <ul class="list-unstyled project-files">
+                    <li>
+                        <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a>
+                        <a href="" style="margin-left:10x;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="m-t-md">
+                <a href="#" class="btn btn-md btn-default"><i class="fa fa-paperclip" style="margin-right:5px;"></i>Attach</a>
+            </div>
           </div>
           <!-- ticket files end -->
           <!-- ticket history -->
-          <div class="ibox-content" ng-if="selected == 4">
-            
-            history
-            
+          <div class="ibox-content" ng-if="selected == 5">
+            <table class="table">
+              <thead>
+              <tr>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Date</th>
+                  <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>User1</td>
+                  <td>Action1</td>
+                  <td>Date1</td>
+                  <td>Status1</td>
+              </tr>
+              <tr>
+                  <td>User2</td>
+                  <td>Action2</td>
+                  <td>Date2</td>
+                  <td>Status2</td>
+              </tr>
+              <tr>
+                  <td>User3</td>
+                  <td>Action3</td>
+                  <td>Date3</td>
+                  <td>Status3</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
           <!-- ticket history end -->
         </div>

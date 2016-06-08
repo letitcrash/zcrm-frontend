@@ -35,6 +35,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       ticket.createdByUserId = dataService.getUserId();
       ticket.assignedToUserID = dataService.getUserId();
       ticket.status = Number(ticket.status);
+      ticket.priority = Number(ticket.priority);
 
       return requestService.ttPost(url, ticket);
     },
