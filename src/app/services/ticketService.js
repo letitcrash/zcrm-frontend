@@ -29,17 +29,14 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticketId;
       return requestService.ttGet(url);
     },
-    create: function(ticket, mails) {
+    create: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
-      var args = {};
-      args.companyId = dataService.getCurrentCompanyId();
-      args.createdByUser = dataService.getUser();
-      args.title = ticket.title;
-      args.description = ticket.description;
-      args.attachedMails = mails;
-      args.dueDate = "today";
+      ticket.companyId = dataService.getCurrentCompanyId();
+      ticket.createdByUserId = dataService.getUserId();
+      ticket.assignedToUserID = dataService.getUserId();
+      ticket.status = Number(ticket.status);
 
-      return requestService.ttPost(url, args);
+      return requestService.ttPost(url, ticket);
     },
     update: function(ticket, mails) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";

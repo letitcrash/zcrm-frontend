@@ -26,6 +26,8 @@
           </button>
 
           <h2>{{ 'Tickets' | translate }}</h2>
+          
+          {{ticket}}
 
           <!--FILTERS start-->
           <!--main search-->
@@ -154,33 +156,33 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr ng-repeat="idata in itable | limitTo:10 | filter:globalSearch"  role="row"> <!--sets display limit of 10 tickets per page-->
+                        <tr ng-repeat="ticket in tickets"  role="row"> <!--sets display limit of 10 tickets per page-->
                           <td>
                             <input type="checkbox" />
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': idata.update === 'new', 'btn-warning': idata.update === 'overdue', 'btn-default': idata.update === 'closed'}">{{idata.update | uppercase}}</button>
+                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': ticket.status === 1, 'btn-warning': ticket.status === 2, 'btn-default': ticket.status === 3}">{{ticket.status | uppercase}}</button>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': idata.priority === 'high', 'btn-warning': idata.priority === 'mid', 'btn-info': idata.priority === 'low'}">{{idata.priority |uppercase}}</button>
+                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 'high', 'btn-warning': ticket.priority === 'mid', 'btn-info': ticket.priority === 'low'}">{{ticket.priority |uppercase}}</button>
                           </td>
                           <td>
-                            <a href ng-click="openTicket(idata)">{{idata.number | uppercase}} </a>
+                            <a href ng-click="openTicket(ticket)">{{ticket.subject | uppercase}} </a>
                           </td>
                           <td>
-                            {{idata.client}}
+                            {{ticket.client}}
                           </td>
                           <td>
-                            {{idata.team}}
+                            {{ticket.team}}
                           </td>
                           <td>
-                            {{idata.person}}
+                            {{ticket.person}}
                           </td>
                           <td>
-                            {{idata.created | date: 'mediumDate'}}
+                            {{ticket.created | date: 'mediumDate'}}
                           </td>
                           <td>
-                            {{idata.deadline | date: 'mediumDate'}}
+                            {{ticket.deadline | date: 'mediumDate'}}
                           </td>
                         </tr>
                       </tbody>
@@ -223,14 +225,14 @@
           <div class="ibox-title">
             <h5>Create new ticket</h5>
             <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
-            <button class="btn btn-primary btn-sm pull-right"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
+            <button class="btn btn-primary btn-sm pull-right" ng-click="create(ticket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
           </div>
           <div class="ibox-content">
             <form role="form" class="form-inline">
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Ticket name</h4>
-                  <input type="text" class="form-control" placeholder="Ticket name..." style="width:100%;" />
+                  <input type="text" class="form-control" ng-model="ticket.subject" placeholder="Ticket name..." style="width:100%;" />
                 </div>
               </div>
               <div class="row" style="margin-bottom:20px;">
@@ -243,11 +245,11 @@
                 </div>
                 <div class="col-lg-3">
                   <h4>Status</h4>
-                  <select class="form-control m-b" name="account" style="width:100%;">
-                    <option selected>New</option>
-                    <option>Overdue</option>
-                    <option>Deadline</option>
-                    <option>Closed</option>
+                  <select class="form-control m-b" ng-model="ticket.status" name="account" style="width:100%;">
+                    <option value='1' selected>New</option>
+                    <option value='2'>Overdue</option>
+                    <option value='3'>Deadline</option>
+                    <option value='4'>Closed</option>
                   </select>
                 </div>  
                 <div class="col-lg-3">
@@ -279,7 +281,7 @@
               <div class="row">
                 <div class="col-lg-12" style="margin-bottom:20px;">
                   <h4>Description</h4>
-                  <textarea class="form-control" placeholder="Add description here..." style="width:100%;"></textarea>
+                  <textarea class="form-control" ng-model="ticket.description" placeholder="Add description here..." style="width:100%;"></textarea>
                 </div>
               </div>
               <div class="row" style="margin-bottom:20px;">
@@ -710,9 +712,9 @@
                                             <i class="fa fa-ticket"></i>
                                           </div>
                                           <div class="file-name">
-                                             {{itable[0].number | uppercase}}
+                                             {{tickets[0].number | uppercase}}
                                             <br>
-                                            <small>{{itable[0].created | date: 'mediumDate'}}</small>
+                                            <small>{{tickets[0].created | date: 'mediumDate'}}</small>
                                           </div>
                                         </a>
                                       </div>
@@ -725,9 +727,9 @@
                                             <i class="fa fa-ticket"></i>
                                           </div>
                                           <div class="file-name">
-                                             {{itable[1].number | uppercase}}
+                                             {{tickets[1].number | uppercase}}
                                             <br>
-                                            <small>{{itable[1].created | date: 'mediumDate'}}</small>
+                                            <small>{{tickets[1].created | date: 'mediumDate'}}</small>
                                           </div>
                                         </a>
                                       </div>
@@ -740,9 +742,9 @@
                                             <i class="fa fa-ticket"></i>
                                           </div>
                                           <div class="file-name">
-                                            {{itable[2].number | uppercase}}
+                                            {{tickets[2].number | uppercase}}
                                             <br>
-                                            <small>{{itable[2].created | date: 'mediumDate'}}</small>
+                                            <small>{{tickets[2].created | date: 'mediumDate'}}</small>
                                           </div>
                                         </a>
                                       </div>
