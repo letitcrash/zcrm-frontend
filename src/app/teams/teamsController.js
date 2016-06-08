@@ -11,14 +11,7 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
     }
   };
   
-  employeeService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
-	console.log("got employees");
-	console.log(response);
-	$scope.employees = response.data;
-  }, function(response) {
-	console.log("Could not get employees");
-	return console.log(response);
-  });
+
   
   $scope.createTeamAction = function() {
 	
@@ -224,6 +217,18 @@ $scope.create = function(team) {
 
   };
 
+  $scope.getEmloyees = function(searchTerm) {
+    return employeeService.getTypeaheadList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
 
 $scope.addTeamMember = function(member) {
   $scope.currentTeam.members.push(member);

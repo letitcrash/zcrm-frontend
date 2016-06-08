@@ -1,6 +1,6 @@
 'use strict';
 angular.module('inspinia').factory('employeeService', function(requestService, dataService, routeService) {
-  var getListRequest, getStringFromJSON;
+  var getListRequest, getStringFromJSON, getTypeaheadListRequest;
   
   getStringFromJSON = function(obj, searchFileld) {
     var k, str, v;
@@ -11,6 +11,16 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       str = str + "&"+searchFileld+"=" + k;
     }
     return str;
+  };
+
+  getTypeaheadListRequest = function(searchTerm) {
+    var url;
+    if (searchTerm) {
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/typeahead?&searchTerm=" + searchTerm;  
+    } else {
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/typeahead";
+    }
+    return requestService.ttGet(url);
   };
 
 
@@ -39,6 +49,9 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
      */
     getList: function(force, pageSize, pageNr, searchTerm, filter) {
       return getListRequest(pageSize, pageNr, searchTerm, filter);
+    },
+    getTypeaheadList: function(searchTerm) {
+      return getTypeaheadListRequest(searchTerm);
     },
     get: function(id) {
       var url;
