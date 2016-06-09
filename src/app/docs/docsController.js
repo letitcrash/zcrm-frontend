@@ -24,7 +24,7 @@ angular.module('inspinia')
 
   	var token = dataService.getSessionToken();
     var userId = dataService.getUserId();
-	var upUrl = "http://uat.desk-it.com:10000/users/" + userId + "/files";
+	var upUrl = dataService.getBaseServiceURL() + "users/" + userId + "/files";
 	$scope.files = files;
 	$scope.errFiles = errFiles;
 	angular.forEach(files, function(file) {
@@ -47,7 +47,7 @@ angular.module('inspinia')
 		if (response.status > 0)
 		  $scope.errorMsg = response.status + ': ' + response.data;
 	  }, function (evt) {
-		console.log(evt);
+		//console.log(evt);
 		file.progress = Math.min(100, parseInt(100.0 * 
 		evt.loaded / evt.total));
 		console.log(file.progress);
