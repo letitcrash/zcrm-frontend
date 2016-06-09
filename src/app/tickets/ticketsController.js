@@ -49,6 +49,20 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     });
   };
     
+  $scope.empSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentTicket.members.push(item);
+    $scope.temp.assignedCurrentUser = undefined;
+
+  }
+
+  $scope.deleteUserFromFilter = function (emp) {
+    var index = $scope.currentTicket.members.indexOf(emp);
+    if (index > -1) {
+      $scope.currentTicket.members.splice(index, 1);
+    }
+  };
+
 
   $scope.openTicket = function (tkt) {
     $scope.mode = 1;
@@ -71,6 +85,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.createTicketAction = function () {
     $scope.compressMode();
     $scope.currentTicket = {};
+    $scope.currentTicket.members = [];
     $scope.currentTicket.id = null;
 
   };
@@ -100,7 +115,10 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.isCollapsed = true;
     $scope.showTicket = false;
-    $scope.ticket = {};
+    $scope.temp = {};
+    $scope.currentTicket = {};
+    $scope.currentTicket.members = [];
+
 
   };
   
