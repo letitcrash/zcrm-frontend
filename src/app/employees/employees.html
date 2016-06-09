@@ -114,7 +114,7 @@
                 </li>
                 <li ng-class="{'active' : tab == 2}">
                   <a ng-click="tab = 2">
-                    <i class="fa fa-briefcase"></i>{{ 'Delegates' | translate }}
+                    <i class="fa fa-briefcase"></i>{{ 'Teams' | translate }}
                   </a>
                 </li>
               </ul>
@@ -132,7 +132,7 @@
                               <i class="fa fa-check"></i>
                             </th>
                             <th style="margin-left:5px;">{{ 'Employee' | translate}}</th>
-                            <th style="width: 80px;">{{ 'Roles' | translate}}</th>
+                            <!--<th style="width: 80px;">{{ 'Roles' | translate}}</th>-->
                             <th>{{ 'Telephone' | translate}}</th>
                             <th>{{ 'Email' | translate}}</th>
                             <th>{{ 'Union' | translate}}</th>
@@ -158,7 +158,9 @@
                 </div>
 
                 <!--tab 2 content-->
-                <div id="tab-2" class="tab-pane active" ng-show="tab == 2">
+				
+				
+                <!--<div id="tab-2" class="tab-pane active" ng-show="tab == 2">
                   <div class="full-height-scroll" full-scroll>
                     <div class="table-responsive">
                       <table class="table table-striped table-hover">
@@ -181,12 +183,12 @@
                           </tbody>
                         </table>
                       </div>
-                    </div>
+                    </div>-->
 
 					<!--PAGINATION start-->
-					<uib-pagination class="pull-right" total-items="totalDelegates"
+					<!--<uib-pagination class="pull-right" total-items="totalDelegates"
 					  ng-model="pageDl" items-per-page="pageSize" ng-change="changePage()"
-					  max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>
+					  max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>-->
 					
 						<!--Need make new ng model for delegates:
 							total-items="totalDelegates"
@@ -194,7 +196,7 @@
 					
                     <!--PAGINATION end-->
 
-                  </div>                              
+                  <!--</div>-->                              
                 </div>
               </div>
             </div>
