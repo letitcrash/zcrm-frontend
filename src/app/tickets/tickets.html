@@ -1,7 +1,14 @@
 <div class="wrapper wrapper-content  animated fadeIn" ng-controller="TicketsCtrl">
+  <!--styles-->
+  <style>
+  .block {
+    width: 100%;
+  }
+  </style>
+  <!--styles end-->
+  
   <div class="row">
     <div ng-class="{'col-sm-12' : mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : mode == 2}">
-      
       <!-- table ibox -->  
 
       <div class="ibox">
@@ -140,11 +147,11 @@
                     <table class="table table-striped table-hover">
                       <thead>
                         <tr>
-                          <th style="width:30px;">
+                          <th style="width:5%;">
                             <i class="fa fa-check"></i>
                           </th>
-                          <th style="margin-left:5px;">Status</th>
-                          <th>Priority</th>
+                          <th style="margin-left:5px; width:5%;">Status</th>
+                          <th style="width:5%;">Priority</th>
                           <th>Ticket</th>
                           <th>Client</th>
                           <th>Team</th>
@@ -154,12 +161,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr ng-repeat="ticket in tickets"  role="row"> <!--sets display limit of 10 tickets per page-->
+                        <tr ng-repeat="ticket in tickets"  role="row">
                           <td>
                             <input type="checkbox" />
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': ticket.status === 1, 'btn-warning': ticket.status === 2, 'btn-default': ticket.status === 3}">{{ticket.status | uppercase}}</button>
+                            <button type="button" class="btn btn-xs" ng-class="{'btn-success': ticket.status === 1, 'btn-warning': ticket.status === 2, 'btn-danger': ticket.status === 3, 'btn-default': ticket.status === 4}">{{ticket.status | uppercase}}</button>
                           </td>
                           <td>
                             <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 0, 'btn-warning': ticket.priority === 2, 'btn-info': ticket.priority === 3}">{{ticket.priority |uppercase}}</button>
@@ -216,13 +223,11 @@
 
     <!-- sidebar ibox -->  
       
-    <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
+    <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}" ng-show="mode == 1 || mode == 2">
         <!-- creation form -->
         <div class="ibox float-e-margins" ng-if="currentTicket.id == null">
           <div class="ibox-title">
             <h5>Create new ticket</h5>
-            <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
-            <button class="btn btn-primary btn-sm pull-right" ng-click="create(ticket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
           </div>
           <div class="ibox-content">
             <form role="form" class="form-inline">
@@ -244,9 +249,9 @@
                   <h4>Status</h4>
                   <select class="form-control m-b" ng-model="currentTicket.status" name="account" style="width:100%;">
                     <option value='1' selected>New</option>
-                    <option value='2'>Overdue</option>
-                    <option value='3'>Deadline</option>
-                    <option value='4'>Closed</option>
+                    <option value='2'>Open</option>
+                    <option value='3'>Posponed</option>
+                    <option value='4'>Resolved</option>
                   </select>
                 </div>  
                 <div class="col-lg-3">
@@ -283,7 +288,6 @@
                   </div>
                 </div>
               </div>
-                <hr/>
               <div class="row">
                 <div class="col-lg-12" style="margin-bottom:20px;">
                   <h4>Description</h4>
@@ -309,6 +313,10 @@
               <div class="row" style="margin-bottom:50px;">
                 <button class="btn btn-default btn-sm" style="margin-left:15px;">Assign to yourself</button>
               </div>
+              <div class="row">
+                <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
+                <button class="btn btn-primary btn-sm pull-right" ng-click="create(ticket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
+              </div>
             </form> 
           </div>
         </div>
@@ -333,64 +341,122 @@
             </div>
              <div class="row" style="margin-top:20px;">
               <h5 style="margin-left:20px;">{{currentTicket.subject | uppercase}}</h5>
-              <button class="btn btn-danger btn-sm pull-right" style="margin-right:20px;">{{currentTicket.status}}</button>
+               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}">{{currentTicket.priority}}</button>
+              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}">{{currentTicket.status}}</button>
             </div>
           </div>
           <!-- ticket info -->
           <div class="ibox-content" ng-if="selected == 1">
+            
             <div class="row">
-              <dl class="dl-horizontal" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
-                <dt>Created by:</dt><dd class="ng-binding">person1@gmail.com</dd>
-                <dt>Date:</dt><dd class="ng-binding">Oct 29, 2010</dd>
-                <dt>Client:</dt><dd class="ng-binding">Client-1</dd>
-                <dt>Team:</dt><dd class="ng-binding">Team-1</dd>
-                <dt>Deadline:</dt><dd class="ng-binding">Oct 29, 2010</dd>
-              </dl>
-              <dl class="dl-horizontal" ng-class="{'col-sm-12' : mode == 1, 'col-sm-6' : mode == 2}">
-                <dt>Ticket description:</dt><dd class="ng-binding">{{currentTicket.description}}</dd>
-              </dl>
-            </div>
-            <ul class="list-group clear-list m-t-md">
-              <li class="list-group-item fist-item">
-                Ticket info
-              </li>
-              <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
-                <div class="row">
-                  <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
-                    <strong>Created by</strong>
-                  </div>
-                  <div class="col-sm-8">
-                    <span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
-                    <a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editNameAction">
-                      <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
-                      <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
-                      <div>
-                        <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
-                          <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
-                          {{useralert}}. <a class="alert-link">check</a>.
-                        </div>
-                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-                        <button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
+              <!--1st part-->
+              <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+                <ul class="list-group clear-list m-t-md">
+                  <!--created by-->
+                  <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+                    <div class="row">
+                      <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+                        <strong>Created by</strong>
                       </div>
-                    </form>
-                  </div>
-                </div>
-              </li>              <li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
+                      <div class="col-sm-8">
+                        <span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+                        <a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="editNameAction">
+                          <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
+                          <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}. <a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
+                            <button class="btn btn-sm btn-default" ng-click="editNameAction = false">Cancel</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </li>   
+                  <!--assigned to-->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Assigned to</strong>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                      Person-1
+                      </div>
+                    </div>
+                  </li>
+                  <!--team-->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Team</strong>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                      Team-1
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!--2nd part-->
+               <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+                <ul class="list-group clear-list m-t-md">
+                  <!--description-->
+                  <li class="list-group-item fist-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Description</strong>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                      {{currentTicket.description}}
+                      </div>
+                    </div>
+                  </li>
+                  <!--client-->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Client</strong>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                      Client-1
+                      </div>
+                    </div>
+                  </li>
+                    <!--project-->
+                    <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Project</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                        Project-1
+                        </div>
+                      </div>
+                    </li>
+                    <!--date-->
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Date</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                          Oct 29, 2010
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+            </div>
+              
+              <!--<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
                 <div class="row">
                   <div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
                     Telefon
                   </div>
-                  <div class="col-sm-8">
-                    <span ng-hide="editPhoneAction">{{currentEmp.user.contactProfile.phoneNumberMobile}}</span>
-                    <a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>                    <form role="form" ng-show="editPhoneAction">
-                      <div class="form-group">
-                        <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-                        <a><i class="fa fa-plus"></i> Add another telefon </a>
-                      </div>
-                      <div>
-                        <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-                        <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>                      </div>
-                    </form>                  </div>
+                  <div ng-include="editTicketTemplate"></div>
                 </div>
               </li>              <li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
                 <div class="row">
@@ -425,8 +491,7 @@
                         <button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>                      </div>
                     </form>                  </div>
                 </div>
-              </li>
-            </ul>
+              </li>-->
           </div>
           <!-- ticket info end -->
           <!--ticket timeline-->
@@ -532,7 +597,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="fh-breadcrumb">
-                  <div class="fh-column">
+                  <div class="fh-column" ng-class="{'block': mode == 1}">
                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll" style="overflow: hidden; width: auto; height: 100%;">
                       <ul class="list-group elements-list">
                         <li class="list-group-item">
@@ -721,10 +786,11 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 955.009px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                    <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 955.009px; background: rgb(0, 0, 0);"></div>
+                    <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
                     </div>
 
-                   <div class="full-height">
+                   <div class="full-height" ng-hide="mode == 1">
                       <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="full-height-scroll white-bg border-left" style="overflow: hidden; width: auto; height: 100%;">
                         <div class="element-detail-box">
                           <div class="tab-content">
