@@ -44,23 +44,24 @@
 				  <thead>
 					<tr>
 					  <th></th>
-					  <th class="col-sm-10">{{ 'Filename' | translate }}</th>
-					  <th class="col-sm-1">{{ 'Type' | translate }} </th>
-					  <th class="col-sm-1">{{ 'Create date' | translate }}</th>
+					  <th class="col-sm-8">{{ 'Filename' | translate }}</th>
+					  <th class="col-sm-2">{{ 'Type' | translate }} </th>
+					  <th class="col-sm-2">{{ 'Create date' | translate }}</th>
 					</tr>
 				  </thead>
 				  <tbody>
           <tr ng-repeat="file in uploadedFiles | filter:searchText">
             <td><input type="checkbox" class="green-check" /></td>
-            <td><a href="/users/{{file.userId + '/files/:' + file.id}}">{{file.fileName}}</a></td>
+            <td><a href ng-click="openFile(file)">{{file.fileName}}</a></td>
             <td>{{file.type}}</td>
             <td>Jul 14, 2013</td>
           </tr>
 
 					<tr ng-repeat="file in files | filter:searchText">
+
 					  <td><input type="checkbox" class="green-check" /></td>
-					  <td><a href="/users/{{file.userId + '/files/:' + file.id}}">{{file.fileName}}</a></td>
-					  <td>{{file.type}}</td>
+					  <td><a href ng-click="openFile(file)">{{file.result.body.fileName}}</a></td>
+					  <td>{{file.progress}} %</td>
 					  <td>Jul 14, 2013</td>
 					</tr>
 				  </tbody>

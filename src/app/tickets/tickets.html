@@ -266,7 +266,7 @@
 
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
-                    <h4>Assign to an employee</h4>
+                    <h4>Assign to an employee(s)</h4>
                     <div class="input-group" style="width:100%;">
                       <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                    </div>
@@ -282,9 +282,9 @@
               </div>
                  <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
-                  <h4>Assign to a team</h4>
+                  <h4>Assign to a team(s)</h4>
                   <div class="input-group" style="width:100%;">
-                    <input type="text" class="form-control" placeholder="Add a team...">
+                      <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                   </div>
                 </div>
               </div>
