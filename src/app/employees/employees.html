@@ -133,12 +133,12 @@
                             </th>
                             <th style="margin-left:5px;">{{ 'Employee' | translate}}</th>
                             <!--<th style="width: 80px;">{{ 'Roles' | translate}}</th>-->
-                            <th>{{ 'Telephone' | translate}}</th>
-                            <th>{{ 'Email' | translate}}</th>
-                            <th>{{ 'Union' | translate}}</th>
-                            <th>{{ 'Position' | translate}}</th>
-                            <th style="width: 120px;">{{ 'Department' | translate}}</th>
-                            <th style="width: 80px;">{{ 'Shift' | translate}}</th>
+							<th class="hidden-xs">{{ 'Telephone' | translate}}</th>
+							<th class="hidden-xs">{{ 'Email' | translate}}</th>
+							<th class="hidden-xs hidden-sm hidden-md">{{ 'Union' | translate}}</th>
+							<th class="hidden-xs hidden-sm hidden-md">{{ 'Position' | translate}}</th>
+							<th class="hidden-xs hidden-sm" style="width: 120px;">{{ 'Department' | translate}}</th>
+							<th class="hidden-xs hidden-sm" style="width: 80px;">{{ 'Shift' | translate}}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -784,25 +784,26 @@
               <ul class="list-group clear-list" ng-hide="editUser">
 
                 <li class="list-group-item fist-item m-b-md">
-                  <strong>DELEGATE ROLES</strong>
+                  <strong>{{ 'Teams' | translate }}</strong>
 
                   <span class="pull-right">
                     <a ng-click="addingDelegate = true"> <i class="fa fa-plus"></i> Assign</a>
                   </span>
 
-                  <div ng-show="addingDelegate">
+                  <div>
                     <div class="m-t-md m-b-md">
-
+					  <pre>{{teams}}</pre>
                       <form role="form">
                         <div class="form-group">
-                          <label class="font-noraml">Role</label>
 
-                          <input id="unionFilter" placeholder="Type role name.." type="text" ng-model="user.role" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
+						  <label class="font-noraml">{{ 'Team' | translate }}</label>
+
+						  <input id="unionFilter" placeholder="Type role name.." type="text" ng-model="teams" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
 
                         </div>
 
                         <div class="form-group">
-                          <label class="font-noraml">Start date</label>
+						  <label class="font-noraml">{{ 'Start date' | translate }}</label>
 
                           <div class="input-group">
                             <datepicker>
@@ -812,7 +813,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="font-noraml">End date</label>
+						  <label class="font-noraml">{{ 'End date' | translate }}</label>
 
                           <div class="input-group">
                             <datepicker>

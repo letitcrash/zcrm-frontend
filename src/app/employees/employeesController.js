@@ -4,7 +4,7 @@
 angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, 
   requestService, employeeService, passwordServices, workplaceService
   , generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
-  var del, getEmployees, setEmpChange, setPasswordChange;
+  var del, getEmployees, setEmpChange, setPasswordChange, getTeamsList;
   
 
   $scope.add = function() {
@@ -384,6 +384,18 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       console.log("Failed to get company");
     });
 
+  };
+  
+  // Get teams list
+  
+  getTeamsList = function(force, pageSize, pageNr, searchTerm) {
+	teamService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+	  $scope.teams = response.data;
+	  console.log($scope.teams)
+	  return $scope.totalItems = response.totalSize;
+	}, function(response) {
+	  return console.log("Failed to get teams");
+	});
   };
 
   $scope.init();
