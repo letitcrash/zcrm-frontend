@@ -316,6 +316,13 @@
               <div class="row" style="margin-bottom:50px;">
                 <button class="btn btn-default btn-sm" style="margin-left:15px;">Assign to yourself</button>
               </div>
+
+
+              <div class="alert alert-danger alert-dismissable" ng-if="page.error">
+                                <button aria-hidden="true" data-dismiss="alert" ng-click="page.error = undefined" class="close" type="button">×</button>
+                                {{page.error}}
+              </div>
+
               <div class="row">
                 <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
                 <button class="btn btn-primary btn-sm pull-right" ng-click="create(currentTicket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>

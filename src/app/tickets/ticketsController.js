@@ -31,8 +31,9 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       $scope.tickets = response.data;
       $scope.totalItems = response.totalSize;
     }, function(response) {
-      console.log("Could not get employees");
-       console.log(response);
+      console.log("Could not get tickets");
+      $scope.page.error = "Could not get tickets";
+      console.log(response);
     });
   };
   
@@ -96,15 +97,17 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   };
 
   $scope.create = function(tkt) {
+    $scope.page.error = undefined;
+
     ticketService.create(tkt).then(function(response) {
       console.log("Tkt created succesfully");
-      console.log(response);   
+      console.log(response);     
       $scope.tickets.push(response);
 //      $scope.setSelected(response.id);
       return setEmpChange(true, "Medarbetaren har skapats.");
     }, function(response) {
       console.log("Ticket could not be created");
-      $scope.useralert = "Ticket could not be created";
+      $scope.page.error = "Ticket could not be created";
     });
   };
 
@@ -119,7 +122,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.isCollapsed = true;
     $scope.showTicket = false;
-    $scope.temp = {};
+    $scope.page = {};
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
 
