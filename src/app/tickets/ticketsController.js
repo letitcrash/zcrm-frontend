@@ -98,10 +98,9 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.create = function(tkt) {
     ticketService.create(tkt).then(function(response) {
       console.log("Tkt created succesfully");
-      console.log(response);
-     
+      console.log(response);   
       $scope.tickets.push(response);
-      $scope.setSelected(response.id);
+//      $scope.setSelected(response.id);
       return setEmpChange(true, "Medarbetaren har skapats.");
     }, function(response) {
       console.log("Ticket could not be created");

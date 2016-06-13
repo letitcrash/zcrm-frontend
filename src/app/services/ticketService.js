@@ -32,8 +32,9 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
     create: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
       ticket.companyId = dataService.getCurrentCompanyId();
+      ticket.projectId = Number(1);
       ticket.createdByUserId = dataService.getUserId();
-      ticket.assignedToUserID = dataService.getUserId();
+      //ticket.assignedToUserID = dataService.getUserId();
       ticket.status = Number(ticket.status);
       ticket.priority = Number(ticket.priority);
       angular.forEach(ticket.members, function(member) {
