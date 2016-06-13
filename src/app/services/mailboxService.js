@@ -3,7 +3,7 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
   return {
     getInbox: function(force, pageSize, pageNr, searchTerm, mailboxId) {
       var url;
-        url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/inbox";
+        url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/mails";
       if (pageSize && pageNr) {
         if (searchTerm) {
           url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;

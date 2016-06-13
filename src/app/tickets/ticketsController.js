@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService) {
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService) {
     var getTickets;
     
     //inserted
@@ -39,7 +39,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.getEmloyees = function(searchTerm) {
     return employeeService.getTypeaheadList(searchTerm).then(function(response) {
       return response.map(function(item) {
-        item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        //item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
         return item;
       });
       }, function(response) {
@@ -51,10 +51,15 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     
   $scope.empSelected = function(item, model, label, event) {
     console.log(item);
-    $scope.currentTicket.members.push(item);
+    $scope.currentTicket.members.push(item.user);
     $scope.temp.assignedCurrentUser = undefined;
 
   }
+  $scope.addMyselfToAssigned = function() {
+
+    $scope.currentTicket.members.push(dataService.getUser());
+
+  };
 
   $scope.deleteUserFromFilter = function (emp) {
     var index = $scope.currentTicket.members.indexOf(emp);

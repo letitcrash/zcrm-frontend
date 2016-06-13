@@ -272,15 +272,15 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
   
   $scope.openEmp = function(emp) {
       console.log(emp)
-      if($scope.mode == 0) {
-        $scope.mode = 1;
+      if($scope.page.mode == 0) {
+        $scope.page.mode = 1;
       }
       $scope.currentEmp = angular.copy(emp);
   }
 
 
   $scope.createUserAction = function() {
-      $scope.mode = 1;
+      $scope.page.mode = 1;
       $scope.currentEmp = {};
       $scope.currentEmp.id = null;
       $scope.userFormStep = 1;
@@ -289,7 +289,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
 
 
   $scope.closeCurrentEmp = function() {
-    $scope.mode = 0;
+    $scope.page.mode = 0;
 
   };
 
@@ -357,7 +357,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     
   $scope.init = function() {
     console.log("Running init in employeesController");
-    $scope.mode = 0;
+    $scope.page = {};
+    $scope.page.mode = 0;
 
     $scope.unionFilterState = ''
     $scope.currentFilters = {};

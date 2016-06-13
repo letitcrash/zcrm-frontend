@@ -1,7 +1,7 @@
-<div class="wrapper wrapper-content  animated fadeIn" ng-controller="EmployeeCtrl">
+<div class="wrapper wrapper-content" ng-controller="EmployeeCtrl">
   <div class="row">
     <!--EMPLOYEE PAGE start-->
-    <div ng-class="{'col-sm-12' : mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : mode == 2}">
+    <div ng-class="{'col-sm-12' : page.mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : page.mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : page.mode == 2}">
       <div class="ibox">
         <div class="ibox-content">
           <!--BUTTONS start-->
@@ -133,16 +133,16 @@
                             </th>
                             <th style="margin-left:5px;">{{ 'Employee' | translate}}</th>
                             <!--<th style="width: 80px;">{{ 'Roles' | translate}}</th>-->
-							<th class="hidden-xs">{{ 'Telephone' | translate}}</th>
-							<th class="hidden-xs">{{ 'Email' | translate}}</th>
-							<th class="hidden-xs hidden-sm hidden-md">{{ 'Union' | translate}}</th>
-							<th class="hidden-xs hidden-sm hidden-md">{{ 'Position' | translate}}</th>
-							<th class="hidden-xs hidden-sm" style="width: 120px;">{{ 'Department' | translate}}</th>
-							<th class="hidden-xs hidden-sm" style="width: 80px;">{{ 'Shift' | translate}}</th>
+                            <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Telephone' | translate}}</th>
+                            <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Email' | translate}}</th>
+                            <th class="hidden-xs hidden-sm hidden-md" ng-hide="page.mode == 2">{{ 'Union' | translate}}</th>
+                            <th class="hidden-xs hidden-sm hidden-md" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Position' | translate}}</th>
+                            <th class="hidden-xs hidden-sm" ng-hide="page.mode == 2" style="width: 100px;">{{ 'Department' | translate}}</th>
+                            <th class="hidden-xs hidden-sm" ng-hide="page.mode == 2" style="width: 50px;">{{ 'Shift' | translate}}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="emp in employees" my-element="emp" on-edit="openEmp(emp)">
+                          <tr ng-repeat="emp in employees" my-element="emp" mode="{{page.mode}}" on-edit="openEmp(emp)">
                           </tr>                                                
                         </tbody>
                       </table>
@@ -207,7 +207,7 @@
 
         <!--NEW EMPLOYEE start-->
 
-        <div class="white-bg" ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}"  ng-show="mode == 1 || mode == 2">
+        <div class="white-bg" ng-class="{'col-sm-12 col-lg-5 col-xl-4' : page.mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : page.mode == 2}"  ng-show="page.mode == 1 || page.mode == 2">
 
 
           <div class="contact-box center-version col-xl-12" ng-if="currentEmp.id == null">
@@ -447,9 +447,9 @@
 
 
                 <div class=" pull-right">
-                  <button type="button" class="btn btn-sm btn-white" ng-click="mode = 2" ng-show="mode == 1"> <i class="fa fa-expand"></i> </button>
-                  <button type="button" class="btn btn-sm btn-white" ng-click="mode = 1" ng-show="mode == 2"> <i class="fa fa-compress"></i> </button>
-                  <button type="button" class="btn btn-sm btn-white pull-right" ng-click="mode = 0"> <i class="fa fa-times"></i> </button>
+                  <button type="button" class="btn btn-sm btn-white" ng-click="page.mode = 2" ng-show="page.mode == 1"> <i class="fa fa-expand"></i> </button>
+                  <button type="button" class="btn btn-sm btn-white" ng-click="page.mode = 1" ng-show="page.mode == 2"> <i class="fa fa-compress"></i> </button>
+                  <button type="button" class="btn btn-sm btn-white pull-right" ng-click="page.mode = 0"> <i class="fa fa-times"></i> </button>
 
                 </div>
                 <button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>

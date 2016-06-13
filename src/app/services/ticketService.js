@@ -36,6 +36,12 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       ticket.assignedToUserID = dataService.getUserId();
       ticket.status = Number(ticket.status);
       ticket.priority = Number(ticket.priority);
+      angular.forEach(ticket.members, function(member) {
+        console.log("deleting member fo ");
+        console.log(member);
+        member.fullname == undefined;
+      }); 
+      console.log(ticket);
 
       return requestService.ttPost(url, ticket);
     },
