@@ -39,7 +39,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.getEmloyees = function(searchTerm) {
     return employeeService.getTypeaheadList(searchTerm).then(function(response) {
       return response.map(function(item) {
-        //item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
         return item;
       });
       }, function(response) {

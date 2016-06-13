@@ -277,7 +277,7 @@
                     <ul style="list-style:none; margin:0; padding:0;">
                       <li ng-repeat="m in currentTicket.members">
                         <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                        <span>{{m.user.contactProfile.firstname}} {{m.user.contactProfile.lastname}} </span>
+                        <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
                       </li>
                     </ul>
                   </div>
