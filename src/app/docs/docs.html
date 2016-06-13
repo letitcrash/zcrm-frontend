@@ -73,16 +73,16 @@
           </tr>
 
 					<tr ng-repeat="file in files | filter:searchText">
-
-					  <td><input type="checkbox" class="green-check" ng-model="file.selected"/></td>
-					  <td><a href ng-click="openFile(file)">{{file.result.body.fileName}}</a></td>
-					  <td>
+            <td><input type="checkbox" class="green-check" ng-model="file.selected"/></td>
+            <td><a href ng-click="openFile(file)">{{file.result.body.fileName}}</a></td>
+            <td>{{file.type}}</td>
+            <td>
                 <uib-progressbar min = "0" max="100" value="file.progress" ng-hide="file.progress===100">
                 <span style="color:white; white-space:nowrap;">{{file.progress}}%</span>
                 </uib-progressbar>
                 <text hide ng-show="file.progress===100">Jul 14, 2013</text>
               </td>
-					</tr>
+          </tr>
 				  </tbody>
 				</table>
 			  </div>

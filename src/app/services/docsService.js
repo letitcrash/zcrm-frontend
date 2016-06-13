@@ -28,14 +28,7 @@ angular.module('inspinia').factory('docsService', function(requestService, dataS
     	  var url;
     	  url = "users/" + dataService.getUserId() + "/files/" + id;
   	  	  return requestService.ttDelete(url);
-	  	},
-	  	uploadFiles: function(files, errFiles) {
-	
-	  	  var token = dataService.getSessionToken();
-	  	  var userId = dataService.getUserId();
-		  var upUrl = dataService.getBaseServiceURL() + "users/" + userId + "/files";
-		  
-  		}
+	  	}
 	};
 });
 

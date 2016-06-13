@@ -60,9 +60,21 @@ angular.module('inspinia')
         var index = $scope.uploadedFiles.indexOf(file);
         if (index >= 0) {
           docsService.deleteFile(file.id).then(function(response) {
-            console.log(file.name+" deleted "+file.id);
+            console.log("UPF "+file.fileName+" deleted "+file.id);
               console.log(index);
               $scope.uploadedFiles.splice(index, 1);
+          });
+        }
+      }
+    });
+    angular.forEach($scope.files, function(file){
+      if(file.selected){
+        var index = $scope.files.indexOf(file);
+        if (index >= 0) {
+          docsService.deleteFile(file.result.body.id).then(function(response) {
+            console.log("UPF "+file.result.body.fileName+" deleted "+file.result.body.id);
+              console.log(index);
+              $scope.files.splice(index, 1);
           });
         }
       }
