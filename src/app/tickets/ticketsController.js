@@ -125,7 +125,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.page = {};
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
-
+    $scope.isCollapsed = false;
 
   };
   
