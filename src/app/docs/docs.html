@@ -34,10 +34,25 @@
 					<label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options" value="jpg" ng-model="searchText"/> Images </label>
 				  </div>
 				</div>
-				<div class="col-sm-2 m-b-xs"><select class="input-sm form-control input-s-sm inline">
-					<option value="0">Delete</option>
-				  </select>
+				<div class="col-sm-2 m-b-xs" >
+          <!--BUTTONS start-->
+          <!--settings btn-->
+          <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
+              <i class="fa fa-cog"></i> 
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li role="menuitem"><a href></a></li>
+              <li role="menuitem"><a href>Assign ticket</a></li>
+              <li role="menuitem"><a href ng-click="assignRoleAction(currentEmp)">Assign delegate role</a></li>
+              <li role="menuitem"><a href>Send email</a></li>
+              <li role="menuitem"><a href>Export in exel</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#">Delete employee</a></li>
+            </ul>
+          </div>
 				</div>
+        <button class="btn btn-primary btn-block" ng-click="deleteFiles()">Delete Files</button>
 			  </div>
 			  <div class="table-responsive">
 				<table class="table table-striped" id="searchTextResults">
@@ -51,7 +66,7 @@
 				  </thead>
 				  <tbody>
           <tr ng-repeat="file in uploadedFiles | filter:searchText">
-            <td><input type="checkbox" class="green-check" /></td>
+            <td><input type="checkbox" class="green-check" ng-model="file.selected"/></td>
             <td><a href ng-click="openFile(file)">{{file.fileName}}</a></td>
             <td>{{file.type}}</td>
             <td>Jul 14, 2013</td>
@@ -59,10 +74,14 @@
 
 					<tr ng-repeat="file in files | filter:searchText">
 
-					  <td><input type="checkbox" class="green-check" /></td>
+					  <td><input type="checkbox" class="green-check" ng-model="file.selected"/></td>
 					  <td><a href ng-click="openFile(file)">{{file.result.body.fileName}}</a></td>
-					  <td>{{file.progress}} %</td>
-					  <td>Jul 14, 2013</td>
+					  <td>
+                <uib-progressbar min = "0" max="100" value="file.progress" ng-hide="file.progress===100">
+                <span style="color:white; white-space:nowrap;">{{file.progress}}%</span>
+                </uib-progressbar>
+                <text hide ng-show="file.progress===100">Jul 14, 2013</text>
+              </td>
 					</tr>
 				  </tbody>
 				</table>

@@ -23,7 +23,19 @@ angular.module('inspinia').factory('docsService', function(requestService, dataS
 	return {
 		getList: function(force, pageSize, pageNr, searchTerm) {
 		  return getListRequest(pageSize, pageNr, searchTerm)
-		}
+		},
+		deleteFile: function(id) {
+    	  var url;
+    	  url = "users/" + dataService.getUserId() + "/files/" + id;
+  	  	  return requestService.ttDelete(url);
+	  	},
+	  	uploadFiles: function(files, errFiles) {
+	
+	  	  var token = dataService.getSessionToken();
+	  	  var userId = dataService.getUserId();
+		  var upUrl = dataService.getBaseServiceURL() + "users/" + userId + "/files";
+		  
+  		}
 	};
 });
 
