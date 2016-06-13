@@ -19,10 +19,21 @@
         <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
         <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Show filters</button>
     </div>
-    <div class="col-md-9">
-        <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+    <div class="col-md-7">
+        <div class="input-group">
+            <input type="text" placeholder="Search" class="input-sm form-control"> 
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-sm btn-primary"> Go!</button> 
+              </span>
+        </div>
     </div>
+    <div class="col-md-2">
+      <button ng-click="createTicketAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+        <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
+      </button>
+    </div>
+
+
 </div>
 
 <div class="project-list">
@@ -30,13 +41,10 @@
 <table class="table table-hover">
 <tbody>
 <tr ng-repeat="p in projects">
-    <td class="project-status">
-        <span class="label label-primary">Active</span>
-    </td>
     <td class="project-title">
         <a ui-sref="project_detail">{{p.name}}</a>
         <br/>
-        <small>Created 14.08.2014</small>
+        <small>Client: NA Client</small>
     </td>
     <td class="project-completion">
         <small>Completion with: 48%</small>
@@ -79,37 +87,16 @@
             <form role="form" class="form-inline">
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
-                  <h4>Ticket name</h4>
-                  <input type="text" class="form-control" ng-model="currentTicket.subject" placeholder="Ticket name..." style="width:100%;" />
+                  <h4>Project name</h4>
+                  <input type="text" class="form-control" ng-model="currentTicket.subject" placeholder="Project name..." style="width:100%;" />
                 </div>
               </div>
-              <div class="row" style="margin-bottom:20px;">
-                 <div class="col-lg-6">
-                  <h4>Deadline</h4>
-                  <div id="reportrange" class="form-control" style="width:100%;">
-                    <i class="fa fa-calendar"></i>
-                    <span>April 22, 2016</span> <b class="caret"></b>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <h4>Status</h4>
-                  <select class="form-control m-b" ng-model="currentTicket.status" name="account" style="width:100%;">
-                    <option value='1' selected>New</option>
-                    <option value='2'>Open</option>
-                    <option value='3'>Posponed</option>
-                    <option value='4'>Resolved</option>
-                  </select>
-                </div>  
-                <div class="col-lg-3">
-                  <h4>Priority</h4>
-                  <select class="form-control m-b" ng-model="currentTicket.priority" name="account" style="width:100%;">
-                    <option value='0'>High</option>
-                    <option value='2' selected>Mid</option>
-                    <option value='3'>Low</option>
-                  </select>       
+              <div class="row">
+                <div class="col-lg-12" style="margin-bottom:20px;">
+                  <h4>Description</h4>
+                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
                 </div>
               </div>
-
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                     <h4>Assign to an employee(s)</h4>
@@ -137,12 +124,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-12" style="margin-bottom:20px;">
-                  <h4>Description</h4>
-                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
-                </div>
-              </div>
+
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Client</h4>
@@ -150,17 +132,6 @@
                     <input type="text" class="form-control" placeholder="Add a client...">
                   </div>
                 </div>
-              </div>
-              <div class="row" style="margin-bottom:20px;">
-                 <div class="col-lg-12">
-                  <h4>Project</h4>
-                  <div class="input-group" style="width:100%;">
-                    <input type="text" class="form-control" placeholder="Add a project...">
-                  </div>
-                </div>
-              </div>
-              <div class="row" style="margin-bottom:50px;">
-                <button class="btn btn-default btn-sm" style="margin-left:15px;">Assign to yourself</button>
               </div>
               <div class="row">
                 <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>

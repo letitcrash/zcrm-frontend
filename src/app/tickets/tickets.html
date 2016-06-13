@@ -237,6 +237,12 @@
                   <input type="text" class="form-control" ng-model="currentTicket.subject" placeholder="Ticket name..." style="width:100%;" />
                 </div>
               </div>
+              <div class="row">
+                <div class="col-lg-12" style="margin-bottom:20px;">
+                  <h4>Description</h4>
+                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
+                </div>
+              </div>
               <div class="row" style="margin-bottom:20px;">
                  <div class="col-lg-6">
                   <h4>Deadline</h4>
@@ -291,12 +297,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-12" style="margin-bottom:20px;">
-                  <h4>Description</h4>
-                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
-                </div>
-              </div>
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Client</h4>
@@ -313,10 +313,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row" style="margin-bottom:50px;">
-                <button class="btn btn-default btn-sm" style="margin-left:15px;">Assign to yourself</button>
-              </div>
-
 
               <div class="alert alert-danger alert-dismissable" ng-if="page.error">
                                 <button aria-hidden="true" data-dismiss="alert" ng-click="page.error = undefined" class="close" type="button">×</button>
