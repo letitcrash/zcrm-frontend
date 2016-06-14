@@ -16,7 +16,8 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
       console.log($scope.companies)
       return $scope.totalItems = response.totalSize;
     }, function(response) {
-      return console.log("Failed to get companies");
+      console.log("Failed to get companies");
+      $scope.getCompanyList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     });
   };
   $scope.add = function() {

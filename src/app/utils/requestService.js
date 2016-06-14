@@ -96,6 +96,7 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
         method: method,
         url: url,
         data: data,
+        timeout : 2000, 
         headers: {
           "Content-Type": "application/json",
           "X-Access-Token": token,

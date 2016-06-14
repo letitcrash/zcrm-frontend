@@ -261,8 +261,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       $scope.showLoadingMessage = false;
       $scope.employees = response.data;
       $scope.totalItems = response.totalCount;
+      $scope.page.loaded = true;
     }, function(response) {
       console.log("Could not get employees");
+      getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+
     });
   };
 
@@ -359,6 +362,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     console.log("Running init in employeesController");
     $scope.page = {};
     $scope.page.mode = 0;
+    $scope.page.loaded = false;
 
     $scope.unionFilterState = ''
     $scope.currentFilters = {};
