@@ -3,14 +3,6 @@
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>Outlook view</h2>
-  
-                <div class="btn-group" role="group" style="margin-left:20px;">
-                <button type="button" ng-class="{'active': (selected == 1)}" ng-click="selected=1" class="btn btn-default btn-md"> <i class="fa fa-info-circle"></i> </button>
-                <button type="button" ng-class="{'active': (selected == 2)}" ng-click="selected=2" class="btn btn-default btn-md"> <i class="fa fa-comments-o"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 3)}" ng-click="selected=3" class="btn btn-default btn-md"> <i class="fa fa-envelope"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 4)}" ng-click="selected=4" class="btn btn-default btn-md"> <i class="fa fa-paperclip"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 5)}" ng-click="selected=5" class="btn btn-default btn-md"> <i class="fa fa-history"></i> </button>
-              </div> 
             </div>
             <div class="col-lg-2">
 
@@ -21,13 +13,24 @@
 
             <div class="fh-column">
                 <div class="full-height-scroll" full-scroll>
-                    <div class="ibox float-e-margins m-b-none ">
-                        <div class="ibox-content navy-bg">
-                            <div class="file-manager">
-                                <a href="#" class="file-control"><i class="fa fa-inbox"></i> Inbox</a>
-                                <a href="#" class="file-control">Tasks</a>
-                                <a href="#" class="file-control">Audio</a>
-                                <a href="#" class="file-control">Images</a>
+                    <div class="ibox float-e-margins m-b-none" style="border-bottom:1px solid #eee;">
+                        <div class="ibox-content" style="padding-top:22px;">
+                            <div class="file-manager">  
+                              <button class="btn btn-primary btn-sm">
+                                <a href="#" class="file-control">
+                                  <i class="fa fa-plus" style="margin-right:5px;"></i>New ticket
+                                </a>
+                              </button>
+                              <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle ng-disabled="disabled">
+                                  Assign to existing<span class="caret" style="margin-left:5px;"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                  <li role="menuitem"><a href="#">Ticket1</a></li>
+                                  <li role="menuitem"><a href="#">Ticket2</a></li>
+                                  <li role="menuitem"><a href="#">Ticket3</a></li>
+                                </ul>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -35,7 +38,7 @@
                     <ul class="list-group elements-list">
                         <li class="list-group-item" ng-repeat="m in mail" >
                             <a data-toggle="tab" ng-click="showMail(m)">
-                                <small class="pull-right text-muted"> 16.02.2015</small>
+                                <small class="pull-right text-muted"> 16.02.2015</small> 
                                 <strong>{{m.fromName}}</strong>
 
                                 <div class="small m-t-xs">
