@@ -347,8 +347,8 @@
             </div>
              <div class="row" style="margin-top:20px;">
               <h5 style="margin-left:20px;">{{currentTicket.subject | uppercase}}</h5>
-               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}">{{currentTicket.priority}}</button>
-              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}">{{currentTicket.status}}</button>
+               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}"><span ng-if="currentTicket.priority == 0">High</span><span ng-if="currentTicket.priority == 1">Mid</span><span ng-if="currentTicket.priority == 2">Low</span></button>
+              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}"><span ng-if="currentTicket.status == 0">New</span><span ng-if="currentTicket.status == 1">Open</span><span ng-if="currentTicket.status == 2">Postponed</span><span ng-if="currentTicket.status == 3">Resolved</span></button>
             </div>
           </div>
           <!-- ticket info -->
@@ -365,7 +365,7 @@
                         <strong>Created by</strong>
                       </div>
                       <div class="col-sm-8">
-                        <span ng-hide="editNameAction">{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+                        <span ng-hide="editNameAction">{{currentTicket.createdByUser.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
                         <a  class="pull-right" ng-show="editName && !editNameAction" href ng-click="editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
                         <form role="form" ng-show="editNameAction">
                           <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
@@ -388,8 +388,8 @@
                       <div class="col-sm-4">
                         <strong>Assigned to</strong>
                       </div>
-                      <div class="col-sm-8 text-right">
-                      Person-1
+                      <div class="col-sm-8 pull-right text-right" ng-repeat="member in currentTicket.members">
+                      {{member.contactProfile.firstname}} {{member.contactProfile.lastname}}
                       </div>
                     </div>
                   </li>

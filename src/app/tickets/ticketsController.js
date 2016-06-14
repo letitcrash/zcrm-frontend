@@ -72,7 +72,16 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.openTicket = function (tkt) {
     $scope.mode = 1;
-    $scope.currentTicket = tkt;
+    ticketService.get(tkt.id).then(function(response) {
+      console.log("got ticket");
+      console.log(response);
+      $scope.showLoadingMessage = false;
+      $scope.currentTicket = response;
+    }, function(response) {
+      console.log("Could not get tickets");
+      $scope.page.error = "Could not get tickets";
+      console.log(response);
+    });
     //$window.location.href = '/#/index/tickets/' + tkt.id;
   };
 
