@@ -1,159 +1,166 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Outlook view</h2>
+    </div>
+</div>
 
-
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2>Outlook view</h2>
-            </div>
-            <div class="col-lg-2">
-
+<div ng-controller="MailboxCtrl">
+  <div class="row">
+    <div class="col-lg-3 white-bg">
+        <div class="full-height-scroll" full-scroll>
+          <div class="ibox float-e-margins m-b-none" style="border-bottom:1px solid #eee;">
+              <div class="ibox-content" style="padding-top:22px;">
+                  <div class="file-manager">  
+                    <button ng-click="createNewTicket()" class="btn btn-primary btn-sm">
+                      <a href="" class="file-control">
+                        <i class="fa fa-plus" style="margin-right:5px;"></i>New ticket
+                      </a>
+                    </button>
+                    <div class="btn-group" uib-dropdown is-open="status.isopen">
+                      <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle ng-disabled="disabled">
+                        Assign to existing<span class="caret" style="margin-left:5px;"></span>
+                      </button>
+                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-repeat="ticket in tickets.data"><a href="">{{ticket.subject}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <ul class="list-group elements-list">
+              <li class="list-group-item" ng-repeat="m in mail" >
+                 <a data-toggle="tab" ng-click="showMail(m.mails[0])">
+                      <small class="pull-right text-muted"> 16.02.2015</small> 
+                   <input type="checkbox" />
+                      <strong>{{m.mails[0].fromName}}</strong>
+                      <div class="small m-t-xs">
+                          <p>
+                              {{m.mails[0].subject}}
+                          </p>
+                          <p class="m-b-none">
+                              <i class="fa fa-check-square"></i> Task 008
+                          </p>
+                      </div>
+                  </a>
+              </li>
+          </ul>
+      </div> 
+    </div>
+    <div class="col-lg-9 white-bg" ng-hide="newTicket" >
+     <div class="full-height-scroll white-bg border-left" full-scroll>
+          <div class="element-detail-box">
+            <div  class="tab-pane">
+              <h1>{{currentMail.subject}}</h1>
+              <h5>
+                <span class="pull-right font-noraml">10:15AM 02 FEB 2014</span>
+                <span class="font-noraml">From: </span>{{currentMail.fromEmail}} ({{currentMail.fromName}})
+              </h5>
+              <p ng-bind-html="currentMail.body"></p>
+              </div>
             </div>
         </div>
-
-        <div class="fh-breadcrumb" ng-controller="MailboxCtrl">
-
-            <div class="fh-column">
-                <div class="full-height-scroll" full-scroll>
-                    <div class="ibox float-e-margins m-b-none" style="border-bottom:1px solid #eee;">
-                        <div class="ibox-content" style="padding-top:22px;">
-                            <div class="file-manager">  
-                              <button class="btn btn-primary btn-sm">
-                                <a href="#" class="file-control">
-                                  <i class="fa fa-plus" style="margin-right:5px;"></i>New ticket
-                                </a>
-                              </button>
-                              <div class="btn-group" uib-dropdown is-open="status.isopen">
-                                <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle ng-disabled="disabled">
-                                  Assign to existing<span class="caret" style="margin-left:5px;"></span>
-                                </button>
-                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                  <li role="menuitem"><a href="#">Ticket1</a></li>
-                                  <li role="menuitem"><a href="#">Ticket2</a></li>
-                                  <li role="menuitem"><a href="#">Ticket3</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                        </div>
+    </div>
+    <div class="col-lg-9 white-bg" ng-show="newTicket" style="border-left: 1px solid #eee;">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Create new ticket</h5>
+          </div>
+          <div class="ibox-content">
+            <form role="form" class="form-inline">
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Ticket name</h4>
+                  <input type="text" class="form-control" ng-model="currentTicket.subject" placeholder="Ticket name..." style="width:100%;" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12" style="margin-bottom:20px;">
+                  <h4>Description</h4>
+                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                 <div class="col-lg-6">
+                  <h4>Deadline</h4>
+                  <div id="reportrange" class="form-control" style="width:100%;">
+                    <i class="fa fa-calendar"></i>
+                    <span>April 22, 2016</span> <b class="caret"></b>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <h4>Status</h4>
+                  <select class="form-control m-b" ng-model="currentTicket.status" name="account" style="width:100%;">
+                    <option value='1' selected>New</option>
+                    <option value='2'>Open</option>
+                    <option value='3'>Posponed</option>
+                    <option value='4'>Resolved</option>
+                  </select>
+                </div>  
+                <div class="col-lg-3">
+                  <h4>Priority</h4>
+                  <select class="form-control m-b" ng-model="currentTicket.priority" name="account" style="width:100%;">
+                    <option value='0'>High</option>
+                    <option value='2' selected>Mid</option>
+                    <option value='3'>Low</option>
+                  </select>       
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                    <h4>Assign to an employee(s)</h4>
+                    <div class="input-group" style="width:100%;">
+                      <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                     </div>
-
-                    <ul class="list-group elements-list">
-                        <li class="list-group-item" ng-repeat="m in mail" >
-                            <a data-toggle="tab" ng-click="showMail(m)">
-                                <small class="pull-right text-muted"> 16.02.2015</small> 
-                                <strong>{{m.fromName}}</strong>
-
-                                <div class="small m-t-xs">
-                                    <p>
-                                        {{m.subject}}
-                                    </p>
-
-                                    <p class="m-b-none">
-                                        <i class="fa fa-check-square"></i> Task 008
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
+                  <div class="employee-list" style="margin-top:10px">
+                    <button class="btn btn-default btn-sm pull-right" ng-click="addMyselfToAssigned()">Assign to {{userStr}}</button>
+                    <ul style="list-style:none; margin:0; padding:0;">
+                      <li ng-repeat="m in currentTicket.members">
+                        <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                        <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
+                      </li>
                     </ul>
-
+                  </div>
+              </div>
+              </div>
+                 <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Assign to a team(s)</h4>
+                  <div class="input-group" style="width:100%;">
+                      <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
+                  </div>
                 </div>
-            </div>
-
-            <div class="full-height mailview">
-                <div class="full-height-scroll white-bg border-left" full-scroll>
-
-               
-                    <div class="element-detail-box">
-
-                    
-
-                
-                  
-                            <div  class="tab-pane">
-                                <div class="pull-right">
-                                    <div class="tooltip-demo">
-                                        <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="left"
-                                                title="Plug this message"><i class="fa fa-plug"></i> Plug it
-                                        </button>
-                                        <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top"
-                                                title="Mark as read"><i class="fa fa-eye"></i></button>
-                                        <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top"
-                                                title="" data-original-title="Mark as important"><i
-                                                class="fa fa-exclamation"></i></button>
-                                        <button class="btn btn-white btn-xs" data-toggle="tooltip" data-placement="top"
-                                                title="" data-original-title="Move to trash"><i
-                                                class="fa fa-trash-o"></i></button>
-
-                                    </div>
-                                </div>
-                       
-
-                                <h1>
-                                    {{currentMail.subject}}
-                                </h1>
-
-<h5>
-                        <span class="pull-right font-noraml">10:15AM 02 FEB 2014</span>
-                        <span class="font-noraml">From: </span>{{currentMail.fromEmail}} ({{currentMail.fromName}})
-                    </h5>
-
-
-
-                              <p ng-bind-html="currentMail.body"></p>
-                                
-                                <!--div class="m-t-lg">
-                                    <p>
-                                        <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
-                                        <a href="#">Download all</a>
-                                        |
-                                        <a href="#">View all images</a>
-                                    </p>
-
-                                    <div class="attachment">
-                                        <div class="file-box">
-                                            <div class="file">
-                                                <a href="#">
-                                                    <span class="corner"></span>
-
-                                                    <div class="icon">
-                                                        <i class="fa fa-file"></i>
-                                                    </div>
-                                                    <div class="file-name">
-                                                        Document_2014.doc
-                                                        <br>
-                                                        <small>Added: Jan 11, 2014</small>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="file-box">
-                                            <div class="file">
-                                                <a href="#">
-                                                    <span class="corner"></span>
-
-                                                    <div class="icon">
-                                                        <i class="fa fa-line-chart"></i>
-                                                    </div>
-                                                    <div class="file-name">
-                                                        Seels_2015.xls
-                                                        <br>
-                                                        <small>Added: May 13, 2015</small>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div-->
-                            </div>
-     
-
-                    </div>
-
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Client</h4>
+                  <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" placeholder="Add a client...">
+                  </div>
                 </div>
-            </div>
-
-
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                 <div class="col-lg-12">
+                  <h4>Project</h4>
+                  <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" placeholder="Add a project...">
+                  </div>
+                </div>
+              </div>
+              <div class="alert alert-danger alert-dismissable" ng-if="page.error">
+                                <button aria-hidden="true" data-dismiss="alert" ng-click="page.error = undefined" class="close" type="button">×</button>
+                                {{page.error}}
+              </div>
+              <div class="row">
+                <button class="btn btn-danger btn-sm pull-right" ng-click="discardNewTicket()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
+                <button class="btn btn-primary btn-sm pull-right" ng-click="create(currentTicket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
+              </div>
+            </form> 
+          </div>
         </div>
+    </div>
+  </div>
+</div>
+
+
 
         

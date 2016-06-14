@@ -2,9 +2,6 @@
 angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService, employeeService) {
   var getMail,getOutbox,getEmployees, activeMailbox;
 
-
-
-
   getEmployees =  function(force, pageSize, pageNr, searchTerm) {
       employeeService.getList(true, pageSize, pageNr, searchTerm).then(function(response) {
                 console.log("got employee list");
@@ -14,8 +11,6 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
               console.log("Could not get employee");
                console.log(response);
             });
-
-
   };
 
   getMail = function(force, pageSize, pageNr, searchTerm) {
@@ -77,6 +72,14 @@ angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope
        console.log(response);
     });
   };
+  
+    $scope.createNewTicket = function() {
+      $scope.newTicket = true;
+  };
+  
+   $scope.discardNewTicket = function() {
+     $scope.newTicket = false;
+   };
 
   $scope.showInbox = function() {
     $scope.activeMail = false;
