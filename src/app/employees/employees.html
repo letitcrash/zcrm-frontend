@@ -123,15 +123,10 @@
 
               <!--TABS start-->
               <ul class="nav nav-tabs" ng-show="page.loaded">
-                <li ng-class="{'active' : tab == 1}">
-                  <a ng-click="tab = 1" ng-init="tab = 1">
+                <li ng-class="{'active' : tab == 1}" ng-init="tab = 1">
+                  <!--<a ng-click="tab = 1" >
                     <i class="fa fa-users"></i>{{ 'Employees' | translate }}
-                  </a>
-                </li>
-                <li ng-class="{'active' : tab == 2}">
-                  <a ng-click="tab = 2">
-                    <i class="fa fa-briefcase"></i>{{ 'Teams' | translate }}
-                  </a>
+                  </a>-->
                 </li>
               </ul>
 
@@ -592,8 +587,8 @@
                           <a><i class="fa fa-plus"></i> Add another e-post </a>
                         </div>
                         <div>
-                          <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
-                          <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">Cancel</button>
+                          <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">{{ 'Save' | translate }}</button>
+                          <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">{{ 'Cancel' | translate }}</button>
 
                         </div>
                       </form>
