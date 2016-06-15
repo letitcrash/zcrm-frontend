@@ -91,16 +91,7 @@
             </div>
           </div>
           <div class="clients-list">
-            <ul class="nav nav-tabs">
-              <li ng-class="{'active' : tab == 1}">
-                <a ng-click="tab = 1" ng-init="tab = 1"><i class="fa fa-users"></i>{{ 'Teams' | translate }}</a>
-              </li>
-              <li ng-class="{'active' : tab == 2}">
-                <a ng-click="tab = 2"><i class="fa fa-briefcase"></i>{{ 'Positions' | translate }}</a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div id="tab-1" class="tab-pane active" ng-show="tab == 1">
+
                 <div class="full-height-scroll" full-scroll>
                   <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -122,34 +113,7 @@
                     </table>
                   </div>
                 </div>
-              </div>
-              <div id="tab-2" class="tab-pane active" ng-show="tab == 2">
-                <div class="full-height-scroll" full-scroll>
-                  <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th style="width:35px;border-left:1px solid #DDDDDD;">
-                            <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
-                          </th>
-                          <th>Name</th>
-                          <th>Created</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td style="width:35px;">
-                            <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
-                          </td>
-                          <td>DEP</td>
-                          <td>Union</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+             
           </div>
         </div>
       </div>
