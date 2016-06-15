@@ -29,6 +29,20 @@ angular.module('inspinia').factory('projectService', function(requestService, da
       project.companyId = dataService.getCurrentCompanyId();
       //ticket.assignedToUserID = dataService.getUserId();
       return requestService.ttPost(url, project);
+    },
+    update: function(project) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
+      var args = {};
+      args.companyId = dataService.getCurrentCompanyId();
+      args.name = project.name;
+      args.description = project.description;
+
+      return requestService.ttPost(url, args);
+    },
+    delete: function(project) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/project/" + project.id;
+
+      return requestService.ttDelete(url);
     }
 	};
 });

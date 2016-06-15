@@ -12,30 +12,117 @@
       <!-- table ibox -->  
 
       <div class="ibox">
+        <div class="ibox-content">
+          <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
+              <i class="fa fa-cog"></i> 
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li role="menuitem"><a href></a></li>
+              <li role="menuitem"><a href>Assign ticket</a></li>
+              <li role="menuitem"><a href ng-click="assignRoleAction(currentTicket)">Assign delegate role</a></li>
+              <li role="menuitem"><a href>Send email</a></li>
+              <li role="menuitem"><a href>Export in exel</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href="#">Delete employee</a></li>
+            </ul>
+          </div>
 
-      <div class="ibox-content">
-            <h2>{{ 'Projects' | translate }}</h2>
-<div class="row m-b-sm m-t-sm">
-    <div class="col-md-3">
-        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
-        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Show filters</button>
-    </div>
+          <button ng-click="createProjectAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+            <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
+          </button>
 
-    <div class="col-md-7">
-        <div class="input-group">
-            <input type="text" placeholder="Search" class="input-sm form-control"> 
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-sm btn-primary"> Go!</button> 
-              </span>
-        </div>
-    </div>
+          <h2>{{ 'Projects' | translate }}</h2>
+          
+          <!--FILTERS start-->
+          <!--main search-->
+          <div class="input-group col-md-6 m-b-sm">
+            <input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
 
-    <div class="col-md-2">
-      <button ng-click="createProjectAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
-        <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
-      </button>
-    </div>
-</div>
+            </span>
+
+          </div>
+
+         <!--btns-->
+                <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary btn-sm">
+                    <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
+                </button>
+                <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-default btn-sm">
+                    <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
+                </button>
+                <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-danger btn-sm">
+                 <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" ng-hide="isCollapsed==false">
+                    <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
+                </button> 
+                
+                <!--advanced filters start-->
+                <div ng-if="isCollapsed">
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--status-->
+                            <h4>Status</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Status..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--ticket-->
+                            <h4>Ticket</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Ticket..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <h4>Team</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Team..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                        <!--created-->
+                            <h4>Created</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>
+                        </div>                                               
+                    </form>
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--priority-->
+                            <h4>Priority</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Priority..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--client-->
+                            <h4>Client</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Client..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--person-->
+                            <h4>Person</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Person..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--deadline-->
+                            <h4>Deadline</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>    
+                        </div>                                               
+                    </form> 
+                </div>
 
 <div class="project-list">
 
