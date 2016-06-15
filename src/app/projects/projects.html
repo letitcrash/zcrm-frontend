@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content  animated fadeIn" ng-controller="TicketsCtrl">
+<div class="wrapper wrapper-content  animated fadeIn" ng-controller="ProjectsCtrl">
   <!--styles-->
   <style>
   .block {
@@ -8,66 +8,152 @@
   <!--styles end-->
   
   <div class="row">
-    <div ng-class="{'col-sm-12' : mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : mode == 2}">
+    <div ng-class="{'col-sm-12' : page.mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : page.mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : page.mode == 2}">
       <!-- table ibox -->  
 
       <div class="ibox">
+        <div class="ibox-content">
+          <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
+              <i class="fa fa-cog"></i> 
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li role="menuitem"><a href></a></li>
+              <li role="menuitem"><a href>Assign ticket</a></li>
+              <li role="menuitem"><a href>Assign delegate role</a></li>
+              <li role="menuitem"><a href>Send email</a></li>
+              <li role="menuitem"><a href>Export in exel</a></li>
+              <li class="divider"></li>
+              <li role="menuitem"><a href ng-click="delete()">Delete project</a></li>
+            </ul>
+          </div>
 
-      <div class="ibox-content">
-<div class="row m-b-sm m-t-sm">
-    <div class="col-md-3">
-        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
-        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Show filters</button>
-    </div>
-    <div class="col-md-7">
-        <div class="input-group">
-            <input type="text" placeholder="Search" class="input-sm form-control"> 
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-sm btn-primary"> Go!</button> 
-              </span>
+          <button ng-click="createProjectAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+            <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
+          </button>
+
+          <h2>{{ 'Projects' | translate }}</h2>
+          
+          <!--FILTERS start-->
+          <!--main search-->
+          <div class="input-group col-md-6 m-b-sm">
+            <input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
+
+            </span>
+
+          </div>
+
+         <!--btns-->
+                <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary btn-sm">
+                    <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
+                </button>
+                <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-default btn-sm">
+                    <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
+                </button>
+                <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-danger btn-sm">
+                 <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" ng-hide="isCollapsed==false">
+                    <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
+                </button> 
+                
+                <!--advanced filters start-->
+                <div ng-if="isCollapsed">
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--status-->
+                            <h4>Status</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Status..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--ticket-->
+                            <h4>Ticket</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Ticket..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <h4>Team</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Team..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                        <!--created-->
+                            <h4>Created</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>
+                        </div>                                               
+                    </form>
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--priority-->
+                            <h4>Priority</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Priority..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--client-->
+                            <h4>Client</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Client..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--person-->
+                            <h4>Person</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Person..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--deadline-->
+                            <h4>Deadline</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>    
+                        </div>                                               
+                    </form> 
+                </div>
+
+                <div class="project-list">
+
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr ng-repeat="project in projects" mode="{{page.mode}}" >
+                        <td><input type="checkbox" class="green-check" ng-model="project.selected"/></td>
+                        <td class="project-title">
+                          <a ng-click="openProject(project)">{{project.name}}</a>
+                        </br>
+                          <small>NA: Client</small>
+                          
+                        </td>
+                        <td class="project-completion">
+                            <small>Completion with: 48%</small>
+                            <div class="progress progress-mini">
+                                <div style="width: 48%;" class="progress-bar"></div>
+                            </div>
+                        </td>
+                        <td class="project-people">
+                            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
         </div>
-    </div>
-    <div class="col-md-2">
-      <button ng-click="createTicketAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
-        <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
-      </button>
-    </div>
-
-
-</div>
-
-<div class="project-list">
-
-<table class="table table-hover">
-<tbody>
-<tr ng-repeat="p in projects">
-    <td class="project-title">
-        <a ui-sref="project_detail">{{p.name}}</a>
-        <br/>
-        <small>Client: NA Client</small>
-    </td>
-    <td class="project-completion">
-        <small>Completion with: 48%</small>
-        <div class="progress progress-mini">
-            <div style="width: 48%;" class="progress-bar"></div>
-        </div>
-    </td>
-    <td class="project-people">
-        <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-    </td>
-    <td class="project-actions">
-        <a href="" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-        <a href="" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-    </td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
         
       </div>
       
@@ -77,24 +163,24 @@
 
     <!-- sidebar ibox -->  
       
-    <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}" ng-show="mode == 1 || mode == 2">
+    <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : page.mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : page.mode == 2}" ng-show="page.mode == 1 || page.mode == 2">
         <!-- creation form -->
-        <div class="ibox float-e-margins" ng-if="currentTicket.id == null">
+        <div class="ibox float-e-margins" ng-if="currentProject.id == null">
           <div class="ibox-title">
-            <h5>Create new ticket</h5>
+            <h5>Create new Project</h5>
           </div>
           <div class="ibox-content">
             <form role="form" class="form-inline">
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Project name</h4>
-                  <input type="text" class="form-control" ng-model="currentTicket.subject" placeholder="Project name..." style="width:100%;" />
+                  <input type="text" class="form-control" ng-model="currentProject.name" placeholder="Project name..." style="width:100%;" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12" style="margin-bottom:20px;">
                   <h4>Description</h4>
-                  <textarea class="form-control" ng-model="currentTicket.description" placeholder="Add description here..." style="width:100%;"></textarea>
+                  <textarea class="form-control" ng-model="currentProject.description" placeholder="Add description here..." style="width:100%;"></textarea>
                 </div>
               </div>
               <div class="row" style="margin-bottom:20px;">
@@ -108,7 +194,7 @@
                                         <button class="btn btn-default btn-sm pull-right" ng-click="addMyselfToAssigned()">Assign to {{userStr}}</button>
 
                     <ul style="list-style:none; margin:0; padding:0;">
-                      <li ng-repeat="m in currentTicket.members">
+                      <li ng-repeat="m in currentProject.members">
                         <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
                         <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
                       </li>
@@ -135,14 +221,14 @@
               </div>
               <div class="row">
                 <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
-                <button class="btn btn-primary btn-sm pull-right" ng-click="create(currentTicket)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
+                <button class="btn btn-primary btn-sm pull-right" ng-click="create(currentProject)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
               </div>
             </form> 
           </div>
         </div>
         <!-- creation form end -->
         <!-- opened ticket -->
-        <div class="ibox float-e-margins" ng-if="currentTicket.id != null">
+        <div class="ibox float-e-margins" ng-if="currentProject.id != null">
           <div class="ibox-title">
             <div class="row">
               <div class="btn-group" role="group" style="margin-left:20px;">
@@ -154,15 +240,15 @@
               </div>
 
               <div class="pull-right" style="margin-right:20px;">
-                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1"> <i class="fa fa-expand"></i> </button>
-                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="page.mode == 1"> <i class="fa fa-expand"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="page.mode == 2"> <i class="fa fa-compress"></i> </button>
                 <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
               </div>
             </div>
              <div class="row" style="margin-top:20px;">
-              <h5 style="margin-left:20px;">{{currentTicket.subject | uppercase}}</h5>
-               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}">{{currentTicket.priority}}</button>
-              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}">{{currentTicket.status}}</button>
+              <h5 style="margin-left:20px;">{{currentProject.name | uppercase}}</h5>
+               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}">{{currentProj.priority}}</button>
+              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}">{{currentProj.status}}</button>
             </div>
           </div>
          
@@ -172,7 +258,7 @@
             
             <div class="row">
               <!--1st part-->
-              <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+              <div ng-class="{'col-sm-6': page.mode == 2, 'col-sm-12': page.mode == 1}">
                 <ul class="list-group clear-list m-t-md">
                   <!--created by-->
                   <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
@@ -223,16 +309,29 @@
                 </ul>
               </div>
               <!--2nd part-->
-               <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+               <div ng-class="{'col-sm-6': page.mode == 2, 'col-sm-12': page.mode == 1}">
                 <ul class="list-group clear-list m-t-md">
                   <!--description-->
-                  <li class="list-group-item fist-item">
+                  <li class="list-group-item fist-item" ng-mouseenter="editDescription = true" ng-mouseleave="editDescription = false">
                     <div class="row">
                       <div class="col-sm-4">
                         <strong>Description</strong>
                       </div>
-                      <div class="col-sm-8 text-right">
-                      {{currentTicket.description}}
+                       <div class="col-sm-8">
+                        <span ng-hide="page.editDescriptionAction">{{currentProject.description}}</span>
+                        <a  class="pull-right" ng-show="editDescription && !page.editDescriptionAction" href ng-click="page.editDescriptionAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="page.editDescriptionAction">
+                          <div class="form-group">
+                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentProject.description" placeholder="currentProject.description" class="form-control"></textarea>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}. <a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-primary" ng-click="save(currentProject)">Save</button>
+                            <button class="btn btn-sm btn-default" ng-click="page.editDescriptionAction = false">Cancel</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </li>
@@ -247,17 +346,6 @@
                       </div>
                     </div>
                   </li>
-                    <!--project-->
-                    <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <strong>Project</strong>
-                        </div>
-                        <div class="col-sm-8 text-right">
-                        Project-1
-                        </div>
-                      </div>
-                    </li>
                     <!--date-->
                     <li class="list-group-item">
                       <div class="row">
@@ -283,6 +371,10 @@
     </div>
 
     <!-- sidebar ibox end -->
+
+  
+
+
 
   </div>
 </div>

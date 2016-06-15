@@ -58,6 +58,13 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
 
       return requestService.ttPost(url, args);
     },
+    addMembersToTicket: function(ticket) {
+      var args = {};
+      args.members = ticket.members;
+      ticket.ticketId = Number(ticket.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/members";
+      return requestService.ttPost(url,ticket);
+    },
     detachEmailConversation: function(ticket, email) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/attachedmails/" + email.id;
       return requestService.ttDelete(url);
@@ -65,7 +72,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
     delete: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id;
 
-      return requestService.ttPost(url, args);
+      return requestService.ttDelete(url);
     },
     comment: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/comments";
