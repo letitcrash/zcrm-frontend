@@ -65,7 +65,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
     delete: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id;
 
-      return requestService.ttPost(url, args);
+      return requestService.ttDelete(url);
     },
     comment: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/comments";
