@@ -31,16 +31,17 @@ angular.module('inspinia').factory('projectService', function(requestService, da
       return requestService.ttPost(url, project);
     },
     update: function(project) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/projects/"+project.id;
       var args = {};
+      args.id=project.id;
       args.companyId = dataService.getCurrentCompanyId();
       args.name = project.name;
       args.description = project.description;
 
-      return requestService.ttPost(url, args);
+      return requestService.ttPut(url, project);
     },
-    delete: function(project) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/project/" + project.id;
+    delete: function(id) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/projects/" + id;
 
       return requestService.ttDelete(url);
     }

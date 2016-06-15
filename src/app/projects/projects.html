@@ -20,11 +20,11 @@
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
               <li role="menuitem"><a href></a></li>
               <li role="menuitem"><a href>Assign ticket</a></li>
-              <li role="menuitem"><a href ng-click="assignRoleAction(currentTicket)">Assign delegate role</a></li>
+              <li role="menuitem"><a href>Assign delegate role</a></li>
               <li role="menuitem"><a href>Send email</a></li>
               <li role="menuitem"><a href>Export in exel</a></li>
               <li class="divider"></li>
-              <li role="menuitem"><a href="#">Delete employee</a></li>
+              <li role="menuitem"><a href ng-click="delete()">Delete project</a></li>
             </ul>
           </div>
 
@@ -124,34 +124,36 @@
                     </form> 
                 </div>
 
-<div class="project-list">
+                <div class="project-list">
 
-<table class="table table-hover">
-<tbody>
-<tr ng-repeat="proj in projects" mode="{{page.mode}}" >
-    <td class="project-title">
-        <a ng-click="openProject(proj)">{{proj.name}}</a>
-        <br/>
-        <small>Client: NA Client</small>
-    </td>
-    <td class="project-completion">
-        <small>Completion with: 48%</small>
-        <div class="progress progress-mini">
-            <div style="width: 48%;" class="progress-bar"></div>
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr ng-repeat="project in projects" mode="{{page.mode}}" >
+                        <td><input type="checkbox" class="green-check" ng-model="project.selected"/></td>
+                        <td class="project-title">
+                          <a ng-click="openProject(project)">{{project.name}}</a>
+                        </br>
+                          <small>NA: Client</small>
+                          
+                        </td>
+                        <td class="project-completion">
+                            <small>Completion with: 48%</small>
+                            <div class="progress progress-mini">
+                                <div style="width: 48%;" class="progress-bar"></div>
+                            </div>
+                        </td>
+                        <td class="project-people">
+                            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
         </div>
-    </td>
-    <td class="project-people">
-        <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-        <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-    </td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
         
       </div>
       
@@ -310,13 +312,26 @@
                <div ng-class="{'col-sm-6': page.mode == 2, 'col-sm-12': page.mode == 1}">
                 <ul class="list-group clear-list m-t-md">
                   <!--description-->
-                  <li class="list-group-item fist-item">
+                  <li class="list-group-item fist-item" ng-mouseenter="editDescription = true" ng-mouseleave="editDescription = false">
                     <div class="row">
                       <div class="col-sm-4">
                         <strong>Description</strong>
                       </div>
-                      <div class="col-sm-8 text-right">
-                      {{currentProject.description}}
+                       <div class="col-sm-8">
+                        <span ng-hide="page.editDescriptionAction">{{currentProject.description}}</span>
+                        <a  class="pull-right" ng-show="editDescription && !page.editDescriptionAction" href ng-click="page.editDescriptionAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="page.editDescriptionAction">
+                          <div class="form-group">
+                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentProject.description" placeholder="currentProject.description" class="form-control"></textarea>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}. <a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-primary" ng-click="save(currentProject)">Save</button>
+                            <button class="btn btn-sm btn-default" ng-click="page.editDescriptionAction = false">Cancel</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </li>
