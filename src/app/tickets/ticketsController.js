@@ -97,23 +97,52 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.mode = 1;
   };
 
+  $scope.saveMembers = function (ticket) {
+    ticketService.addMembersToTicket(ticket).then(function(response) {
+      console.log("Tkt members list succesfully");
+      console.log(response);    
+      ticket.members = response;
+      $scope.page.editParticipants = false;
+    }, function(response) {
+      console.log("Ticket emp list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
+
   $scope.createTicketAction = function () {
     $scope.compressMode();
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
     $scope.currentTicket.id = null;
+    
+    $scope.currentTicket.status = {
+      availableOptions: [
+        {id: '1', name: 'New'},
+        {id: '2', name: 'Open'},
+        {id: '3', name: 'Posponed'},
+        {id: '4', name: 'Resolved'}
+      ],
+        selectedOption: {id: '1', name: 'New'}
+    };
+
+    $scope.currentTicket.priority = {
+      availableOptions: [
+        {id: '0', name: 'Low'},
+        {id: '1', name: 'Mid'},
+        {id: '2', name: 'High'},
+      ],
+        selectedOption: {id: '1', name: 'Mid'}
+      };
 
   };
 
   $scope.create = function(tkt) {
     $scope.page.error = undefined;
-
     ticketService.create(tkt).then(function(response) {
       console.log("Tkt created succesfully");
       console.log(response);     
       $scope.tickets.push(response);
-//      $scope.setSelected(response.id);
-      return setEmpChange(true, "Medarbetaren har skapats.");
+      $scope.page.notification = "Ticket created succesfully";
     }, function(response) {
       console.log("Ticket could not be created");
       $scope.page.error = "Ticket could not be created";
@@ -135,6 +164,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
     $scope.isCollapsed = false;
+    $scope.temp = {};
+
 
   };
   
