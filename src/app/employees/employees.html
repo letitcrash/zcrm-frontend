@@ -49,11 +49,11 @@
 
           <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
             <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
-		  </button>
-		  
-		  <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-info">
-			<i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
-		  </button>
+          </button>
+          
+          <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-info">
+            <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+          </button>
 
           <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
             <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
@@ -63,17 +63,17 @@
             <!--top search fields-->
             <form role="form" class="form-inline" style="padding-top:20px;">
 
-			  <!--union-->
-			  <div class="form-group" style="margin-right:10px; float: left">
-				<h4>{{ 'Union' | translate }}</h4>
-				<div class="input-group">
-				  <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" placeholder="{{ 'Union' | translate }}" value="{{filter.unions[1].name}}">
-				  </div> 
-				  
-				  <ul>
-					<li ng-repeat="union in filter.unions" ng-if="" ng-repeat-end>{{union.name}}</li>
-				  </ul>
-				</div>
+              <!--union-->
+              <div class="form-group" style="margin-right:10px; float: left">
+                <h4>{{ 'Union' | translate }}</h4>
+                <div class="input-group">
+                  <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" placeholder="{{ 'Union' | translate }}" value="{{filter.unions[1].name}}">
+                  </div> 
+                  
+                  <ul>
+                    <li ng-repeat="union in filter.unions" ng-if="" ng-repeat-end>{{union.name}}</li>
+                  </ul>
+                </div>
 
                 <!--position-->
                 <div class="form-group" style="margin-right:10px;">
@@ -166,16 +166,16 @@
                   </div>
 
                   <!--PAGINATION start-->
-				  <uib-pagination class="pull-right" total-items="totalItems"
-					  ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"
-					  max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>
+                  <uib-pagination class="pull-right" total-items="totalItems"
+                      ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"
+                      max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>
                   <!--PAGINATION end-->
 
                 </div>
 
                 <!--tab 2 content-->
-				
-				
+                
+                
                 <!--<div id="tab-2" class="tab-pane active" ng-show="tab == 2">
                   <div class="full-height-scroll" full-scroll>
                     <div class="table-responsive">
@@ -192,7 +192,7 @@
                             </div></td>
                             <td>{{timeConverter(role.startDate)}}</td>
                             <td>{{timeConverter(role.endDate)}}</td>
-							</tr>
+                            </tr>
                             <tr ng-repeat-end></tr>
                             <tr ng-repeat-end></tr>
 
@@ -201,15 +201,15 @@
                       </div>
                     </div>-->
 
-					<!--PAGINATION start-->
-					<!--<uib-pagination class="pull-right" total-items="totalDelegates"
-					  ng-model="pageDl" items-per-page="pageSize" ng-change="changePage()"
-					  max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>-->
-					
-						<!--Need make new ng model for delegates:
-							total-items="totalDelegates"
-							ng-model="pageDl" -->
-					
+                    <!--PAGINATION start-->
+                    <!--<uib-pagination class="pull-right" total-items="totalDelegates"
+                      ng-model="pageDl" items-per-page="pageSize" ng-change="changePage()"
+                      max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>-->
+                    
+                        <!--Need make new ng model for delegates:
+                            total-items="totalDelegates"
+                            ng-model="pageDl" -->
+                    
                     <!--PAGINATION end-->
 
                   <!--</div>-->                              
@@ -458,18 +458,22 @@
 
           <!-- Employee Tabs -->
 
-          <div class="col-xl-12 tabs-container" ng-show="currentEmp.id">
+          <div class="col-xl-12 tabs-container tooltip-demo" ng-show="currentEmp.id">
             <div>
               <ul class="nav nav-tabs">
 
-                <li ng-init="subtab = 1" ng-class="{active:subtab == 1}">
-                  <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-briefcase"></i></a></li>
-                <li ng-class="{active:subtab == 2}">
-                  <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i></a></li>
-                <li ng-class="{active:subtab == 3}">
-                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-list"></i></a></li>
-                <li ng-class="{active:subtab == 4}">
-                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-pencil"></i></a></li>
+                <li uib-popover="{{ 'Info' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter" ng-init="subtab = 1" ng-class="{active:subtab == 1}">
+                  <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-briefcase"></i>
+                    <span ng-if="page.mode == 2">{{ 'Info' | translate }}</span></a></li>
+                <li uib-popover="{{ 'Teams' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 2}">
+                  <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i>
+                    <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a></li> 
+                <li uib-popover="{{ 'Tickets' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 3}">
+                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-check"></i>
+                    <span ng-if="page.mode == 2">{{ 'Tickets' | translate }}</span></a></li>
+                <li uib-popover="{{ 'Mail settings' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 4}">
+                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-envelope"></i>
+                    <span ng-if="page.mode == 2">{{ 'Mail settings' | translate }}</span></a></li>
                 
                 
                 <div class="pull-right">
@@ -825,14 +829,14 @@
                       <form role="form">
                         <div class="form-group">
 
-						  <label class="font-noraml">{{ 'Team' | translate }}</label>
+                          <label class="font-noraml">{{ 'Team' | translate }}</label>
 
-						  <input id="unionFilter" placeholder="Type role name.." type="text" ng-model="teams" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
+                          <input id="unionFilter" placeholder="Type role name.." type="text" ng-model="teams" uib-typeahead="union as union.name for union in mycp.delegates | filter:$viewValue | limitTo:8" class="form-control" typeahead-min-length="0">
 
                         </div>
 
                         <div class="form-group">
-						  <label class="font-noraml">{{ 'Start date' | translate }}</label>
+                          <label class="font-noraml">{{ 'Start date' | translate }}</label>
 
                           <div class="input-group">
                             <datepicker>
@@ -842,7 +846,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-						  <label class="font-noraml">{{ 'End date' | translate }}</label>
+                          <label class="font-noraml">{{ 'End date' | translate }}</label>
 
                           <div class="input-group">
                             <datepicker>
