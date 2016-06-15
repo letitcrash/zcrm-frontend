@@ -125,24 +125,7 @@
                 <!--advanced filters end-->
 
           <div class="clients-list">
-              <!--TABS start-->
-            <ul class="nav nav-tabs">
-              <li ng-class="{'active' : tab == 1}">
-                <a ng-click="tab = 1" ng-init="tab = 1">
-                  <i class="fa fa-users"></i>{{ 'Employees' | translate }}
-                </a>
-              </li>
-              <li ng-class="{'active' : tab == 2}">
-                <a ng-click="tab = 2">
-                  <i class="fa fa-briefcase"></i>{{ 'Delegates' | translate }}
-                </a>
-              </li>
-            </ul>
-
-            <div class="tab-content">
-              <!--tab 1 content-->
-              <div id="tab-1" class="tab-pane active" ng-show="tab == 1">
-                <div class="full-height-scroll" full-scroll>
+            <div class="full-height-scroll" full-scroll>
                   <div class="table-responsive">
                     <table class="table table-striped table-hover">
                       <thead>
@@ -197,22 +180,8 @@
                 <!--PAGINATION start-->
                 <uib-pagination class="pull-right" total-items="totalItems" ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"></uib-pagination>
                 <!--PAGINATION end-->
-              </div>
-
-              <!--tab 2 content-->
-              <div id="tab-2" class="tab-pane active" ng-show="tab == 2">
-                <div class="full-height-scroll" full-scroll>
-                  <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-
-                    </table>
-                  </div>
-                </div>
-                  <!--PAGINATION start-->
-                  <uib-pagination class="pull-right" total-items="totalItems" ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"></uib-pagination>
-                  <!--PAGINATION end-->
-              </div>                              
-            </div>
+                                          
+           
           </div>
         </div>
       </div>
