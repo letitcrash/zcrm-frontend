@@ -14,11 +14,13 @@
       <div class="ibox">
 
       <div class="ibox-content">
+            <h2>{{ 'Projects' | translate }}</h2>
 <div class="row m-b-sm m-t-sm">
     <div class="col-md-3">
         <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
         <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Show filters</button>
     </div>
+
     <div class="col-md-7">
         <div class="input-group">
             <input type="text" placeholder="Search" class="input-sm form-control"> 
@@ -27,13 +29,12 @@
               </span>
         </div>
     </div>
+
     <div class="col-md-2">
       <button ng-click="createProjectAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
         <i class="fa fa-user-plus"></i> {{ 'Create project' | translate }}
       </button>
     </div>
-
-
 </div>
 
 <div class="project-list">
@@ -59,10 +60,6 @@
         <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
         <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
     </td>
-    <td class="project-actions">
-        <a href="" class="btn btn-white btn-sm" ng-click="openProject(proj)"><i class="fa fa-folder"></i> View </a>
-        <a href="" class="btn btn-white btn-sm" ng-click="openProject(proj)"><i class="fa fa-pencil"></i> Edit </a>
-    </td>
 </tr>
 </tbody>
 </table>
@@ -81,14 +78,14 @@
         <!-- creation form -->
         <div class="ibox float-e-margins" ng-if="currentProject.id == null">
           <div class="ibox-title">
-            <h5>Create new ticket</h5>
+            <h5>Create new Project</h5>
           </div>
           <div class="ibox-content">
             <form role="form" class="form-inline">
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Project name</h4>
-                  <input type="text" class="form-control" ng-model="currentProject.subject" placeholder="Project name..." style="width:100%;" />
+                  <input type="text" class="form-control" ng-model="currentProject.name" placeholder="Project name..." style="width:100%;" />
                 </div>
               </div>
               <div class="row">
@@ -160,7 +157,7 @@
               </div>
             </div>
              <div class="row" style="margin-top:20px;">
-              <h5 style="margin-left:20px;">{{currentProj.subject | uppercase}}</h5>
+              <h5 style="margin-left:20px;">{{currentProject.name | uppercase}}</h5>
                <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}">{{currentProj.priority}}</button>
               <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}">{{currentProj.status}}</button>
             </div>
@@ -247,17 +244,6 @@
                       </div>
                     </div>
                   </li>
-                    <!--project-->
-                    <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <strong>Project</strong>
-                        </div>
-                        <div class="col-sm-8 text-right">
-                        Project-1
-                        </div>
-                      </div>
-                    </li>
                     <!--date-->
                     <li class="list-group-item">
                       <div class="row">

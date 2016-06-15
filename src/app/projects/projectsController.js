@@ -1,12 +1,13 @@
 'use strict';
 angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScope, $state, projectService) {
   var getMail, getProjects;
+   $scope.selected = 1;
 
   getProjects =  function(force, pageSize, pageNr, searchTerm) {
     projectService.getList(true, pageSize, pageNr, searchTerm).then(function(response) {
         console.log("got project list");
         console.log(response);
-        $scope.projects = response;
+        $scope.projects = response.data;
       }, function(response) {
         console.log("Could not get projects");
         console.log(response);
@@ -16,12 +17,9 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
   
 
   $scope.openProject = function(proj) {
-      console.log(proj)
-      if($scope.page.mode == 0) {
-        $scope.page.mode = 1;
-        console.log($scope.page.mode);
-      }
-      $scope.currentProject = angular.copy(proj);
+      $scope.page.mode = 1;
+      $scope.currentProject = proj;
+      console.log($scope.currentProject);
   }
 
   $scope.defaultMode = function () {
@@ -50,6 +48,23 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     $scope.currentProject.id = null;
 
   };
+
+  $scope.create = function(proj) {
+    $scope.page.error = undefined;
+
+    projectService.create(proj).then(function(response) {
+      console.log("Project created succesfully");
+      console.log(response);     
+      $scope.projects.push(response);
+//      $scope.setSelected(response.id);
+      return setProjectChange(true, "Medarbetaren har skapats.");
+    }, function(response) {
+      console.log("Project could not be created");
+      $scope.page.error = "Project could not be created";
+    });
+  };
+
+
 
   $scope.init = function() {
     console.log("Running init in Projects Controller");

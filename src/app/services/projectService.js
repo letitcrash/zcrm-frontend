@@ -19,7 +19,17 @@ angular.module('inspinia').factory('projectService', function(requestService, da
 	return {
 		getList: function(force, pageSize, pageNr, searchTerm) {
 		  return getListRequest(pageSize, pageNr, searchTerm)
-		}
+		},
+		get: function(projectId) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/projects/" + projectId;
+      return requestService.ttGet(url);
+    },
+    create: function(project) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/projects";
+      project.companyId = dataService.getCurrentCompanyId();
+      //ticket.assignedToUserID = dataService.getUserId();
+      return requestService.ttPost(url, project);
+    }
 	};
 });
 
