@@ -147,10 +147,19 @@
                             <input type="checkbox" /> TICKET#{{ticket.id}}
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs" style="width: 75px;" ng-class="{'btn-success': ticket.status === 1, 'btn-warning': ticket.status === 2, 'btn-danger': ticket.status === 3, 'btn-default': ticket.status === 4}"><span ng-if="ticket.status == 0">New</span><span ng-if="ticket.status == 1">Open</span><span ng-if="ticket.status == 2">Postponed</span><span ng-if="ticket.status == 3">Resolved</span></button>
+
+
+
+
+
+              <button class="btn btn-xs pull-right" style="margin-right:5px;" ng-class="{'btn-success': ticket.status == 1, 'btn-warning': ticket.status == 2, 'btn-info': ticket.status == 3, 'btn-primary': ticket.status == 4}"><span ng-if="ticket.status == 1">New</span><span ng-if="ticket.status == 2">Open</span><span ng-if="ticket.status == 3">Postponed</span><span ng-if="ticket.status == 4">Resolved</span></button>
+
+
                           </td>
                           <td>
-                            <button type="button" class="btn btn-xs btn-outline" ng-class="{'btn-danger': ticket.priority === 0, 'btn-warning': ticket.priority === 2, 'btn-info': ticket.priority === 3}"><span ng-if="ticket.priority == 0">High</span><span ng-if="ticket.priority == 1">Mid</span><span ng-if="ticket.priority == 2">Low</span></button>
+
+               <button class="btn btn-xs pull-right" style="margin-right:20px;" ng-class="{'btn-success': ticket.priority == 0, 'btn-warning': ticket.priority == 1, 'btn-danger': ticket.priority == 2}"><span ng-if="ticket.priority == 0">Low</span><span ng-if="ticket.priority == 1">Mid</span><span ng-if="ticket.priority == 2">High</span></button>
+
                           </td>
                           <td>
                             <a href ng-click="openTicket(ticket)">{{ticket.subject | uppercase}} </a>
@@ -174,7 +183,8 @@
                 <uib-pagination class="pull-right" total-items="totalItems" ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"></uib-pagination>
                 <!--PAGINATION end-->
                                           
-           
+
+
           </div>
         </div>
       </div>
@@ -253,9 +263,20 @@
                  <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
                   <h4>Assign to a team(s)</h4>
-                  <div class="input-group" style="width:100%;">
-                      <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
-                  </div>
+                  
+                        <div class="input-group" style="width:100%;">
+                          <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
+                        </div>
+                        
+                        <div class="employee-list" style="margin-top:10px">
+                            <ul style="list-style:none; margin:0; padding:0;">
+                              <li ng-repeat="team in currentTicket.teams">
+                                <button type="button" ng-click="deleteTeamFromFilter(team)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <span> {{team.name}} </span>
+                              </li>
+                            </ul>
+                        </div>
+
                 </div>
               </div>
               <div class="row" style="margin-bottom:20px;">
@@ -324,6 +345,7 @@
               <button class="btn btn-sm btn-default pull-right m-l-sm" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}" ><span ng-if="currentTicket.priority == 0">High</span><span ng-if="currentTicket.priority == 1">Mid</span><span ng-if="currentTicket.priority == 2">Low</span></button>
               <button class="btn btn-sm btn-default pull-right" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}"><span ng-if="currentTicket.status == 0">New</span><span ng-if="currentTicket.status == 1">Open</span><span ng-if="currentTicket.status == 2">Postponed</span><span ng-if="currentTicket.status == 3">Resolved</span></button>
             </div>
+
           <!-- ticket info -->
           <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 1">
               <!--1st part-->
@@ -381,11 +403,35 @@
                   <li class="list-group-item">
                     <div class="row">
                       <div class="col-sm-4">
-                        <strong>Team</strong>
+                        <strong>Team(s)</strong>
                       </div>
-                      <div class="col-sm-8 text-right">
-                      Team-1
+                        <div class="col-sm-8">
+                        <div class="input-group" style="width:100%;" ng-show="page.editTeams">
+                          <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingTeams" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
+                        </div>
+                        
+                        <div class="employee-list" style="margin-top:10px" ng-show="page.editTeams">
+                            <ul style="list-style:none; margin:0; padding:0;">
+                              <li ng-repeat="team in currentTicket.teams">
+                                <button type="button" ng-click="deleteTeamFromFilter(team)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <span> {{team.name}} </span>
+                              </li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editTeams" ng-click="saveTeams(currentTicket)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editTeams" ng-click="page.editTeams = false">Cancel</button>
+
+                        <div class="text-right" ng-repeat="team in currentTicket.teams" ng-hide="page.editTeams">
+                          {{team.name}}
+                        </div>
+                        <div>
+                          <a class="pull-right" ng-hide="page.editTeams" href ng-click="page.editTeams = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
+                        </div>
+
+
                       </div>
+
                     </div>
                   </li>
                 </ul>
@@ -400,6 +446,7 @@
                         <strong>Description</strong>
                       </div>
                       <div class="col-sm-8 text-right" style="word-wrap: break-word"> 
+
                       {{currentTicket.description}}
                       </div>
                     </div>
@@ -430,7 +477,17 @@
                     <li class="list-group-item">
                       <div class="row">
                         <div class="col-sm-4">
-                          <strong>Date</strong>
+                          <strong>Created</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                          Oct 29, 2010
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Due data</strong>
                         </div>
                         <div class="col-sm-8 text-right">
                           Oct 29, 2010

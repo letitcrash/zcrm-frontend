@@ -1,10 +1,9 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService) {
-    var getTickets;
-    
-    //inserted
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService) {
+  var getTickets;
+
     $scope.selected = 1;
-    //inserted
+
     
   getTickets = function(force, pageSize, pageNr, searchTerm) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
@@ -19,6 +18,20 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       console.log(response);
     });
   };
+
+  $scope.getTeams = function(searchTerm) {
+    return teamService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        //item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
+
   
   $scope.getEmloyees = function(searchTerm) {
     return employeeService.getTypeaheadList(searchTerm).then(function(response) {
@@ -39,6 +52,15 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.temp.assignedCurrentUser = undefined;
 
   }
+
+  $scope.teamSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentTicket.teams.push(item);
+    $scope.temp.assignedCurrentTeam = undefined;
+
+  }
+
+
   $scope.addMyselfToAssigned = function() {
 
     $scope.currentTicket.members.push(dataService.getUser());
@@ -52,6 +74,12 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     }
   };
 
+  $scope.deleteTeamFromFilter = function (team) {
+    var index = $scope.currentTicket.teams.indexOf(team);
+    if (index > -1) {
+      $scope.currentTicket.teams.splice(index, 1);
+    }
+  };
 
   $scope.openTicket = function (tkt) {
     $scope.mode = 1;
@@ -91,11 +119,25 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     //  $scope.page.error = "Ticket could not be created";
     });
   }
+  
+
+  $scope.saveTeams = function (ticket) {
+    ticketService.addTeamsToTicket(ticket).then(function(response) {
+      console.log("Tkt teams list succesfully");
+      console.log(response);    
+      ticket.teams = response;
+      $scope.page.editTeams = false;
+    }, function(response) {
+      console.log("Ticket emp list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
 
   $scope.createTicketAction = function () {
     $scope.compressMode();
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
+    $scope.currentTicket.teams = [];
     $scope.currentTicket.id = null;
     
     $scope.currentTicket.status = {
@@ -125,6 +167,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       console.log("Tkt created succesfully");
       console.log(response);     
       $scope.tickets.push(response);
+      $scope.openTicket(response);
       $scope.page.notification = "Ticket created succesfully";
     }, function(response) {
       console.log("Ticket could not be created");
