@@ -456,19 +456,19 @@
           <div class="col-xl-12 tabs-container tooltip-demo" ng-show="currentEmp.id">
             <div>
               <ul class="nav nav-tabs">
-
+                
                 <li uib-popover="{{ 'Info' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter" ng-init="subtab = 1" ng-class="{active:subtab == 1}">
-                  <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-briefcase"></i>
-                    <span ng-if="page.mode == 2">{{ 'Info' | translate }}</span></a></li>
+                  <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-briefcase"></i> <span ng-if="page.mode == 2">{{ 'Info' | translate }}</span></a>
+                </li>
                 <li uib-popover="{{ 'Teams' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 2}">
-                  <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i>
-                    <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a></li> 
+                  <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i> <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a>
+                </li> 
                 <li uib-popover="{{ 'Tickets' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 3}">
-                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-check"></i>
-                    <span ng-if="page.mode == 2">{{ 'Tickets' | translate }}</span></a></li>
+                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-check"></i> <span ng-if="page.mode == 2">{{ 'Tickets' | translate }}</span></a>
+                </li>
                 <li uib-popover="{{ 'Mail settings' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 4}">
-                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-envelope"></i>
-                    <span ng-if="page.mode == 2">{{ 'Mail settings' | translate }}</span></a></li>
+                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-envelope"></i> <span ng-if="page.mode == 2">{{ 'Mail settings' | translate }}</span></a>
+                </li>
                 
                 
                 <div class="pull-right">

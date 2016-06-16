@@ -289,33 +289,43 @@
         </div>
         <!-- creation form end -->
         <!-- opened ticket -->
-        <div class="ibox float-e-margins" ng-if="currentTicket.id != null">
-          <div class="ibox-title">
-            <div class="row">
-              <div class="btn-group" role="group" style="margin-left:20px;">
-                <button type="button" ng-class="{'active': (selected == 1)}" ng-click="selected=1" class="btn btn-default btn-md"> <i class="fa fa-info-circle"></i> </button>
-                <button type="button" ng-class="{'active': (selected == 2)}" ng-click="selected=2" class="btn btn-default btn-md"> <i class="fa fa-comments-o"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 3)}" ng-click="selected=3" class="btn btn-default btn-md"> <i class="fa fa-envelope"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 4)}" ng-click="selected=4" class="btn btn-default btn-md"> <i class="fa fa-paperclip"></i> </button> 
-                <button type="button" ng-class="{'active': (selected == 5)}" ng-click="selected=5" class="btn btn-default btn-md"> <i class="fa fa-history"></i> </button>
-              </div>
+        <div class="col-xl-12 tabs-container tooltip-demo" ng-if="currentTicket.id != null">
+          <div>
+            <ul class="nav nav-tabs">
+                
+                <li uib-popover="{{ 'Info' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter" ng-init="subtab = 1" ng-class="{active:subtab == 1}">
+                  <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-info-circle"></i> <span ng-if="mode == 2">{{ 'Info' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Timeline' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 2}">
+                  <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-comments-o"></i> <span ng-if="mode == 2">{{ 'Timeline' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Mail' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 3}">
+                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-envelope"></i> <span ng-if="mode == 2">{{ 'Mail' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Files' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 4}">
+                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-paperclip"></i> <span ng-if="mode == 2">{{ 'Files' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'History' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 5}">
+                  <a data-toggle="tab" ng-click="subtab = 5" > <i class="fa fa-history"></i> <span ng-if="mode == 2">{{ 'History' | translate }}</span></a>
+                </li>
 
-              <div class="pull-right" style="margin-right:20px;">
-                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1"> <i class="fa fa-expand"></i> </button>
-                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2"> <i class="fa fa-compress"></i> </button>
-                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
+              <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1" style="margin: 8px"> <i class="fa fa-expand"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2" style="margin: 8px"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()" style="margin: 8px"> <i class="fa fa-times"></i> </button>
               </div>
-            </div>
-             <div class="row" style="margin-top:20px;">
-              <h5 style="margin-left:20px;">{{currentTicket.subject | uppercase}}</h5>
-               <button class="btn btn-sm pull-right" style="margin-right:20px;" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}"><span ng-if="currentTicket.priority == 0">High</span><span ng-if="currentTicket.priority == 1">Mid</span><span ng-if="currentTicket.priority == 2">Low</span></button>
-              <button class="btn btn-sm pull-right" style="margin-right:5px;" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}"><span ng-if="currentTicket.status == 0">New</span><span ng-if="currentTicket.status == 1">Open</span><span ng-if="currentTicket.status == 2">Postponed</span><span ng-if="currentTicket.status == 3">Resolved</span></button>
-            </div>
-          </div>
-          <!-- ticket info -->
-          <div class="ibox-content" ng-if="selected == 1">
+            </ul>
             
-            <div class="row">
+            <div class="tab-content panel-body contact-box center-version" style="border-top: none">
+            
+            <div class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
+
+              <h5 class="pull-left">{{currentTicket.subject | uppercase}}</h5>
+              <button class="btn btn-sm btn-default pull-right m-l-sm" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}" ><span ng-if="currentTicket.priority == 0">High</span><span ng-if="currentTicket.priority == 1">Mid</span><span ng-if="currentTicket.priority == 2">Low</span></button>
+              <button class="btn btn-sm btn-default pull-right" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}"><span ng-if="currentTicket.status == 0">New</span><span ng-if="currentTicket.status == 1">Open</span><span ng-if="currentTicket.status == 2">Postponed</span><span ng-if="currentTicket.status == 3">Resolved</span></button>
+            </div>
+          <!-- ticket info -->
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 1">
               <!--1st part-->
               <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
                 <ul class="list-group clear-list m-t-md">
@@ -429,7 +439,6 @@
                     </li>
                 </ul>
               </div>
-            </div>
               
               <!--<li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
                 <div class="row">
@@ -475,8 +484,7 @@
           </div>
           <!-- ticket info end -->
           <!--ticket timeline-->
-          <div class="ibox-content" ng-if="selected == 2">
-              <div class="row">
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 2">
                 <div class="col-md-12">
                     <div class="feed-activity-list">
                         <div class="feed-element">
@@ -569,12 +577,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
           </div>
           <!--ticket timeline end-->
           <!-- ticket conversations -->
-          <div class="ibox-content" ng-if="selected == 3">
-            <div class="row">
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 3">
               <div class="col-md-12">
                 <div class="fh-breadcrumb">
                   <div class="fh-column" ng-class="{'block': mode == 1}">
@@ -966,11 +972,10 @@
                   </div>
                 </div> 
               </div>
-            </div>
           </div>
           <!-- ticket conversations end -->
           <!-- ticket files -->
-          <div class="ibox-content" ng-if="selected == 4">
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 4">
             <div class="attached-files col-md-12" style="background-color:#f9f9f9; padding:20px; margin-bottom:20px;">
                 <ul class="list-unstyled project-files">
                     <li>
@@ -1001,7 +1006,7 @@
           </div>
           <!-- ticket files end -->
           <!-- ticket history -->
-          <div class="ibox-content" ng-if="selected == 5">
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="subtab == 5">
             <table class="table">
               <thead>
               <tr>
