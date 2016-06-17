@@ -244,7 +244,7 @@
                 </li>
                 <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                   <div class="row">
-                    <div class="col-sm-4" ng-class="{'col-sm-12' : page.editNameAction}">
+                    <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
                       Full Name
                     </div>
                     <div class="col-sm-8">
@@ -385,7 +385,7 @@
               <div class="col-sm-12">
                 <img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
 
-                <h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
+                <h3 class="m-b-xs"><strong>{{currentClient.contactProfile.firstname}} {{currentClient.contactProfile.lastname}}</strong></h3>
 
                 <div ng-hide="editUser" class="font-bold">{{currentEmp.union.name}}</div>
 
@@ -415,7 +415,7 @@
                 </li>
                 <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                   <div class="row">
-                    <div class="col-sm-4" ng-class="{'col-sm-12' : page.editNameAction}">
+                    <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
                       Full Name
                     </div>
                     <div class="col-sm-8">
@@ -447,17 +447,17 @@
                       Phone Number
                     </div>
                     <div class="col-sm-8">
-                      <span ng-hide="editPhoneAction">{{currentClient.contactProfile.phoneNumberMobile}}</span>
-                      <a  class="pull-right" ng-show="editPhone && !editPhoneAction" href ng-click="editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      <span ng-hide="page.editPhoneAction">{{currentClient.contactProfile.phoneNumberMobile}}</span>
+                      <a  class="pull-right" ng-show="editPhone && !page.editPhoneAction" href ng-click="page.editPhoneAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-                      <form role="form" ng-show="editPhoneAction">
+                      <form role="form" ng-show="page.editPhoneAction">
                         <div class="form-group">
                           <input type="text" ng-model="currentClient.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
                           <a><i class="fa fa-plus"></i> Add another telefon </a>
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentClient)">Save</button>
-                          <button class="btn btn-sm btn-default" ng-click="editPhoneAction = false">Cancel</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editPhoneAction = false">Cancel</button>
 
                         </div>
                       </form>
@@ -472,17 +472,17 @@
                       Email
                     </div>
                     <div class="col-sm-8">
-                      <span ng-hide="editEmailAction">{{currentClient.contactProfile.email}}</span>
-                      <a  class="pull-right" ng-show="editEmail && !editEmailAction" href ng-click="editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      <span ng-hide="page.editEmailAction">{{currentClient.contactProfile.email}}</span>
+                      <a  class="pull-right" ng-show="editEmail && !page.editEmailAction" href ng-click="page.editEmailAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-                      <form role="form" ng-show="editEmailAction">
+                      <form role="form" ng-show="page.editEmailAction">
                         <div class="form-group">
                           <input type="text" ng-model="currentClient.contactProfile.email" class="form-control m-b-sm">
                           <a><i class="fa fa-plus"></i> Add another e-post </a>
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentClient)">{{ 'Save' | translate }}</button>
-                          <button class="btn btn-sm btn-default" ng-click="editEmailAction = false">{{ 'Cancel' | translate }}</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editEmailAction = false">{{ 'Cancel' | translate }}</button>
 
                         </div>
                       </form>
@@ -497,16 +497,16 @@
                       Address
                     </div>
                     <div class="col-sm-8">
-                      <span ng-hide="editAddressAction">{{currentClient.contactProfile.address}}</span>
-                      <a  class="pull-right" ng-show="editAddress && !editAddressAction" href ng-click="editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      <span ng-hide="page.editAddressAction">{{currentClient.contactProfile.address}}</span>
+                      <a  class="pull-right" ng-show="editAddress && !page.editAddressAction" href ng-click="page.editAddressAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-                      <form role="form" ng-show="editAddressAction">
+                      <form role="form" ng-show="page.editAddressAction">
                         <div class="form-group">
                           <textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.address"></textarea>
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentClient)">Save</button>
-                          <button class="btn btn-sm btn-default" ng-click="editAddressAction = false">Cancel</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editAddressAction = false">Cancel</button>
 
                         </div>
                       </form>
@@ -517,20 +517,20 @@
 
                 <li class="list-group-item" ng-mouseenter="editCity = true" ng-mouseleave="editCity = false">
                   <div class="row">
-                    <div class="col-sm-4" ng-class="{'col-sm-12' : editCityAction}">
+                    <div class="col-sm-4" ng-class="{'col-sm-12' : page.editCityAction}">
                       City
                     </div>
                     <div class="col-sm-8">
-                      <span ng-hide="editCityAction">{{currentClient.contactProfile.city}}</span>
-                      <a  class="pull-right" ng-show="editCity && !editCityAction" href ng-click="editCityAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      <span ng-hide="page.editCityAction">{{currentClient.contactProfile.city}}</span>
+                      <a  class="pull-right" ng-show="editCity && !page.editCityAction" href ng-click="page.editCityAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-                      <form role="form" ng-show="editAddressAction">
+                      <form role="form" ng-show="page.editCityAction">
                         <div class="form-group">
                           <textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.city"></textarea>
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentClient)">Save</button>
-                          <button class="btn btn-sm btn-default" ng-click="editCityAction = false">Cancel</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editCityAction = false">Cancel</button>
 
                         </div>
                       </form>
@@ -545,16 +545,16 @@
                       ZipCode
                     </div>
                     <div class="col-sm-8">
-                      <span ng-hide="editZipCodeAction">{{currentClient.contactProfile.zipCode}}</span>
-                      <a  class="pull-right" ng-show="editZipCode && !editZipCodeAction" href ng-click="editZipCodeAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      <span ng-hide="page.editZipCodeAction">{{currentClient.contactProfile.zipCode}}</span>
+                      <a  class="pull-right" ng-show="editZipCode && !page.editZipCodeAction" href ng-click="page.editZipCodeAction = true"><i class="fa fa-pencil"></i> Edit </a>
 
-                      <form role="form" ng-show="editZipCodeAction">
+                      <form role="form" ng-show="page.editZipCodeAction">
                         <div class="form-group">
                           <textarea rows="4" style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.zipCode"></textarea>
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentClient)">Save</button>
-                          <button class="btn btn-sm btn-default" ng-click="editZipCodeAction = false">Cancel</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editZipCodeAction = false">Cancel</button>
 
                         </div>
                       </form>

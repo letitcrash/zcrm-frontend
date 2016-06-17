@@ -19,7 +19,7 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
 
     });
   };
- 
+
   $scope.create = function(client) {
     clientService.create(client).then(function(response) {
       console.log("Employee created succesfully");
@@ -38,13 +38,14 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
     clientService.update(client).then(function(response) {
       console.log("Client updated succesfully");
       console.log("response");
-      $scope.currentClient = response.data;
+      console.log($scope.currentClient);
 
-      console.log(currentClient);
       $scope.page.editNameAction = false;
       $scope.page.editPhoneAction = false;
       $scope.page.editEmailAction = false;
       $scope.page.editAddressAction = false;
+      $scope.page.editCityAction = false;
+      $scope.page.editZipCodeAction = false;
 
     }, function(response) {
       console.log("Client could not be updated");

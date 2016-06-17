@@ -30,7 +30,7 @@ angular.module('inspinia').factory('clientService', function(requestService, dat
       var args = {};
       args.companyId = dataService.getCurrentCompanyId();
       args.contactProfile = client.contactProfile;
-      return requestService.ttPut(url, args);
+      return requestService.ttPut(url, client);
     },
     updateProfile: function(client) {
       var url;
