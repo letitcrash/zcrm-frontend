@@ -60,6 +60,17 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   }
 
+  $scope.commentTicket = function(ticket) {
+    ticketService.commentTicket(ticket).then(function(response) {
+      console.log("Tkt commented succesfully");
+      console.log(response);    
+      ticket.comments.push(response);
+      $scope.currentTicket.comment = undefined;
+    }, function(response) {
+      console.log("Ticket commented could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
 
   $scope.addMyselfToAssigned = function() {
 
@@ -162,6 +173,16 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   };
 
+  $scope.showTimeline = function() {
+    ticketService.getActions($scope.currentTicket, [0]).then(function(response) {
+      console.log("Tkt timeline loaded set succesfully");
+      console.log(response);
+      $scope.currentTicket.comments = response;
+      $scope.page.subtab = 2;
+    }, function(response) {
+      console.log("Tkt timeline loaded load failed");
+    });
+  }
 
   $scope.setCurrentTicketStatus = function(status) {
     ticketService.setStatus(status, $scope.currentTicket).then(function(response) {

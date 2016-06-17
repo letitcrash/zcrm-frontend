@@ -29,6 +29,10 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticketId;
       return requestService.ttGet(url);
     },
+    getActions: function(ticket, actionsList) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/actions";
+      return requestService.ttGet(url);
+    },
     create: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
       ticket.companyId = dataService.getCurrentCompanyId();
@@ -68,7 +72,16 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/priority";
       return requestService.ttPut(url,args);
     },
-
+    commentTicket: function(ticket) {
+      var args = {};
+      args.actionType = Number(0);
+      args.comment = ticket.comment;
+      //args.parentActionId = Number(ticket.id);
+      args.ticketId = Number(ticket.id);
+      args.user = dataService.getUser();
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/comments";
+      return requestService.ttPost(url,args);
+    },
     addMembersToTicket: function(ticket) {
       var args = {};
       args.members = ticket.members;
