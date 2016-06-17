@@ -54,20 +54,19 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
 
       return requestService.ttPost(url, args);
     },
-    setStatus: function(ticket) {
-      
-      console.log(ticket);
-//      ticket.ticketId = Number(ticket.id);
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/status";
-      
-      return requestService.ttPut(url,status);
-    },
-    setPriority: function(ticket) {
+    setStatus: function(status, ticket) {
       var args = {};
-      args.members = ticket.members;
-      ticket.ticketId = Number(ticket.id);
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/members";
-      return requestService.ttPost(url,ticket);
+      args.status = Number(status.id);
+      args.id = Number(ticket.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/status";
+      return requestService.ttPut(url,args);
+    },
+    setPriority: function(priority, ticket) {
+      var args = {};
+      args.priority = Number(priority.id);
+      args.id = Number(ticket.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/priority";
+      return requestService.ttPut(url,args);
     },
 
     addMembersToTicket: function(ticket) {

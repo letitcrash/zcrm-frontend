@@ -334,7 +334,7 @@
                 <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1" style="margin: 5px"> <i class="fa fa-expand"></i> </button>
                 <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2" style="margin: 5px"> <i class="fa fa-compress"></i> </button>
                 <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTicket(currentTicket)" style="margin: 5px"> <i class="fa fa-trash"></i> </button>
-                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()" style="margin: 8px"> <i class="fa fa-times"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()" style="margin: 0px"> <i class="fa fa-times"></i> </button>
               </div>
             </ul>
             
@@ -342,13 +342,13 @@
             
             <div class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
 
-              <h5 class="pull-left">{{currentTicket.subject | uppercase}}</h5>
+              <h5 class="pull-left m-t-sm">{{currentTicket.subject | uppercase}}</h5>
 
                   <div class="btn-group pull-right" uib-dropdown keyboard-nav>
-                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-                      <span ng-if="currentTicket.priority == 0">High</span>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm" ng-class="{'btn-success': currentTicket.priority == 0, 'btn-warning': currentTicket.priority == 1, 'btn-danger': currentTicket.priority == 2}" uib-dropdown-toggle>
+                      <span ng-if="currentTicket.priority == 0">Low</span>
                       <span ng-if="currentTicket.priority == 1">Mid</span>
-                      <span ng-if="currentTicket.priority == 2">Low</span>
+                      <span ng-if="currentTicket.priority == 2">High</span>
                       <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav" >
@@ -358,7 +358,7 @@
 
 
                   <div class="btn-group pull-right m-r-sm" uib-dropdown keyboard-nav>
-                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-info': currentTicket.status == 3, 'btn-primary': currentTicket.status == 4}" uib-dropdown-toggle>
                       <span ng-if="currentTicket.status == 1">New</span>
                       <span ng-if="currentTicket.status == 2">Open</span>
                       <span ng-if="currentTicket.status == 3">Posponed</span>

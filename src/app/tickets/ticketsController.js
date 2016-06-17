@@ -163,21 +163,32 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   };
 
 
-  $scope.setCurrentTicketStatus = function(ticket) {
-    ticketService.setStatus(ticket).then(function(response) {
+  $scope.setCurrentTicketStatus = function(status) {
+    ticketService.setStatus(status, $scope.currentTicket).then(function(response) {
       console.log("Tkt status set succesfully");
-      console.log(response);    
-      ticket.status = response;
+      var ticket = $scope.tickets.filter(function( obj ) {
+        return obj.id == $scope.currentTicket.id;
+      });
+      ticket[0].status = response.status;
+
+      $scope.currentTicket.status = response.status;
     }, function(response) {
       console.log("Tkt status set failed");
     });
   };
 
-  $scope.setCurrentTicketPriority = function(ticket) {
-    ticketService.setPriority(ticket).then(function(response) {
+  $scope.setCurrentTicketPriority = function(priority) {
+    console.log("-------");
+    console.log(priority);
+    ticketService.setPriority(priority,$scope.currentTicket).then(function(response) {
       console.log("Tkt Priority set succesfully");
       console.log(response);    
-      ticket.priority = response;
+      var ticket = $scope.tickets.filter(function( obj ) {
+        return obj.id == $scope.currentTicket.id;
+      });
+      ticket[0].priority = response.priority;
+      $scope.currentTicket.priority = response.priority;
+
     }, function(response) {
       console.log("Tkt Priority set failed");
     });
