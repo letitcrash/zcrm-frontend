@@ -82,12 +82,13 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   };
 
   $scope.openTicket = function (tkt) {
-    $scope.mode = 1;
     ticketService.get(tkt.id).then(function(response) {
       console.log("got ticket");
       console.log(response);
       $scope.showLoadingMessage = false;
       $scope.currentTicket = response;
+      $scope.mode = 1;
+
     }, function(response) {
       console.log("Could not get tickets");
       $scope.page.error = "Could not get tickets";
@@ -161,6 +162,27 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   };
 
+
+  $scope.setCurrentTicketStatus = function(ticket) {
+    ticketService.setStatus(ticket).then(function(response) {
+      console.log("Tkt status set succesfully");
+      console.log(response);    
+      ticket.status = response;
+    }, function(response) {
+      console.log("Tkt status set failed");
+    });
+  };
+
+  $scope.setCurrentTicketPriority = function(ticket) {
+    ticketService.setPriority(ticket).then(function(response) {
+      console.log("Tkt Priority set succesfully");
+      console.log(response);    
+      ticket.priority = response;
+    }, function(response) {
+      console.log("Tkt Priority set failed");
+    });
+  };
+
   $scope.create = function(tkt) {
     $scope.page.error = undefined;
     ticketService.create(tkt).then(function(response) {
@@ -191,7 +213,19 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket.members = [];
     $scope.isCollapsed = false;
     $scope.temp = {};
-
+    
+    $scope.statusAvailableOptions =  [
+        {id: '1', name: 'New'},
+        {id: '2', name: 'Open'},
+        {id: '3', name: 'Posponed'},
+        {id: '4', name: 'Resolved'}
+      ];
+    
+    $scope.priorityAvailableOptions =  [
+        {id: '0', name: 'Low'},
+        {id: '1', name: 'Mid'},
+        {id: '2', name: 'High'}
+    ];
 
   };
   

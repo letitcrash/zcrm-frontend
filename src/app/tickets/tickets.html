@@ -331,8 +331,9 @@
                 </li>
 
               <div class="pull-right">
-                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1" style="margin: 8px"> <i class="fa fa-expand"></i> </button>
-                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2" style="margin: 8px"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1" style="margin: 5px"> <i class="fa fa-expand"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2" style="margin: 5px"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTicket(currentTicket)" style="margin: 5px"> <i class="fa fa-trash"></i> </button>
                 <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()" style="margin: 8px"> <i class="fa fa-times"></i> </button>
               </div>
             </ul>
@@ -342,8 +343,32 @@
             <div class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
 
               <h5 class="pull-left">{{currentTicket.subject | uppercase}}</h5>
-              <button class="btn btn-sm btn-default pull-right m-l-sm" ng-class="{'btn-success': currentTicket.status == 1, 'btn-warning': currentTicket.status == 2, 'btn-danger': currentTicket.status == 3, 'btn-default': currentTicket.status == 4}" ><span ng-if="currentTicket.priority == 0">High</span><span ng-if="currentTicket.priority == 1">Mid</span><span ng-if="currentTicket.priority == 2">Low</span></button>
-              <button class="btn btn-sm btn-default pull-right" ng-class="{'btn-success': currentTicket.status == 0, 'btn-warning': currentTicket.status == 2, 'btn-default': currentTicket.status == 3}"><span ng-if="currentTicket.status == 0">New</span><span ng-if="currentTicket.status == 1">Open</span><span ng-if="currentTicket.status == 2">Postponed</span><span ng-if="currentTicket.status == 3">Resolved</span></button>
+
+                  <div class="btn-group pull-right" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                      <span ng-if="currentTicket.priority == 0">High</span>
+                      <span ng-if="currentTicket.priority == 1">Mid</span>
+                      <span ng-if="currentTicket.priority == 2">Low</span>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav" >
+                        <li ng-repeat="priority in priorityAvailableOptions" role="menuitem"><a ng-click="setCurrentTicketPriority(priority)">{{priority.name}}</a></li>
+                    </ul>
+                </div>
+
+
+                  <div class="btn-group pull-right m-r-sm" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+                      <span ng-if="currentTicket.status == 1">New</span>
+                      <span ng-if="currentTicket.status == 2">Open</span>
+                      <span ng-if="currentTicket.status == 3">Posponed</span>
+                      <span ng-if="currentTicket.status == 4">Resolved</span>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav" >
+                        <li ng-repeat="status in statusAvailableOptions" role="menuitem"><a ng-click="setCurrentTicketStatus(status)">{{status.name}}</a></li>
+                    </ul>
+                </div>
             </div>
 
           <!-- ticket info -->
@@ -375,7 +400,7 @@
                           <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
-                        <div class="employee-list" style="margin-top:10px" ng-show="page.editParticipants">
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editParticipants">
                             <ul style="list-style:none; margin:0; padding:0;">
                               <li ng-repeat="m in currentTicket.members">
                                 <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
@@ -410,7 +435,7 @@
                           <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingTeams" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
-                        <div class="employee-list" style="margin-top:10px" ng-show="page.editTeams">
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editTeams">
                             <ul style="list-style:none; margin:0; padding:0;">
                               <li ng-repeat="team in currentTicket.teams">
                                 <button type="button" ng-click="deleteTeamFromFilter(team)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
@@ -632,6 +657,19 @@
                                 <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                             </div>
                         </div>
+
+                        <div class="feed-element">
+                             <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body">
+                                <textarea class="form-control" placeholder="Write comment..."></textarea>
+                                  <button ng-click="commentTicket(currentTicket)" type="button" class="btn btn-sm btn-primary pull-right m-t-sm">
+                                    <i class="fa fa-save"></i> {{ 'Comment' | translate }}
+                                  </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
           </div>
