@@ -19,7 +19,7 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
 
     });
   };
-
+ 
   $scope.create = function(client) {
     clientService.create(client).then(function(response) {
       console.log("Employee created succesfully");
