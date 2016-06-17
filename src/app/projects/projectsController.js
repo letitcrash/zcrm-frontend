@@ -16,9 +16,9 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
 
   
 
-  $scope.openProject = function(proj) {
+  $scope.openProject = function(project) {
       $scope.page.mode = 1;
-      $scope.currentProject = proj;
+      $scope.currentProject = project;
       console.log($scope.currentProject);
   }
 
@@ -45,24 +45,23 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     $scope.currentProject = {};
     $scope.currentProject.members = [];
     $scope.currentProject.id = null;
-
   };
 
   
 
-  $scope.save = function(proj) {
-    console.log(proj)
-    if ((proj.id != null)) {
-      $scope.update(proj);
+  $scope.save = function(project) {
+    console.log(project)
+    if ((project.id != null)) {
+      $scope.update(project);
     } else {
-      $scope.create(proj);
+      $scope.create(project);
     }
   };
 
-  $scope.create = function(proj) {
+  $scope.create = function(project) {
     $scope.page.error = undefined;
 
-    projectService.create(proj).then(function(response) {
+    projectService.create(project).then(function(response) {
       console.log("Project created succesfully");
       console.log(response);     
       $scope.projects.push(response);
@@ -75,14 +74,14 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     });
   };
 
-  $scope.update = function(proj) {
-    console.log(proj);
-    projectService.update(proj).then(function(response) {
+  $scope.update = function(project) {
+    console.log(project);
+    projectService.update(project).then(function(response) {
       console.log("Project updated succesfully");
       setProjectChange(true, "Medarbetaren har uppdaterats.");
       console.log(response);
       $scope.currentProject = response;
-      console.log(proj);
+      console.log(project);
       
       $scope.page.editNameAction = false;
       $scope.page.editDescriptionAction = false;
@@ -104,14 +103,14 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
             $scope.projects.splice(index, 1);
           }, function(response) {
             console.log("not deleted");
-            $scope.setProjectChange(false, "Medarbetaren kunde inte tas bort.");
+            setProjectChange(false, "Medarbetaren kunde inte tas bort.");
           });
         }
       }
     });
   };
 
-  setProjectChange = function(success, message) {
+setProjectChange = function(success, message) {
     $scope.projChange = {};
     if (success) {
       $scope.projChange.success = message;
