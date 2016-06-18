@@ -100,6 +100,10 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       $scope.currentTicket = response;
       $scope.mode = 1;
 
+      if($scope.page.subtab == 2) {
+        $scope.showTimeline();
+      }
+
     }, function(response) {
       console.log("Could not get tickets");
       $scope.page.error = "Could not get tickets";
