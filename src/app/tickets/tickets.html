@@ -321,13 +321,13 @@
                   <a data-toggle="tab" ng-click="showTimeline()" > <i class="fa fa-comments-o"></i> <span ng-if="mode == 2">{{ 'Timeline' | translate }}</span></a>
                 </li>
                 <li uib-popover="{{ 'Mail' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 3}">
-                  <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-envelope"></i> <span ng-if="mode == 2">{{ 'Mail' | translate }}</span></a>
+                  <a data-toggle="tab" ng-click="page.subtab = 3" > <i class="fa fa-envelope"></i> <span ng-if="mode == 2">{{ 'Mail' | translate }}</span></a>
                 </li>
                 <li uib-popover="{{ 'Files' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 4}">
-                  <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-paperclip"></i> <span ng-if="mode == 2">{{ 'Files' | translate }}</span></a>
+                  <a data-toggle="tab" ng-click="page.subtab = 4" > <i class="fa fa-paperclip"></i> <span ng-if="mode == 2">{{ 'Files' | translate }}</span></a>
                 </li>
                 <li uib-popover="{{ 'History' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 5}">
-                  <a data-toggle="tab" ng-click="subtab = 5" > <i class="fa fa-history"></i> <span ng-if="mode == 2">{{ 'History' | translate }}</span></a>
+                  <a data-toggle="tab" ng-click="page.subtab = 5" > <i class="fa fa-history"></i> <span ng-if="mode == 2">{{ 'History' | translate }}</span></a>
                 </li>
 
               <div class="pull-right">
