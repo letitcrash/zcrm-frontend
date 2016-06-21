@@ -22,7 +22,7 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
 
   $scope.create = function(client) {
     clientService.create(client).then(function(response) {
-      console.log("Employee created succesfully");
+      console.log("Client created succesfully");
       console.log(response);
       $scope.page.mode = 0;
       $scope.clients.push(response);
@@ -54,14 +54,16 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
   };
 
   $scope.delete = function() {
+
     angular.forEach($scope.clients, function(client){
       if(client.selected){
+        setTimeout(function() {}, 10);
         var index = $scope.clients.indexOf(client);
         console.log(client);
         if (index >= 0) {
           clientService.delete(client).then(function(response) {
             console.log("deleted");
-            $scope.clients.splice(index, 1);
+            $scope.clients.splice(index,1);
           }, function(response) {
           console.log("not deleted");
             setClientChange(false, "Medarbetaren kunde inte tas bort.");
@@ -69,6 +71,7 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
         }
       }
     });
+
   };
 
   $scope.save = function(client) {
