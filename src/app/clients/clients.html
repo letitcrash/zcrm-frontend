@@ -144,9 +144,9 @@
                             </th>
                             <th style="margin-left:5px;">{{ 'Client' | translate}}</th>
                             <!--<th style="width: 80px;">{{ 'Roles' | translate}}</th>-->
-                            <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Email' | translate}}</th>
-                            <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Phone Number' | translate}}</th>
-                            <th class="hidden-xs hidden-sm hidden-md" ng-hide="page.mode == 2">{{ 'Company' | translate}}</th>
+                            <th class="hidden-xs" ng-hide="page.mode == 2">{{ 'Email' | translate}}</th>
+                            <th class="hidden-xs" ng-hide="page.mode == 2">{{ 'Phone Number' | translate}}</th>
+                            <th class="hidden-xs hidden-sm hidden-md">{{ 'Company' | translate}}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -155,8 +155,8 @@
                             <td>
                               <a ng-click="openClient(client)">{{client.contactProfile.firstname}} {{client.contactProfile.lastname}}</a>
                             </td>
-                            <td>{{client.contactProfile.email}}</td>
-                            <td>{{client.contactProfile.phoneNumberMobile}}</td>
+                            <td ng-hide="page.mode == 2">{{client.contactProfile.email}}</td>
+                            <td ng-hide="page.mode == 2">{{client.contactProfile.phoneNumberMobile}}</td>
                             <td>{{client.companyId}}</td>
                           </tr>                                                
                         </tbody>

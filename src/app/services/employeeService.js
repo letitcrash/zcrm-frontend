@@ -68,6 +68,7 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       args.position = emp.position;
       args.department = emp.department;
       args.shift = emp.shift;
+      args.teams = [];
       args.baseUrl = routeService.getBaseServiceURL() + "/password-recovery";
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
       return requestService.ttPost(url, args);
@@ -77,6 +78,12 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       emp.employeeLevel = Number(emp.employeeLevel);
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id + "/profile";
       return requestService.ttPut(url, emp);
+    },
+    updateTeam: function(emp) {
+      var url;
+      emp.employeeLevel = Number(emp.employeeLevel);
+      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id + "/teams";
+      return requestService.ttPut(url);
     },
 
     delegateRole: function(emp, eid) {

@@ -1,20 +1,22 @@
 'use strict';
-angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, teamService, generalUtils, dataService, employeeService) {
+angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, 
+  teamService, generalUtils, dataService, employeeService) {
   var del, getEmployees, force, pageSize, pageNr, searchTerm;
-  $scope.cancel = function() {
-    $scope.teams = generalUtils.withoutUndefined($scope.teams);
-    if (($scope.editId != null)) {
-      $scope.selected = angular.copy(_.find($scope.teams, (function(c) {
-        return c.id === $scope.editId;
-      })));
-      return $scope.editId = void 0;
-    }
-  };
-  
 
+
+  $scope.getTeamsList = function(force, pageSize, pageNr, searchTerm) {
+    teamService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
+      $scope.teams = response.data;
+      console.log(response)
+      return $scope.totalItems = response.totalSize;
+    }, function(response) {
+      return console.log("Failed to get teams");
+    });
+  };
   
   $scope.createTeamAction = function() {
 	
+    $scope.compressMode();
 
 	  $scope.activeTeam = true;
     $scope.currentTeam = {};
@@ -23,36 +25,6 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, t
 	  
   };
 
-
-$scope.create = function(team) {
-  teamService.post(team).then(function(response) {
-      $scope.activeTeam = false;
-      console.log(response.data);
-      $scope.teams.push(response.data.body);
-      $scope.currentTeam = response.data.body;
-
-    }, function(response) {
-      console.log("Failed to get teams");
-    });
-
-}
-
-  $scope.getTeamsList = function(force, pageSize, pageNr, searchTerm) {
-    teamService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
-      $scope.teams = response.data;
-      console.log($scope.teams)
-      return $scope.totalItems = response.totalSize;
-    }, function(response) {
-      return console.log("Failed to get teams");
-    });
-  };
-  $scope.add = function() {
-    var cp;
-    console.log('hey');
-    $scope.teams = generalUtils.withoutUndefined($scope.teams);
-    cp = {};
-    return $scope.teams.unshift(cp);
-  };
   $scope.save = function(team) {
     if ((team.id != null)) {
       return $scope.update(team);
@@ -60,9 +32,23 @@ $scope.create = function(team) {
       return $scope.create(team);
     }
   };
-  $scope.update = function(cp) {
-    return teamService.update(cp).then(function(response) {
-      $scope.cancel();
+
+  $scope.create = function(team) {
+  console.log(team);
+  teamService.create(team).then(function(response) {
+      $scope.activeTeam = false;
+      console.log(response);
+      $scope.teams.push(response);
+      $scope.currentTeam = response;
+      $scope.defaultMode();
+
+    }, function(response) {
+      console.log("Failed to get teams");
+    });
+  }
+
+  $scope.update = function(team) {
+    return teamService.update(team).then(function(response) {
       $scope.setSelected(response);
       return $scope.setAlertCp(true, "Företaget har uppdaterats");
     }, function(response) {
@@ -70,19 +56,48 @@ $scope.create = function(team) {
       return $scope.setAlertCp(false, "Företaget kunde inte uppdateras");
     });
   };
+
+  
+  $scope.openTeam = function(team) {
+
+    teamService.get(team).then(function(response) {
+       
+      console.log(response);
+      $scope.currentTeam = response;
+      $scope.activeTeam = true;
+      $scope.mode = 1;
+
+    }, function(response) {
+      console.log("Failed to get team members");
+    });
+  };
+
+  
+
+  $scope.add = function() {
+    var cp;
+    console.log('hey');
+    $scope.teams = generalUtils.withoutUndefined($scope.teams);
+    cp = {};
+    return $scope.teams.unshift(cp);
+  };
+
+  
+
   $scope.setCurrentCompany = function(team) {
     dataService.setCurrentCompany(team);
     $rootScope.setCompanyStr(team.name);
     return $scope.currentCompanyId = team.id;
   };
+
   $scope.edit = function(cp) {
-    $scope.cancel();
     return $scope.editId = cp.id;
   };
+
   $scope.setSelected = function(cp) {
-    $scope.cancel();
     return $scope.selected = angular.copy(cp);
   };
+
   $scope.toggleSelected = function(cp) {
     if (!$scope.selected || $scope.selected.id !== cp.id) {
       return $scope.setSelected(cp);
@@ -90,6 +105,7 @@ $scope.create = function(team) {
       return $scope.setSelected(void 0);
     }
   };
+
   $scope.setAlertCp = function(success, message) {
     $scope.alertCp = {};
     if (success) {
@@ -98,6 +114,7 @@ $scope.create = function(team) {
       return $scope.alertCp.failed = message;
     }
   };
+
   $scope.searchCompanies = function() {
     var DELAY_AMOUNT, DELAY_KEY;
     $scope.pageNr = 1;
@@ -107,6 +124,7 @@ $scope.create = function(team) {
       return $scope.getTeamsList(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     });
   };
+
   $scope.openConfirmDelete = function(cp) {
     var ModalInstanceCtrl, modalInstance;
     ModalInstanceCtrl = function($scope, $modalInstance) {
@@ -130,92 +148,49 @@ $scope.create = function(team) {
       return console.log('Modal dismissed at: ' + new Date());
     });
   };
-  del = function(id) {
-    return teamService["delete"](id).then(function(response) {
-      console.log("team has been deleted");
-      return $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    }, function(response) {
-      return console.log("could not delete team");
+
+  $scope.delete = function() {
+    angular.forEach($scope.teams, function(team){
+      if(team.selected){
+        setTimeout(function() {}, 10);
+        var index = $scope.teams.indexOf(team);
+        console.log(team);
+        if (index >= 0) {
+          teamService.delete(team).then(function(response) {
+            console.log("deleted");
+            $scope.teams.splice(index,1);
+          }, function(response) {
+          console.log("not deleted");
+          });
+        }
+      }
     });
   };
+
   $scope.changePage = function() {
     return $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
 
-  $scope.openTeam = function(team) {
-
-    teamService.get(team.id).then(function(response) {
-       
-      console.log(response);
-      $scope.currentTeam = response;
-      $scope.activeTeam = true;
-
-    }, function(response) {
-      console.log("Failed to get team members");
-    });
-
-   
-    
-  };
   
-  $scope.createPosition = function() {
-    teamService.addPosition($scope.curentCp.id, $scope.newPosition).then(function(response) {
-      $scope.addingPosition = false;
-      $scope.curentCp.positions.push(response);
-      $scope.newPosition = {};
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
 
+  $scope.deleteUserFromFilter = function (emp) {
+    console.log(emp);
+    var index = $scope.currentTeam.members.indexOf(emp);
+    if (index > -1) {
+      if($scope.currentTeam.id!=null)
+      {
+          teamService.deleteMember($scope.currentTeam,emp).then(function(response) {
+            console.log("deleted");
+            $scope.currentTeam.members.splice(index, 1);
+          }, function(response) {
+          console.log("not deleted");
+          });
+      }
+      else
+        $scope.currentTeam.members.splice(index, 1);
+    }
   };
 
-  $scope.createUnion = function() {
-    teamService.addUnion($scope.curentCp.id, $scope.newUnion).then(function(response) {
-      $scope.addingUnion = false;
-      $scope.curentCp.unions.push(response);
-      $scope.newUnion = {};
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
-
-  };
-
-  $scope.createDepartment = function() {
-    console.log($scope.curentCp.id)
-    console.log($scope.newDept)
-    teamService.addDepartment($scope.curentCp.id, $scope.newDept).then(function(response) {
-      $scope.addingDept = false;
-      $scope.curentCp.departmets.push(response);
-      $scope.newDept = {};
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
-
-  };
-
-
-  $scope.createShift = function() {
-    teamService.addShift($scope.curentCp.id, $scope.newShift).then(function(response) {
-      $scope.addingShift = false;
-      $scope.curentCp.shifts.push(response);
-      $scope.newShift = {};
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
-
-  };
-
-
-  $scope.createRole = function() {
-    teamService.addRole($scope.curentCp.id, $scope.newRole).then(function(response) {
-      $scope.addingRole = false;
-      $scope.curentCp.delegates.push(response);
-      $scope.newDelegate = {};
-    }, function(response) {
-      return console.log("Failed to get companany");
-    });
-
-  };
 
   $scope.getEmloyees = function(searchTerm) {
     return employeeService.getTypeaheadList(searchTerm).then(function(response) {
@@ -230,60 +205,43 @@ $scope.create = function(team) {
     });
   };
 
-$scope.addTeamMember = function(member) {
-  $scope.currentTeam.members.push(member);
-  $scope.addingTeam = false;
-  $scope.newTeamMember = undefined;
-}
+  $scope.addTeamMember = function(member) {
+    $scope.currentTeam.members.push(member);
+    $scope.addingTeam = false;
+    $scope.newTeamMember = undefined;
+    console.log(member);
 
-  $scope.modUnion = function(union) {
-    teamService.modUnion($scope.curentCp.id,union).then(function(response) {
-      $scope.editOptionAction = false;
-      console.log("mod union");
-
-    }, function(response) {
-      console.log("Failed to mod union");
-    });
-  };
-
-  $scope.createPositionAction = function() {
-    $scope.tab = 2;
-    $scope.addingPosition = true;
-    $scope.curentCp = {};
-
-  };
-
-  $scope.createUnionAction = function() {
-    $scope.tab = 3;
-    $scope.editUser = true;
-    $scope.curentCp = {};
-
-  };
+  }
 
   $scope.createUser = function(user) {
     $scope.activeEmp = false;
 
   };
 
-  $scope.removePosition = function(p) {
-    $scope.activeEmp = false;
-    $scope.curentCp = undefined;
-  }
+  $scope.defaultMode = function () {
+    $scope.mode = 0;
+  };
 
-  $scope.addPosition = function(p) {
-    $scope.curentCp.positions.push(p);
-    $scope.position = undefined;
-  }
+  $scope.compressMode = function () {
+    $scope.mode = 1;
+    console.log(1);
+  };
 
-  $scope.showCompanies = function() {
-    $scope.activeEmp = false;
-    $scope.curentCp = undefined;
-  }
+  $scope.expandMode = function () {
+    $scope.mode = 2;
+  };
 
   $scope.init = function() {
+
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
+    $scope.isCollapsed = false;
+
+    $scope.currentTeam = {};
+    $scope.currentTeam.members = [];
+
+
     $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     return $scope.currentCompanyId = dataService.getCurrentCompanyId();
   };

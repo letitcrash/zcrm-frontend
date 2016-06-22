@@ -13,57 +13,32 @@ angular.module('inspinia').factory('teamService', function(requestService, dataS
       }
       return requestService.ttGet(url);
     },
-    get: function(id) {
+    get: function(team) {
       var url;
-      url = "companies/" + dataService.getCurrentCompanyId() + "/teams/" + id;
+      url = "companies/" + dataService.getCurrentCompanyId() + "/teams/" + team.id;
       return requestService.ttGet(url);
     },
-    update: function(cp) {
-      var url;
-      url = "companies/" + cp.id;
-      return requestService.ttPut(url, cp);
-    },
-    "delete": function(id) {
-      var url;
-      url = "companies/" + id;
-      return requestService.ttDelete(url);
-    },
-    post: function(team) {
+    create: function(team) {
       var url;
       url = "companies/" + dataService.getCurrentCompanyId() + "/teams";
+      team.companyId = dataService.getCurrentCompanyId();
       return requestService.ttPost(url, team);
     },
-    addPosition: function(id, position) {
+    update: function(team) {
       var url;
-      url = "companies/" + id + "/positions";
-      return requestService.ttPost(url,position);
+      url = "companies/"+ dataService.getCurrentCompanyId() + "/teams/" + team.id;
+      return requestService.ttPut(url, team);
     },
-    addUnion: function(id, union) {
+    delete: function(team) {
       var url;
-      url = "companies/" + id + "/unions";
-      return requestService.ttPost(url, union);
+      url = "companies/" + dataService.getCurrentCompanyId() + "/teams/"+team.id;
+      return requestService.ttDelete(url);
     },
-    modUnion: function(id, union) {
+    deleteMember: function(team,user) {
       var url;
-      url = "companies/" + id + "/unions/" + union.id;
-      return requestService.ttPut(url, union);
-    },
-    addDepartment: function(id, dept) {
-
-      var url;
-      url = "companies/" + id + "/departments";
-      return requestService.ttPost(url, dept);
-    },
-    addShift: function(id, shift) {
-      var url;
-      url = "companies/" + id + "/shifts";
-      return requestService.ttPost(url, shift);
-    },
-    addRole: function(id , role) {
-      var url;
-      url = "companies/" + id + "/delegates";
-      return requestService.ttPost(url, role);
-    }
+      url = "companies/" + dataService.getCurrentCompanyId() + "/teams/"+team.id+"/users/"+user.id;
+      return requestService.ttDelete(url);
+    }    
   };
 });
 

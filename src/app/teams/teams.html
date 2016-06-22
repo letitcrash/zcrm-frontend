@@ -1,310 +1,475 @@
 <div class="wrapper wrapper-content  animated fadeIn" ng-controller="TeamCtrl">
+  <!--styles-->
+  <style>
+  .block {
+    width: 100%;
+  }
+  </style>
+  <!--styles end-->
+  
   <div class="row">
-    <div class="col-sm-12" ng-class="{'visible-xl col-xl-8' : activeTeam}">
-      <!--Employee page-->
+    <div ng-class="{'col-sm-12' : mode == 0, 'hidden-xs hidden-sm hidden-md col-lg-7 col-xl-8' : mode == 1, 'hidden-xs hidden-sm hidden-md col-lg-4 col-xl-3' : mode == 2}">
+      <!-- table ibox -->  
+
       <div class="ibox">
         <div class="ibox-content">
-          <!--button type="button" ng-click="open()" class="btn btn-sm btn-primary pull-right"><i class="fa fa-user-plus "></i> {{ 'Create user' | translate }}</button-->
-          <div class="btn-group pull-right" uib-dropdown
-               is-open="status.isopen">
-            <!--create user btn-->
-            <button ng-click="createTeamAction()" type="button" class="btn btn-sm btn-primary pull-right"
-                    uib-dropdown-toggle ng-disabled="disabled">
-              <i class="fa fa-user-plus"></i>{{ 'Create team' | translate }}
-            </button>
-            <!--<button id="single-button" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-              <i class="fa fa-user-plus "></i> {{ 'Create new' | translate }} <span class="caret"></span>
+          <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
+              <i class="fa fa-cog"></i> 
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-              <li role="menuitem"><a ng-click="createRoleAction()">Delegate Role</a></li>
-              <li role="menuitem"><a ng-click="createPositionAction()">Position</a></li>
-              <li role="menuitem"><a ng-click="createDepartmentAction()">Department</a></li>
-              <li role="menuitem"><a ng-click="createUnionAction()">Union</a></li>
-              <li role="menuitem"><a ng-click="createShiftAction()">Shift</a></li>
-              <li role="menuitem"><a href="#">Another action</a></li>
-              <li role="menuitem"><a href="#">Something else here</a></li>
+              <li role="menuitem"><a href></a></li>
+              <li role="menuitem"><a href>Assign ticket</a></li>
+              <li role="menuitem"><a href>Assign delegate role</a></li>
+              <li role="menuitem"><a href>Send email</a></li>
+              <li role="menuitem"><a href>Export in exel</a></li>
               <li class="divider"></li>
-              <li role="menuitem"><a href="#">Send group email</a></li>
-            </ul>-->
+              <li role="menuitem"><a href ng-click="delete()">Delete employee</a></li>
+            </ul>
           </div>
+
+          <button ng-click="createTeamAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
+            <i class="fa fa-user-plus"></i> {{ 'Create team' | translate }}
+          </button>
+
           <h2>{{ 'Teams' | translate }}</h2>
-          <p class="m-t-sm small"></p>
-          <div class="input-group">
-            <input type="text" class="input form-control" placeholder="Search names, emails or telephone numbers..." />
+          
+          <!--FILTERS start-->
+          <!--main search-->
+          <div class="input-group col-md-6 m-b-sm">
+            <input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
             <span class="input-group-btn">
-              <button type="button" class="btn btn btn-default"><i class="fa fa-close"></i></button>
+              <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
+
             </span>
+
           </div>
-          <a class="pull-right small m-t-sm" ng-click="isCollapsed = !isCollapsed">Advanced search</a>
-          <div ng-if="isCollapsed">
-            <div class="row m-t-lg">
-              <div class="col-md-3">
-                <div class="control-group">
-                  <label class="form-label">Union</label>
-                  <div class="controls">
-                    <input type="text" ng-model="selected" class="form-control"
-                           uib-typeahead="state for state in states | filter:$viewValue | limitTo:8">
-                  </div>
-                  <ul class="list-group clear-list m-t">
-                    <li class="list-group-item fist-item">
-                      <span class="">IE Industri Enegry</span>
-                      <span class="label label-success pull-right">x</span>
-                    </li>
-                  </ul>
-                  <div class="margin-bottom-15 ng-scope">
-                    <team cp="tm" class="ng-binding ng-isolate-scope">netSolution</team>
-                    <button class="btn-success pull-right" ng-click="removeFilterModerbolag(tm)">X</button>
-                  </div>
+
+         <!--btns-->
+                <button type="button" ng-click="isCollapsed = true"  ng-hide="isCollapsed==true" class="btn btn-primary btn-sm">
+                    <i class="fa fa-eye" style="padding-right:5px;"></i>Show filters
+                </button>
+                <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-default btn-sm">
+                    <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
+                </button>
+                <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-danger btn-sm">
+                 <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" ng-hide="isCollapsed==false">
+                    <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
+                </button> 
+                <!--advanced filters start-->
+                <div ng-if="isCollapsed">
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--status-->
+                            <h4>Status</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Status..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--ticket-->
+                            <h4>Ticket</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Ticket..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <h4>Team</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Team..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                        <!--created-->
+                            <h4>Created</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>
+                        </div>                                               
+                    </form>
+                    <form role="form" class="form-inline">
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--priority-->
+                            <h4>Priority</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Priority..." class="form-control">
+                            </div> 
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--client-->
+                            <h4>Client</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Client..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--person-->
+                            <h4>Person</h4>
+                            <div class="input-group">
+                                <input type="text" placeholder="Person..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-right:10px;">
+                            <!--deadline-->
+                            <h4>Deadline</h4>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>
+                                <span>April 22, 2016 - May 21, 2016</span> <b class="caret"></b>
+                            </div>    
+                        </div>                                               
+                    </form> 
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="control-group">
-                  <label class="form-label">Department</label>
-                  <div class="controls">
-                    <input name="textinput" type="text"
-                           class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
-                           ng-model="selected.user.contactProfile.lastname"
-                           required="" tt-required-text="">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="control-group">
-                  <label class="form-label">Position</label>
-                  <div class="controls">
-                    <input name="textinput" type="tel" class="form-control ng-pristine ng-untouched ng-valid"
-                           ng-model="selected.user.contactProfile.phoneNumberMobile">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="control-group">
-                  <label class="form-label">Shift</label>
-                  <div class="controls">
-                    <input name="textinput" type="email"
-                           class="form-control ng-pristine ng-untouched ng-valid-email ng-valid ng-valid-required"
-                           ng-model="selected.user.contactProfile.email"
-                           required="" tt-required-text="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                <!--advanced filters end-->
+
           <div class="clients-list">
 
                 <div class="full-height-scroll" full-scroll>
                   <div class="table-responsive">
                     <table class="table table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th style="width:35px;border-left:1px solid #DDDDDD;">
-                            <input type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"> </th>
-                          <th>
-                            <a class="list-refresh" href=""><i class="fa fa-filter"></i></a>
-                            <a class="list-refresh" href=""><i class="fa fa-refresh"></i></a>
-                          </th>
-                          <th>Team Name <a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
-                          <th>Email</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr ng-repeat="tm in teams" tm-element="tm" on-edit="openTeam(tm)">{{tm}}</tr>
-                      </tbody>
-                    </table>
+                        <thead>
+                          <tr>
+                            <th class="text-center checktable">
+                              <i class="fa fa-check"></i>
+                            </th>
+                            <th style="margin-left:5px;">{{ 'Team Name' | translate}}</th>
+                            <!--<th style="width: 80px;">{{ 'Roles' | translate}}</th>-->
+                            <th class="hidden-xs">{{ 'Email' | translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="team in teams">
+                            <td><input type="checkbox" class="green-check" ng-model="team.selected"/></td>
+                            <td>
+                              <a ng-click="openTeam(team)">{{team.name}}</a>
+                            </td>
+                            <td >{{team.email}}</td>
+                          </tr>                                                
+                        </tbody>
+                      </table>
                   </div>
                 </div>
              
           </div>
         </div>
       </div>
+      
+      <!-- table ibox -->  
+
     </div>
-    <!-- currentCp.*** is team info -->
-    <div class="col-sm-12 white-bg" ng-class="{'col-lg-12 col-xl-4': activeTeam}" ng-show="activeTeam">
-      <div class="contact-box center-version col-xl-12 tabs-container clearfix">
-        <div class="contact-box-top nav-tabs">
-          <div class="visible-xl">
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1" ng-init="subtab = 1"
-                    ng-class="{active:subtab == 1}">
-              <i class="fa fa-briefcase"></i>
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2" ng-class="{active:subtab == 2}">
-              <i class="fa fa-user"></i>
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3" ng-class="{active:subtab == 3}">
-              <i class="fa fa-list"></i>
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4" ng-class="{active:subtab == 4}">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="btn btn-w-m btn-warning btn-sm pull-right" type="button" ng-click="activeTeam = false">
-              <i class="fa fa-times"></i>Close
-            </button>
-            <button class="btn btn-w-m btn-primary btn-sm pull-right" type="button" ng-click="save(emp)"
-                    ng-show="editUser">
-              <i class="fa fa-times"></i>Save</button>
+
+    <!-- sidebar ibox -->  
+      
+    <div ng-class="{'col-sm-12 col-lg-5 col-xl-4' : mode == 1, 'col-sm-12 col-md-12 col-lg-8 col-xl-9' : mode == 2}" ng-show="mode == 1 || mode == 2">
+        <!-- creation form -->
+        <div class="ibox float-e-margins" ng-if="currentTeam.id == null">
+          <div class="ibox-title">
+            <h5>Create new team</h5>
           </div>
-          <div class="hidden-xl">
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 1">
-              <i class="fa fa-comments"></i>Positions
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 2">
-              <i class="fa fa-user"></i>Unions
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 3">
-              <i class="fa fa-list"></i>Departments
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 4">
-              <i class="fa fa-pencil"></i>Shifts
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 5">
-              <i class="fa fa-print"></i>Roles
-            </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="subtab = 6">
-              <i class="fa fa-cogs"></i>Settings
-            </button>
-            <button class="btn btn-w-m btn-danger btn-sm pull-right" type="button" ng-click="activeTeam = false">
-              <i class="fa fa-times"></i>Close
-            </button>
-            <button class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" type="button" ng-click="editUser=false"
-                    ng-show="editUser">
-              <i class="fa fa-times"></i>Save
-            </button>
-          </div>
-        </div>
-        <div class="col-sm-6 col-xl-12 p-t-sm">
-          <ul class="list-group clear-list m-t-md">
-            <li class="list-group-item fist-item">
-              <strong>TEAM INFORMATION</strong>
-            </li>
-            <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
-              <div class="row">
-                <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">Team name</div>
-                <div class="col-sm-8">
-                  <input type="text" ng-model="currentTeam.name" placeholder="" class="form-control">
+          <div class="ibox-content">
+            <form role="form" class="form-inline">
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-lg-12">
+                  <h4>Team name</h4>
+                  <input type="text" class="form-control" ng-model="currentTeam.name" placeholder="Team name..." style="width:100%;" />
                 </div>
               </div>
-            </li>
-          </ul>
-          <ul class="list-group clear-list">
-            <li class="list-group-item fist-item m-b-md">
-              <strong>TEAM MEMBERS</strong>
-              <span class="pull-right">
-                <a ng-click="addingTeam = true">
-                  <i class="fa fa-plus"></i> Add</a>
-              </span>
-              <div ng-show="addingTeam">
-                <div class="m-t-md m-b-md">
-                  <form role="form">
-                    <div class="form-group">
-                      <input type="text" ng-model="newTeamMember" placeholder="Type employee name"
+
+              <div class="row">
+                <div class="col-lg-12" style="margin-bottom:20px;">
+                  <h4>Description</h4>
+                  <textarea class="form-control" ng-model="currentTeam.description" placeholder="Add description here..." style="width:100%;"></textarea>
+                </div>
+              </div>
+              
+              <ul class="list-group clear-list">
+                <li class="list-group-item fist-item m-b-md">
+                  <strong>TEAM MEMBERS</strong>
+                  <span class="pull-right">
+                    <a ng-click="addingTeam = true">
+                    <i class="fa fa-plus"></i> Add</a>
+                  </span>
+                  <div ng-show="addingTeam">
+                    <div class="m-t-md m-b-md">
+                      <form role="form">
+                        <div class="form-group">
+                          <input type="text" ng-model="newTeamMember" placeholder="Type employee name"
                              uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)"
                              typeahead-loading="loadingEmployees" typeahead-no-results="noResults"
                              typeahead-append-to-body="true" class="form-control">
-                      <label class="checkbox-inline pull-right">
-                        <input type="checkbox" value="option3" id="inlineCheckbox3">Group Admin
-                      </label>
+
+                          <label class="checkbox-inline pull-right">
+                            <input type="checkbox" value="option3" id="inlineCheckbox3">Group Admin
+                          </label>
+                        </div>
+                        <div>
+                          <button class="btn btn-sm btn-primary" ng-click="addTeamMember(newTeamMember)">Add</button>
+                          <button class="btn btn-sm btn-default" ng-click="addingTeam = false">Cancel</button>
+                        </div>
+                      </form>
                     </div>
-                    <div>
-                      <button class="btn btn-sm btn-primary" ng-click=addTeamMember(newTeamMember)>Add</button>
-                      <button class="btn btn-sm btn-default" ng-click="addingTeam = false">Cancel</button>
-                    </div>
-                  </form>
-                </div>
+                  </div>
+                </li>
+                <li class="list-group-item" ng-hide="currentTeam.members.length > 0">No members, please add one</li>
+                <li class="list-group-item" ng-repeat="member in currentTeam.members">
+                  <button type="button" ng-click="deleteUserFromFilter(member)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                  {{member.user.contactProfile.firstname}} {{member.user.contactProfile.lastname}}
+                </li>
+              </ul>
+              <div class="alert alert-danger alert-dismissable" ng-if="page.error">
+                                <button aria-hidden="true" data-dismiss="alert" ng-click="page.error = undefined" class="close" type="button">×</button>
+                                {{page.error}}
               </div>
-            </li>
-            <li class="list-group-item" ng-hide="currentTeam.members.length > 0">No members, please add one</li>
-            <li class="list-group-item" ng-repeat="member in currentTeam.members">
-              {{member.user.contactProfile.firstname}} {{member.user.contactProfile.lastname}}
-            </li>
-          </ul>
-          <button class="btn btn-w-m btn-primary btn-sm pull-right" type="button" ng-click="save(currentTeam)">
-            <i class="fa fa-floppy-o"></i>Create
-          </button>
-        </div>
-      </div>
-    </div>
-    <!--NEW EMPLOYEE start-->
-    <div class="col-sm-12 white-bg" ng-class="{'col-lg-12 col-xl-4': activeEmp}" ng-show="activeEmp">
-     <div class="contact-box center-version col-xl-12" ng-if="currentEmp.id == null">
-        <div class="contact-box-top">
-          <h2>{{ 'Create new team' | translate }}
-            <a ng-click="closeCurrentEmp()" class="pull-right">
-              <i class="fa fa-times"></i></a>
-          </h2>
-        </div>
-        <div class="col-sm-6 col-xl-12 p-t-sm">
-          <ul class="list-group clear-list m-t-md" ng-show="userFormStep == 1">
-            <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+
               <div class="row">
-                <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
-                  {{ 'Create Team' | translate }}
-                </div>
-                <div class="col-sm-8">
-                  <input ng-model="currentEmp.user.contactProfile.firstname" type="text"
-                         placeholder="{{ 'Team Name' | translate }}" class="form-control m-b-sm">
-                </div>
+                <button class="btn btn-danger btn-sm pull-right" ng-click="defaultMode()" style="margin-left:5px; margin-right:15px;"><i class="fa fa-times" style="margin-right:5px;"></i>Discard</button>
+                <button class="btn btn-primary btn-sm pull-right" ng-click="save(currentTeam)"><i class="fa fa-floppy-o" style="margin-right:5px;"></i>Save</button>
               </div>
-            </li>
-            <li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
-              <div class="row">
-                <div class="col-sm-4" ng-class="{'col-sm-12': editPhoneAction}">
-                  {{ 'Add Team Members' | translate }}
-                </div>
-                <div class="col-sm-8"><!--
-                  <input  type="text" ng-model="customSelected" placeholder="{{ 'Enter User Name' | translate }}"
-                  uib-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}"
-                  typeahead-template-url="customTemplate.html" class="form-control"
-                  typeahead-show-hint="true" typeahead-min-length="0">-->
-                  <input placeholder="{{ 'Enter User Name' | translate }}" class="form-control m-b-sm" type="text"
-                         ng-model="currentEmp.user.contactProfile.phoneNumberMobile">
-                   <a><i class="fa fa-plus"></i>{{ 'Enter Another User' | translate }}</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <button class="btn btn-w-m btn-primary btn-sm pull-right" type="button" ng-click="save(currentEmp)">
-            <i class="fa fa-floppy-o"></i>{{ 'Create' | translate }}
-          </button>
-        </div>
-      </div>
-      <div class="contact-box center-version col-xl-12" ng-show="currentEmp.id">
-        <div class="contact-box-top">
-          <div class="visible-xl">
-            <button type="button" class="btn btn-sm btn-white m-r-lg"> <i class="fa fa-chevron-left"></i> </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> </button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> </button>
-            <button type="button" class="btn btn-w-m btn-warning btn-sm pull-right" ng-click="closeCurrentEmp()">
-              <i class="fa fa-times"></i>Close
-            </button>
-            <button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)"
-                    ng-show="editUser"><i class="fa fa-times"></i>Save
-            </button>
-          </div>
-          <div class="hidden-xl">
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-comments"></i> Messages</button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-user"></i> Profile</button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-list"></i> Tickets</button>
-            <button type="button" class="btn btn-sm btn-white" ng-click="editCurrentUser()">
-              <i class="fa fa-pencil"></i>Edit
-            </button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-print"></i> Print</button>
-            <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-cogs"></i> Settings</button>
-            <button type="button" class="btn btn-w-m btn-danger btn-sm pull-right" ng-click="closeCurrentEmp()">
-              <i class="fa fa-times"></i>Close
-            </button>
-            <button type="button" class="btn btn-w-m btn-primary btn-sm pull-right m-r-sm" ng-click="save(currentEmp)"
-                    ng-show="editUser"><i class="fa fa-times"></i>
-              Save
-            </button>
+            </form> 
           </div>
         </div>
-      </div>
+        <!-- creation form end -->
+        <!-- opened ticket -->
+        <div class="col-xl-12 tabs-container tooltip-demo" ng-if="currentTeam.id != null">
+          <div>
+            <ul class="nav nav-tabs">
+                
+                <li uib-popover="{{ 'Info' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter" ng-init="page.subtab = 1" ng-class="{active:page.subtab == 1}">
+                  <a data-toggle="tab" ng-click="page.subtab = 1" > <i class="fa fa-info-circle"></i> <span ng-if="mode == 2">{{ 'Info' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Timeline' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 2}">
+                  <a data-toggle="tab" ng-click="showTimeline()" > <i class="fa fa-comments-o"></i> <span ng-if="mode == 2">{{ 'Timeline' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Mail' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 3}">
+                  <a data-toggle="tab" ng-click="page.subtab = 3" > <i class="fa fa-envelope"></i> <span ng-if="mode == 2">{{ 'Mail' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'Files' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 4}">
+                  <a data-toggle="tab" ng-click="page.subtab = 4" > <i class="fa fa-paperclip"></i> <span ng-if="mode == 2">{{ 'Files' | translate }}</span></a>
+                </li>
+                <li uib-popover="{{ 'History' | translate }}" popover-enable="mode == 1" popover-trigger="mouseenter"  ng-class="{active:page.subtab == 5}">
+                  <a data-toggle="tab" ng-click="page.subtab = 5" > <i class="fa fa-history"></i> <span ng-if="mode == 2">{{ 'History' | translate }}</span></a>
+                </li>
+
+              <div class="pull-right">
+                <button type="button" class="btn btn-sm btn-white" ng-click="expandMode()" ng-if="mode == 1" style="margin: 5px"> <i class="fa fa-expand"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="mode == 2" style="margin: 5px"> <i class="fa fa-compress"></i> </button>
+                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTicket(currentTicket)" style="margin: 5px"> <i class="fa fa-trash"></i> </button>
+                <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()" style="margin: 0px"> <i class="fa fa-times"></i> </button>
+              </div>
+            </ul>
+            
+            <div class="tab-content panel-body contact-box center-version" style="border-top: none">
+            
+
+          <!-- ticket info -->
+              <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="page.subtab == 1">
+              <!--1st part-->
+                <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+                  <ul class="list-group clear-list m-t-md">
+                  <!--created by-->
+                    <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng- mouseleave="editName = false">
+                      <div class="row">
+                        <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+                          <strong>Team Name</strong>
+                        </div>
+                      <div class="col-sm-8 text-right">
+                        <span ng-hide="editNameAction">{{currentTeam.name}}</span>
+                      </div>
+                    </div>
+                  </li>   
+                  <!--assigned to-->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Participants</strong>
+                      </div>
+                      <div class="col-sm-8">
+
+                        <div class="input-group" style="width:100%;" ng-show="page.editParticipants">
+                          <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
+                        </div>
+                        
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editParticipants">
+                            <ul style="list-style:none; margin:0; padding:0;">
+                              <li ng-repeat="m in currentTicket.members">
+                                <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
+                              </li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editParticipants" ng-click="saveMembers(currentTicket)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editParticipants" ng-click="page.editParticipants = false">Cancel</button>
+
+                        <div class="text-right" ng-repeat="member in currentTicket.members" ng-hide="page.editParticipants">
+                          {{member.contactProfile.firstname}} {{member.contactProfile.lastname}}
+                        </div>
+                        <div>
+                          <a class="pull-right" ng-hide="page.editParticipants" href ng-click="page.editParticipants = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
+                        </div>
+
+
+                      </div>
+                     
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!--2nd part-->
+               <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+                <ul class="list-group clear-list m-t-md">
+                  <!--description-->
+                  <li class="list-group-item fist-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Description</strong>
+                      </div>
+                      <div class="col-sm-8 text-right" style="word-wrap: break-word"> 
+
+                      {{currentTeam.description}}
+                      </div>
+                    </div>
+                  </li>
+                    <!--project-->
+                    <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Project</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                        Project-1
+                        </div>
+                      </div>
+                    </li>
+                    <!--date-->
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Created</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                          Oct 29, 2010
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>Due data</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                          Oct 29, 2010
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+          </div>
+          <!-- team info end -->
+          <!--ticket timeline-->
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="page.subtab == 2">
+                <div class="col-md-12">
+                    <div class="feed-activity-list">
+                        <div class="feed-element" ng-repeat="comment in currentTicket.comments">
+                            <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body ">
+                                <small class="pull-right">5m ago</small>
+                                <strong>{{comment.user.contactProfile.firstname}} {{comment.user.contactProfile.lastname}}</strong> {{comment.comment}}<br>
+                                <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
+                            </div>
+                        </div>
+                        <div class="feed-element">
+                             <a href="profile.html" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://placebeard.it/g/50x50/notag">
+                            </a>
+                            <div class="media-body">
+                                <textarea class="form-control" ng-model="currentTicket.comment" placeholder="Write comment..."></textarea>
+                                  <button ng-click="commentTicket(currentTicket)" type="button" class="btn btn-sm btn-primary pull-right m-t-sm">
+                                    <i class="fa fa-save"></i> {{ 'Comment' | translate }}
+                                  </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+          </div>
+          <!--ticket timeline end-->
+          <!-- ticket files -->
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="page.subtab == 4">
+            <div class="attached-files col-md-12" style="background-color:#f9f9f9; padding:20px; margin-bottom:20px;">
+                <ul class="list-unstyled project-files">
+                    <li>
+                        <a href=""><i class="fa fa-file"></i> Project_document.docx</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a>
+                        <a href="" style="margin-left:10px;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a>
+                        <a href="" style="margin-left:10x;"><i class="fa fa-download"></i></a>
+                        <a href="" style="margin-left:0;"><i class="fa fa-tag"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="m-t-md">
+                <a href="#" class="btn btn-md btn-default"><i class="fa fa-paperclip" style="margin-right:5px;"></i>Attach</a>
+            </div>
+          </div>
+          <!-- ticket files end -->
+          <!-- ticket history -->
+          <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="page.subtab == 5">
+            <table class="table">
+              <thead>
+              <tr>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Date</th>
+                  <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>User1</td>
+                  <td>Action1</td>
+                  <td>Date1</td>
+                  <td>Status1</td>
+              </tr>
+              <tr>
+                  <td>User2</td>
+                  <td>Action2</td>
+                  <td>Date2</td>
+                  <td>Status2</td>
+              </tr>
+              <tr>
+                  <td>User3</td>
+                  <td>Action3</td>
+                  <td>Date3</td>
+                  <td>Status3</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- ticket history end -->
+        </div>
+
+        <!-- opened ticket end -->
+
     </div>
+
+    <!-- sidebar ibox end -->
+
   </div>
 </div>
