@@ -186,12 +186,12 @@
               
               <ul class="list-group clear-list">
                 <li class="list-group-item fist-item m-b-md">
-                  <strong>TEAM MEMBERS</strong>
+                  <strong>Team members</strong>
                   <span class="pull-right">
-                    <a ng-click="addingTeam = true">
+                    <a ng-click="page.editMembers = true">
                     <i class="fa fa-plus"></i> Add</a>
                   </span>
-                  <div ng-show="addingTeam">
+                  <div ng-show="page.editMembers">
                     <div class="m-t-md m-b-md">
                       <form role="form">
                         <div class="form-group">
@@ -206,7 +206,7 @@
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="addTeamMember(newTeamMember)">Add</button>
-                          <button class="btn btn-sm btn-default" ng-click="addingTeam = false">Cancel</button>
+                          <button class="btn btn-sm btn-default" ng-click="page.editMembers = false">Cancel</button>
                         </div>
                       </form>
                     </div>
@@ -269,45 +269,62 @@
                 <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
                   <ul class="list-group clear-list m-t-md">
                   <!--created by-->
-                    <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng- mouseleave="editName = false">
+                    <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                       <div class="row">
-                        <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+                        <div class="col-sm-4" ng-class="{'col-sm-12' : page.editNameAction}">
                           <strong>Team Name</strong>
                         </div>
-                      <div class="col-sm-8 text-right">
-                        <span ng-hide="editNameAction">{{currentTeam.name}}</span>
+                        <div class="col-sm-8">
+                        <div class="col-sm-8 text-right">
+                          <span ng-hide="page.editNameAction">{{currentTeam.name}}</span>
+                        </div>
+                        <a  class="pull-right" ng-show="editName && !page.editNameAction" href ng-click="page.editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="page.editNameAction">
+                          <div class="form-group">
+                            <input style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentTeam.name" placeholder="currentTeam.name" class="form-control"></textarea>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}.<a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-default pull-right" ng-click="page.editNameAction = false" style="margin-top:10px;">Cancel</button>
+                            <button class="btn btn-sm btn-primary pull-right" ng-click="save(currentTeam)" style="margin-top:10px; margin-right:5px;">Save</button>
+                          </div>
+                          </div>
+                        </form>
                       </div>
-                    </div>
+                        
+                      </div>
                   </li>   
                   <!--assigned to-->
                   <li class="list-group-item">
                     <div class="row">
                       <div class="col-sm-4">
-                        <strong>Participants</strong>
+                        <strong>Members</strong>
                       </div>
-                      <div class="col-sm-8">
+                        <div class="col-sm-8">
 
-                        <div class="input-group" style="width:100%;" ng-show="page.editParticipants">
-                          <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
+                        <div class="input-group" style="width:100%;" ng-show="page.editMembers">
+                          <input type="text" ng-model="assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
-                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editParticipants">
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editMembers">
                             <ul style="list-style:none; margin:0; padding:0;">
-                              <li ng-repeat="m in currentTicket.members">
+                              <li ng-repeat="member in currentTicket.members">
                                 <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
+                                <span>{{member.contactProfile.firstname}} {{member.contactProfile.lastname}} </span>
                               </li>
                             </ul>
                         </div>
 
-                        <button class="btn btn-sm btn-primary" ng-show="page.editParticipants" ng-click="saveMembers(currentTicket)">Save</button>
-                        <button class="btn btn-sm btn-default" ng-show="page.editParticipants" ng-click="page.editParticipants = false">Cancel</button>
+                        <button class="btn btn-sm btn-primary" ng-show="page.editMembers" ng-click="saveMembers(currentTicket)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editMembers" ng-click="page.editMembers = false">Cancel</button>
 
-                        <div class="text-right" ng-repeat="member in currentTicket.members" ng-hide="page.editParticipants">
-                          {{member.contactProfile.firstname}} {{member.contactProfile.lastname}}
+                        <div class="text-right" ng-repeat="member in currentTeam.members" ng-hide="page.editMembers">
+                          {{member.user.contactProfile.firstname}} {{member.user.contactProfile.lastname}}
                         </div>
                         <div>
-                          <a class="pull-right" ng-hide="page.editParticipants" href ng-click="page.editParticipants = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
+                          <a class="pull-right" ng-hide="page.editMembers" href ng-click="page.editMembers = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
                         </div>
 
 
@@ -321,17 +338,33 @@
                <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
                 <ul class="list-group clear-list m-t-md">
                   <!--description-->
-                  <li class="list-group-item fist-item">
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <strong>Description</strong>
+                  <li class="list-group-item fist-item" ng-mouseenter="editDescription = true" ng-mouseleave="editDescription = false">
+                      <div class="row">
+                        <div class="col-sm-4" ng-class="{'col-sm-12' : page.editDescriptionAction}">
+                          <strong>Team Name</strong>
+                        </div>
+                        <div class="col-sm-8">
+                        <div class="col-sm-8 text-right">
+                          <span ng-hide="page.editDescriptionAction">{{currentTeam.description}}</span>
+                        </div>
+                        <a  class="pull-right" ng-show="editDescription && !page.editDescriptionAction" href ng-click="page.editDescriptionAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="page.editDescriptionAction">
+                          <div class="form-group">
+                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentTeam.description" placeholder="currentTeam.description" class="form-control"></textarea>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}.<a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-default pull-right" ng-click="page.editDescriptionAction = false" style="margin-top:10px;">Cancel</button>
+                            <button class="btn btn-sm btn-primary pull-right" ng-click="save(currentTeam)" style="margin-top:10px; margin-right:5px;">Save</button>
+                          </div>
+                          </div>
+                        </form>
                       </div>
-                      <div class="col-sm-8 text-right" style="word-wrap: break-word"> 
-
-                      {{currentTeam.description}}
+                        
                       </div>
-                    </div>
-                  </li>
+                  </li> 
                     <!--project-->
                     <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
                       <div class="row">

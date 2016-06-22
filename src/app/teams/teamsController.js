@@ -42,6 +42,8 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
       $scope.currentTeam = response;
       $scope.defaultMode();
 
+
+
     }, function(response) {
       console.log("Failed to get teams");
     });
@@ -50,6 +52,11 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   $scope.update = function(team) {
     return teamService.update(team).then(function(response) {
       $scope.setSelected(response);
+      $scope.currentTeam = response;
+
+      $scope.page.editNameAction = false;
+      $scope.page.editDescriptionAction = false;
+
       return $scope.setAlertCp(true, "Företaget har uppdaterats");
     }, function(response) {
       console.log("Update team failed");
@@ -95,7 +102,7 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   };
 
   $scope.setSelected = function(cp) {
-    return $scope.selected = angular.copy(cp);
+    return $scope.selected = cp;
   };
 
   $scope.toggleSelected = function(cp) {
@@ -207,10 +214,28 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
   $scope.addTeamMember = function(member) {
     $scope.currentTeam.members.push(member);
-    $scope.addingTeam = false;
+    $scope.page.editMembers = false;
     $scope.newTeamMember = undefined;
     console.log(member);
+  }
 
+  $scope.empSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentTeam.members.push(item.user);
+    $scope.temp.assignedCurrentUser = undefined;
+
+  }
+
+  $scope.saveMembers = function (team) {
+    teamService.addMembersToTeam(team).then(function(response) {
+      console.log("Tkt members list succesfully");
+      console.log(response);    
+      team.members = response;
+      $scope.page.editMembers = false;
+    }, function(response) {
+      console.log("Ticket emp list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
   }
 
   $scope.createUser = function(user) {
@@ -232,7 +257,7 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   };
 
   $scope.init = function() {
-
+    $scope.page = {};
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";

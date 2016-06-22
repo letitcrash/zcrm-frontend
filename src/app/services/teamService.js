@@ -29,6 +29,11 @@ angular.module('inspinia').factory('teamService', function(requestService, dataS
       url = "companies/"+ dataService.getCurrentCompanyId() + "/teams/" + team.id;
       return requestService.ttPut(url, team);
     },
+    addMembersToTeam: function(team) {
+      var args = {};
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + team.id + "/members";
+      return requestService.ttPost(url,team.members);
+    },
     delete: function(team) {
       var url;
       url = "companies/" + dataService.getCurrentCompanyId() + "/teams/"+team.id;
