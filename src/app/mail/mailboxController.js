@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("MailboxCtrl", function($scope, $rootScope, $state, mailboxService, ticketService, dataService, employeeService) {
+angular.module('inspinia').controller("MailboxCtrl", function($scope, $http, $rootScope, $state, mailboxService, ticketService, dataService, employeeService) {
   var getMail,getOutbox,getEmployees, activeMailbox;
 
   getEmployees =  function(force, pageSize, pageNr, searchTerm) {
