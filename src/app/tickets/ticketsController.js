@@ -52,7 +52,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
         return item;
       });
       }, function(response) {
-      console.log("Could not get employees");
+      console.log("Could not get projects");
       console.log(response);
       return [];
     });
@@ -64,7 +64,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
         return item;
       });
       }, function(response) {
-      console.log("Could not get employees");
+      console.log("Could not get clients");
       console.log(response);
       return [];
     });
@@ -220,6 +220,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
     $scope.currentTicket.teams = [];
+    $scope.currentTicket.requesters = [];
+    $scope.currentTicket.project = {};
     $scope.currentTicket.id = null;
     
     $scope.currentTicket.status = {
@@ -357,8 +359,13 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.isCollapsed = true;
     $scope.showTicket = false;
     $scope.page = {};
+
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
+    $scope.currentTicket.teams = [];
+    $scope.currentTicket.clients = [];
+    $scope.currentTicket.project = {};
+
     $scope.isCollapsed = false;
     $scope.temp = {};
     
