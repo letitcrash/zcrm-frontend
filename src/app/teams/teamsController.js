@@ -34,8 +34,9 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   };
 
   $scope.create = function(team) {
-  console.log(team);
+  
   teamService.create(team).then(function(response) {
+      console.log(response);
       $scope.activeTeam = false;
       console.log(response);
       $scope.teams.push(response);
@@ -221,9 +222,8 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
   $scope.empSelected = function(item, model, label, event) {
     console.log(item);
-    $scope.currentTeam.members.push(item.user);
-    $scope.temp.assignedCurrentUser = undefined;
-
+    $scope.currentTeam.members.push(item);
+    $scope.assignedCurrentUser = undefined;
   }
 
   $scope.saveMembers = function (team) {

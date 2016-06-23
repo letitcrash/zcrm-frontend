@@ -231,7 +231,9 @@
           </div>
         </div>
         <!-- creation form end -->
-        <!-- opened ticket -->
+
+
+        <!-- opened team -->
         <div class="col-xl-12 tabs-container tooltip-demo" ng-if="currentTeam.id != null">
           <div>
             <ul class="nav nav-tabs">
@@ -312,7 +314,7 @@
                             <ul style="list-style:none; margin:0; padding:0;">
                               <li ng-repeat="member in currentTicket.members">
                                 <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                <span>{{member.contactProfile.firstname}} {{member.contactProfile.lastname}} </span>
+                                <span>{{member.user.contactProfile.firstname}} {{member.user.contactProfile.lastname}} </span>
                               </li>
                             </ul>
                         </div>
@@ -341,7 +343,7 @@
                   <li class="list-group-item fist-item" ng-mouseenter="editDescription = true" ng-mouseleave="editDescription = false">
                       <div class="row">
                         <div class="col-sm-4" ng-class="{'col-sm-12' : page.editDescriptionAction}">
-                          <strong>Team Name</strong>
+                          <strong>Description</strong>
                         </div>
                         <div class="col-sm-8">
                         <div class="col-sm-8 text-right">

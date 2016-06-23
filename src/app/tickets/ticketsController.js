@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService) {
+angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
   var getTickets;
 
     $scope.selected = 1;
@@ -45,6 +45,30 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       return [];
     });
   };
+
+  $scope.getProjects = function(searchTerm) {
+    return projectService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
+
+  $scope.getClients = function(searchTerm) {
+    return clientService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
     
   $scope.empSelected = function(item, model, label, event) {
     console.log(item);
@@ -53,11 +77,24 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   }
 
+  $scope.clientSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentTicket.requesters.push(item.user);
+    $scope.temp.assignedCurrentClient = undefined;
+
+  }
+
   $scope.teamSelected = function(item, model, label, event) {
     console.log(item);
     $scope.currentTicket.teams.push(item);
     $scope.temp.assignedCurrentTeam = undefined;
 
+  }
+
+  $scope.projectSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentTicket.project=item;
+    $scope.temp.assignedCurrentProject = undefined;
   }
 
   $scope.commentTicket = function(ticket) {
@@ -135,7 +172,17 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     //  $scope.page.error = "Ticket could not be created";
     });
   }
-  
+  $scope.saveClients = function (ticket) {
+    ticketService.addClientsToTicket(ticket).then(function(response) {
+      console.log("Tkt members list succesfully");
+      console.log(response);    
+      ticket.requesters = response;
+      $scope.page.editClients = false;
+    }, function(response) {
+      console.log("Ticket emp list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
 
   $scope.saveTeams = function (ticket) {
     ticketService.addTeamsToTicket(ticket).then(function(response) {
@@ -145,6 +192,18 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       $scope.page.editTeams = false;
     }, function(response) {
       console.log("Ticket emp list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
+
+  $scope.saveProject = function (ticket) {
+    ticketService.setProjectToTicket(ticket).then(function(response) {
+      console.log("Tkt teams list succesfully");
+      console.log(response);    
+      ticket.project = response;
+      $scope.page.editProjectAction = false;
+    }, function(response) {
+      console.log("Ticket project could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
@@ -219,6 +278,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     });
   };
 
+
+
   $scope.create = function(tkt) {
     $scope.page.error = undefined;
     ticketService.create(tkt).then(function(response) {
@@ -230,6 +291,50 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     }, function(response) {
       console.log("Ticket could not be created");
       $scope.page.error = "Ticket could not be created";
+    });
+  };
+
+  $scope.update = function(ticket) {
+    console.log(ticket);
+    ticketService.update(ticket).then(function(response) {
+      console.log("Project updated succesfully");
+      console.log(response);
+      var ticket = $scope.tickets.filter(function( obj ) {
+        return obj.id == $scope.currentTicket.id;
+      });
+      ticket[0].subject = response.subject;
+      ticket[0].description = response.description;
+      console.log(ticket[0]);
+
+
+      $scope.currentTicket = response;
+
+      
+      $scope.page.editSubjectAction = false;
+      $scope.page.editDescriptionAction = false;
+
+    }, function(response) {
+      console.log("Project could not be updated");
+    });
+  };
+
+  $scope.deleteTicket = function(ticket) {
+    var tckt = $scope.tickets.filter(function( obj ) {
+        return obj.id == $scope.currentTicket.id;
+      });
+    var index = $scope.tickets.indexOf(tckt[0]);
+    console.log(ticket);    
+    ticketService.delete(ticket).then(function(response) {
+      console.log("deleted");
+      
+      if (index >= 0) {
+        $scope.tickets.splice(index, 1);
+        console.log("doing splice");
+      }
+      $scope.defaultMode();
+      $scope.currentTicket={};
+    }, function(response) {
+      console.log("not deleted");
     });
   };
 

@@ -169,7 +169,7 @@
                             {{ticket.description}}
                           </td>
                           <td>
-                            {{ticket.created | date: 'mediumDate'}}
+                            {{ticket.createdAt | date : "MMM d, y"}}
                           </td>
                           <td>
                             {{ticket.deadline | date: 'mediumDate'}}
@@ -340,9 +340,23 @@
             
             <div class="tab-content panel-body contact-box center-version" style="border-top: none">
             
-            <div class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
+            <div  class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
+                <h5 ng-mouseenter="editSubject = true"ng-mouseleave="editSubject = false">  
+                  {{currentTicket.subject | uppercase}}
+                  <a ng-show="editSubject && !page.editSubjectAction" href ng-click="page.editSubjectAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                </h5>                               
+                <form role="form" ng-show="page.editSubjectAction">
+                  <div class="form-group"><input type="text" ng-model="currentTicket.subject" placeholder="currentTicket.subject" class="form-control"></div>
+                    <div>
+                      <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                            {{useralert}}. <a class="alert-link">check</a>.
+                      </div>
+                      <button class="btn btn-sm btn-primary" ng-click="update(currentTicket)">Save</button>
+                      <button class="btn btn-sm btn-default" ng-click="page.editSubjectAction = false">Cancel</button>
+                  </div>
+                </form>
 
-              <h5 class="pull-left m-t-sm">{{currentTicket.subject | uppercase}}</h5>
 
                   <div class="btn-group pull-right" uib-dropdown keyboard-nav>
                     <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm" ng-class="{'btn-success': currentTicket.priority == 0, 'btn-warning': currentTicket.priority == 1, 'btn-danger': currentTicket.priority == 2}" uib-dropdown-toggle>
@@ -374,10 +388,73 @@
           <!-- ticket info -->
           <div class="m-t-md" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}" ng-show="page.subtab == 1">
               <!--1st part-->
-              <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
+              <div class="list-group-item fist-item" >
                 <ul class="list-group clear-list m-t-md">
+
+                  <!--description-->
+                  <li class="list-group-item fist-item" ng-mouseenter="editDescription = true" ng-mouseleave="editDescription = false">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Description</strong>
+                      </div>
+                      <div class="col-sm-8 text-right" style="word-wrap: break-word"> 
+                      <span ng-hide="page.editDescriptionAction">{{currentTicket.description}}
+                      </span>
+                        <a  class="pull-right" ng-show="editDescription && !page.editDescriptionAction" href ng-click="page.editDescriptionAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
+                        <form role="form" ng-show="page.editDescriptionAction">
+                          <div class="form-group">
+                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentTicket.description" placeholder="currentTicket.description" class="form-control"></textarea>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}.<a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-default pull-right" ng-click="page.editDescriptionAction = false" style="margin-top:10px;">Cancel</button>
+                            <button class="btn btn-sm btn-primary pull-right" ng-click="update(currentTicket)" style="margin-top:10px; margin-right:5px;">Save</button>
+                          </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </li>
+
+                  <!--client-->
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <strong>Client</strong>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="input-group" style="width:100%;" ng-show="page.editClients">
+                          <input type="text" ng-model="temp.assignedCurrentClient" placeholder="Type client name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingClients" typeahead-no-results="noResults" typeahead-on-select="clientSelected($item, $model, $label, $event)" class="form-control">
+                        </div>
+                        
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editClients">
+                            <ul style="list-style:none; margin:0; padding:0;">
+                              <li ng-repeat="requester in currentTicket.requesters">
+                                <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <span>{{requester.contactProfile.firstname}} {{requester.contactProfile.lastname}} </span>
+                              </li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editClients" ng-click="saveClients(currentTicket)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editClients" ng-click="page.editClients = false">Cancel</button>
+
+                        <div class="text-right" ng-repeat="requester in currentTicket.requesters" ng-hide="page.editParticipants">
+                          {{requester.contactProfile.firstname}} {{requester.contactProfile.lastname}}
+                        </div>
+                        <div>
+                          <a class="pull-right" ng-hide="page.editClients" href ng-click="page.editClients = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  
+
                   <!--created by-->
-                  <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
+                  <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                     <div class="row">
                       <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
                         <strong>Created by</strong>
@@ -464,38 +541,32 @@
               <!--2nd part-->
                <div ng-class="{'col-sm-6': mode == 2, 'col-sm-12': mode == 1}">
                 <ul class="list-group clear-list m-t-md">
-                  <!--description-->
-                  <li class="list-group-item fist-item">
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <strong>Description</strong>
-                      </div>
-                      <div class="col-sm-8 text-right" style="word-wrap: break-word"> 
-
-                      {{currentTicket.description}}
-                      </div>
-                    </div>
-                  </li>
-                  <!--client-->
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <strong>Client</strong>
-                      </div>
-                      <div class="col-sm-8 text-right">
-                      Client-1
-                      </div>
-                    </div>
-                  </li>
+                  
+                  
                     <!--project-->
-                    <li class="list-group-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
+                    <li class="list-group-item fist-item" ng-mouseenter="editProject = true" ng-mouseleave="editProject = false">
                       <div class="row">
                         <div class="col-sm-4">
                           <strong>Project</strong>
                         </div>
-                        <div class="col-sm-8 text-right">
-                        Project-1
+                          <div class="col-sm-8 text-right">
+                            <span ng-hide="page.editProjectAction">{{currentTicket.project.name}}
+                            </span>
+                          
+                          <a class="pull-right" ng-show="editProject && !page.editProjectAction" href ng-click="page.editProjectAction = true"><i class="fa fa-user-plus"></i> Edit </a>
+                          <div class="input-group" style="width:100%;" ng-show="page.editProjectAction">
+                            <input type="text" ng-model="temp.assignedCurrentProject" placeholder="Type project name" uib-typeahead="project as project.name for project in getProjects($viewValue)" typeahead-loading="loadingProjects" typeahead-no-results="noResults" typeahead-on-select="projectSelected($item, $model, $label, $event)" class="form-control">
+                          </div>
+                          <button class="btn btn-sm btn-primary" ng-show="page.editProjectAction" ng-click="saveProject(currentTicket)">Save</button>
+                          <button class="btn btn-sm btn-default" ng-show="page.editProjectAction" ng-click="page.editProjectAction = false">Cancel</button>
                         </div>
+
+
+                       
+                        
+                        
+
+                        
                       </div>
                     </li>
                     <!--date-->
@@ -505,7 +576,7 @@
                           <strong>Created</strong>
                         </div>
                         <div class="col-sm-8 text-right">
-                          Oct 29, 2010
+                          {{currentTicket.createdAt | date : "MMM d, y"}}
                         </div>
                       </div>
                     </li>
@@ -515,7 +586,7 @@
                           <strong>Due data</strong>
                         </div>
                         <div class="col-sm-8 text-right">
-                          Oct 29, 2010
+                          Jul 14, 2016
                         </div>
                       </div>
                     </li>

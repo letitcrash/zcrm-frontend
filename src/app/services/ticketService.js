@@ -47,16 +47,26 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       return requestService.ttPost(url, ticket);
     },
     update: function(ticket, mails) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/"+ticket.id;
       var args = {};
+      args.id = ticket.id;
       args.companyId = dataService.getCurrentCompanyId();
-      args.createdByUser = dataService.getUser();
+      args.projectId = ticket.projectId;
+      args.createdByUserId = ticket.createdByUserId;
+
+      args.status = ticket.status;
+      args.priority = ticket.priority;
+
       args.subject = ticket.subject;
       args.description = ticket.description;
+
+      args.createdByUser = dataService.getUser();
+      
+      
       args.attachedMails = mails;
       args.dueDate = "today";
 
-      return requestService.ttPost(url, args);
+      return requestService.ttPut(url, args);
     },
     setStatus: function(status, ticket) {
       var args = {};
@@ -82,6 +92,13 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/comments";
       return requestService.ttPost(url,args);
     },
+    addClientsToTicket: function(ticket) {
+      var args = {};
+      args.clients = ticket.clients;
+      ticket.ticketId = Number(ticket.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/requesters";
+      return requestService.ttPost(url,ticket);
+    },
     addMembersToTicket: function(ticket) {
       var args = {};
       args.members = ticket.members;
@@ -94,6 +111,13 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       args.members = ticket.members;
       ticket.ticketId = Number(ticket.id);
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/teams";
+      return requestService.ttPost(url,ticket);
+    },
+    setProjectToTicket: function(ticket) {
+      var args = {};
+      args.project = ticket.project;
+      ticket.ticketId = Number(ticket.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/project";
       return requestService.ttPost(url,ticket);
     },
     detachEmailConversation: function(ticket, email) {
