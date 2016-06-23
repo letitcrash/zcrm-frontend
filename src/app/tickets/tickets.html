@@ -285,6 +285,17 @@
                   <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" placeholder="Add a client...">
                   </div>
+                  <div class="input-group" style="width:100%;">
+                      <input type="text" ng-model="temp.assignedCurrentClient" placeholder="Type client name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingClients" typeahead-no-results="noResults" typeahead-on-select="clientSelected($item, $model, $label, $event)" class="form-control">
+                   </div>
+                  <div class="employee-list" style="margin-top:10px">
+                    <ul style="list-style:none; margin:0; padding:0;">
+                      <li ng-repeat="m in currentTicket.requesters">
+                        <button type="button" ng-click="deleteClientFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                        <span>{{m.contactProfile.firstname}} {{m.contactProfile.lastname}} </span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="row" style="margin-bottom:20px;">
@@ -293,6 +304,19 @@
                   <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" placeholder="Add a project...">
                   </div>
+
+                  <div class="input-group" style="width:100%;">
+
+                      <input type="text" ng-model="temp.assignedCurrentProject" placeholder="Type project name" uib-typeahead="project as project.name for project in getProjects($viewValue)" typeahead-loading="loadingProjects" typeahead-no-results="noResults" typeahead-on-select="projectSelected($item, $model, $label, $event)" class="form-control">
+                   </div>
+                  <div class="employee-list" style="margin-top:10px">
+                    <ul style="list-style:none; margin:0; padding:0;">
+                      <li>
+                        <span>{{currentTicket.project.name}} </span>
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
               </div>
 
@@ -432,7 +456,7 @@
                         <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editClients">
                             <ul style="list-style:none; margin:0; padding:0;">
                               <li ng-repeat="requester in currentTicket.requesters">
-                                <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <button type="button" ng-click="deleteClientFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
                                 <span>{{requester.contactProfile.firstname}} {{requester.contactProfile.lastname}} </span>
                               </li>
                             </ul>

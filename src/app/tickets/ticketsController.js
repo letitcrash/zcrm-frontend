@@ -122,6 +122,13 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     }
   };
 
+  $scope.deleteClientFromFilter = function (emp) {
+    var index = $scope.currentTicket.requesters.indexOf(emp);
+    if (index > -1) {
+      $scope.currentTicket.requesters.splice(index, 1);
+    }
+  };
+
   $scope.deleteTeamFromFilter = function (team) {
     var index = $scope.currentTicket.teams.indexOf(team);
     if (index > -1) {
