@@ -136,7 +136,9 @@
                           <th style="width:85px;">Status</th>
                           <th style="width:85px;">Priority</th>
                           <th>Title</th>
-                          <th>Description</th>
+                          <th>Client(s)</th>
+                          <th>Team(s)</th>
+                          <th>Agent(s)</th>
                           <th>Created</th>
                           <th>Deadline</th>
                         </tr>
@@ -144,7 +146,7 @@
                       <tbody>
                         <tr ng-repeat="ticket in tickets"  role="row">
                           <td>
-                            <input type="checkbox" /> TICKET#{{ticket.id}}
+                            <input type="checkbox" ng-model="ticket.selected"/> TICKET#{{ticket.id}}
                           </td>
                           <td>
 
@@ -159,20 +161,20 @@
                           <td>
 
                <button class="btn btn-xs pull-right" style="margin-right:20px;" ng-class="{'btn-success': ticket.priority == 0, 'btn-warning': ticket.priority == 1, 'btn-danger': ticket.priority == 2}"><span ng-if="ticket.priority == 0">Low</span><span ng-if="ticket.priority == 1">Mid</span><span ng-if="ticket.priority == 2">High</span></button>
-
                           </td>
                           <td>
                             <a href ng-click="openTicket(ticket)">{{ticket.subject | uppercase}} </a>
                           </td>
-                       
-                          <td>
-                            {{ticket.description}}
-                          </td>
+                          <!--{{req.contactProfile.firstname}} {{req.contactProfile.lastname}}-->
+                          <td >
+                            {{ticket.requesters[0].contactProfile.firstname}}
+                          <td>teams</td>
+                          <td>agents</td>
                           <td>
                             {{ticket.createdAt | date : "MMM d, y"}}
                           </td>
                           <td>
-                            {{ticket.deadline | date: 'mediumDate'}}
+                            {{ticket.deadline | date: 'mediumDate'}}deadline
                           </td>
                         </tr>
                       </tbody>
@@ -243,7 +245,7 @@
 
               <div class="row" style="margin-bottom:20px;">
                 <div class="col-lg-12">
-                    <h4>Add employee(s)</h4>
+                    <h4>Add agent(s)</h4>
                     <div class="input-group" style="width:100%;">
                       <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
 
@@ -486,7 +488,7 @@
                   <li class="list-group-item">
                     <div class="row">
                       <div class="col-sm-4">
-                        <strong>Participants</strong>
+                        <strong>Agents</strong>
                       </div>
                       <div class="col-sm-8">
 

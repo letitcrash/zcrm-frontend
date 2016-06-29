@@ -10,7 +10,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       console.log("got tickets");
       console.log(response);
       $scope.showLoadingMessage = false;
-      $scope.tickets = response.data;
+      $scope.tickets = response;
       $scope.totalItems = response.totalSize;
     }, function(response) {
       console.log("Could not get tickets");
@@ -149,8 +149,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       }
 
     }, function(response) {
-      console.log("Could not get tickets");
-      $scope.page.error = "Could not get tickets";
+      console.log("Could not get scope");
+      $scope.page.error = "Could not get ticket";
       console.log(response);
     });
     //$window.location.href = '/#/index/tickets/' + tkt.id;
@@ -355,8 +355,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     $scope.newPeriods = [];
-    getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    $scope.isCollapsed = true;
+    
+    $scope.isCollapsed = false;
     $scope.showTicket = false;
     $scope.page = {};
 
@@ -366,9 +366,11 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket.clients = [];
     $scope.currentTicket.project = {};
 
-    $scope.isCollapsed = false;
+    
     $scope.temp = {};
     
+
+    getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.statusAvailableOptions =  [
         {id: '1', name: 'New'},
         {id: '2', name: 'Open'},
