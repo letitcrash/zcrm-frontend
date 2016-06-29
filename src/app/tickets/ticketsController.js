@@ -5,7 +5,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.selected = 1;
 
     
-  getTickets = function(force, pageSize, pageNr, searchTerm) {
+  getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
       console.log(response);
@@ -94,7 +94,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.projectSelected = function(item, model, label, event) {
     console.log(item);
     $scope.currentTicket.project=item;
-    $scope.temp.assignedCurrentProject = undefined;
+    
   }
 
   $scope.commentTicket = function(ticket) {
@@ -170,7 +170,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.saveMembers = function (ticket) {
     ticketService.addMembersToTicket(ticket).then(function(response) {
-      console.log("Tkt members list succesfully");
+      console.log("Tkt members list updated succesfully");
       console.log(response);    
       ticket.members = response;
       $scope.page.editParticipants = false;
@@ -181,7 +181,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   }
   $scope.saveClients = function (ticket) {
     ticketService.addClientsToTicket(ticket).then(function(response) {
-      console.log("Tkt members list succesfully");
+      console.log("Tkt members list updated succesfully");
       console.log(response);    
       ticket.requesters = response;
       $scope.page.editClients = false;
@@ -193,7 +193,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.saveTeams = function (ticket) {
     ticketService.addTeamsToTicket(ticket).then(function(response) {
-      console.log("Tkt teams list succesfully");
+      console.log("Tkt teams list updated succesfully");
       console.log(response);    
       ticket.teams = response;
       $scope.page.editTeams = false;
@@ -205,7 +205,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.saveProject = function (ticket) {
     ticketService.setProjectToTicket(ticket).then(function(response) {
-      console.log("Tkt teams list succesfully");
+      console.log("Tkt project updated succesfully");
       console.log(response);    
       ticket.project = response;
       $scope.page.editProjectAction = false;
@@ -346,6 +346,21 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       console.log("not deleted");
     });
   };
+
+  $scope.searchTickets = function() {
+    var DELAY_AMOUNT, DELAY_KEY;
+    $scope.pageNr = 1;
+    console.log("Search with searchTerm:" + $scope.searchTerm);
+    DELAY_AMOUNT = 500;
+    DELAY_KEY = "searchTicketDelay";
+    generalUtils.delayFunction(DELAY_KEY, DELAY_AMOUNT).then(function() {
+      getTickets(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+    });
+  };
+  $scope.filterClear = function() {
+  console.log("filterClear");
+  $scope.currentFilters.union = false;
+  }
 
   $scope.init = function() {
     console.log("Running init in ticket Controller");

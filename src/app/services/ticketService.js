@@ -36,6 +36,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
     create: function(ticket) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
       ticket.companyId = dataService.getCurrentCompanyId();
+      ticket.projectId=ticket.project.id;
       
       ticket.createdByUserId = dataService.getUserId();
       //ticket.assignedToUserID = dataService.getUserId();
@@ -52,15 +53,19 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       args.id = ticket.id;
       args.companyId = dataService.getCurrentCompanyId();
       args.projectId = ticket.projectId;
+      args.project = ticket.project;
 
       
       args.createdByUserId = ticket.createdByUserId;
+      args.createdByUser = ticket.createdByUser;
 
       args.status = ticket.status;
       args.priority = ticket.priority;
 
       args.subject = ticket.subject;
       args.description = ticket.description;
+
+      args.deadline = ticket.deadline;
 
       args.createdByUser = dataService.getUser();
 
@@ -118,10 +123,10 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
     },
     setProjectToTicket: function(ticket) {
       var args = {};
-      args.project = ticket.project;
       ticket.ticketId = Number(ticket.id);
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/project";
-      return requestService.ttPost(url,ticket);
+      ticket.projectId = Number(ticket.project.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id;
+      return requestService.ttPut(url,ticket);
     },
     detachEmailConversation: function(ticket, email) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/attachedmails/" + email.id;

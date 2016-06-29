@@ -37,7 +37,7 @@
           <!--FILTERS start-->
           <!--main search-->
           <div class="input-group col-md-6 m-b-sm">
-            <input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchEmployees()" />
+            <input type="text" placeholder="Search names, emails or telephone numbers..." class="input form-control" ng-model="searchTerm" ng-change="searchTickets()" />
             <span class="input-group-btn">
               <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
 
@@ -220,9 +220,11 @@
               <div class="row" style="margin-bottom:20px;">
                  <div class="col-lg-6">
                   <h4>Deadline</h4>
-                  <div id="reportrange" class="form-control" style="width:100%;">
-                    <i class="fa fa-calendar"></i>
-                    <span>April 22, 2016</span> <b class="caret"></b>
+                  <div class="input-group" style="width:50%;">
+                    <datepicker>
+                      <input class="form-control" ng-model="currentTicket.deadline" type="date"/>
+                    </datepicker>
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   </div>
                 </div>
                 <div class="col-lg-3">
@@ -360,7 +362,7 @@
             <div class="tab-content panel-body contact-box center-version" style="border-top: none">
             
             <div  class="border-bottom" style="padding: 20px 15px; display: inline-block; width: 100%">
-                <h5 ng-mouseenter="editSubject = true"ng-mouseleave="editSubject = false">  
+                <h5 style="display:inline;" ng-mouseenter="editSubject = true"ng-mouseleave="editSubject = false">  
                   {{currentTicket.subject | uppercase}}
                   <a ng-show="editSubject && !page.editSubjectAction" href ng-click="page.editSubjectAction = true"><i class="fa fa-pencil"></i> Edit </a>
                 </h5>                               
