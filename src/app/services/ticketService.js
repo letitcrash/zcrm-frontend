@@ -37,9 +37,11 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
       ticket.companyId = dataService.getCurrentCompanyId();
       ticket.projectId=ticket.project.id;
+
+      ticket.deadline = new Date(ticket.deadline).getTime();
       
       ticket.createdByUserId = dataService.getUserId();
-      //ticket.assignedToUserID = dataService.getUserId();
+
       ticket.status = Number(ticket.status.selectedOption.id);
       ticket.priority = Number(ticket.priority.selectedOption.id);
 
@@ -56,6 +58,8 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       args.project = ticket.project;
 
       
+
+      
       args.createdByUserId = ticket.createdByUserId;
       args.createdByUser = ticket.createdByUser;
 
@@ -65,7 +69,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       args.subject = ticket.subject;
       args.description = ticket.description;
 
-      args.deadline = ticket.deadline;
+      args.deadline = new Date(ticket.deadline).getTime();
 
       args.createdByUser = dataService.getUser();
 

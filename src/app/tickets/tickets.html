@@ -174,7 +174,7 @@
                             {{ticket.createdAt | date : "MMM d, y"}}
                           </td>
                           <td>
-                            {{ticket.deadline | date: 'mediumDate'}}deadline
+                            {{ticket.deadline | date : "MMM d, y"}}
                           </td>
                         </tr>
                       </tbody>
@@ -221,10 +221,10 @@
                  <div class="col-lg-6">
                   <h4>Deadline</h4>
                   <div class="input-group" style="width:50%;">
-                    <datepicker>
-                      <input class="form-control" ng-model="currentTicket.deadline" type="date"/>
-                    </datepicker>
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      <datepicker>
+                              <input class="form-control" ng-model="currentTicket.deadline" type="text"/>
+                      </datepicker>
+                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   </div>
                 </div>
                 <div class="col-lg-3">
@@ -269,7 +269,7 @@
                   <h4>Assign to a team(s)</h4>
                   
                         <div class="input-group" style="width:100%;">
-                          <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
+                          <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingTeams" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
                         <div class="employee-list" style="margin-top:10px">
@@ -288,6 +288,8 @@
                   <h4>Client</h4>
                   <div class="input-group" style="width:100%;">
                       <input type="text" ng-model="temp.assignedCurrentClient" placeholder="Type client name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingClients" typeahead-no-results="noResults" typeahead-on-select="clientSelected($item, $model, $label, $event)" class="form-control">
+
+                      <input type="text" ng-model="temp.assignedCurrentTeam" placeholder="Type team name" uib-typeahead="team as team.name for team in getTeams($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="teamSelected($item, $model, $label, $event)" class="form-control">
                    </div>
                   <div class="employee-list" style="margin-top:10px">
                     <ul style="list-style:none; margin:0; padding:0;">
@@ -601,15 +603,33 @@
                         </div>
                       </div>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item" ng-mouseenter="editDeadLine = true" ng-mouseleave="editDeadLine = false">
                       <div class="row">
                         <div class="col-sm-4">
                           <strong>Due data</strong>
                         </div>
                         <div class="col-sm-8 text-right">
-                          Jul 14, 2016
+                          <span ng-hide="page.editDeadLineAction">{{currentTicket.deadline | date : "MMM d, y"}}
+                          </span>
+                          
+
+                          <a class="pull-right" ng-show="editDeadLine && !page.editDeadLineAction" href ng-click="page.editDeadLineAction = true"><i class="fa fa-user-plus"></i> Edit </a>
+
+                        <div class="input-group" style="width:100%;" ng-show="page.editDeadLineAction">
+                          <datepicker>
+                            <input class="form-control" ng-model="currentTicket.deadline" type="text"/>
+                           </datepicker>
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editDeadLineAction" ng-click="update(currentTicket)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editDeadLineAction" ng-click="page.editDeadLineAction = false">Cancel</button>
+
+                        </div>
+
+                        
                       </div>
+
                     </li>
                 </ul>
               </div>

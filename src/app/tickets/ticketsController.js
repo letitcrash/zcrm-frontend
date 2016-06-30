@@ -94,7 +94,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
   $scope.projectSelected = function(item, model, label, event) {
     console.log(item);
     $scope.currentTicket.project=item;
-    
+    $scope.temp.assignedCurrentProject = undefined;
   }
 
   $scope.commentTicket = function(ticket) {
@@ -175,18 +175,18 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       ticket.members = response;
       $scope.page.editParticipants = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket members list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
   $scope.saveClients = function (ticket) {
     ticketService.addClientsToTicket(ticket).then(function(response) {
-      console.log("Tkt members list updated succesfully");
+      console.log("Tkt clients list updated succesfully");
       console.log(response);    
       ticket.requesters = response;
       $scope.page.editClients = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket clients list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
@@ -198,7 +198,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       ticket.teams = response;
       $scope.page.editTeams = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket teams list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
@@ -220,6 +220,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
     $scope.currentTicket.teams = [];
+    $scope.currentTicket.clients = [];
     $scope.currentTicket.requesters = [];
     $scope.currentTicket.project = {};
     $scope.currentTicket.id = null;
@@ -313,6 +314,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       });
       ticket[0].subject = response.subject;
       ticket[0].description = response.description;
+      ticket[0].deadline = response.deadline;
       console.log(ticket[0]);
 
 
@@ -321,6 +323,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       
       $scope.page.editSubjectAction = false;
       $scope.page.editDescriptionAction = false;
+      $scope.page.editDeadLineAction = false;
 
     }, function(response) {
       console.log("Project could not be updated");
@@ -377,6 +380,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
+    $scope.currentTicket.requesters = [];
     $scope.currentTicket.teams = [];
     $scope.currentTicket.clients = [];
     $scope.currentTicket.project = {};
