@@ -61,7 +61,7 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
 
   $scope.clientSelected = function(item, model, label, event) {
     console.log(item);
-    $scope.currentProject.requesters.push(item);
+    $scope.currentProject.clients.push(item);
     $scope.temp.assignedCurrentClient = undefined;
     console.log($scope.currentProject);
   }
@@ -223,21 +223,21 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     });
   }
 
-  $scope.deleteTicket = function(ticket) {
-    var tckt = $scope.tickets.filter(function( obj ) {
-        return obj.id == $scope.currentTicket.id;
+  $scope.deleteProject = function(project) {
+    var proj = $scope.projects.filter(function( obj ) {
+        return obj.id == $scope.currentProject.id;
       });
-    var index = $scope.tickets.indexOf(tckt[0]);
-    console.log(ticket);    
-    ticketService.delete(ticket).then(function(response) {
+    var index = $scope.projects.indexOf(proj[0]);
+    console.log(project);    
+    projectService.delete(project).then(function(response) {
       console.log("deleted");
       
       if (index >= 0) {
-        $scope.tickets.splice(index, 1);
+        $scope.projects.splice(index, 1);
         console.log("doing splice");
       }
       $scope.defaultMode();
-      $scope.currentTicket={};
+      $scope.currentProject={};
     }, function(response) {
       console.log("not deleted");
     });

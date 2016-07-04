@@ -46,11 +46,11 @@ angular.module('inspinia').factory('projectService', function(requestService, da
    	},
    	addMembersToProject: function(project) {
    	  var url = "companies/" + dataService.getCurrentCompanyId() + "/projects/" + project.id + "/members";
-   	  return requestService.ttPost(url,ticket);
+   	  return requestService.ttPost(url,project);
    	},
    	addTeamsToProject: function(project) {
    	  var url = "companies/" + dataService.getCurrentCompanyId() + "/projects/" + project.id + "/teams";
-		  return requestService.ttPost(url,ticket);
+		  return requestService.ttPost(url,project);
     }
 	};
 });
