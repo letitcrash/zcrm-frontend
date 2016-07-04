@@ -29,8 +29,10 @@
                 <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Mailbox' | translate }} </span><span class="label label-warning pull-right">16/24</span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('mailbox')}">
                     <li ui-sref-active="active"><a ui-sref="mailbox.email_compose">New email</a></li>
-                    <li ui-sref-active="active"><a ui-sref="index.mail">Inbox 1</a></li>
-                    <li ui-sref-active="active"><a ui-sref="index.mail.2">Inbox 2</a></li>
+                    <!-- Mailboxes -->
+                    <li ui-sref-active="active" ng-repeat="box in mailboxes">
+                      <a ui-sref="index.mail({mailboxId: box.id})">Mailbox {{ box.id }}</a>
+                    </li>
                     <li ui-sref-active="active"><a ui-sref="mailbox.email_view">Case emails</a></li>
                     <li ui-sref-active="active"><a ui-sref="mailbox.email_template">Unread emails</a></li>
                 </ul>

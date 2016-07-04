@@ -1,7 +1,21 @@
 'use strict';
 
 angular.module('inspinia')
-  .controller('MainController', function ($http, $scope) {
+  .controller('MainController', function ($scope, $http, dataService, mailboxService) {
+    var userId = dataService.getUserId();
+    $scope.mailboxes = [];
+
+    if (typeof userId === 'number') {
+      mailboxService.get(userId).then(function(res) {
+        if (res.length > 0) {
+          mailboxService.setList(res);
+          $scope.mailboxes = mailboxService.getList();
+        }
+      }, function(res) { return console.log("Failed to get mailboxlist"); });
+    }
+
+    console.log($scope.mailboxes);
+    $scope.test = "Test";
 
 /*
 

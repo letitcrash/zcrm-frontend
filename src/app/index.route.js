@@ -54,8 +54,8 @@
 
       })
       .state('index.mail', {
-        url: "/mailbox",
-        templateUrl: "app/mail/outlook.html",
+        url: "/mailbox/:mailboxId",
+        templateUrl: "app/mail/mailbox.html",
         data: { pageTitle: 'Mailbox' },
         "authenticate": true,
         resolve: {
