@@ -81,6 +81,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     console.log(item);
     $scope.currentTicket.requesters.push(item.user);
     $scope.temp.assignedCurrentClient = undefined;
+    console.log($scope.currentTicket);
 
   }
 

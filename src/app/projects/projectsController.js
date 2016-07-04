@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScope, $state, projectService) {
+angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScope, $state, projectService, employeeService, dataService, teamService, clientService) {
   var getMail, getProjects, setProjectChange;
    $scope.selected = 1;
 
@@ -14,7 +14,84 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     });
   };
 
-  
+  $scope.getEmloyees = function(searchTerm) {
+    return employeeService.getTypeaheadList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
+
+  $scope.getTeams = function(searchTerm) {
+    return teamService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
+
+  $scope.getClients = function(searchTerm) {
+    return clientService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        item.fullname = item.contactProfile.firstname + " " +item.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get clients");
+      console.log(response);
+      return [];
+    });
+  };
+
+  $scope.empSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentProject.members.push(item.user);
+    $scope.temp.assignedCurrentUser = undefined;
+
+  }
+
+  $scope.clientSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentProject.requesters.push(item);
+    $scope.temp.assignedCurrentClient = undefined;
+    console.log($scope.currentProject);
+  }
+
+  $scope.teamSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentProject.teams.push(item);
+    $scope.temp.assignedCurrentTeam = undefined;
+
+  }
+  $scope.deleteUserFromFilter = function (emp) {
+    var index = $scope.currentProject.members.indexOf(emp);
+    if (index > -1) {
+      $scope.currentProject.members.splice(index, 1);
+    }
+  };
+
+  $scope.deleteClientFromFilter = function (emp) {
+    var index = $scope.currentProject.clients.indexOf(emp);
+    if (index > -1) {
+      $scope.currentProject.clients.splice(index, 1);
+    }
+  };
+
+  $scope.deleteTeamFromFilter = function (team) {
+    var index = $scope.currentProject.teams.indexOf(team);
+    if (index > -1) {
+      $scope.currentProject.teams.splice(index, 1);
+    }
+  };
 
   $scope.openProject = function(project) {
       $scope.page.mode = 1;
@@ -44,6 +121,8 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     $scope.compressMode();
     $scope.currentProject = {};
     $scope.currentProject.members = [];
+    $scope.currentProject.teams = [];
+    $scope.currentProject.clients = [];
     $scope.currentProject.id = null;
   };
 
@@ -66,7 +145,6 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
       console.log(response);     
       $scope.projects.push(response);
       $scope.page.mode = 0;
-//      $scope.setSelected(response.id);
       return setProjectChange(true, "Medarbetaren har skapats.");
     }, function(response) {
       console.log("Project could not be created");
@@ -110,6 +188,61 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
     });
   };
 
+  $scope.saveMembers = function (project) {
+    projectService.addMembersToProject(project).then(function(response) {
+      console.log("Tkt members list updated succesfully");
+      console.log(response);    
+      ticket.members = response;
+      $scope.page.editParticipants = false;
+    }, function(response) {
+      console.log("Ticket members list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
+  $scope.saveClients = function (project) {
+    projectService.addClientsToProject(project).then(function(response) {
+      console.log("Tkt clients list updated succesfully");
+      console.log(response);    
+      ticket.requesters = response;
+      $scope.page.editClients = false;
+    }, function(response) {
+      console.log("Ticket clients list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
+
+  $scope.saveTeams = function (project) {
+    projectService.addTeamsToProject(project).then(function(response) {
+      console.log("Tkt teams list updated succesfully");
+      console.log(response);    
+      ticket.teams = response;
+      $scope.page.editTeams = false;
+    }, function(response) {
+      console.log("Ticket teams list could not be updated");
+    //  $scope.page.error = "Ticket could not be created";
+    });
+  }
+
+  $scope.deleteTicket = function(ticket) {
+    var tckt = $scope.tickets.filter(function( obj ) {
+        return obj.id == $scope.currentTicket.id;
+      });
+    var index = $scope.tickets.indexOf(tckt[0]);
+    console.log(ticket);    
+    ticketService.delete(ticket).then(function(response) {
+      console.log("deleted");
+      
+      if (index >= 0) {
+        $scope.tickets.splice(index, 1);
+        console.log("doing splice");
+      }
+      $scope.defaultMode();
+      $scope.currentTicket={};
+    }, function(response) {
+      console.log("not deleted");
+    });
+  };
+
 setProjectChange = function(success, message) {
     $scope.projChange = {};
     if (success) {
@@ -122,15 +255,21 @@ setProjectChange = function(success, message) {
   $scope.init = function() {
     console.log("Running init in Projects Controller");
     getProjects(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+    $scope.projects=[];
     $scope.page = {};
     $scope.page.mode = 0;
+    $scope.temp = {};
 
     $scope.isCollapsed = false;
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
+
     $scope.currentProject= {};
     $scope.currentProject.members = [];
+    $scope.currentProject.teams = [];
+    $scope.currentProject.clients = [];
+    $scope.currentProject.id = null;
   };
 
 
