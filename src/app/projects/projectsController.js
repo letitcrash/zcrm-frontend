@@ -163,6 +163,7 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
       
       $scope.page.editNameAction = false;
       $scope.page.editDescriptionAction = false;
+      $scope.page.editDeadLineAction = false;
 
     }, function(response) {
       console.log("Project could not be updated");

@@ -268,7 +268,6 @@
                 <button type="button" class="btn btn-sm btn-white" ng-click="compressMode()" ng-if="page.mode == 2"> <i class="fa fa-compress"></i> </button>
                 <button type="button" class="btn btn-sm btn-danger" ng-click="deleteProject(currentProject)" style="margin: 5px"> <i class="fa fa-trash"></i> </button>
                 <button type="button" class="btn btn-sm btn-white" ng-click="defaultMode()"> <i class="fa fa-times"></i> </button>
-
               </div>
             </div>
              <div class="row" style="margin-top:20px;">
@@ -282,13 +281,27 @@
               <div ng-class="{'col-sm-6': page.mode == 2, 'col-sm-12': page.mode == 1}">
                 <ul class="list-group clear-list m-t-md">
                   <!--project name-->
-                  <li class="list-group-item fist-item">
+                  <li class="list-group-item fist-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                     <div class="row">
                       <div class="col-sm-4">
                         <strong>Project name</strong>
                       </div>
                       <div class="col-sm-8 text-right">
-                      Project-1
+                      <span ng-hide="page.editNameAction">
+                        {{currentProject.name}}
+                        <a ng-show="editName && !page.editNameAction" href ng-click="page.editNameAction = true"><i class="fa fa-pencil"></i> Edit </a>
+                      </span>                              
+                      <form role="form" ng-show="page.editNameAction">
+                        <div class="form-group"><input type="text" ng-model="currentProject.name" placeholder="currentProject.name" class="form-control"></div>
+                          <div>
+                            <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
+                              {{useralert}}. <a class="alert-link">check</a>.
+                            </div>
+                            <button class="btn btn-sm btn-primary" ng-click="update(currentProject)">Save</button>
+                            <button class="btn btn-sm btn-default" ng-click="page.editNameAction = false">Cancel</button>
+                          </div>
+                      </form>
                       </div>
                     </div>
                   </li>
@@ -298,12 +311,12 @@
                       <div class="col-sm-4">
                         <strong>Description</strong>
                       </div>
-                       <div class="col-sm-8">
+                       <div class="col-sm-8 text-right" style="word-wrap: break-word">
                         <span ng-hide="page.editDescriptionAction">{{currentProject.description}}</span>
                         <a  class="pull-right" ng-show="editDescription && !page.editDescriptionAction" href ng-click="page.editDescriptionAction = true"><i class="fa fa-pencil"></i> Edit </a>                    
                         <form role="form" ng-show="page.editDescriptionAction">
                           <div class="form-group">
-                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentProject.description" placeholder="currentProject.description" class="form-control"></textarea>
+                            <textarea  rows="3" style="width: 100%;border: 1px solid #E5E6E7;" type="text" ng-model="currentProject.description" placeholder="currentTicket.description" class="form-control"></textarea>
                           <div>
                             <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
                               <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
@@ -343,7 +356,28 @@
                         <strong>Client</strong>
                       </div>
                       <div class="col-sm-8 text-right">
-                      Client-1
+                        <div class="input-group" style="width:100%;" ng-show="page.editClients">
+                          <input type="text" ng-model="temp.assignedCurrentClient" placeholder="Type client name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingClients" typeahead-no-results="noResults" typeahead-on-select="clientSelected($item, $model, $label, $event)" class="form-control">
+                        </div>
+                        
+                        <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editClients">
+                            <ul style="list-style:none; margin:0; padding:0;">
+                              <li ng-repeat="client in currentProject.clients">
+                                <button type="button" ng-click="deleteClientFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                <span>{{client.user.contactProfile.firstname}} {{client.user.contactProfile.lastname}} </span>
+                              </li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editClients" ng-click="saveClients(currentProject)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editClients" ng-click="page.editClients = false">Cancel</button>
+
+                        <div class="text-right" ng-repeat="client in currentProject.clients" ng-hide="page.editClients">
+                          {{client.user.contactProfile.firstname}} {{client.user.contactProfile.lastname}}
+                        </div>
+                        <div>
+                          <a class="pull-right" ng-hide="page.editClients" href ng-click="page.editClients = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -359,16 +393,29 @@
                     </div>
                   </li>
                   <!--end date-->
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <strong>End date</strong>
+                  <li class="list-group-item" ng-mouseenter="editDeadLine = true" ng-mouseleave="editDeadLine = false">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <strong>End date</strong>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                          <span ng-hide="page.editDeadLineAction">{{currentProject.deadline | date : "MMM d, y"}}
+                          </span>
+                          <a class="pull-right" ng-show="editDeadLine && !page.editDeadLineAction" href ng-click="page.editDeadLineAction = true"><i class="fa fa-user-plus"></i> Edit </a>
+
+                        <div class="input-group" style="width:100%;" ng-show="page.editDeadLineAction">
+                          <datepicker>
+                            <input class="form-control" ng-model="currentProject.deadline" type="text"/>
+                           </datepicker>
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" ng-show="page.editDeadLineAction" ng-click="update(currentProject)">Save</button>
+                        <button class="btn btn-sm btn-default" ng-show="page.editDeadLineAction" ng-click="page.editDeadLineAction = false">Cancel</button>
+
+                        </div>
                       </div>
-                      <div class="col-sm-8 text-right">
-                        {{currentProject.deadline | date : "MMM d, y"}}
-                      </div>
-                    </div>
-                  </li>
+                    </li>
                 </ul>
               </div>
             </div>
