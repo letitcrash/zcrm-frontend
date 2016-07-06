@@ -2,6 +2,26 @@
 
 angular.module('inspinia')
   .controller('SettingsCtrl', function ($http, $scope, mailboxService, dataService) {
+  
+  //inserted
+    this.tab = 1;
+
+    this.setTab = function (tabId) {
+        this.tab = tabId;
+    };
+
+    this.isSet = function (tabId) {
+        return this.tab === tabId;
+    };
+  
+  $scope.hoverIn = function() {
+    this.hoverEdit = true;
+  };
+  
+  $scope.hoverOut = function() {
+    this.hoverEdit = false;
+  };
+  //inserted
 
     var vm = this;
     var getMailboxes;

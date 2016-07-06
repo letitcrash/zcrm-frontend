@@ -1,341 +1,118 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Project detail</h2>
+        <h2>Profile settings</h2>
         <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li class="active">
-                <strong>Project detail</strong>
-            </li>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li class="active">
+            <strong>Profile settings</strong>
+          </li>
         </ol>
     </div>
 </div>
-<div class="row"  ng-controller="SettingsCtrl">
-    <div class="col-lg-12">
-        <div class="wrapper wrapper-content">
-            <div class="row m-t-lg">
-                <div class="col-lg-12">
-                    <div class="row m-b-lg m-t-lg">
-                        <div class="col-md-6">
 
-                            <div class="profile-image">
-                                <img src="img/a4.jpg" class="circle-border m-b-md" alt="profile">
-                            </div>
-                            <div class="profile-info">
-                                    <div>
-                                        <h2 class="no-margins">
-                                            Alex Smith
-                                        </h2>
-                                        <h4>Position</h4>
-                                        <small>
-                                            There are many variations of passages of Lorem Ipsum available, but the majority
-                                            have suffered alteration in some form Ipsum available.
-                                        </small>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <table class="table small m-b-xs">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>142</strong> Projects
-                                        </td>
-                                        <td>
-                                            <strong>22</strong> Followers
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>61</strong> Comments
-                                        </td>
-                                        <td>
-                                            <strong>54</strong> Articles
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>154</strong> Tags
-                                        </td>
-                                        <td>
-                                            <strong>32</strong> Friends
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-3">
-                            <small>Sales in last 24h</small>
-                            <h2 class="no-margins">206 480</h2>
-                            <div id="sparkline1"><canvas width="247" height="50" style="display: inline-block; width: 247px; height: 50px; vertical-align: top;"></canvas></div>
-                        </div>
-
-
+<div class="row" ng-controller="SettingsCtrl as tab">
+    <div class="ibox">
+      <div class="ibox-content">
+        <div>
+          <ul class="nav nav-tabs">
+            <li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)"><i class="fa fa-briefcase"></i></a></li>
+            <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+        </div>
+    
+            <div ng-show="tab.isSet(1)">
+              <div class="tab-content panel-body contact-box center-version">
+                  <div class="client-detail" style="overflow:visible;">
+                    <div class="p-n col-lg-12" style="margin:30px 0">
+                      <img alt="image" class="img-circle img-responsive" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" style="height:80px; width:80px; margin-bottom:30px;">
+                      <h3 class="m-b-xs"><strong>Morten Aardal</strong></h3>
+                      <span class="font-bold" style="display:block;">IE Industri Energi</span>
                     </div>
-                    <div class="tabs-container">
-
-                        <uib-tabset>
-                        <uib-tab heading="Profile">
-                        <div class="panel-body">
-                           <div uib-collapse="isCollapsed">
-         
-
-
-<table class="table m-b-xs">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <strong>First name</strong> Alex Apple
-                            </td>
-                            <td>
-                                <strong>Last Name</strong> Followers
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>E-mail</strong> Comments
-                            </td>
-                            <td>
-                                <strong>54</strong> Articles
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>154</strong> Tags
-                            </td>
-                            <td>
-                                <strong>32</strong> Friends
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-         <div class="row" ng-hide="true">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">First Name</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.firstname">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">Last Name</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.lastname">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">Cell Phone</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.phoneNumberMobile">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">E-mail</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.email">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">Address</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.address">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                            <div class="form-group">
-                                <label class="form-label">Zip Code</label>
-                                <div class="controls">
-                                    <input name="textinput" type="text" class="form-control" ng-model="user.contactProfile.zipCode">
-                                </div>
-                            </div>
-                        </div>     
-                        <div class="col-md-12">
-                            <div class="control-group pull-right" ng-show="!emp.id">
-                                <button id="button1id" name="button1id" class="btn btn-danger btn-sm" ng-click="cancelAdd()">Avbryt</button>
-                                <button id="button2id" type="submit" name="button2id" class="btn btn-primary btn-sm" ng-click="create(user)">Lägg till</button>
-                            </div>
-                        </div>
+                    
+                    <div class="col-lg-6">
+                    <!--Employment information-->
+                    <ul class="list-group clear-list">
+                      <li class="list-group-item fist-item">
+                        <strong style="text-transform:uppercase;">contact information</strong>
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">Morten Aardal</span>
+                          Full navn
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">+4799431462</span>
+                          Telefon
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">moraar@rowancompanies.com</span>
+                          Epost
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">Christies gate 11 Oslo 0575</span>
+                          Adresse
+                      </li>
+                    </ul>
                     </div>
-
-          
-
-                            </div>
+                    <div class="col-lg-6">
+                    <!--Employment information-->
+                    <ul class="list-group clear-list">
+                      <li class="list-group-item fist-item">
+                        <strong style="text-transform:uppercase;">employment information</strong>
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">Rowan</span>
+                          Firma
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">Safety Supervisor</span>
+                          Stilling
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">IE Industri Energi</span>
+                          Union
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">RON</span>
+                          Innretning
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">E</span>
+                          Skift
+                      </li>
+                      <li class="list-group-item">
+                          <span class="pull-right">No</span>
+                          Individuelt avlonnet
+                      </li> 
+                      <li class="list-group-item">
+                          <span class="pull-right">Oslo Lufthavn Gardemoen'</span>
+                          Flypass
+                      </li>
+                    </ul>
+                    </div>
+                  </div> 
+              </div>
+            </div>
+            <div ng-show="tab.isSet(2)">
+              <div class="row">
+                <div class="col-lg-4">
+                  <strong>Mail settings</strong>
+                  <ul class="list-group clear-list">
+                    <li class="list-group-item fist-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                      <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
+                      <span class="pull-right" style="color:green;">moraar@rowancompanies.com<i class="fa fa-check" style="margin-left:5px;"></i></span>
+                        Inbox1
+                    </li>
+                    <li class="list-group-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                      <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
+                      <span class="pull-right" style="color:red;">test@rowancompanies.com<i class="fa fa-times" style="margin-left:5px;"></i></span>
+                        Inbox2
+                    </li>
+                </ul>
                 </div>
-            </uib-tab>
-            <uib-tab heading="Mailbox settings">
-            <div class="panel-body">
-
-                <div class="col-sm-12">
-
-
-
-
-                    <!--button class="btn btn-white btn-sm pull-right"  ng-class="{'active':!isCollapsed}" data-toggle="tooltip" data-placement="left" title="Refresh inbox" ng-click="isCollapsed = !isCollapsed" aria-pressed="true"><i class="fa fa-plus"></i> Add new mailbox</button-->
-
-                    <div uib-collapse="isCollapsed">
-
-
-
-                        <div class="row">
-                            <div class="col-sm-6 b-r">
-                             <h3>
-                                Add mailbox
-                            </h3>
-                            <p>Please fill up your mailbox settings</p>
-                            <form role="form" ng-submit="addMailbox(mailbox)">
-                                <div class="form-group"><label>Login</label> <input type="text" placeholder="Enter email" class="form-control" ng-model="mailbox.login"></div>
-                                <div class="form-group"><label>Server address</label> <input type="text" placeholder="Enter server url" class="form-control" ng-model="mailbox.server"></div>
-                                <div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control" ng-model="mailbox.password"></div>
-                                <div>
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Add</strong></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-6"><h4>Dont have one?</h4>
-                            <p>You can create a request:</p>
-                            <p class="text-center">
-                                <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <br>
-                <br>
-                <br>
-                <h3 style="display:inline;">
-                    Connected mailboxes
-                </h3>
-
-                <ul class="list-group clear-list m-t">
-                    <li class="list-group-item fist-item" ng-repeat="maimlboxe in mailboxes">
-                        <span class="label label-info">{{$index + 1}}</span>
-                         <span class="pull-right"><b>Server address</b>
-                            {{maimlboxe.server}}
-                        </span>
-                        <span><b>Union</b>
-                            {{maimlboxe.login}}
-                        </span>
-                    </li>
-                </ul>
+              </div>
             </div>
-
-        </div>
-    </uib-tab>
-
-                <uib-tab heading="Additional fieldsets">
-            <div class="panel-body">
-
-                <div class="col-sm-12">
-
-
-
-                <h3 style="display:inline;">
-                    Add additional member property fileds
-                </h3>
-
-                <ul class="list-group clear-list m-t">
-                    <li class="list-group-item fist-item" ng-repeat="maimlboxe in mailboxes">
-                        <span class="label label-info">{{$index + 1}}</span>
-                         <span class="pull-right"><b>Server address</b>
-                            {{maimlboxe.server}}
-                        </span>
-                        <span><b>login</b>
-                            {{maimlboxe.login}}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </uib-tab>
-    <uib-tab heading="Open cases">
-            <div class="panel-body">
-
-                <div class="col-sm-12">
-
-
-
-                <h3 style="display:inline;">
-                    Add additional member property fileds
-                </h3>
-
-                <ul class="list-group clear-list m-t">
-                    <li class="list-group-item fist-item" ng-repeat="maimlboxe in mailboxes">
-                        <span class="label label-info">{{$index + 1}}</span>
-                         <span class="pull-right"><b>Server address</b>
-                            {{maimlboxe.server}}
-                        </span>
-                        <span><b>login</b>
-                            {{maimlboxe.login}}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </uib-tab>
-
-</uib-tabset>
-
-</div>
-
-</div>
-</div>
-
-</div>
-</div>
-<!-- <div class="col-lg-3">
-   <div class="wrapper wrapper-content project-manager">
-        <h4>Project description</h4>
-        <img src="img/zender_logo.png" class="img-responsive">
-
-        <p class="small">
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
-            even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-        </p>
-
-        <p class="small font-bold">
-            <span><i class="fa fa-circle text-warning"></i> High priority</span>
-        </p>
-        <h5>Project tag</h5>
-        <ul class="tag-list" style="padding: 0">
-            <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
-        </ul>
-        <h5>Project files</h5>
-        <ul class="list-unstyled project-files">
-            <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
-            <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-            <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-            <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-        </ul>
-        <div class="text-center m-t-md">
-            <a href="" class="btn btn-xs btn-primary">Add files</a>
-            <a href="" class="btn btn-xs btn-primary">Report contact</a>
-
-        </div>
-    </div>>
-</div>-->
+      </div>
+    </div>
 </div>
