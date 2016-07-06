@@ -1,10 +1,12 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
+angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
   var getTickets;
 
-    $scope.selected = 1;
+  $scope.selected = 1;
 
-    
+  
+  
+
   getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
@@ -410,3 +412,54 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
 
 });
+angular.module('inspinia').filter('tktDisplay', function() {
+  return function( val, range) {
+    var filtered = [];
+    var tempN={};
+    range = parseInt(range);
+    if(val.length===1){
+      tempN={
+        sn:val[0].contactProfile.firstname+" "+val[0].contactProfile.lastname,
+        bl:true
+      }
+      filtered.push(tempN);
+      return filtered;
+    } 
+    else if(val.length<range)
+      range = val.length;
+    for (var i=0; i<range; i++){
+      tempN = {
+        sn:val[i].contactProfile.firstname[0]+val[i].contactProfile.lastname[0]+",", 
+        fn:val[i].contactProfile.firstname+" "+val[i].contactProfile.lastname
+      };
+      filtered.push(tempN);
+    }
+    filtered[range-1].sn=val[range-1].contactProfile.firstname[0]+val[range-1].contactProfile.lastname[0];
+    return filtered;
+  };
+});
+
+/*$scope.tktDisplay = function(val, range) {
+    var temp = [];
+    var tempN={};
+    range = parseInt(range);
+    if(val.length===1){
+      tempN={
+        sn:val[0].contactProfile.firstname+" "+val[0].contactProfile.lastname,
+        bl:true
+      }
+      temp.push(tempN);
+      return temp;
+    } 
+    else if(val.length<range)
+      range = val.length;
+    for (var i=0; i<range; i++){
+      tempN = {
+        sn:val[i].contactProfile.firstname[0]+val[i].contactProfile.lastname[0]+",", 
+        fn:val[i].contactProfile.firstname+" "+val[i].contactProfile.lastname
+      };
+      temp.push(tempN);
+    }
+    temp[range-1].sn=val[range-1].contactProfile.firstname[0]+val[range-1].contactProfile.lastname[0];
+    return temp;
+  };*/

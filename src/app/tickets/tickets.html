@@ -173,12 +173,14 @@
                           </td>
                           <!--ticket.clients -->
                           <td ng-hide="mode == 2">
-                            <span ng-repeat="requester in ticket.requesters">{{requester.contactProfile.firstname[0]}}{{requester.contactProfile.lastname[0]}},</span>
+                            <span ng-repeat="n in ticket.requesters | tktDisplay:3">{{n.sn}}</span>
                           </td>
                           <!--ticket.teams -->
                           <td ng-hide="mode == 2 || mode ==1">{{ticket.teams[0].name}}</td>
                           <!--ticket.agents -->
-                          <td ng-hide="mode == 2">{{ticket.members[0].contactProfile.firstname}} {{ticket.members[0].contactProfile.lastname}}</td>
+                          <td ng-hide="mode == 2">
+                            <span ng-repeat="n in ticket.members | limitTo:3">{{n.contactProfile.firstname}} {{n.contactProfile.lastname}}</span>
+                            </td>
                           <!--ticket.project -->
                           <td  ng-hide="mode == 2 || mode ==1">{{ticket.project.name}}</td>
                           <!--ticket.created -->
@@ -618,7 +620,7 @@
                       <div class="row">
                         <div class="col-sm-4">
                           <strong>Due data</strong>
-                        </div>
+                        </div>d
                         <div class="col-sm-8 text-right">
                           <span ng-hide="page.editDeadLineAction">{{currentTicket.deadline | date : "MMM d, y"}}
                           </span>
