@@ -1,11 +1,8 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
+angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
   var getTickets;
 
   $scope.selected = 1;
-
-  
-  
 
   getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
@@ -20,7 +17,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $r
       console.log(response);
     });
   };
-
+  $scope.text = $sce.trustAsHtml('<div>Some text</div>');
   $scope.getTeams = function(searchTerm) {
     return teamService.getList(searchTerm).then(function(response) {
       return response.map(function(item) {
@@ -368,6 +365,14 @@ angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $r
   $scope.currentFilters.union = false;
   }
 
+  $scope.check = function(arr,val){
+    if(arr.indexOf(val)===($scope.displayRange-1) || arr.indexOf(val)===(arr.length-1)){
+      return true;
+    }
+    else
+      return false;
+  }
+
   $scope.init = function() {
     console.log("Running init in ticket Controller");
     //$scope.activeMail = false;
@@ -379,6 +384,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $r
     
     $scope.isCollapsed = false;
     $scope.showTicket = false;
+    $scope.mode = 0;
     $scope.page = {};
 
     $scope.currentTicket = {};
@@ -390,7 +396,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $r
 
     
     $scope.temp = {};
-    
+    $scope.displayRange = 3;
 
     getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.statusAvailableOptions =  [
@@ -407,12 +413,11 @@ angular.module('inspinia').controller("TicketsCtrl", function($filter,$scope, $r
     ];
 
   };
-  
   $scope.init();
-
-
+  
 });
-angular.module('inspinia').filter('tktDisplay', function() {
+
+/*angular.module('inspinia').filter('tktDisplay', function() {
   return function( val, range) {
     var filtered = [];
     var tempN={};
@@ -439,7 +444,8 @@ angular.module('inspinia').filter('tktDisplay', function() {
   };
 });
 
-/*$scope.tktDisplay = function(val, range) {
+
+$scope.tktDisplay = function(val, range) {
     var temp = [];
     var tempN={};
     range = parseInt(range);
