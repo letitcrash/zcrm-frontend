@@ -279,6 +279,10 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
         $scope.page.mode = 1;
       }
       $scope.currentEmp = angular.copy(emp);
+      if($scope.currentEmp.user.contactProfile.phoneNumberHome)
+        $scope.page.editPNHome = true;
+      if($scope.currentEmp.user.contactProfile.phoneNumberWork)
+        $scope.page.editPNHome = true;
   }
 
 
@@ -287,6 +291,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       $scope.currentEmp = {};
       $scope.currentEmp.id = null;
       $scope.userFormStep = 1;
+      $scope.page.editPNHome = false;
+      $scope.page.editPNWork = false;
   };
 
 
@@ -350,6 +356,22 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
     }
   });
+  $scope.deletePNHome = function(){
+    if($scope.currentEmp.id!=null)
+    $scope.currentEmp.user.contactProfile.phoneNumberHome = undefined;
+    $scope.page.editPNHome = false;
+  }
+  $scope.deletePNWork = function(){
+    if($scope.currentEmp.id!=null)
+    $scope.currentEmp.user.contactProfile.phoneNumberWork = undefined;
+    $scope.page.editPNWork = false;
+  }
+  $scope.addTelAction = function(){
+    if(!$scope.page.editPNWork)
+      $scope.page.editPNWork=true;
+    else if(!$scope.page.editPNHome)
+      $scope.page.editPNHome=true;
+  }
 
 
   $scope.timeConverter = function(UNIX_timestamp){

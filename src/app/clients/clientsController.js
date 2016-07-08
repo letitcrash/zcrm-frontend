@@ -74,6 +74,26 @@ angular.module('inspinia').controller("ClientsCtrl", function($scope, $http,
 
   };
 
+  $scope.deleteClient = function(client) {
+    var cli = $scope.clients.filter(function( obj ) {
+        return obj.id == $scope.currentClient.id;
+      });
+    var index = $scope.clients.indexOf(cli[0]);
+    console.log(client);    
+    clientService.delete(client).then(function(response) {
+      console.log("deleted");
+      
+      if (index >= 0) {
+        $scope.clients.splice(index, 1);
+        console.log("doing splice");
+      }
+      $scope.defaultMode();
+      $scope.currentClient={};
+    }, function(response) {
+      console.log("not deleted");
+    });
+  };
+
   $scope.save = function(client) {
     console.log(client)
     if ((client.id != null)) {

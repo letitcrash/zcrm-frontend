@@ -507,11 +507,11 @@
                   <!--created by-->
                   <li class="list-group-item" ng-mouseenter="editName = true" ng-mouseleave="editName = false">
                     <div class="row">
-                      <div class="col-sm-4" ng-class="{'col-sm-12' : editNameAction}">
+                      <div class="col-sm-4" ng-class="{'col-sm-12'}">
                         <strong>Created by</strong>
                       </div>
                       <div class="col-sm-8 text-right">
-                        <span ng-hide="editNameAction">{{currentTicket.createdByUser.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
+                        <span >{{currentTicket.createdByUser.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</span>
 
                       </div>
                     </div>
@@ -611,13 +611,6 @@
                           <button class="btn btn-sm btn-primary" ng-show="page.editProjectAction" ng-click="saveProject(currentTicket)">Save</button>
                           <button class="btn btn-sm btn-default" ng-show="page.editProjectAction" ng-click="page.editProjectAction = false">Cancel</button>
                         </div>
-
-
-                       
-                        
-                        
-
-                        
                       </div>
                     </li>
                     <!--date-->
@@ -645,7 +638,7 @@
 
                         <div class="input-group" style="width:100%;" ng-show="page.editDeadLineAction">
                           <datepicker>
-                            <input class="form-control" ng-model="currentTicket.deadline" type="text"/>
+                            <input class="form-control" ng-model="currentTicket.deadline"  type="text"/>
                            </datepicker>
                           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
