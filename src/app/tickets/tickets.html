@@ -31,7 +31,12 @@
           <button ng-click="createTicketAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
             <i class="fa fa-user-plus"></i> {{ 'Create ticket' | translate }}
           </button>
+          <span uib-tooltip="{{ tickets[0].requesters[0].contactProfile.firstname +' '+ tickets[0].requesters[0].contactProfile.lastname }}">{{ tickets[0].requesters[0].contactProfile.firstname +" "+ tickets[0].requesters[0].contactProfile.lastname }}</span>
 
+
+          <span ng-repeat="ticket in tickets | limitTo:displayRange" uib-tooltip="{{ ticket.id+' '+ ticket.id}}">
+            {{ticket.id}}
+          </span>
           <h2>{{ 'Tickets' | translate }}</h2>
           
           <!--FILTERS start-->
@@ -172,13 +177,14 @@
                             <a href ng-click="openTicket(ticket)">                           {{ticket.subject | uppercase}}</a>
                           </td>
                           <!--ticket.clients -->
-                          <td ng-hide="mode == 2">
 
-                             <span ng-repeat="requester in ticket.requesters" ng-if="ticket.requesters.length < 2 && mode===0">
+                          <td ng-hide="mode == 2">
+                            <span ng-repeat="requester in ticket.requesters" ng-if="ticket.requesters.length < 2 && mode===0">
                               {{ requester.contactProfile.firstname +" "+ requester.contactProfile.lastname }}
                               <label ng-hide="ticket.requesters.indexOf(requester)===0">,</label>
                             </span>
-                            <span ng-repeat="requester in ticket.requesters | limitTo:displayRange" ng-if="ticket.requesters.length >= 2 || mode===1" uib-tooltip="'{{ requester.contactProfile.firstname +" "+ requester.contactProfile.lastname }}'">
+                            <span ng-repeat="requester in ticket.requesters | limitTo:displayRange" ng-if="ticket.requesters.length >= 2 || mode===1" data-toggle = "tooltip" title="{{ requester.contactProfile.firstname +' '+ requester.contactProfile.lastname }}">
+
                               {{ requester.contactProfile.firstname[0] + requester.contactProfile.lastname[0] }}
                               <label ng-hide="check(ticket.requesters,requester)">,</label>
                             </span>
@@ -191,7 +197,7 @@
                               {{ member.contactProfile.firstname +" "+ member.contactProfile.lastname }}
                               <label ng-hide="ticket.members.indexOf(member)===0">,</label>
                             </span>
-                            <span ng-repeat="member in ticket.members | limitTo:displayRange" ng-if="ticket.members.length >= 2 || mode===1" uib-tooltip="{{ member.contactProfile.firstname +" "+ member.contactProfile.lastname }}">
+                            <span ng-repeat="member in ticket.members | limitTo:displayRange" ng-if="ticket.members.length >= 2 || mode===1" data-toggle = "tooltip" title="{{member.contactProfile.firstname +' '+ member.contactProfile.lastname }}">
                               {{ member.contactProfile.firstname[0] + member.contactProfile.lastname[0] }}
                               <label ng-hide="check(ticket.members,member)">,</label>
                             </td>

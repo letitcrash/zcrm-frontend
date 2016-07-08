@@ -4,6 +4,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scop
 
   $scope.selected = 1;
 
+  
+
   getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
@@ -416,6 +418,20 @@ angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scop
   $scope.init();
   
 });
+angular.module('inspinia').directive('bstooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                $(element).tooltip('show');
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+  });
 
 /*angular.module('inspinia').filter('tktDisplay', function() {
   return function( val, range) {
