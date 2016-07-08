@@ -31,12 +31,7 @@
           <button ng-click="createTicketAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
             <i class="fa fa-user-plus"></i> {{ 'Create ticket' | translate }}
           </button>
-          <span uib-tooltip="{{ tickets[0].requesters[0].contactProfile.firstname +' '+ tickets[0].requesters[0].contactProfile.lastname }}">{{ tickets[0].requesters[0].contactProfile.firstname +" "+ tickets[0].requesters[0].contactProfile.lastname }}</span>
 
-
-          <span ng-repeat="ticket in tickets | limitTo:displayRange" uib-tooltip="{{ ticket.id+' '+ ticket.id}}">
-            {{ticket.id}}
-          </span>
           <h2>{{ 'Tickets' | translate }}</h2>
           
           <!--FILTERS start-->
