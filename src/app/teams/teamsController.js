@@ -175,6 +175,27 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
     });
   };
 
+  $scope.deleteTeam = function(team) {
+    var proj = $scope.teams.filter(function( obj ) {
+        return obj.id == $scope.currentTeam.id;
+      });
+    var index = $scope.teams.indexOf(proj[0]);
+    console.log(team);    
+    teamService.delete(team).then(function(response) {
+      console.log("deleted");
+      
+      if (index >= 0) {
+        $scope.teams.splice(index, 1);
+        console.log("doing splice");
+      }
+      $scope.defaultMode();
+      $scope.currentProject={};
+    }, function(response) {
+      console.log("not deleted");
+    });
+  };
+
+
   $scope.changePage = function() {
     return $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
   };
