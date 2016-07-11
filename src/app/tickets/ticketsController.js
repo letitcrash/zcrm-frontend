@@ -1,16 +1,17 @@
 'use strict';
-angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
+angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scope, $rootScope, $location, $state,$window, ticketService, employeeService, dataService, teamService, projectService) {
   var getTickets;
 
-    $scope.selected = 1;
+  $scope.selected = 1;
 
-    
-  getTickets = function(force, pageSize, pageNr, searchTerm) {
+  
+
+  getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
    ticketService.getList(force, pageSize, pageNr, searchTerm).then(function(response) {
       console.log("got tickets");
       console.log(response);
       $scope.showLoadingMessage = false;
-      $scope.tickets = response.data;
+      $scope.tickets = response;
       $scope.totalItems = response.totalSize;
     }, function(response) {
       console.log("Could not get tickets");
@@ -18,7 +19,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       console.log(response);
     });
   };
-
+  $scope.text = $sce.trustAsHtml('<div>Some text</div>');
   $scope.getTeams = function(searchTerm) {
     return teamService.getList(searchTerm).then(function(response) {
       return response.map(function(item) {
@@ -52,7 +53,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
         return item;
       });
       }, function(response) {
-      console.log("Could not get employees");
+      console.log("Could not get projects");
       console.log(response);
       return [];
     });
@@ -64,7 +65,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
         return item;
       });
       }, function(response) {
-      console.log("Could not get employees");
+      console.log("Could not get clients");
       console.log(response);
       return [];
     });
@@ -81,6 +82,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     console.log(item);
     $scope.currentTicket.requesters.push(item.user);
     $scope.temp.assignedCurrentClient = undefined;
+    console.log($scope.currentTicket);
 
   }
 
@@ -122,6 +124,13 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     }
   };
 
+  $scope.deleteClientFromFilter = function (emp) {
+    var index = $scope.currentTicket.requesters.indexOf(emp);
+    if (index > -1) {
+      $scope.currentTicket.requesters.splice(index, 1);
+    }
+  };
+
   $scope.deleteTeamFromFilter = function (team) {
     var index = $scope.currentTicket.teams.indexOf(team);
     if (index > -1) {
@@ -142,8 +151,8 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       }
 
     }, function(response) {
-      console.log("Could not get tickets");
-      $scope.page.error = "Could not get tickets";
+      console.log("Could not get scope");
+      $scope.page.error = "Could not get ticket";
       console.log(response);
     });
     //$window.location.href = '/#/index/tickets/' + tkt.id;
@@ -163,42 +172,42 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
 
   $scope.saveMembers = function (ticket) {
     ticketService.addMembersToTicket(ticket).then(function(response) {
-      console.log("Tkt members list succesfully");
+      console.log("Tkt members list updated succesfully");
       console.log(response);    
       ticket.members = response;
       $scope.page.editParticipants = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket members list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
   $scope.saveClients = function (ticket) {
     ticketService.addClientsToTicket(ticket).then(function(response) {
-      console.log("Tkt members list succesfully");
+      console.log("Tkt clients list updated succesfully");
       console.log(response);    
       ticket.requesters = response;
       $scope.page.editClients = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket clients list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
 
   $scope.saveTeams = function (ticket) {
     ticketService.addTeamsToTicket(ticket).then(function(response) {
-      console.log("Tkt teams list succesfully");
+      console.log("Tkt teams list updated succesfully");
       console.log(response);    
       ticket.teams = response;
       $scope.page.editTeams = false;
     }, function(response) {
-      console.log("Ticket emp list could not be updated");
+      console.log("Ticket teams list could not be updated");
     //  $scope.page.error = "Ticket could not be created";
     });
   }
 
   $scope.saveProject = function (ticket) {
     ticketService.setProjectToTicket(ticket).then(function(response) {
-      console.log("Tkt teams list succesfully");
+      console.log("Tkt project updated succesfully");
       console.log(response);    
       ticket.project = response;
       $scope.page.editProjectAction = false;
@@ -213,6 +222,9 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
     $scope.currentTicket.teams = [];
+    $scope.currentTicket.clients = [];
+    $scope.currentTicket.requesters = [];
+    $scope.currentTicket.project = {};
     $scope.currentTicket.id = null;
     
     $scope.currentTicket.status = {
@@ -304,6 +316,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       });
       ticket[0].subject = response.subject;
       ticket[0].description = response.description;
+      ticket[0].deadline = response.deadline;
       console.log(ticket[0]);
 
 
@@ -312,6 +325,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
       
       $scope.page.editSubjectAction = false;
       $scope.page.editDescriptionAction = false;
+      $scope.page.editDeadLineAction = false;
 
     }, function(response) {
       console.log("Project could not be updated");
@@ -338,6 +352,29 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     });
   };
 
+  $scope.searchTickets = function() {
+    var DELAY_AMOUNT, DELAY_KEY;
+    $scope.pageNr = 1;
+    console.log("Search with searchTerm:" + $scope.searchTerm);
+    DELAY_AMOUNT = 500;
+    DELAY_KEY = "searchTicketDelay";
+    generalUtils.delayFunction(DELAY_KEY, DELAY_AMOUNT).then(function() {
+      getTickets(true, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+    });
+  };
+  $scope.filterClear = function() {
+  console.log("filterClear");
+  $scope.currentFilters.union = false;
+  }
+
+  $scope.check = function(arr,val){
+    if(arr.indexOf(val)===($scope.displayRange-1) || arr.indexOf(val)===(arr.length-1)){
+      return true;
+    }
+    else
+      return false;
+  }
+
   $scope.init = function() {
     console.log("Running init in ticket Controller");
     //$scope.activeMail = false;
@@ -346,15 +383,24 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     $scope.newPeriods = [];
-    getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    $scope.isCollapsed = true;
+    
+    $scope.isCollapsed = false;
     $scope.showTicket = false;
+    $scope.mode = 0;
     $scope.page = {};
+
     $scope.currentTicket = {};
     $scope.currentTicket.members = [];
-    $scope.isCollapsed = false;
-    $scope.temp = {};
+    $scope.currentTicket.requesters = [];
+    $scope.currentTicket.teams = [];
+    $scope.currentTicket.clients = [];
+    $scope.currentTicket.project = {};
+
     
+    $scope.temp = {};
+    $scope.displayRange = 3;
+
+    getTickets(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     $scope.statusAvailableOptions =  [
         {id: '1', name: 'New'},
         {id: '2', name: 'Open'},
@@ -369,8 +415,73 @@ angular.module('inspinia').controller("TicketsCtrl", function($scope, $rootScope
     ];
 
   };
-  
   $scope.init();
-
-
+  
 });
+angular.module('inspinia').directive('bstooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                $(element).tooltip('show');
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+  });
+
+/*angular.module('inspinia').filter('tktDisplay', function() {
+  return function( val, range) {
+    var filtered = [];
+    var tempN={};
+    range = parseInt(range);
+    if(val.length===1){
+      tempN={
+        sn:val[0].contactProfile.firstname+" "+val[0].contactProfile.lastname,
+        bl:true
+      }
+      filtered.push(tempN);
+      return filtered;
+    } 
+    else if(val.length<range)
+      range = val.length;
+    for (var i=0; i<range; i++){
+      tempN = {
+        sn:val[i].contactProfile.firstname[0]+val[i].contactProfile.lastname[0]+",", 
+        fn:val[i].contactProfile.firstname+" "+val[i].contactProfile.lastname
+      };
+      filtered.push(tempN);
+    }
+    filtered[range-1].sn=val[range-1].contactProfile.firstname[0]+val[range-1].contactProfile.lastname[0];
+    return filtered;
+  };
+});
+
+
+$scope.tktDisplay = function(val, range) {
+    var temp = [];
+    var tempN={};
+    range = parseInt(range);
+    if(val.length===1){
+      tempN={
+        sn:val[0].contactProfile.firstname+" "+val[0].contactProfile.lastname,
+        bl:true
+      }
+      temp.push(tempN);
+      return temp;
+    } 
+    else if(val.length<range)
+      range = val.length;
+    for (var i=0; i<range; i++){
+      tempN = {
+        sn:val[i].contactProfile.firstname[0]+val[i].contactProfile.lastname[0]+",", 
+        fn:val[i].contactProfile.firstname+" "+val[i].contactProfile.lastname
+      };
+      temp.push(tempN);
+    }
+    temp[range-1].sn=val[range-1].contactProfile.firstname[0]+val[range-1].contactProfile.lastname[0];
+    return temp;
+  };*/

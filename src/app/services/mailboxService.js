@@ -1,9 +1,11 @@
 'use strict';
 angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
+  var mailboxes = [];
+
   return {
-    getInbox: function(force, pageSize, pageNr, searchTerm, mailboxId) {
+    getInbox: function(mailboxId, force, pageSize, pageNr, searchTerm) {
       var url;
-        url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/mails";
+        url = "users/" + dataService.getUserId() + "/mailboxes/" + mailboxId + "/mails";
       if (pageSize && pageNr) {
         if (searchTerm) {
           url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;
@@ -54,6 +56,12 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
       mb.userId = dataService.getEmployments().id;
       url = "users/" + dataService.getEmployments().id + "/mailboxes";
       return requestService.ttPost(url, mb);
+    },
+    getList: function() { return mailboxes; },
+    setList: function(updated) {
+      if (typeof updated.slice === 'function') {
+        mailboxes = updated.slice();
+      }
     }
   };
 });

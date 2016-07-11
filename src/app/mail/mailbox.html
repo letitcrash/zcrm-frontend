@@ -1,305 +1,125 @@
-  <div class="row">
-	
-	<!-- Inbox block -->
+<div class="row" ng-controller="MailboxCtrl">
+  <!-- Inbox block -->
+  <div class="float-e-margins">
+    <!-- Inbox header -->
+    <div class="mail-box-header border-bottom">
+      <h2>{{ 'Mailbox' | translate }}</h2>
 
-	  <div class="float-e-margins">
-		
-		<!-- Inbox header -->
-		
-		<div class="mail-box-header border-bottom">
-		  <h2>{{ 'Mailbox' | translate }}</h2>
-		  
-		  <!-- Search -->
-		  
-		  <div class="input-group col-md-9 m-b-sm">
-			<input type="text" placeholder="Search email by user, text or ticket" class="input form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="searchTerm" ng-change="searchEmails()" aria-invalid="false" style="" />
-			<span class="input-group-btn">
-			  <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
-			  
-			</span>
-			
-		  </div>
-		</div>
-		
-		<div class="mail-box col-md-12" style="padding: 0">
-		  
-		  <!-- Folder list -->
-		  
-		  <div class="col-md-3 ibox-content">
-			<div class="file-manager folders">
-			  <button class="btn btn-primary btn-block" accept="*/*" ngf-max-size="55MB">{{ 'New Email' | translate}}</button>
-			  <div ng-controller="Collapse" class="ng-scope">
-				<h5 class="ng-binding"><i class="fa fa-folder"></i> {{ 'Folders' | translate }}</h5>
-				<ul>
-				  <li><i class="fa fa-inbox"></i> {{ 'Inbox' | translate }}</li>
-				  <li><i class="fa fa-mail-forward"></i> {{ 'Send' | translate }}</li>
-				  <li><i class="fa fa-exclamation-circle"></i> {{ 'Important' | translate }}</li>
-				  <li><i class="fa fa-edit"></i> {{ 'Drafts' | translate }}</li>
-				  <li><i class="fa fa-trash"></i> {{ 'Trash' | translate }}</li>
-				</ul>
-			  </div>
-			  <div ng-controller="Collapse" class="ng-scope">
-				<h5 class="ng-binding" ng-click="isCollapsed = !isCollapsed">
-				  <i class="fa fa-check"></i> {{ 'Tickets' | translate }}</h5>
-				<ul uib-collapse="isCollapsed">
-				  <li>Ticket #1</li>
-				  <li>Ticket Two</li>
-				  <li>Ticket three</li>
-				  <li>Ticket 4</li>
-				</ul>
-			  </div>
-			</div>
-		  </div>
-		  
-		  		  
-		  <!-- Email Feed -->
-		  
-		  <div class="border-left col-md-9" style="padding: 0">
+      <!-- Search -->
 
-			<!-- Feed Header -->
-			
-			<div class="ibox-content border-bottom">
-			  <h2>
-				{{ 'Inbox' | translate }}
-			  </h2>
-			  <small>2 New Emails</small>
-			</div>
-			
-			<!-- Feed -->
-			
-			<div>
-			
-			<!-- Mail one -->
-			
-			<div class="social-feed-separated">
-			  
-			  <div class="social-avatar">
-				<a href="">
-				  <img alt="image" src="img/a2.jpg">
-				  </a>
-				</div>
-				
-				<div class="social-feed-box gray">
-				  
-				  <div class="pull-right social-action dropdown">
-					<button class="btn-white">
-					  <i class="fa fa-eye"></i>
-					</button>
-					<button class="btn-white">
-					  <i class="fa fa-star-o"></i>
-					</button>
-					<button data-toggle="dropdown" class="dropdown-toggle btn-white">
-					  <i class="fa fa-angle-down"></i>
-					</button>
-					<ul class="dropdown-menu m-t-xs">
-					  <li><a href="#">Config</a></li>
-					</ul>
-				  </div>
-				  <div class="social-avatar">
-					<a href="#">
-					  Andrew Williams
-					</a>
-					<small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-				  </div>
-				  <div class="social-body border-bottom">
-					<h4>
-					  <div class="btn-group pull-right">
-						<button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-						<button class="btn btn-white btn-xs"><a href>Important</a></button>
-					  </div>
-					  <p>Text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-					</h4>
-				  </div>
-				  
-				</div>
-				
-			  </div>
-			  
-			  <!-- Mail two -->
-			  
-			  <div class="social-feed-separated from">
-				
-				<div class="social-avatar">
-				  <a href="">
-					<img alt="image" src="img/a2.jpg">
-					</a>
-				  </div>
-				  
-				  <div class="social-feed-box gray">
-					
-					<div class="pull-right social-action dropdown">
-					  <button class="btn-white">
-						<i class="fa fa-eye"></i>
-					  </button>
-					  <button class="btn-white">
-						<i class="fa fa-star-o"></i>
-					  </button>
-					  <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-						<i class="fa fa-angle-down"></i>
-					  </button>
-					  <ul class="dropdown-menu m-t-xs">
-						<li><a href="#">Config</a></li>
-					  </ul>
-					</div>
-					<div class="social-avatar">
-					  <a href="#">
-						Andrew Williams
-					  </a>
-					  <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-					</div>
-					<div class="social-body border-bottom">
-					  <h4>
-						<div class="btn-group pull-right">
-						  <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-						  <button class="btn btn-white btn-xs"><a href>Important</a></button>
-						</div>
-						<p>Text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-					  </h4>
-					</div>
-					
-				  </div>
-				  
-				</div>
-			  
-			<!-- Mail expand -->
-			  
-			  <div class="social-feed-separated">
-				
-				<div class="social-avatar">
-				  <a href="">
-					<img alt="image" src="img/a2.jpg">
-					</a>
-				  </div>
-				  
-				  <div class="social-feed-box expand">
-					
-					<div class="pull-right social-action dropdown">
-					  <button class="btn-white">
-						<i class="fa fa-eye"></i>
-					  </button>
-					  <button class="btn-white">
-						<i class="fa fa-star-o"></i>
-					  </button>
-					  <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-						<i class="fa fa-angle-down"></i>
-					  </button>
-					  <ul class="dropdown-menu m-t-xs">
-						<li><a href="#">Config</a></li>
-					  </ul>
-					</div>
-					<div class="social-avatar">
-					  <a href="#">
-						Andrew Williams
-					  </a>
-					  <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-					</div>
-					<div class="social-body border-bottom">
-					  <h4 ng-click="isCollapsed = !isCollapsed">
-						<div class="btn-group pull-right">
-						  <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-						</div>
-						<p>Text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-					  </h4>
-					</div>
-					
-					<!-- Mail content -->
-					
-					<div uib-collapse="isCollapsed">
-					
-					<div class="social-body">
-					  <p>Hello Jonathan!</p>
-					  
-					  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-					  
-					  <p>It was popularised in the 1960s with the release Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-					  
-					  <p>There are many variations of passages of Lorem IpsumLorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of.</p>
-					  
-					  <p><b>Best regards, Anthony Smith</b></p>
-					  
-					  <!-- Mail attachment -->
-					  
-					  <hr />
-					  
-					  <div class="m-t-lg border-top">
-						<p>
-						  <span><i class="fa fa-paperclip"></i> 2 attachments - </span>
-						  <a href="#">Download all</a>
-						  |
-						  <a href="#">View all images</a>
-						</p>
-						
-						<div class="attachment">
-						  <div class="file-box">
-							<div class="file">
-							  <a href="#">
-								<span class="corner"></span>
-								
-								<div class="icon">
-								  <i class="fa fa-file"></i>
-								</div>
-								<div class="file-name">
-								  Document_2014.doc
-								  <br>
-									<small>Added: Jan 11, 2014</small>
-								  </br>
-								</div>
-							  </a>
-							</div>
-							
-						  </div>
-						  <div class="file-box">
-							<div class="file">
-							  <a href="#">
-								<span class="corner"></span>
-								
-								<div class="icon">
-								  <i class="fa fa-line-chart"></i>
-								</div>
-								<div class="file-name">
-								  Seels_2015.xls
-								  <br>
-									<small>Added: May 13, 2015</small>
-								  </br>
-								</div>
-							  </a>
-							</div>
-							
-						  </div>
-						  <div class="clearfix"></div>
-						</div>
-					  </div>
-					</div>
-					
-					<!--Respond-->
-					
-					<div class="social-footer">
-					  
-					  <div class="social-comment">
-						<a href="" class="pull-left">
-						  <img alt="image" src="img/a4.jpg" />
-						</a>
-						<div class="media-body">
-						  <textarea class="form-control" placeholder="Write comment..."></textarea>
-						</div>
-					  </div>
-					  
-					</div>
-					
-					</div>
-					
-				  </div>
-				  
-				</div>
-			  
-			</div>
-				
-		  </div>
-		</div>
-		
-	  </div>
-	  
-	</div>
-	
-	
+      <div class="input-group col-md-9 m-b-sm">
+        <input type="text" placeholder="Search email by user, text or ticket" class="input form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="searchTerm" ng-change="searchEmails()" aria-invalid="false" style="" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
+
+        </span>
+
+      </div>
+    </div>
+    <div class="mail-box col-md-12" style="padding: 0">
+      <!-- Folder list -->
+      <div class="col-md-3 ibox-content">
+        <div class="file-manager folders">
+          <button class="btn btn-primary btn-block" accept="*/*" ngf-max-size="55MB">{{ 'New Email' | translate}}</button>
+          <div ng-controller="Collapse" class="ng-scope">
+            <h5 class="ng-binding"><i class="fa fa-folder"></i> {{ 'Folders' | translate }}</h5>
+            <ul>
+              <li><i class="fa fa-inbox"></i> {{ 'Inbox' | translate }}</li>
+              <li><i class="fa fa-mail-forward"></i> {{ 'Send' | translate }}</li>
+              <li><i class="fa fa-exclamation-circle"></i> {{ 'Important' | translate }}</li>
+              <li><i class="fa fa-edit"></i> {{ 'Drafts' | translate }}</li>
+              <li><i class="fa fa-trash"></i> {{ 'Trash' | translate }}</li>
+            </ul>
+          </div>
+          <div ng-controller="Collapse" class="ng-scope">
+            <h5 class="ng-binding" ng-click="isCollapsed = !isCollapsed">
+              <i class="fa fa-check"></i> {{ 'Tickets' | translate }}</h5>
+            <ul uib-collapse="isCollapsed">
+              <li>Ticket #1</li>
+              <li>Ticket Two</li>
+              <li>Ticket three</li>
+              <li>Ticket 4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Email Feed -->
+      <div class="border-left col-md-9" style="padding: 0">
+        <!-- Feed Header -->
+        <div class="ibox-content border-bottom">
+          <h2>
+            {{ 'Inbox' | translate }}
+          </h2>
+          <small>2 New Emails</small>
+        </div>
+        <!-- Feed -->
+        <div>
+          <!-- Conversations -->
+          <div ng-repeat="conv in inbox">
+            <!-- Mails -->
+            <div ng-class="{'social-feed-separated': conv.mails.length === 1}" ng-repeat="mail in conv.mails">
+              <div class="social-avatar">
+                <a href="">
+                  <img alt="image" src="img/a2.jpg">
+                </a>
+              </div>
+              <div class="social-feed-box expand">
+                <div class="pull-right social-action dropdown">
+                  <button class="btn-white">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button class="btn-white">
+                    <i class="fa fa-star-o"></i>
+                  </button>
+                  <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu m-t-xs">
+                    <li><a href="#">Config</a></li>
+                  </ul>
+                </div>
+                <div class="social-avatar">
+                  <a href="#">{{ ::mail.sender }}</a>
+                  <small class="text-muted">{{ ::mail.received | date:'medium' }}</small>
+                </div>
+                <div class="social-body border-bottom">
+                  <h4 ng-click="isCollapsed = !isCollapsed">
+                    <div class="btn-group pull-right">
+                      <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+                      <button class="btn btn-white btn-xs"><a href>Important</a></button>
+                    </div>
+                    <p>{{ ::mail.subject }}</p>
+                  </h4>
+                </div>
+                <div uib-collapse="isCollapsed">
+                  <!-- Mail body -->
+                  <div class="social-body">
+                    <div ng-bind-html="mail.body"></div>
+                    <!-- Mail attachment -->
+                    <hr />
+                    <div class="m-t-lg border-top">
+                      <p>
+                        <span><i class="fa fa-paperclip"></i>{{ ::mail.attachments }}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- Mail footer -->
+                  <div class="social-footer">
+                    <div class="social-comment">
+                      <a href="" class="pull-left">
+                        <img alt="image" src="img/a4.jpg" />
+                      </a>
+                      <div class="media-body">
+                        <textarea class="form-control" placeholder="Write comment..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>

@@ -271,7 +271,8 @@
 
 
                       <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-                      <a><i class="fa fa-plus"></i> Add another telefon </a>
+                      <input type="text" ng-show = "addTelAction" ng-model="currentEmp.user.contactProfile.phoneNumberWork" class="form-control m-b-sm">
+                      <ang ng-click = "addTelAction=true"><i class="fa fa-plus" ng-hide="addTelAction"></i> Add another telefon </a>
 
                     </div>
                   </div>
