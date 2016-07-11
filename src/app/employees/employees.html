@@ -524,13 +524,12 @@
 
 
                 <button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentEmp)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
-          
-
             </div>
             <div class="tab-content panel-body contact-box center-version" style="border-top: none">
             <a class="p-n" ng-class="{'col-sm-12' : page.mode == 1, 'col-sm-6' : page.mode == 2}">
 
               <div class="col-sm-12">
+
                 <img alt="image" class="img-circle" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg">
 
                 <h3 class="m-b-xs"><strong>{{currentEmp.user.contactProfile.firstname}} {{currentEmp.user.contactProfile.lastname}}</strong></h3>
@@ -545,7 +544,17 @@
               </div>
 
               <div class="col-xl-6 col-sm-12 m-t-lg hidden-xl">
-                Active <br>
+
+                <div class="btn-group" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm" ng-class="{'btn-success': currentEmp.status == 1, 'btn-danger': currentEmp.status == 2}" uib-dropdown-toggle>
+                      <span ng-if="currentEmp.status == 1">Active</span>
+                      <span ng-if="currentEmp.status == 2">Inactive</span>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav" >
+                        <li ng-repeat="status in statusAvailableOptions" role="menuitem"><a ng-click="setCurrentEmpStatus(status)">{{status.name}}</a></li>
+                    </ul>
+                </div> <br>
                 Union <br>
                 Status<br>
               </div>

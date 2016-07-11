@@ -121,6 +121,13 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + id + "/shifts/" + uid;
       return requestService.ttPut(url);
     },
+    setStatus: function(status, emp) {
+      var args = {};
+      args.status = Number(status.id);
+      args.id = Number(emp.id);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + emp.id + "/status";
+      return requestService.ttPut(url,args);
+    },
 
     "delete": function(id) {
       var url;

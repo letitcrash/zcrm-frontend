@@ -389,6 +389,20 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       return $scope.tab === tabNum;
   };
 
+  $scope.setCurrentEmpStatus = function(status) {
+    employeeService.setStatus(status, $scope.currentEmp).then(function(response) {
+      console.log("Tkt status set succesfully");
+      var empl = $scope.employees.filter(function( obj ) {
+        return obj.id == $scope.currentEmp.id;
+      });
+      empl[0].status = response.status;
+
+      $scope.currentTicket.status = response.status;
+    }, function(response) {
+      console.log("Emp status set failed");
+    });
+  };
+
     
   $scope.init = function() {
     console.log("Running init in employeesController");
@@ -415,6 +429,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     $scope.filter.shifts = {};
     $scope.temp = {};
     getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
+
+    $scope.statusAvailableOptions =  [
+        {id: '1', name: 'Active'},
+        {id: '2', name: 'Inactive'},
+      ];
 
     //TODO: Query is slow
     companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
