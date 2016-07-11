@@ -1,125 +1,140 @@
 <div class="row" ng-controller="MailboxCtrl">
-  <!-- Inbox block -->
-  <div class="float-e-margins">
-    <!-- Inbox header -->
-    <div class="mail-box-header border-bottom">
-      <h2>{{ 'Mailbox' | translate }}</h2>
-
-      <!-- Search -->
-
-      <div class="input-group col-md-9 m-b-sm">
-        <input type="text" placeholder="Search email by user, text or ticket" class="input form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="searchTerm" ng-change="searchEmails()" aria-invalid="false" style="" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
-
-        </span>
-
-      </div>
+  <!-- Mailbox header -->
+  <div class="mailbox-header clearfix">
+    <h2 class="col-md-4">
+      <i class="fa fa-inbox" aria-hidden="true"></i>
+      {{ 'Inbox' | translate }}
+    </h2>
+    <!-- Search -->
+    <div class="mailbox-search input-group col-md-8 m-b-sm">
+      <input type="text" placeholder="Search email by user, text or ticket" class="input form-control"
+      ng-model="searchTerm" ng-change="searchEmails()" aria-invalid="false" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn btn-default"><i class="fa fa-close"></i></button>
+        <button class="btn btn-primary" accept="*/*" ngf-max-size="55MB">{{ 'New Email' | translate}}</button>
+      </span>
     </div>
-    <div class="mail-box col-md-12" style="padding: 0">
-      <!-- Folder list -->
-      <div class="col-md-3 ibox-content">
-        <div class="file-manager folders">
-          <button class="btn btn-primary btn-block" accept="*/*" ngf-max-size="55MB">{{ 'New Email' | translate}}</button>
-          <div ng-controller="Collapse" class="ng-scope">
-            <h5 class="ng-binding"><i class="fa fa-folder"></i> {{ 'Folders' | translate }}</h5>
-            <ul>
-              <li><i class="fa fa-inbox"></i> {{ 'Inbox' | translate }}</li>
-              <li><i class="fa fa-mail-forward"></i> {{ 'Send' | translate }}</li>
-              <li><i class="fa fa-exclamation-circle"></i> {{ 'Important' | translate }}</li>
-              <li><i class="fa fa-edit"></i> {{ 'Drafts' | translate }}</li>
-              <li><i class="fa fa-trash"></i> {{ 'Trash' | translate }}</li>
-            </ul>
-          </div>
-          <div ng-controller="Collapse" class="ng-scope">
-            <h5 class="ng-binding" ng-click="isCollapsed = !isCollapsed">
-              <i class="fa fa-check"></i> {{ 'Tickets' | translate }}</h5>
-            <ul uib-collapse="isCollapsed">
-              <li>Ticket #1</li>
-              <li>Ticket Two</li>
-              <li>Ticket three</li>
-              <li>Ticket 4</li>
-            </ul>
-          </div>
+  </div>
+  <!-- Mailbox content -->
+  <div class="mailbox-content clearfix">
+    <!-- Conversations -->
+    <ul class="mailbox-convers col-md-6 col-lg-4 list-unstyled">
+      <!-- Mail -->
+      <li class="mail media clearfix" ng-repeat="conv in inbox" ng-init="mail = conv.mails[0]"
+          ng-class="{'active': conv.active}">
+        <!-- Mail header -->
+        <div class="mail-avatar media-left">
+          <a href="">
+            <img alt="image" src="img/a2.jpg">
+          </a>
         </div>
-      </div>
-      <!-- Email Feed -->
-      <div class="border-left col-md-9" style="padding: 0">
-        <!-- Feed Header -->
-        <div class="ibox-content border-bottom">
-          <h2>
-            {{ 'Inbox' | translate }}
-          </h2>
-          <small>2 New Emails</small>
-        </div>
-        <!-- Feed -->
-        <div>
-          <!-- Conversations -->
-          <div ng-repeat="conv in inbox">
-            <!-- Mails -->
-            <div ng-class="{'social-feed-separated': conv.mails.length === 1}" ng-repeat="mail in conv.mails">
-              <div class="social-avatar">
-                <a href="">
-                  <img alt="image" src="img/a2.jpg">
-                </a>
-              </div>
-              <div class="social-feed-box expand">
-                <div class="pull-right social-action dropdown">
-                  <button class="btn-white">
-                    <i class="fa fa-eye"></i>
-                  </button>
-                  <button class="btn-white">
-                    <i class="fa fa-star-o"></i>
-                  </button>
-                  <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                    <i class="fa fa-angle-down"></i>
-                  </button>
-                  <ul class="dropdown-menu m-t-xs">
-                    <li><a href="#">Config</a></li>
-                  </ul>
-                </div>
-                <div class="social-avatar">
-                  <a href="#">{{ ::mail.sender }}</a>
-                  <small class="text-muted">{{ ::mail.received | date:'medium' }}</small>
-                </div>
-                <div class="social-body border-bottom">
-                  <h4 ng-click="isCollapsed = !isCollapsed">
-                    <div class="btn-group pull-right">
-                      <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-                      <button class="btn btn-white btn-xs"><a href>Important</a></button>
-                    </div>
-                    <p>{{ ::mail.subject }}</p>
-                  </h4>
-                </div>
-                <div uib-collapse="isCollapsed">
-                  <!-- Mail body -->
-                  <div class="social-body">
-                    <div ng-bind-html="mail.body"></div>
-                    <!-- Mail attachment -->
-                    <hr />
-                    <div class="m-t-lg border-top">
-                      <p>
-                        <span><i class="fa fa-paperclip"></i>{{ ::mail.attachments }}</span>
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Mail footer -->
-                  <div class="social-footer">
-                    <div class="social-comment">
-                      <a href="" class="pull-left">
-                        <img alt="image" src="img/a4.jpg" />
-                      </a>
-                      <div class="media-body">
-                        <textarea class="form-control" placeholder="Write comment..."></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <!-- Mail content -->
+        <div class="mail-content media-body">
+          <!-- Sender mail and send date -->
+          <p class="clearfix">
+            <a class="mail-sender dsp-inline-block" href="#">{{ ::mail.sender }}</a>
+            <small class="mail-date dsp-inline-block text-muted">
+              {{ ::mail.received | date:'medium' }}
+            </small>
+          </p>
+          <!-- Mail body preview -->
+          <a href="" class="mail-body-preview" ng-click="selectConv(conv)"
+             role="button">
+            <h4 class="mail-subject">{{ ::mail.subject }}</h4>
+            {{ ::mail.preview | cutLongText:150:'...' }}
+          </a>
+          <div class="clearfix">
+            <div class="pull-left">
+              <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+              <button class="btn btn-white btn-xs"><a href>Important</a></button>
+            </div>
+            <div class="pull-right dropdown">
+              <button class="btn-white">
+                <i class="fa fa-eye"></i>
+              </button>
+              <button class="btn-white">
+                <i class="fa fa-star-o"></i>
+              </button>
+              <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                <i class="fa fa-angle-down"></i>
+              </button>
+              <ul class="dropdown-menu m-t-xs">
+                <li><a href="#">Config</a></li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
+    <!-- Conversation view -->
+    <ul class="mailbox-conv-view col-md-6 col-lg-8 list-unstyled">
+      <li class="conv-subject" ng-if="activeConv"><h2>{{ activeConv.mails[0].subject }}</h2></li>
+      <!-- Mail -->
+      <li class="mail conv-view media clearfix" ng-repeat="mail in activeConv.mails" data-mail-id="{{ ::mail.id }}">
+        <!-- Mail header -->
+        <div class="mail-avatar media-left">
+          <a href=""><img alt="image" src="img/a2.jpg"></a>
+        </div>
+        <!-- Mail content -->
+        <div class="mail-content media-body">
+          <!-- Sender, mail controls-->
+          <div class="clearfix">
+            <a class="mail-sender conv-view dsp-inline-block" href="#">{{ ::mail.sender }}</a>
+            <span class="mail-ctrls conv-view pull-right">
+              <button class="btn-white" ng-click="toggleReplyForm(mail)">
+                <i class="fa fa-reply"></i>
+                {{ 'Reply' | translate }}
+              </button>
+              <!-- <button class="btn-white" ng-click="toggleReplyForm(mail)"> -->
+              <!--   <i class="fa fa-reply-all"></i> -->
+              <!--   {{ 'Reply all' | translate }} -->
+              <!-- </button> -->
+              <button class="btn-white" ng-click="mail.active = !mail.active">
+                <i class="fa" ng-class="mail.active ? 'fa-angle-up' : 'fa-angle-down'"></i>
+              </button>
+            </span>
+          </div>
+          <!-- Receivers -->
+          <div class="clearfix">
+            <span class="text-muted">To:</span>
+            <ul class="list-unstyled list-inline dsp-inline-block">
+              <li><a href="">{{ ::mail.receivedBy }}</a></li>
+            </ul>
+            <span class="mail-date pull-right text-muted">{{ ::mail.received | date:'medium' }}</small>
+          </div>
+          <!-- Mail tags -->
+          <div class="mail-tags conv-view">
+            <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+            <button class="btn btn-white btn-xs"><a href>Important</a></button>
+          </div>
+          <!-- Mail body -->
+          <div class="mail-body" uib-collapse="!mail.active">
+            <!-- Mail body content -->
+            <div ng-bind-html="mail.body"></div>
+            <!-- Mail reply form -->
+            <div class="mail-reply media" uib-collapse="!mail.replyForm">
+              <div class="mail-avatar mail-reply-avatar media-left">
+                <a href=""><img alt="image" src="img/a2.jpg"></a>
+              </div>
+              <!-- Reply editor -->
+              <div class="mail-reply-body media-body">
+                <div class="mail-reply-to">
+                  <strong>To:</strong>
+                  <ul class="list-unstyled list-inline dsp-inline-block">
+                    <li><a href="">Stein@multimedianordic.no</a></li>
+                  </ul>
+                </div>
+                <textarea id="" class="form-control" name="" rows="10"></textarea>
+              </div>
+            </div>
+          </div>
+          <!-- Mail body preview -->
+          <a href="" class="mail-body-preview conv-view" ng-hide="mail.active" ng-click="mail.active = true"
+             role="button">
+            {{ ::mail.preview | cutLongText:150:'...' }}
+          </a>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
