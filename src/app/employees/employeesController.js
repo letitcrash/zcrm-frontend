@@ -3,7 +3,7 @@
 'use strict';
 angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http, 
   requestService, employeeService, passwordServices, workplaceService
-  , generalUtils, dataService, $q, $timeout, $uibModal, companyService) {
+  , generalUtils, dataService, $q, $timeout, $uibModal, companyService, teamService) {
   var del, getEmployees, setEmpChange, setPasswordChange, getTeamsList;
   
 
@@ -379,12 +379,24 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     return dateTime.toDateString();;
   };
 
+
+
+  $scope.setTab = function(newTab){
+      $scope.tab = newTab;
+  };
+
+  $scope.isSet = function(tabNum){
+      return $scope.tab === tabNum;
+  };
+
     
   $scope.init = function() {
     console.log("Running init in employeesController");
     $scope.page = {};
     $scope.page.mode = 0;
     $scope.page.loaded = false;
+
+    $scope.tab = 1;
 
     $scope.unionFilterState = ''
     $scope.currentFilters = {};
@@ -401,6 +413,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     $scope.filter.positions = {};
     $scope.filter.departments = {};
     $scope.filter.shifts = {};
+    $scope.temp = {};
     getEmployees(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm, $scope.filter);
 
     //TODO: Query is slow
@@ -424,6 +437,29 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
 	  return console.log("Failed to get teams");
 	});
   };
+
+
+  $scope.getTeams = function(searchTerm) {
+    return teamService.getList(searchTerm).then(function(response) {
+      return response.map(function(item) {
+        //item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
+        return item;
+      });
+      }, function(response) {
+      console.log("Could not get employees");
+      console.log(response);
+      return [];
+    });
+  };
+
+  $scope.teamSelected = function(item, model, label, event) {
+    console.log(item);
+    $scope.currentEmp.teams.push(item);
+    $scope.temp.assignedCurrentTeam = undefined;
+
+  }
+
+  
 
   $scope.init();
 });

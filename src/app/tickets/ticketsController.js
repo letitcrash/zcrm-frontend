@@ -3,7 +3,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scop
   var getTickets;
 
   $scope.selected = 1;
-
+  $scope.text = $sce.trustAsHtml('<div>Some text</div>');
   
 
   getTickets = function(force, pageSize, pageNr, searchTerm, filter) {
@@ -19,7 +19,7 @@ angular.module('inspinia').controller("TicketsCtrl", function($sce,$filter,$scop
       console.log(response);
     });
   };
-  $scope.text = $sce.trustAsHtml('<div>Some text</div>');
+  
   $scope.getTeams = function(searchTerm) {
     return teamService.getList(searchTerm).then(function(response) {
       return response.map(function(item) {
