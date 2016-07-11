@@ -202,23 +202,7 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
   
 
-  $scope.deleteUserFromFilter = function (emp) {
-    console.log(emp);
-    var index = $scope.currentTeam.members.indexOf(emp);
-    if (index > -1) {
-      if($scope.currentTeam.id!=null)
-      {
-          teamService.deleteMember($scope.currentTeam,emp).then(function(response) {
-            console.log("deleted");
-            $scope.currentTeam.members.splice(index, 1);
-          }, function(response) {
-          console.log("not deleted");
-          });
-      }
-      else
-        $scope.currentTeam.members.splice(index, 1);
-    }
-  };
+
 
 
   $scope.getEmloyees = function(searchTerm) {
@@ -244,8 +228,15 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   $scope.empSelected = function(item, model, label, event) {
     console.log(item);
     $scope.currentTeam.members.push(item);
-    $scope.assignedCurrentUser = undefined;
+    $scope.temp.assignedCurrentUser = undefined;
   }
+
+  $scope.deleteUserFromFilter = function (emp) {
+    var index = $scope.currentTeam.members.indexOf(emp);
+    if (index > -1) {
+      $scope.currentTeam.members.splice(index, 1);
+    }
+  };
 
   $scope.saveMembers = function (team) {
     teamService.addMembersToTeam(team).then(function(response) {
@@ -286,6 +277,8 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
     $scope.currentTeam = {};
     $scope.currentTeam.members = [];
+
+    $scope.temp = {};
 
 
     $scope.getTeamsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);

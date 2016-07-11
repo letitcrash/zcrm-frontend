@@ -30,9 +30,8 @@ angular.module('inspinia').factory('teamService', function(requestService, dataS
       return requestService.ttPut(url, team);
     },
     addMembersToTeam: function(team) {
-      var args = {};
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + team.id + "/members";
-      return requestService.ttPost(url,team.members);
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/teams/"+team.id + "/members";
+      return requestService.ttPost(url,team);
     },
     delete: function(team) {
       var url;
