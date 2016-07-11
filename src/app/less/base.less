@@ -1327,3 +1327,12 @@ body.mini-navbar.fixed-sidebar .logo-element {
 .fullscreen-video .animated {
   animation: none;
 }
+
+// Helper classes for "display" property
+@dsp-props: block, inline, inline-block;
+.display-helpers(@i: length(@dsp-props)) when (@i > 0) {
+  @dsp: extract(@dsp-props, @i);
+  .dsp-@{dsp} { display: @dsp; }
+}
+
+.display-helpers();

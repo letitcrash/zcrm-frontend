@@ -6,17 +6,15 @@ angular.module('inspinia')
     $scope.mailboxes = [];
 
     if (typeof userId === 'number') {
-      mailboxService.get(userId).then(function(res) {
+      // Get mailboxes list for user
+      mailboxService.get(dataService.getUserId()).then(function(res) {
         if (res.length > 0) {
           mailboxService.setList(res);
           $scope.mailboxes = mailboxService.getList();
         }
       }, function(res) { return console.log("Failed to get mailboxlist"); });
+
     }
-
-    console.log($scope.mailboxes);
-    $scope.test = "Test";
-
 /*
 
 // Simple GET request example:

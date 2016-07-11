@@ -1,6 +1,7 @@
 'use strict';
 angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
   var mailboxes = [];
+  console.log("Test service");
 
   return {
     getInbox: function(mailboxId, force, pageSize, pageNr, searchTerm) {
