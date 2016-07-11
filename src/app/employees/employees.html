@@ -120,6 +120,12 @@
                 <div class="sk-circle12 sk-circle"></div>
             </div>
             </div>
+              
+            <ul class="nav nav-tabs">
+              <li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)"><i class="fa fa-briefcase"></i>Employees</a></li>
+              <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)"><i class="fa fa-envelope"></i>Delegates</a></li>
+              <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)"><i class="fa fa-envelope"></i>Deactivated employees</a></li>
+            </ul>
 
               <!--TABS start-->
               <ul class="nav nav-tabs" ng-show="page.loaded">
