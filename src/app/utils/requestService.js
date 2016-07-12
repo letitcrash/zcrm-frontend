@@ -96,7 +96,7 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
         method: method,
         url: url,
         data: data,
-        timeout : 2000, 
+        timeout : 4000, 
         headers: {
           "Content-Type": "application/json",
           "X-Access-Token": token,
@@ -104,6 +104,8 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
         }
       }).then(function(response) {
         console.log("got promise");
+              console.log(response);
+
         return resolve(deferred, data, response);
       }, function(response) {
         console.log("=== ALARM =====");
