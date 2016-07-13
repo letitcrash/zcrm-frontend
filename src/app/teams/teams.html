@@ -188,33 +188,25 @@
                 <li class="list-group-item fist-item m-b-md">
                   <strong>Team members</strong>
                   <span class="pull-right">
-                    <a ng-click="page.editMembers = true">
-                    <i class="fa fa-plus"></i> Add</a>
+                      <a class="pull-right" ng-hide="page.editMembers" href ng-click="page.editMembers = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
                   </span>
                   <div ng-show="page.editMembers">
                     <div class="m-t-md m-b-md">
                       <form role="form">
                         <div class="form-group">
-                        <div class="input-group" style="width:100%;" ng-show="page.editParticipants">
+                        <div class="input-group" style="width:100%;" ng-show="page.editMembers">
                           <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
-                        <div class="employee-list" style="margin-top:10px" ng-show="page.editParticipants">
+                          <div class="employee-list" style="margin-top:10px" ng-show="page.editMembers">
                             <ul style="list-style:none; margin:0; padding:0;">
                               <li ng-repeat="m in currentTeam.members">
                                 <button type="button" ng-click="deleteUserFromFilter(m)" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
                                 <span>{{m.user.contactProfile.firstname}} {{m.user.contactProfile.lastname}} </span>
                               </li>
                             </ul>
-                        </div>
-                        <button class="btn btn-sm btn-default pull-right" ng-show="page.editParticipants" ng-click="page.editParticipants = false" style="margin-top:10px;">Cancel</button>
-                        <button class="btn btn-sm btn-primary pull-right" ng-show="page.editParticipants" ng-click="saveMembers(currentTeam)" style="margin-top:10px; margin-right:5px;">Save</button>
-                        <div class="text-right" ng-repeat="member in currentTeam.members" ng-hide="page.editParticipants">
-                          {{member.user.contactProfile.firstname}} {{member.user.contactProfile.lastname}}
-                        </div>
-                        <div>
-                          <a class="pull-right" ng-hide="page.editParticipants" href ng-click="page.editParticipants = true"><i class="fa fa-user-plus"></i> Add more / Remove </a>
-                        </div>
+                          </div>
+                        
                         </div>
                       </form>
                     </div>
