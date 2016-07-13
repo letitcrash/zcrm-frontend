@@ -1,19 +1,145 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Timer</h2>
-        <ol class="breadcrumb">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li class="active">
-            <strong>Timer</strong>
-          </li>
-        </ol>
-    </div>
+  <div class="col-sm-4">
+    <h2>Timer</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li class="active">
+        <strong>Timer</strong>
+      </li>
+    </ol>
+  </div>
 </div>
 <div class="row" ng-controller="TimerCtrl as timer">
-    <div class="ibox">
-      <div class="ibox-content">
+  <div class="ibox">
+    <div class="ibox-content">
+
+      <div class="input-group input-group-lg">
+        <!--input-->
+        <input type="text" class="form-control" placeholder="What are you working on?" aria-describedby="basic-addon2">
+
+        <!-- Simple dropdown -->
+        <span class="input-group-addon" id="basic-addon2" uib-dropdown on-toggle="toggled(open)">
+            <a style="color:#646A6D;" href id="simple-dropdown" uib-dropdown-toggle>
+              <i class="fa fa-plus" style="color:#00A889;"></i>
+              Select project
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+              <li role="menuitem"><a href="#">No project</a></li>
+              <li role="menuitem"><a href="#">Project1</a></li>
+              <li role="menuitem"><a href="#">Project2</a></li>
+            </ul>
+          </span>
+
+        <!--tags-->
+        <span class="input-group-addon" id="basic-addon2" uib-dropdown is-open="status.isopen">
+          <i id="single-button" type="button" class="fa fa-tag" uib-dropdown-toggle ng-disabled="disabled"></i>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="#">tag1</a></li>
+            <li role="menuitem"><a href="#">tag2</a></li>
+            <li role="menuitem"><a href="#">tag3</a></li>
+            <li class="divider"></li>
+            <li role="menuitem"><a href="#">
+              <button type="button" class="btn btn-primary">Add tag</button>
+            </a></li>
+          </ul>
+          </span>
+
+        <!--timer-->
+        <span class="input-group-addon" id="basic-addon2">13:20min</span>
+        <!--buttons-->
+        <div class="input-group-btn">
+          <button class="btn" ng-click="timerStarted = !timerStarted" ng-class="{'btn-danger': timerStarted, 'btn-primary': !timerStarted}">
+            <span ng-show="!timerStarted">Start</span>
+            <span ng-show="timerStarted">Stop</span>
+          </button>
+        </div>
+      </div>
+
+      <!--list 1-->
+      <div class="ibox float-e-margins" style="margin-top:30px;">
+        <div class="ibox-title">
+          <input type="checkbox" class="pull-left" style="margin-right:10px;" />
+          <h5 style="display:inline;">Wed, 3 Feb</h5>
+          <span style="margin-left:10px; color:#CFCFCF;">2h 43min</span>
+          <div class="ibox-tools">
+            <a class="close-link" ng-click="closed = !closed">
+              <i class="fa" ng-class="{'fa-eye-slash': !closed, 'fa-eye': closed}"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content" ng-hide="closed">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="checkbox" class="pull-left" style="margin-right:10px;" />
+                </td>
+                <td>
+                  (no description)
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary">Ticket 1 &#183; Project 1</button>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-default">tag1</button>
+                  <button type="button" class="btn btn-default">tag2</button>
+                </td>
+                <td class="text-right">
+                  23:01:13
+                </td>
+                <td class="text-right">
+                  2:27 PM - 2:45 PM
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="checkbox" class="pull-left" style="margin-right:10px;" />
+                </td>
+                <td>
+                  (no description)
+                </td>
+                <td>
+                  <button type="button" class="btn btn-warning">Ticket 2 &#183; Project 2</button>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-default">tag1</button>
+                  <button type="button" class="btn btn-default">tag2</button>
+                  <button type="button" class="btn btn-default">tag3</button>
+                </td>
+                <td class="text-right">
+                  23:01:13
+                </td>
+                <td class="text-right">
+                  2:27 PM - 2:45 PM
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="checkbox" class="pull-left" style="margin-right:10px;" />
+                </td>
+                <td>
+                  (no description)
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info">Ticket 1 &#183; Project 1</button>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-default">tag1</button>
+                  <button type="button" class="btn btn-default">tag2</button>
+                </td>
+                <td class="text-right">
+                  23:01:13
+                </td>
+                <td class="text-right">
+                  2:27 PM - 2:45 PM
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+  </div>
 </div>

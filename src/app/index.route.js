@@ -145,6 +145,13 @@
         "authenticate": true
 
       })
+      .state('index.timer', {
+        url: "/timer",
+        templateUrl: "app/timer/timer.html",
+        data: { pageTitle: 'timer' },
+        "authenticate": true
+
+      })
       .state('index.employees', {
 		url: "/employees",
 		templateUrl: "app/employees/employees.html",

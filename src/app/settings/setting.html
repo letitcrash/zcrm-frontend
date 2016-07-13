@@ -1,118 +1,105 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Profile settings</h2>
-        <ol class="breadcrumb">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li class="active">
-            <strong>Profile settings</strong>
-          </li>
-        </ol>
-    </div>
+  <div class="col-sm-4">
+    <h2>Profile settings</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li class="active">
+        <strong>Profile settings</strong>
+      </li>
+    </ol>
+  </div>
 </div>
 
 <div class="row" ng-controller="SettingsCtrl as tab">
-    <div class="ibox">
-      <div class="ibox-content">
-        <div>
-          <ul class="nav nav-tabs">
-            <li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)"><i class="fa fa-briefcase"></i></a></li>
-            <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)"><i class="fa fa-envelope"></i></a></li>
-          </ul>
+  <div class="ibox">
+    <div class="ibox-content">
+      <div>
+        <ul class="nav nav-tabs">
+          <li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)"><i class="fa fa-briefcase"></i></a></li>
+          <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)"><i class="fa fa-envelope"></i></a></li>
+        </ul>
+      </div>
+
+      <div ng-show="tab.isSet(1)">
+        <div class="tab-content panel-body contact-box center-version">
+          <div class="client-detail" style="overflow:visible;">
+            <div class="p-n col-lg-12" style="margin:30px 0">
+              <img alt="image" class="img-circle img-responsive" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" style="height:80px; width:80px; margin-bottom:30px;">
+              <h3 class="m-b-xs"><strong>Morten Aardal</strong></h3>
+              <span class="font-bold" style="display:block;">IE Industri Energi</span>
+            </div>
+
+            <div class="col-lg-6">
+              <!--Employment information-->
+              <ul class="list-group clear-list">
+                <li class="list-group-item fist-item">
+                  <strong style="text-transform:uppercase;">contact information</strong>
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">Morten Aardal</span> Full navn
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">+4799431462</span> Telefon
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">moraar@rowancompanies.com</span> Epost
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">Christies gate 11 Oslo 0575</span> Adresse
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <!--Employment information-->
+              <ul class="list-group clear-list">
+                <li class="list-group-item fist-item">
+                  <strong style="text-transform:uppercase;">employment information</strong>
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">Rowan</span> Firma
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">Safety Supervisor</span> Stilling
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">IE Industri Energi</span> Union
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">RON</span> Innretning
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">E</span> Skift
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">No</span> Individuelt avlonnet
+                </li>
+                <li class="list-group-item">
+                  <span class="pull-right">Oslo Lufthavn Gardemoen'</span> Flypass
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-    
-            <div ng-show="tab.isSet(1)">
-              <div class="tab-content panel-body contact-box center-version">
-                  <div class="client-detail" style="overflow:visible;">
-                    <div class="p-n col-lg-12" style="margin:30px 0">
-                      <img alt="image" class="img-circle img-responsive" src="http://www.getitdone.org/assets/getitdone_userprofile_avatar_200-2ebbcf36868f1a66f6c9f2de131dba66.jpg" style="height:80px; width:80px; margin-bottom:30px;">
-                      <h3 class="m-b-xs"><strong>Morten Aardal</strong></h3>
-                      <span class="font-bold" style="display:block;">IE Industri Energi</span>
-                    </div>
-                    
-                    <div class="col-lg-6">
-                    <!--Employment information-->
-                    <ul class="list-group clear-list">
-                      <li class="list-group-item fist-item">
-                        <strong style="text-transform:uppercase;">contact information</strong>
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">Morten Aardal</span>
-                          Full navn
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">+4799431462</span>
-                          Telefon
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">moraar@rowancompanies.com</span>
-                          Epost
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">Christies gate 11 Oslo 0575</span>
-                          Adresse
-                      </li>
-                    </ul>
-                    </div>
-                    <div class="col-lg-6">
-                    <!--Employment information-->
-                    <ul class="list-group clear-list">
-                      <li class="list-group-item fist-item">
-                        <strong style="text-transform:uppercase;">employment information</strong>
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">Rowan</span>
-                          Firma
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">Safety Supervisor</span>
-                          Stilling
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">IE Industri Energi</span>
-                          Union
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">RON</span>
-                          Innretning
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">E</span>
-                          Skift
-                      </li>
-                      <li class="list-group-item">
-                          <span class="pull-right">No</span>
-                          Individuelt avlonnet
-                      </li> 
-                      <li class="list-group-item">
-                          <span class="pull-right">Oslo Lufthavn Gardemoen'</span>
-                          Flypass
-                      </li>
-                    </ul>
-                    </div>
-                  </div> 
-              </div>
-            </div>
-            <div ng-show="tab.isSet(2)">
-              <div class="row">
-                <div class="col-lg-4">
-                  <strong>Mail settings</strong>
-                  <ul class="list-group clear-list">
-                    <li class="list-group-item fist-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                      <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
-                      <span class="pull-right" style="color:green;">moraar@rowancompanies.com<i class="fa fa-check" style="margin-left:5px;"></i></span>
-                        Inbox1
-                    </li>
-                    <li class="list-group-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                      <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
-                      <span class="pull-right" style="color:red;">test@rowancompanies.com<i class="fa fa-times" style="margin-left:5px;"></i></span>
-                        Inbox2
-                    </li>
-                </ul>
-                </div>
-              </div>
-            </div>
+      </div>
+      <div ng-show="tab.isSet(2)">
+        <div class="row">
+          <div class="col-lg-4">
+            <strong>Mail settings</strong>
+            <ul class="list-group clear-list">
+              <li class="list-group-item fist-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
+                <span class="pull-right" style="color:green;">moraar@rowancompanies.com<i class="fa fa-check" style="margin-left:5px;"></i></span> Inbox1
+              </li>
+              <li class="list-group-item" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                <button class="btn btn-default btn-xs pull-right" style="margin-left:30px;" ng-show="hoverEdit" ng-click="passEdit">change password<i class="fa fa-pencil" style="margin-left:5px;"></i></button>
+                <span class="pull-right" style="color:red;">test@rowancompanies.com<i class="fa fa-times" style="margin-left:5px;"></i></span> Inbox2
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 </div>
