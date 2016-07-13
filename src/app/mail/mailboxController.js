@@ -21,6 +21,9 @@ angular
         ticketService, dataService, employeeService, textFromHTMLFilter) {
     var getMail,getOutbox,getEmployees, activeMailbox;
 
+    // CSS-class for page content container
+    $scope.mainCtrl.mainViewClass = "mailbox-view";
+
     // Get current mailbox for current user
     $scope.mailboxId = $stateParams.hasOwnProperty('mailboxId') ?
       $stateParams.mailboxId : 1;

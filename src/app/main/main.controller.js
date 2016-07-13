@@ -13,7 +13,6 @@ angular.module('inspinia')
           $scope.mailboxes = mailboxService.getList();
         }
       }, function(res) { return console.log("Failed to get mailboxlist"); });
-
     }
 /*
 

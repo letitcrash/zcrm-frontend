@@ -1,4 +1,4 @@
-<div class="row" ng-controller="MailboxCtrl">
+<div class="wrapper wrapper-content full-height" ng-controller="MailboxCtrl">
   <!-- Mailbox header -->
   <div class="mailbox-header clearfix">
     <h2 class="col-md-4">
@@ -16,7 +16,7 @@
     </div>
   </div>
   <!-- Mailbox content -->
-  <div class="mailbox-content clearfix">
+  <div class="mailbox-content full-height clearfix">
     <!-- Conversations -->
     <ul class="mailbox-convers col-md-6 col-lg-4 list-unstyled">
       <!-- Mail -->
@@ -68,7 +68,10 @@
     </ul>
     <!-- Conversation view -->
     <ul class="mailbox-conv-view col-md-6 col-lg-8 list-unstyled">
-      <li class="conv-subject" ng-if="activeConv"><h2>{{ activeConv.mails[0].subject }}</h2></li>
+      <li class="mailbox-conv-subject" ng-if="activeConv != null"><h2>{{ activeConv.mails[0].subject }}</h2></li>
+      <li class="mailbox-pholder text-muted" ng-if="activeConv == null">
+        <h2>{{ 'Select a conversation to view' | translate }}</h2>
+      </li>
       <!-- Mail -->
       <li class="mail conv-view media clearfix" ng-repeat="mail in activeConv.mails" data-mail-id="{{ ::mail.id }}">
         <!-- Mail header -->

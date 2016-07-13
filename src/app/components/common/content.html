@@ -1,5 +1,5 @@
 <!-- Wrapper-->
-<div id="wrapper" ng-controller="MainController">
+<div id="wrapper" ng-controller="MainController as mainCtrl">
 
     <!-- Navigation -->
     <div ng-include="'app/components/common/navigation.html'"></div>
@@ -12,7 +12,7 @@
         <div ng-include="'app/components/common/topnavbar.html'"></div>
 
         <!-- Main view  -->
-        <div ui-view></div>
+        <div ui-view class="main-view {{ mainCtrl.mainViewClass }}"></div>
 
         <!-- Footer -->
         <div ng-include="'app/components/common/footer.html'"></div>
