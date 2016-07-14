@@ -15,7 +15,7 @@
   <div class="ibox">
     <div class="ibox-content">
 
-      <div class="input-group input-group-lg">
+      <div class="input-group input-group-lg" style="margin-top:25px;">
         <!--input-->
         <input type="text" class="form-control" placeholder="What are you working on?" aria-describedby="basic-addon2">
 
@@ -27,7 +27,17 @@
             </a>
             <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
               <li role="menuitem"><a href="#">No project</a></li>
-              <li role="menuitem"><a href="#">Project1</a></li>
+              <li role="menuitem">
+                <a href="#">Project1</a>
+                <ul style="list-style:none;">
+                  <li role="menuitem">
+                      <a href="#" style="color:#646A6D;">Ticket1</a>
+                  </li>
+                  <li role="menuitem">
+                      <a href="#" style="color:#646A6D;">Ticket2</a>
+                  </li>
+                </ul>
+              </li>
               <li role="menuitem"><a href="#">Project2</a></li>
             </ul>
           </span>
@@ -57,13 +67,23 @@
         </div>
       </div>
 
-      <!--list 1-->
+      <!--list-->
       <div class="ibox float-e-margins" style="margin-top:30px;">
         <div class="ibox-title">
           <input type="checkbox" class="pull-left" style="margin-right:10px;" />
           <h5 style="display:inline;">Wed, 3 Feb</h5>
           <span style="margin-left:10px; color:#CFCFCF;">2h 43min</span>
           <div class="ibox-tools">
+            <div class="btn-group" uib-dropdown keyboard-nav>
+              <i class="fa fa-cog" uib-dropdown-toggle></i>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                  <li role="menuitem"><a href="#">Action</a></li>
+                  <li role="menuitem"><a href="#">Another action</a></li>
+                  <li role="menuitem"><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li role="menuitem"><a href="#">Separated link</a></li>
+              </ul>
+            </div>
             <a class="close-link" ng-click="closed = !closed">
               <i class="fa" ng-class="{'fa-eye-slash': !closed, 'fa-eye': closed}"></i>
             </a>
@@ -77,7 +97,7 @@
                   <input type="checkbox" class="pull-left" style="margin-right:10px;" />
                 </td>
                 <td>
-                  (no description)
+                  Bacon ipsum dolor amet beef ribs jowl chuck short loin spare ribs pork alcatra fatback turkey biltong landjaeger pig pancetta.
                 </td>
                 <td>
                   <button type="button" class="btn btn-primary">Ticket 1 &#183; Project 1</button>
