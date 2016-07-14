@@ -605,21 +605,12 @@ a.compose-mail {
 }
 
 /* MAILBOX */
-.mailbox {
-  background-color: #ffffff;
-  border: 1px solid @border-color;
-  border-top: 0;
-  padding: 0;
-  margin-bottom: 20px;
-}
-
 .mailbox-header {
   background-color: #ffffff;
   border-bottom: 1px solid @border-color;
 }
 
 .mailbox-header h2 {
-  border-right: 1px solid @border-color;
   padding-bottom: 15px;
   padding-top: 15px;
   margin: 0;
@@ -639,19 +630,26 @@ a.compose-mail {
   background: #ffffff;
 }
 
+.mailbox-convers { border-right: 1px solid @border-color; }
+
 .mailbox-convers[class*="col-"], .mailbox-conv-view[class*="col-"] {
+  margin-bottom: 0;
   padding-left: 0;
   padding-right: 0;
 }
 
-.mailbox-convers[class*="col-"] { border-right: 1px solid @border-color; }
+.mailbox-pholder {
+  position: relative;
+  text-align: center;
+  top: 40%;
+}
 
-.conv-subject {
+.mailbox-conv-subject {
   background-color: #ffffff;
   padding: 10px 15px;
 }
 
-.conv-subject > h2 { margin: 0; }
+.mailbox-conv-subject > h2 { margin: 0; }
 
 .mail {
   background-color: #ffffff;
@@ -700,16 +698,17 @@ a.compose-mail {
 }
 
 .mail-reply {
-  border-top: 1px solid @border-color;
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-left: 70px;
+  background: #ffffff;
+  border-bottom: 1px solid @border-color;
+  margin-top: 0;
+  padding: 20px 5px 20px 85px;
 }
 
 .mail-reply-avatar {
   display: inline-block;
   margin-left: -70px;
   padding-left: 0;
+  padding-right: 8px;
 }
 
 .mail-reply-body {
@@ -723,6 +722,18 @@ a.compose-mail {
   border: 1px solid @border-color;
   border-bottom: 0;
   padding: 10px;
+}
+
+@media screen and (min-width: 992px) {
+  .mailbox-view {
+    overflow: hidden;
+    padding-bottom: 25px;
+  }
+
+  .mailbox-convers, .mailbox-conv-view {
+    height: 100%;
+    overflow-y: auto;
+  }
 }
 
 
