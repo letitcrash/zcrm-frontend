@@ -69,6 +69,7 @@ angular.module('inspinia').factory('employeeService', function(requestService, d
       args.department = emp.department;
       args.shift = emp.shift;
       args.teams = [];
+      args.delegates=[];
       args.baseUrl = routeService.getBaseServiceURL() + "/password-recovery";
       url = "companies/" + dataService.getCurrentCompanyId() + "/employees";
       return requestService.ttPost(url, args);

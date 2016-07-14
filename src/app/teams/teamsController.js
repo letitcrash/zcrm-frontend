@@ -36,9 +36,9 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
   $scope.create = function(team) {
   
   teamService.create(team).then(function(response) {
+      console.log("team create=> response");
       console.log(response);
       $scope.activeTeam = false;
-      console.log(response);
       $scope.teams.push(response);
       $scope.currentTeam = response;
       $scope.defaultMode();
@@ -57,6 +57,8 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
       $scope.page.editNameAction = false;
       $scope.page.editDescriptionAction = false;
+      $scope.page.editDescriptionAction = false;
+      $scope.page.editMembers = false;
 
       return $scope.setAlertCp(true, "Företaget har uppdaterats");
     }, function(response) {
@@ -237,18 +239,6 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
       $scope.currentTeam.members.splice(index, 1);
     }
   };
-
-  $scope.saveMembers = function (team) {
-    teamService.addMembersToTeam(team).then(function(response) {
-      console.log("Tkt members list succesfully");
-      console.log(response);    
-      team.members = response;
-      $scope.page.editMembers = false;
-    }, function(response) {
-      console.log("Ticket emp list could not be updated");
-    //  $scope.page.error = "Ticket could not be created";
-    });
-  }
 
   $scope.createUser = function(user) {
     $scope.activeEmp = false;

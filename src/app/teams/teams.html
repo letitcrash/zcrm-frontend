@@ -302,7 +302,7 @@
                         <div class="col-sm-8">
 
                         <div class="input-group" style="width:100%;" ng-show="page.editMembers">
-                          <input type="text" ng-model="assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
+                          <input type="text" ng-model="temp.assignedCurrentUser" placeholder="Type employee name" uib-typeahead="emp as emp.fullname for emp in getEmloyees($viewValue)" typeahead-loading="loadingEmployees" typeahead-no-results="noResults" typeahead-on-select="empSelected($item, $model, $label, $event)" class="form-control">
                         </div>
                         
                         <div class="employee-list m-b-sm" style="margin-top:10px" ng-show="page.editMembers">
@@ -314,7 +314,7 @@
                             </ul>
                         </div>
 
-                        <button class="btn btn-sm btn-primary" ng-show="page.editMembers" ng-click="saveMembers(currentTeam)">Save</button>
+                        <button class="btn btn-sm btn-primary" ng-show="page.editMembers" ng-click="update(currentTeam)">Save</button>
                         <button class="btn btn-sm btn-default" ng-show="page.editMembers" ng-click="page.editMembers = false">Cancel</button>
 
                         <div class="text-right" ng-repeat="member in currentTeam.members" ng-hide="page.editMembers">

@@ -153,6 +153,7 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       console.log("Employee updated succesfully");
       setEmpChange(true, "Medarbetaren har uppdaterats.");
       $scope.cancel();
+      console.log($scope.currentEmp);
       console.log("response");
       $scope.currentEmp.user.contactProfile = response;
       var emp = $scope.employees.filter(function( obj ) {
@@ -282,7 +283,11 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       if($scope.currentEmp.user.contactProfile.phoneNumberHome)
         $scope.page.editPNHome = true;
       if($scope.currentEmp.user.contactProfile.phoneNumberWork)
-        $scope.page.editPNHome = true;
+        $scope.page.editPNWork = true;
+      if($scope.currentEmp.user.contactProfile.emailHome)
+        $scope.page.editEMHome = true;
+      if($scope.currentEmp.user.contactProfile.emailWork)
+        $scope.page.editEMHome = true;
   }
 
 
@@ -293,6 +298,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
       $scope.userFormStep = 1;
       $scope.page.editPNHome = false;
       $scope.page.editPNWork = false;
+      $scope.page.editEMHome = false;
+      $scope.page.editEMWork = false;
   };
 
 
@@ -366,11 +373,27 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     $scope.currentEmp.user.contactProfile.phoneNumberWork = undefined;
     $scope.page.editPNWork = false;
   }
+  $scope.deleteEMHome = function(){
+    if($scope.currentEmp.id!=null)
+    $scope.currentEmp.user.contactProfile.emailHome = undefined;
+    $scope.page.editEMHome = false;
+  }
+  $scope.deleteEMWork = function(){
+    if($scope.currentEmp.id!=null)
+    $scope.currentEmp.user.contactProfile.emailWork = undefined;
+    $scope.page.editEMWork = false;
+  }
   $scope.addTelAction = function(){
     if(!$scope.page.editPNWork)
       $scope.page.editPNWork=true;
     else if(!$scope.page.editPNHome)
       $scope.page.editPNHome=true;
+  }
+  $scope.addEmlAction = function(){
+    if(!$scope.page.editEMWork)
+      $scope.page.editEMWork=true;
+    else if(!$scope.page.editEMHome)
+      $scope.page.editEMHome=true;
   }
 
 
@@ -438,7 +461,8 @@ angular.module('inspinia').controller("EmployeeCtrl", function($scope, $http,
     //TODO: Query is slow
     companyService.get(dataService.getCurrentCompanyId()).then(function(response) {
       console.log("Getting company");
-      $scope.mycp = response; 
+      $scope.mycp = response;
+      console.log($scope.mycp); 
     }, function(response) {
       console.log("Failed to get company");
     });
