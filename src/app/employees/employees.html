@@ -8,7 +8,7 @@
           <!--settings btn-->
           <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
             <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
-              <i class="fa fa-cog"></i> 
+              <i class="fa fa-cog"></i>
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
               <li role="menuitem"><a href></a></li>
@@ -26,7 +26,7 @@
           <button ng-click="createUserAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
             <i class="fa fa-user-plus"></i> {{ 'Create user' | translate }}
           </button>
-          <!--BUTTONS end--> 
+          <!--BUTTONS end-->
 
           <h2>{{ 'Employees' | translate }}</h2>
 
@@ -50,14 +50,14 @@
           <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
             <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
           </button>
-          
+
           <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-info">
             <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
           </button>
 
           <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
             <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
-          </button> 
+          </button>
           <!--advanced filters start-->
           <div ng-if="isCollapsed">
             <!--top search fields-->
@@ -68,8 +68,8 @@
                 <h4>{{ 'Union' | translate }}</h4>
                 <div class="input-group">
                   <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" placeholder="{{ 'Union' | translate }}" value="{{filter.unions[1].name}}">
-                  </div> 
-                  
+                  </div>
+
                   <ul>
                     <li ng-repeat="union in filter.unions" ng-if="" ng-repeat-end>{{union.name}}</li>
                   </ul>
@@ -97,13 +97,13 @@
                   <div class="input-group">
                     <input type="text" placeholder="Shift..." class="form-control" />
                   </div>
-                </div>    
+                </div>
 
               </form>
             </div>
             <!--advanced filters end-->
             <div class="clients-list">
-            
+
             <div class="text-center" ng-if="!page.loaded" >
               <div class="sk-spinner sk-spinner-circle">
                 <div class="sk-circle1 sk-circle"></div>
@@ -120,7 +120,7 @@
                 <div class="sk-circle12 sk-circle"></div>
             </div>
             </div>
-              
+
             <ul class="nav nav-tabs">
               <li ng-class="{active:isSet(1)}"><a href ng-click="setTab(1)"><i class="fa fa-briefcase"></i>Employees</a></li>
               <li ng-class="{active:isSet(2)}"><a href ng-click="setTab(2)"><i class="fa fa-envelope"></i>Deactivated employees</a></li>
@@ -160,7 +160,7 @@
                         </thead>
                         <tbody>
                           <tr ng-repeat="emp in employees" my-element="emp" mode="{{page.mode}}" on-edit="openEmp(emp)">
-                          </tr>                                                
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -186,7 +186,7 @@
                               <i class="fa fa-check"></i>
                             </th>
                             <th style="margin-left:5px;">{{ 'Employee' | translate}}</th>
-                            
+
                             <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Telephone' | translate}}</th>
                             <th class="hidden-xs" ng-hide="page.mode == 1 || page.mode == 2">{{ 'Email' | translate}}</th>
                             <th class="hidden-xs hidden-sm hidden-md" ng-hide="page.mode == 2">{{ 'Union' | translate}}</th>
@@ -197,7 +197,7 @@
                         </thead>
                         <tbody>
                           <tr ng-repeat="emp in employees" ng-if="true" my-element="emp" mode="{{page.mode}}" on-edit="openEmp(emp)">
-                          </tr>                                                
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -208,7 +208,7 @@
                       ng-model="pageNr" items-per-page="pageSize" ng-change="changePage()"
                       max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>
                   <!--PAGINATION end-->
-                  
+
                 </div>
 
                 <!--tab 3 content Delegates-->
@@ -268,11 +268,11 @@
                     <!--<uib-pagination class="pull-right" total-items="totalDelegates"
                       ng-model="pageDl" items-per-page="pageSize" ng-change="changePage()"
                       max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>-->
-                    
+
                         <!--Need make new ng model for delegates:
                             total-items="totalDelegates"
                             ng-model="pageDl" -->
-                    
+
                     <!--PAGINATION end-->
                   </div>
 
@@ -282,7 +282,7 @@
           </div>
         </div>
 
-        <!--EMPLOYEE PAGE end--> 
+        <!--EMPLOYEE PAGE end-->
 
         <!--NEW EMPLOYEE start-->
 
@@ -326,17 +326,28 @@
                       Telefon
                     </div>
                     <div class="col-sm-8">
-
-
                       <div class="form-group">
-                          <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-                          <button type="button" ng-hide="!page.editPNWork" ng-show = "phoneNumberWork" ng-click="deletePNWork()" class="btn btn-default btn-xs inline"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editPNWork" ng-model="currentEmp.user.contactProfile.phoneNumberWork" class="form-control m-b-sm">
-                          <button type="button" ng-hide="!page.editPNHome" ng-click="deletePNHome()" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editPNHome" ng-model="currentEmp.user.contactProfile.phoneNumberHome" class="form-control m-b-sm">
-                          <ang ng-hide="page.editPNHome && page.editPNWork" ng-click = "addTelAction()"><i class="fa fa-plus"></i> Add another telefon </a>
-                      </div>
 
+                          <div class="input-group">
+                            <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+                          </div>
+
+                          <div class="input-group">
+                            <input type="text" ng-hide="!page.editPNWork" ng-model="currentEmp.user.contactProfile.phoneNumberWork" class="form-control m-b-sm">
+                            <span class="input-group-btn">
+                              <button type="button" ng-hide="!page.editPNWork" ng-show = "phoneNumberWork" ng-click="deletePNWork()" class="btn btn-default inline"><i class="fa fa-times"></i></button>
+                            </span>
+                          </div>
+
+                          <div class="input-group">
+                            <input type="text" ng-hide="!page.editPNHome" ng-model="currentEmp.user.contactProfile.phoneNumberHome" class="form-control m-b-sm">
+                            <span class="input-group-btn">
+                              <button type="button" ng-hide="!page.editPNHome" ng-click="deletePNHome()" class="btn btn-default inline" type="button"><i class="fa fa-times"></i></button>
+                            </span>
+                          </div>
+
+                          <a ng-hide="page.editPNHome && page.editPNWork" ng-click = "addTelAction()"><i class="fa fa-plus"></i> Add another telefon </a>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -350,15 +361,25 @@
 
 
                       <div class="form-group">
-                          <input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
 
-                          <button type="button" ng-hide="!page.editEMWork" ng-click="deleteEMWork()" class="btn btn-default btn-xs inline"><i class="fa fa-times"></i></button>
+                        <div class="input-group">
+                          <input type="text"  ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+                        </div>
+
+                        <div class="input-group">
                           <input type="text" ng-hide="!page.editEMWork" ng-model="currentEmp.user.contactProfile.emailWork" class="form-control m-b-sm">
+                          <span class="input-group-btn">
+                            <button type="button" ng-hide="!page.editEMWork" ng-click="deleteEMWork()" class="btn btn-default inline" type="button"><i class="fa fa-times"></i></button>
+                          </span>
+                        </div>
 
-                          <button type="button" ng-hide="!page.editEMHome" ng-click="deleteEMHome()" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                        <div class="input-group">
                           <input type="text" ng-hide="!page.editEMHome" ng-model="currentEmp.user.contactProfile.emailHome" class="form-control m-b-sm">
-
-                          <ang ng-hide="page.editEMHome && page.editEMWork" ng-click = "addEmlAction()"><i class="fa fa-plus"></i> Add another E-post </a>
+                          <span class="input-group-btn">
+                            <button type="button" ng-hide="!page.editEMHome" ng-click="deleteEMHome()" class="btn btn-default inline" type="button"><i class="fa fa-times"></i></button>
+                          </span>
+                        </div>
+                          <a ng-hide="page.editEMHome && page.editEMWork" ng-click = "addEmlAction()"><i class="fa fa-plus"></i> Add another E-post </a>
                       </div>
 
 
@@ -507,28 +528,28 @@
           <div class="col-xl-12 tabs-container tooltip-demo" ng-show="currentEmp.id">
             <div>
               <ul class="nav nav-tabs">
-                
+
                 <li uib-popover="{{ 'Info' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter" ng-init="subtab = 1" ng-class="{active:subtab == 1}">
                   <a data-toggle="tab" ng-click="subtab = 1" > <i class="fa fa-briefcase"></i> <span ng-if="page.mode == 2">{{ 'Info' | translate }}</span></a>
                 </li>
                 <li uib-popover="{{ 'Teams' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 2}">
                   <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i> <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a>
-                </li> 
+                </li>
                 <li uib-popover="{{ 'Tickets' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 3}">
                   <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-check"></i> <span ng-if="page.mode == 2">{{ 'Tickets' | translate }}</span></a>
                 </li>
                 <li uib-popover="{{ 'Mail settings' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 4}">
                   <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-envelope"></i> <span ng-if="page.mode == 2">{{ 'Mail settings' | translate }}</span></a>
                 </li>
-                
-                
+
+
                 <div class="pull-right">
                   <button type="button" class="btn btn-sm btn-white pull-right" ng-click="page.mode = 0" style="margin: 8px"> <i class="fa fa-times"></i> </button>
                   <button type="button" class="btn btn-sm btn-white pull-right"  ng-click="page.mode = 1" ng-show="page.mode == 2" style="margin: 8px"> <i class="fa fa-compress"></i> </button>
                   <button type="button" class="btn btn-sm btn-white pull-right"  ng-click="page.mode = 2" ng-show="page.mode == 1" style="margin: 8px"> <i class="fa fa-expand"></i> </button>
-                  
+
                 </div>
-                
+
                 </ul>
 
 
@@ -592,7 +613,7 @@
                         <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.firstname" placeholder="First name" class="form-control"></div>
                         <div class="form-group"><input type="text" ng-model="currentEmp.user.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
                         <div>
-                          <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                          <div class="alert alert-danger alert-dismissable" ng-show="useralert">
                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
                             {{useralert}}. <a class="alert-link">check</a>.
                           </div>
@@ -618,12 +639,26 @@
 
                       <form role="form" ng-show="editPhoneAction">
                         <div class="form-group">
-                          <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-                          <button type="button" ng-hide="!page.editPNWork" ng-show = "phoneNumberWork" ng-click="deletePNWork()" class="btn btn-default btn-xs inline"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editPNWork" ng-model="currentEmp.user.contactProfile.phoneNumberWork" class="form-control m-b-sm">
-                          <button type="button" ng-hide="!page.editPNHome" ng-click="deletePNHome()" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editPNHome" ng-model="currentEmp.user.contactProfile.phoneNumberHome" class="form-control m-b-sm">
-                          <ang ng-hide="page.editPNHome && page.editPNWork" ng-click = "addTelAction()"><i class="fa fa-plus"></i> Add another telefon </a>
+
+                          <div class="input-group">
+                            <input type="text" ng-model="currentEmp.user.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
+                          </div>
+
+                          <div class="input-group">
+                            <input type="text" ng-hide="!page.editPNWork" ng-model="currentEmp.user.contactProfile.phoneNumberWork" class="form-control m-b-sm">
+                            <span class="input-group-btn">
+                              <button type="button" ng-hide="!page.editPNWork" ng-show = "phoneNumberWork" ng-click="deletePNWork()" class="btn btn-default inline" type="button"><i class="fa fa-times"></i></button>
+                            </span>
+                          </div>
+
+                          <div class="input-group">
+                            <input type="text" ng-hide="!page.editPNHome" ng-model="currentEmp.user.contactProfile.phoneNumberHome" class="form-control m-b-sm">
+                            <span class="input-group-btn">
+                              <button type="button" ng-hide="!page.editPNHome" ng-click="deletePNHome()" class="btn btn-default inline" type="button"><i class="fa fa-times"></i></button>
+                            </span>
+                          </div>
+                          <a ng-hide="page.editPNHome && page.editPNWork" ng-click = "addTelAction()"><i class="fa fa-plus"></i> Add another telefon </a>
+
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">Save</button>
@@ -647,17 +682,29 @@
 
                       <form role="form" ng-show="editEmailAction">
                         <div class="form-group">
+
                           <div class="form-group">
-                          <input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+                            <div class="input-group">
+                              <input type="text" ng-model="currentEmp.user.contactProfile.email" class="form-control m-b-sm">
+                            </div>
 
-                          <button type="button" ng-hide="!page.editEMWork" ng-click="deleteEMWork()" class="btn btn-default btn-xs inline"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editEMWork" ng-model="currentEmp.user.contactProfile.emailWork" class="form-control m-b-sm">
+                            <div class="input-group">
+                              <input type="text" ng-hide="!page.editEMWork" ng-model="currentEmp.user.contactProfile.emailWork" class="form-control m-b-sm">
+                              <span class="input-group-btn">
+                                <button type="button" ng-hide="!page.editEMWork" ng-click="deleteEMWork()" class="btn btn-default inline"><i class="fa fa-times"></i></button>
+                              </span>
+                            </div>
 
-                          <button type="button" ng-hide="!page.editEMHome" ng-click="deleteEMHome()" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                          <input type="text" ng-hide="!page.editEMHome" ng-model="currentEmp.user.contactProfile.emailHome" class="form-control m-b-sm">
+                            <div class="input-group">
+                              <input type="text" ng-hide="!page.editEMHome" ng-model="currentEmp.user.contactProfile.emailHome" class="form-control m-b-sm">
+                              <span class="input-group-btn">
+                                <button type="button" ng-hide="!page.editEMHome" ng-click="deleteEMHome()" class="btn btn-default inline"><i class="fa fa-times"></i></button>
+                              </span>
+                            </div>
 
-                          <ang ng-hide="page.editEMHome && page.editEMWork" ng-click = "addEmlAction()"><i class="fa fa-plus"></i> Add another E-post </a>
+                            <a ng-hide="page.editEMHome && page.editEMWork" ng-click = "addEmlAction()"><i class="fa fa-plus"></i> Add another E-post </a>
                       </div>
+
                         </div>
                         <div>
                           <button class="btn btn-sm btn-primary" ng-click="save(currentEmp)">{{ 'Save' | translate }}</button>
