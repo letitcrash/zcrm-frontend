@@ -31,15 +31,17 @@ angular
     $scope.inbox = [];
     // Active conversation
     $scope.activeConv = null;
+    // Mail reply form toggler
+    $scope.mailReplyForm = false;
 
     // Sorting inbox: conversations with last recived mails will go on top
     function sortInbox(c1, c2) {
-      var date1 = c1.mails[c1.mails.length - 1].received;
-      var date2 = c2.mails[c2.mails.length - 1].received;
+      var d1 = c1.mails[c1.mails.length - 1].received;
+      var d2 = c2.mails[c2.mails.length - 1].received;
 
-      if (date1 < date2) {
+      if (d1 > d2) {
         return 1;
-      } else if (date1 > date2) {
+      } else if (d1 < d2) {
         return -1;
       }
 
@@ -51,7 +53,7 @@ angular
       mailboxService.getInbox($scope.mailboxId).then(function(res) {
         if (res.length > 0) {
           console.log(res);
-          $scope.inbox = res.sort(sortInbox);
+          $scope.inbox = res.sort(sortInbox).reverse();
 
           $scope.inbox.forEach(function(conv) {
             conv.mails.forEach(function(mail) {
@@ -70,15 +72,13 @@ angular
         if (elem.hasOwnProperty('active') && elem.active) { elem.active = false; }
       });
       conv.active = true;
-      conv.mails[0].active = true;
+      conv.mails[conv.mails.length - 1].active = true;
       $scope.activeConv = conv;
     };
 
     // Toggle mail reply form
     $scope.toggleReplyForm = function(mail) {
-      mail.replyForm = !mail.replyForm;
-
-      if (!mail.active) { mail.active = true; }
+      $scope.mailReplyForm = !$scope.mailReplyForm;
     };
 
     getEmployees =  function(force, pageSize, pageNr, searchTerm) {

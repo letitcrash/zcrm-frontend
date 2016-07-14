@@ -20,7 +20,7 @@
     <!-- Conversations -->
     <ul class="mailbox-convers col-md-6 col-lg-4 list-unstyled">
       <!-- Mail -->
-      <li class="mail media clearfix" ng-repeat="conv in inbox" ng-init="mail = conv.mails[0]"
+      <li class="mail media clearfix" ng-repeat="conv in inbox" ng-init="mail = conv.mails[conv.mails.length - 1]"
           ng-class="{'active': conv.active}">
         <!-- Mail header -->
         <div class="mail-avatar media-left">
@@ -68,12 +68,31 @@
     </ul>
     <!-- Conversation view -->
     <ul class="mailbox-conv-view col-md-6 col-lg-8 list-unstyled">
+      <!-- Conversation subject -->
       <li class="mailbox-conv-subject" ng-if="activeConv != null"><h2>{{ activeConv.mails[0].subject }}</h2></li>
+      <!-- Placeholder -->
       <li class="mailbox-pholder text-muted" ng-if="activeConv == null">
         <h2>{{ 'Select a conversation to view' | translate }}</h2>
       </li>
+      <!-- Mail reply form -->
+      <li class="mail-reply" uib-collapse="!mailReplyForm">
+        <div class="mail-avatar mail-reply-avatar">
+          <a href=""><img alt="image" src="img/a2.jpg"></a>
+        </div>
+        <!-- Reply editor -->
+        <div class="mail-reply-body">
+          <div class="mail-reply-to">
+            <strong>To:</strong>
+            <ul class="list-unstyled list-inline dsp-inline-block">
+              <li><a href="">Stein@multimedianordic.no</a></li>
+            </ul>
+          </div>
+          <textarea id="" class="form-control" name="" rows="10"></textarea>
+        </div>
+      </li>
       <!-- Mail -->
-      <li class="mail conv-view media clearfix" ng-repeat="mail in activeConv.mails" data-mail-id="{{ ::mail.id }}">
+      <li class="mail conv-view media clearfix" ng-repeat="mail in activeConv.mails | orderBy:received:true"
+          data-mail-id="{{ ::mail.id }}">
         <!-- Mail header -->
         <div class="mail-avatar media-left">
           <a href=""><img alt="image" src="img/a2.jpg"></a>
@@ -114,22 +133,6 @@
           <div class="mail-body" uib-collapse="!mail.active">
             <!-- Mail body content -->
             <div ng-bind-html="mail.body"></div>
-            <!-- Mail reply form -->
-            <div class="mail-reply media" uib-collapse="!mail.replyForm">
-              <div class="mail-avatar mail-reply-avatar media-left">
-                <a href=""><img alt="image" src="img/a2.jpg"></a>
-              </div>
-              <!-- Reply editor -->
-              <div class="mail-reply-body media-body">
-                <div class="mail-reply-to">
-                  <strong>To:</strong>
-                  <ul class="list-unstyled list-inline dsp-inline-block">
-                    <li><a href="">Stein@multimedianordic.no</a></li>
-                  </ul>
-                </div>
-                <textarea id="" class="form-control" name="" rows="10"></textarea>
-              </div>
-            </div>
           </div>
           <!-- Mail body preview -->
           <a href="" class="mail-body-preview conv-view" ng-hide="mail.active" ng-click="mail.active = true"
