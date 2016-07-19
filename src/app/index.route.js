@@ -156,7 +156,14 @@
 		url: "/employees",
 		templateUrl: "app/employees/employees.html",
 		data: { pageTitle: 'Employees' },
-                "authenticate": true
+        "authenticate": true
+        
+      })
+      .state('index.404', {
+        url: "/404",
+        templateUrl: "app/404/404.html",
+        data: { pageTitle: '404 Page not found' },
+        "authenticate": true
 
       });
 
