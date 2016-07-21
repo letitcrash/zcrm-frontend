@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content full-height" ng-controller="MailboxCtrl">
+<div class="wrapper wrapper-content full-height" ng-controller="MailboxController as mbox">
   <!-- Mailbox header -->
   <div class="mailbox-header clearfix">
     <h2 class="col-md-4">
@@ -122,7 +122,7 @@
             <ul class="list-unstyled list-inline dsp-inline-block">
               <li><a href="">{{ ::mail.receivedBy }}</a></li>
             </ul>
-            <span class="mail-date pull-right text-muted">{{ ::mail.received | date:'medium' }}</small>
+            <span class="mail-date pull-right text-muted">{{ ::mail.received | date:'medium' }}</span>
           </div>
           <!-- Mail tags -->
           <div class="mail-tags conv-view">
@@ -142,5 +142,9 @@
         </div>
       </li>
     </ul>
+    <div class="slide-box">
+      <h3 class="slide-box-header">Attach mail to ticket</h3>
+      <div class="slide-box-body">Content</div>
+    </div>
   </div>
 </div>
