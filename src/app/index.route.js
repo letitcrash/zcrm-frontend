@@ -56,7 +56,7 @@
       .state('index.mail', {
         url: "/mailbox/:mailboxId",
         templateUrl: "app/mail/mailbox.html",
-        data: { pageTitle: 'Mailbox' },
+        data: {pageTitle: 'Mailbox', viewClass: 'mailbox-view'},
         "authenticate": true,
         resolve: {
                 loadPlugin: function ($ocLazyLoad) {
