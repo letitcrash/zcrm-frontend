@@ -1,7 +1,7 @@
 'use strict';
 angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
   var mailboxes = [];
-  console.log("Test service");
+  var selectedMsgs = [];
 
   return {
     getInbox: function(mailboxId, force, pageSize, pageNr, searchTerm) {
@@ -34,14 +34,7 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
         url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/send";
       return requestService.ttPost(url, email);
     },
-    get: function(id) {
-
-      var url;
-      url = "users/" + id + "/mailboxes";
-            console.log("ID:" +url)
-
-      return requestService.ttGet(url);
-    },
+    get: function(id) { return requestService.ttGet('users/' + id + '/mailboxes'); },
     update: function(cp) {
       var url;
       url = "companies/" + cp.id;
@@ -59,10 +52,12 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
       return requestService.ttPost(url, mb);
     },
     getList: function() { return mailboxes; },
-    setList: function(updated) {
-      if (typeof updated.slice === 'function') {
-        mailboxes = updated.slice();
-      }
+    setList: function(upd) {
+      if (angular.isArray(upd)) { mailboxes = upd.slice(); }
+    },
+    getSelectedMsgs: function() { return selectedMsgs },
+    setSelectedMsgs: function(upd) {
+      if (angular.isArray(upd)) { selectedMsgs = upd.slice(); }
     }
   };
 });

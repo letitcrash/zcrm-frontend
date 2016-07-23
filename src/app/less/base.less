@@ -529,6 +529,10 @@ code {
   display: table;
 }
 
+.ibox.slidebox { clear: none; }
+.ibox.slidebox > .ibox-title { margin-top: 0; }
+.ibox.slidebox > .ibox-content { padding: 15px; }
+
 .ibox-title {
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
@@ -1336,10 +1340,23 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 
 // Helper classes for "display" property
-@dsp-props: block, inline, inline-block;
+@dsp-props: block, inline, inline-block, table, table-cell;
 .display-helpers(@i: length(@dsp-props)) when (@i > 0) {
   @dsp: extract(@dsp-props, @i);
   .dsp-@{dsp} { display: @dsp; }
+
+  .display-helpers(@i - 1);
 }
 
 .display-helpers();
+
+// Vertical align
+@valign-props: bottom, middle, top;
+.valign-helpers(@i: length(@dsp-props)) when (@i > 0) {
+  @valign: extract(@valign-props, @i);
+  .valign-@{valign} { vertical-align: @valign; }
+
+  .valign-helpers(@i - 1);
+}
+
+.valign-helpers();

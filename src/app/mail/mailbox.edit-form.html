@@ -1,0 +1,38 @@
+<form role="form" ng-init="sbox = mbox.slidebox">
+  <h3 class="mailbox-slidebox-title ibox-title clearfix">
+    {{ sbox.title | translate }}
+    <button class="btn btn-sm btn-default pull-right" ng-click="sbox.active = false">
+      <i class="fa fa-close"></i>
+    </button>
+  </h3>
+  <div class="mailbox-slidebox-content ibox-content">
+    <div class="form-group">
+      <label for="mbox_server"><i class="fa fa-server"></i>&nbsp;Server address</label>
+      <input type="url" class="form-control" id="mbox_server" ng-model="sbox.mailbox.server"
+             placeholder="Server address" required>
+    </div>
+    <div class="form-group">
+      <label for="mbox_login"><i class="fa fa-user"></i>&nbsp;Login</label>
+      <input type="text" class="form-control" id="mbox_server" ng-model="sbox.mailbox.login" required>
+    </div>
+    <div class="form-group" ng-if="sbox.mailbox.login.length > 0">
+      <label for="mbox_pswd_o"><i class="fa fa-lock">&nbsp;</i>Old password</label>
+      <input type="password" class="form-control" id="mbox_pswd_o" required>
+    </div>
+    <div class="form-group">
+      <label for="mbox_pswd_n">
+        <i class="fa fa-lock"></i>
+        {{ sbox.mailbox.login.length > 0 ? 'New password' : 'Password' }}
+      </label>
+      <input type="password" class="form-control" id="mbox_pswd_n" required>
+    </div>
+    <div class="form-group">
+      <label for="mbox_pswd_c"><i class="fa fa-lock"></i>&nbsp;Confirm password</label>
+      <input type="password" class="form-control" id="mbox_pswd_c" required>
+    </div>
+  </div>
+  <div class="ibox-footer text-right">
+    <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
+    <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
+  </div>
+</form>

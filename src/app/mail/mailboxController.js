@@ -19,7 +19,7 @@ angular
     }
   })
   .controller("MailboxController", function($log, $rootScope, $state, $stateParams, $sanitize, mailboxService,
-        ticketService, dataService, employeeService, textFromHTMLFilter) {
+        ticketService, dataService) {
     var vm = this;
 
     // Get current mailbox for current user
@@ -29,11 +29,21 @@ angular
     vm.inbox = [];
     // Active conversation
     vm.activeConv = null;
+    // Conversation view
+    vm.convView = {active: false, title: '', msgList: []};
+    // Selected messages
+    vm.selectedMsgs = [];
     // Mail reply form toggler
-    vm.mailReplyForm = false;
+    vm.msgReplyForm = false;
+    // Attach to ticket form
+    vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
+    // Tickets
+    vm.tickets = [];
+    // Slide box
+    vm.slidebox = {active: false};
 
     // Sorting inbox: conversations with last recived mails will go on top
-    function sortInbox(c1, c2) {
+    vm.sortInbox = function sortInbox(c1, c2) {
       var d1 = c1.mails[c1.mails.length - 1].received;
       var d2 = c2.mails[c2.mails.length - 1].received;
 
@@ -46,24 +56,6 @@ angular
       return 0;
     }
 
-    // Get inbox mails
-    function getInbox() {
-      mailboxService.getInbox(vm.mailboxId).then(function(res) {
-        if (res.length > 0) {
-          $log.log(res);
-          vm.inbox = res.sort(sortInbox).reverse();
-
-          vm.inbox.forEach(function(conv) {
-            conv.mails.forEach(function(mail) {
-              mail.preview = textFromHTMLFilter(mail.body);
-              mail.active = false;
-              mail.replyForm = false;
-            });
-          });
-        }
-      }, function() { $log.log('Mailbox error'); });
-    }
-
     // Select active conversation for detailed view
     vm.selectConv = function(conv) {
       vm.inbox.forEach(function(elem) {
@@ -72,12 +64,39 @@ angular
       conv.active = true;
       conv.mails[conv.mails.length - 1].active = true;
       vm.activeConv = conv;
+      vm.convView.active = true;
+      vm.convView.title = conv.mails[0].subject;
+      vm.convView.msgList = conv.mails;
     };
 
-    // Toggle mail reply form
+    // Toggle message reply form
     vm.toggleReplyForm = function() {
-      vm.mailReplyForm = !vm.mailReplyForm;
+      vm.msgReplyForm = !vm.msgReplyForm;
     };
 
-    getInbox();
+    // Toggle attach to ticket form
+    vm.toggleAttachMsgForm = function toggleAttachMsgForm() {
+      if (!vm.attachMsgForm.active) {
+        vm.convView.active = true;
+        vm.convView.title = 'Selected messages';
+      } else {
+        vm.convView.active = false;
+      }
+
+      if (vm.attachMsgForm.active && vm.activeConv != null) {
+        vm.convView.active = true;
+        vm.convView.title = vm.activeConv.mails[0].subject;
+        vm.convView.msgList = vm.activeConv.mails;
+      }
+
+      vm.attachMsgForm.active = !vm.attachMsgForm.active;
+    };
+
+    // Select messages for attaching to ticket
+    vm.selectMsgsToAttach = function selectMsgsToAttach(data) {
+      $log.log(data);
+      mailboxService.setSelectedMsgs([].concat(data));
+      $state.go('index.mail.attachMsgs', {mailboxId: vm.mailboxId});
+    };
+
   });

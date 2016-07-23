@@ -54,27 +54,47 @@
 
       })
       .state('index.mail', {
-        url: "/mailbox/:mailboxId",
-        templateUrl: "app/mail/mailbox.html",
+        templateUrl: 'app/mail/mailbox.html',
         data: {pageTitle: 'Mailbox', viewClass: 'mailbox-view'},
-        "authenticate": true,
+        authenticate: true,
+        controller: 'MailboxController as mbox',
         resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'bootstrap',
-                            files: ['https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js']
-                        },
-                        {
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js']
-                        },
-                        {
-                            name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
-                        }
-                    ]);
+          loadPlugin: function ($ocLazyLoad) {
+            return $ocLazyLoad.load([
+                {
+                  name: 'bootstrap',
+                  files: ['https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js']
+                },
+                {
+                  name: 'summernote',
+                  files: [
+                    'css/plugins/summernote/summernote.css',
+                    'css/plugins/summernote/summernote-bs3.css',
+                    'js/plugins/summernote/summernote.min.js',
+                    'js/plugins/summernote/angular-summernote.min.js'
+                  ]
                 }
+            ]);
+          }
         }
+      })
+      .state('index.mail.inbox', {
+        parent: 'index.mail',
+        url: '/mailbox/:mailboxId/inbox',
+        templateUrl: 'app/mail/mailbox.inbox.html',
+        controller: 'MailboxInboxController as inbox'
+      })
+      .state('index.mail.list', {
+        parent: 'index.mail',
+        url: '/mailbox/:mailboxId/list',
+        templateUrl: 'app/mail/mailbox.list.html',
+        controller: 'MailboxListController as lbox'
+      })
+      .state('index.mail.attachMsgs', {
+        parent: 'index.mail',
+        url: '/mailbox/:mailboxId/attach-msgs',
+        templateUrl: 'app/mail/mailbox.attach-msgs.html',
+        controller: 'MailboxAttachMsgsController as ambox'
       })
       .state('outlook', {
             url: "/outlook",

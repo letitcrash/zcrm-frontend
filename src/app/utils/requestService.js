@@ -91,12 +91,12 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
       token = dataService.getSessionToken();
       userId = dataService.getUserId();
       console.log("setting header");
-     
+
       $http({
         method: method,
         url: url,
         data: data,
-        timeout : 4000, 
+        timeout : 4000,
         headers: {
           "Content-Type": "application/json",
           "X-Access-Token": token,

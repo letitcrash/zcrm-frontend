@@ -1,0 +1,23 @@
+<!-- Mailbox list -->
+<div class="mailbox-list mailbox-scroll-box">
+  <table class="mailbox-boxes table table-stripped">
+    <thead>
+      <tr>
+        <th><i class="fa fa-hashtag"></i>&nbsp;ID</th>
+        <th><i class="fa fa-server"></i>&nbsp;Server</th>
+        <th><i class="fa fa-user"></i>&nbsp;Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="box in main.mailboxes">
+        <td>{{ box.id }}</td>
+        <td><a ng-href="box.server">{{ box.server }}</a></td>
+        <td>{{ box.login }}</td>
+        <td class="text-right" ng-hide="mbox.slidebox.active">
+          <button class="btn-white" ng-click="lbox.editMailbox(box)"><i class="fa fa-pencil"></i>&nbsp;Edit</button>
+          <button class="btn-white"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

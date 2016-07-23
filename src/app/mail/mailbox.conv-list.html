@@ -1,0 +1,52 @@
+<!-- Last message in conversation list -->
+<li class="msg media clearfix" ng-repeat="conv in vm.inbox"
+    ng-init="msg = conv.mails[conv.mails.length - 1]" ng-class="{'active': conv.active}">
+  <!-- Message header -->
+  <div class="msg-avatar media-left">
+    <a href="">
+      <img alt="image" src="img/a2.jpg">
+    </a>
+  </div>
+  <!-- Message content -->
+  <div class="msg-content media-body">
+    <!-- Sender and send date -->
+    <p class="clearfix">
+      <a class="msg-sender dsp-inline-block" href="#">{{ ::msg.sender }}</a>
+      <small class="msg-date dsp-inline-block text-muted">
+        {{ ::msg.received | date:'medium' }}
+      </small>
+    </p>
+    <!-- Message body preview -->
+    <a href="" class="msg-body-preview" ng-click="mbox.selectConv(conv)"
+      role="button">
+      <h4 class="msg-subject">{{ ::msg.subject }}</h4>
+      {{ ::msg.preview | cutLongText:150:'...' }}
+    </a>
+    <div class="clearfix">
+      <div class="pull-left">
+        <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+        <button class="btn btn-white btn-xs"><a href>Important</a></button>
+      </div>
+      <div class="pull-right dropdown">
+        <!-- <button class="btn-white" ng-click="mbox.selectMsgsToAttach(msg)"> -->
+        <!-- </button> -->
+        <button class="btn-white">
+          <i class="fa fa-star-o"></i>
+        </button>
+        <span uib-dropdown dropdown-append-to-body="true">
+          <button data-toggle="dropdown" class="btn-white" uib-dropdown-toggle>
+            <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu m-t-xs" uib-dropdown-menu>
+            <li>
+              <!-- <a ui-sref="index.mail.attachMsgs({mailboxId: mbox.mailboxId})"> -->
+              <a href="" role="button" ng-click="mbox.selectMsgsToAttach(msg)">
+                <i class="fa fa-eye"></i>&nbsp;{{ 'Attach to ticket' | translate }}
+              </a>
+            </li>
+          </ul>
+        </span>
+      </div>
+    </div>
+  </div>
+</li>

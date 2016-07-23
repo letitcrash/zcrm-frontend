@@ -1,21 +1,24 @@
 'use strict';
 
 angular.module('inspinia')
-  .controller('MainController', function($scope, $http, $state, dataService, mailboxService) {
+  .controller('MainController', function($log, $scope, $state, dataService, mailboxService) {
+    // View
+    var vm = this;
+    // User ID
     var userId = dataService.getUserId();
 
-    $scope.state = $state;
-    console.log($state);
-    $scope.mailboxes = [];
+    vm.state = $state;
+    $log.log($state);
+    vm.mailboxes = [];
 
-    if (typeof userId === 'number') {
+    if (angular.isNumber(userId)) {
       // Get mailboxes list for user
-      mailboxService.get(dataService.getUserId()).then(function(res) {
+      mailboxService.get(userId).then(function(res) {
         if (res.length > 0) {
           mailboxService.setList(res);
-          $scope.mailboxes = mailboxService.getList();
+          vm.mailboxes = mailboxService.getList();
         }
-      }, function(res) { return console.log('Failed to get mailboxlist'); });
+      }, function() { return $log.log('Failed to get mailboxlist'); });
     }
 
     /*

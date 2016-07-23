@@ -1,0 +1,75 @@
+<!-- Conversation subject -->
+<li class="mailbox-conv-subject" ng-show="mbox.convView.active">
+  <h2 class="m-n">{{ mbox.convView.title }}</h2>
+</li>
+<!-- Placeholder -->
+<li class="mailbox-pholder text-muted" ng-hide="mbox.convView.active">
+  <h2>{{ 'Select a conversation to view' | translate }}</h2>
+</li>
+<!-- Message reply form -->
+<li class="msg-reply" uib-collapse="!mbox.msgReplyForm">
+  <div class="msg-avatar msg-reply-avatar">
+    <a href=""><img alt="image" src="img/a2.jpg"></a>
+  </div>
+  <!-- Reply editor -->
+  <div class="msg-reply-body">
+    <div class="msg-reply-to">
+      <strong>To:</strong>
+      <ul class="list-unstyled list-inline dsp-inline-block">
+        <li><a href="">Stein@multimedianordic.no</a></li>
+      </ul>
+    </div>
+    <textarea id="" class="form-control" name="" rows="10"></textarea>
+  </div>
+</li>
+<!-- Message -->
+<li class="msg conv-view media clearfix" ng-repeat="msg in mbox.convView.msgList | orderBy:received:true"
+    data-msg-id="{{ ::msg.id }}" ng-show="mbox.convView.active">
+  <!-- Message header -->
+  <div class="msg-avatar media-left">
+    <a href=""><img alt="image" src="img/a2.jpg"></a>
+  </div>
+  <!-- Message content -->
+  <div class="msg-content media-body">
+    <!-- Sender, controls-->
+    <div class="clearfix">
+      <a class="msg-sender conv-view dsp-inline-block" href="#">{{ ::msg.sender }}</a>
+      <span class="msg-ctrls conv-view pull-right">
+        <button class="btn-white" ng-click="toggleReplyForm(mail)">
+          <i class="fa fa-reply"></i>
+          {{ 'Reply' | translate }}
+        </button>
+        <!-- <button class="btn-white" ng-click="toggleReplyForm(mail)"> -->
+        <!--   <i class="fa fa-reply-all"></i> -->
+        <!--   {{ 'Reply all' | translate }} -->
+        <!-- </button> -->
+        <button class="btn-white" ng-click="msg.active = !msg.active">
+          <i class="fa" ng-class="msg.active ? 'fa-angle-up' : 'fa-angle-down'"></i>
+        </button>
+      </span>
+    </div>
+    <!-- Receivers -->
+    <div class="clearfix">
+      <span class="text-muted">To:</span>
+      <ul class="list-unstyled list-inline dsp-inline-block">
+        <li><a href="">{{ ::msg.receivedBy | cutLongText:50:'...' }}</a></li>
+      </ul>
+      <span class="msg-date pull-right text-muted">{{ ::msg.received | date:'medium' }}</span>
+    </div>
+    <!-- Message tags -->
+    <div class="msg-tags conv-view">
+      <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+      <button class="btn btn-white btn-xs"><a href>Important</a></button>
+    </div>
+    <!-- Message body -->
+    <div class="msg-body" uib-collapse="!msg.active">
+      <!-- Message body content -->
+      <div ng-bind-html="msg.body"></div>
+    </div>
+    <!-- Message body preview -->
+    <a href="" class="msg-body-preview conv-view" ng-hide="msg.active" ng-click="msg.active = true"
+       role="button">
+      {{ ::msg.preview | cutLongText:150:'...' }}
+    </a>
+  </div>
+</li>

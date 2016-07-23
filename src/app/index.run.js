@@ -19,6 +19,7 @@
       dataService.setBaseServiceURL('http://desk-it.com:10000/');
     } else {
       dataService.setBaseServiceURL('https://desk-it.com:10443/');
+      // dataService.setBaseServiceURL('http://desk-it.com:10000/');
     }
 
     //dataService.setBaseServiceURL('https://desk-it.com:9443/')

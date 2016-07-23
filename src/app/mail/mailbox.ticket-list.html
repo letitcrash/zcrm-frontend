@@ -1,0 +1,20 @@
+<div class="ibox-footer text-right">
+  <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
+  <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
+</div>
+<div class="full-height">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Subject</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="ticket in vm.tickets">
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.subject }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
