@@ -15,14 +15,14 @@
       <label for="mbox_login"><i class="fa fa-user"></i>&nbsp;Login</label>
       <input type="text" class="form-control" id="mbox_server" ng-model="sbox.mailbox.login" required>
     </div>
-    <div class="form-group" ng-if="sbox.mailbox.login.length > 0">
+    <div class="form-group" ng-if="sbox.mailbox.password.length > 0">
       <label for="mbox_pswd_o"><i class="fa fa-lock">&nbsp;</i>Old password</label>
       <input type="password" class="form-control" id="mbox_pswd_o" required>
     </div>
     <div class="form-group">
       <label for="mbox_pswd_n">
         <i class="fa fa-lock"></i>
-        {{ sbox.mailbox.login.length > 0 ? 'New password' : 'Password' }}
+        {{ sbox.mailbox.password.length > 0 ? 'New password' : 'Password' }}
       </label>
       <input type="password" class="form-control" id="mbox_pswd_n" required>
     </div>
