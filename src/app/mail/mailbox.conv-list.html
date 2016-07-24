@@ -28,20 +28,17 @@
         <button class="btn btn-white btn-xs"><a href>Important</a></button>
       </div>
       <div class="pull-right dropdown">
-        <!-- <button class="btn-white" ng-click="mbox.selectMsgsToAttach(msg)"> -->
+        <!-- <button class="btn-white"> -->
+        <!--   <i class="fa fa-star-o"></i> -->
         <!-- </button> -->
-        <button class="btn-white">
-          <i class="fa fa-star-o"></i>
-        </button>
         <span uib-dropdown dropdown-append-to-body="true">
           <button data-toggle="dropdown" class="btn-white" uib-dropdown-toggle>
-            <i class="fa fa-angle-down"></i>
+            <i class="fa fa-ellipsis-h"></i>
           </button>
           <ul class="dropdown-menu m-t-xs" uib-dropdown-menu>
             <li>
-              <!-- <a ui-sref="index.mail.attachMsgs({mailboxId: mbox.mailboxId})"> -->
               <a href="" role="button" ng-click="mbox.selectMsgsToAttach(msg)">
-                <i class="fa fa-eye"></i>&nbsp;{{ 'Attach to ticket' | translate }}
+                <i class="fa fa-plus"></i>&nbsp;{{ 'Attach to ticket' | translate }}
               </a>
             </li>
           </ul>

@@ -663,6 +663,26 @@ a.compose-mail {
   padding-left: 10px;
 }
 
+// Mailbox.Attach-messages
+.mailbox-selected-msgs { border-right: 1px solid @border-color; }
+
+.mailbox-tickets-box { padding-bottom: 50px; }
+
+.mailbox-tickets {
+  height: 100%;
+  background-color: #fff;
+  overflow-y: auto;
+
+  & > table { margin-bottom: 0; }
+}
+
+.mailbox-tickets-ctrls {
+  background-color: #fff;
+  border-top: 1px solid @border-color;
+  margin-bottom: -50px;
+  padding: 10px;
+}
+
 // Mailbox.Message
 
 .msg {
@@ -748,6 +768,9 @@ a.compose-mail {
     height: 100%;
     overflow-y: auto;
   }
+
+  .mailbox-tickets-box { overflow-y: hidden; }
+  .mailbox-tickets { overflow-y: auto; }
 }
 
 

@@ -1,20 +1,35 @@
-<div class="ibox-footer text-right">
-  <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
-  <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
-</div>
-<div class="full-height">
-  <table class="table">
+<div class="mailbox-tickets">
+  <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Subject</th>
+        <th></th>
+        <th><i class="fa fa-hashtag"></i>&nbsp;ID</th>
+        <th><i class="fa fa-check"></i>&nbsp;{{ 'Status' | translate }}</th>
+        <th><i class="fa fa-exclamation-circle"></i>&nbsp;{{ 'Priority' | translate }}</th>
+        <th><i class="fa fa-bullhorn"></i>&nbsp;{{ 'Title' | translate }}</th>
+        <th><i class="fa fa-tasks"></i>&nbsp;{{ 'Project' | translate }}</th>
+        <th><i class="fa fa-calendar"></i>&nbsp;{{ 'Created' | translate }}</th>
+        <th><i class="fa fa-calendar"></i>&nbsp;{{ 'Deadline' | translate }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="ticket in vm.tickets">
-        <td>{{ ticket.id }}</td>
-        <td>{{ ticket.subject }}</td>
+      <tr class="mailbox-ticket" ng-repeat="ticket in vm.tickets" ng-click="vm.selectTicket(ticket)">
+        <td>
+          <input id="ticket_{{ ticket.id }}" class="green-check" type="checkbox" ng-checked="ticket.id === vm.ticketId"
+                 value="{{ vm.ticketId }}">
+        </td>
+        <td><a href="">{{ '#' + ticket.id }}</a></td>
+        <td data-ticket-status="ticket.status"></td>
+        <td data-ticket-priority="ticket.priority"></td>
+        <td><a href="">{{ ticket.subject }}</a></td>
+        <td>{{ ticket.project.name }}</td>
+        <td>{{ ticket.createdAt | date:'MMM d, yyyy' }}</td>
+        <td>{{ ticket.deadline | date:'MMM d, yyyy' }}</td>
       </tr>
     </tbody>
   </table>
+</div>
+<div class="mailbox-tickets-ctrls text-right">
+  <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
+  <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
 </div>

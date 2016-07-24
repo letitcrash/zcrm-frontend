@@ -1,6 +1,39 @@
 <!-- Messages -->
-<ul class="mailbox-convers mailbox-scroll-box list-unstyled col-md-6 col-lg-4"
-    ng-include="'/app/mail/mailbox.msg-list.html'" onload="vm = ambox">
+<ul class="mailbox-selected-msgs mailbox-scroll-box list-unstyled col-md-6 col-lg-4">
+  <!-- Message -->
+  <li class="msg media clearfix" ng-repeat="msg in vm.msgs">
+    <!-- Message header -->
+    <div class="msg-avatar media-left">
+      <a href="">
+        <img alt="image" src="img/a2.jpg">
+      </a>
+    </div>
+    <!-- Message content -->
+    <div class="msg-content media-body">
+      <!-- Sender and send date -->
+      <p class="clearfix">
+        <a class="msg-sender dsp-inline-block" href="#">{{ ::msg.sender }}</a>
+        <small class="msg-date dsp-inline-block text-muted">
+          {{ ::msg.received | date:'medium' }}
+        </small>
+      </p>
+      <!-- Message body preview -->
+      <p class="msg-body-preview" ng-click="mbox.selectConv(conv)"
+        role="button">
+        <h4 class="msg-subject">{{ ::msg.subject }}</h4>
+        {{ ::msg.preview | cutLongText:150:'...' }}
+      </p>
+      <div class="clearfix">
+        <div class="pull-left">
+          <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+          <button class="btn btn-white btn-xs"><a href>Important</a></button>
+        </div>
+        <button class="btn-white pull-right" ng-click="ambox.removeMsg()">
+          <i class="fa fa-close"></i>
+        </button>
+      </div>
+    </div>
+  </li>
 </ul>
 <!-- Tickets -->
 <div class="mailbox-tickets-box mailbox-scroll-box col-md-6 col-lg-8"
