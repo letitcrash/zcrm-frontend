@@ -29,7 +29,7 @@
               <a ui-sref="inbox">
                 <i class="fa fa-envelope"></i>
                 <span class="nav-label">{{ 'Mailbox' | translate }}</span>
-                <span class="label label-warning pull-right">16/24</span>
+                <!-- <span class="label label-warning pull-right">16/24</span> -->
               </a>
               <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('mailbox')}">
                 <!-- Mailboxes -->
@@ -38,6 +38,12 @@
                 </li>
                 <!-- All mailboxes -->
                 <li ui-sref-active="active"><a ui-sref="index.mail.list({mailboxId: box.id})">All</a></li>
+                <!-- Refresh mailbox list -->
+                <li>
+                  <a href="" role="button" ng-click="main.getMailboxes()">
+                    <i class="fa fa-refresh"></i>&nbsp;{{ 'Refresh' | translate }}
+                  </a>
+                </li>
               </ul>
             </li>
 

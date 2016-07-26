@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('inspinia')
+angular
+  .module('inspinia')
   .controller('MainController', function($log, $scope, $state, dataService, mailboxService) {
     // View
     var vm = this;
@@ -11,15 +12,17 @@ angular.module('inspinia')
     $log.log($state);
     vm.mailboxes = [];
 
-    if (angular.isNumber(userId)) {
-      // Get mailboxes list for user
+    // Get mailboxes for user
+    vm.getMailboxes = function getMailboxes() {
       mailboxService.get(userId).then(function(res) {
         if (res.length > 0) {
           mailboxService.setList(res);
           vm.mailboxes = mailboxService.getList();
         }
       }, function() { return $log.log('Failed to get mailboxlist'); });
-    }
+    };
+
+    if (angular.isNumber(userId)) { vm.getMailboxes(); }
 
     /*
     // Simple GET request example:
