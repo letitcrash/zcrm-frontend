@@ -5,7 +5,11 @@
     <div class="mailbox-header clearfix">
       <h2 class="col-md-4">
         <i class="fa" ng-class="mbox.header.icon" aria-hidden="true"></i>
-        {{ mbox.header.title | translate }}
+        <span class="dsp-inline">{{ mbox.header.title | translate }}</span>
+        <button class="btn btn-white pull-right" ng-click="mbox.header.refresh.func(1)"
+                ng-show="mbox.loadStatus !== 2">
+          <i class="fa fa-refresh"></i>
+        </button>
       </h2>
       <!-- Search -->
       <div class="mailbox-search input-group col-md-8 m-b-sm">
@@ -13,9 +17,8 @@
                aria-invalid="false" />
         <span class="input-group-btn">
           <button type="button" class="btn btn btn-default"><i class="fa fa-close"></i></button>
-          <button class="btn btn-primary" ng-click="mbox.header.btn.func()">
-            <i class="fa" ng-class="mbox.header.btn.icon"></i>
-            {{ mbox.header.btn.title | translate }}
+          <button class="btn btn-primary" ng-click="mbox.header.createNew.func()">
+            <i class="fa fa-plus"></i>&nbsp;{{ mbox.header.createNew.title | translate }}
           </button>
         </span>
       </div>

@@ -25,6 +25,8 @@ angular
     // Get current mailbox for current user
     vm.mailboxId = $stateParams.hasOwnProperty('mailboxId') ?
       $stateParams.mailboxId : 1;
+    // Loading statuses: 0 - success, 1 - error, 2 - loading
+    vm.loadStatus = {pFirst: 0};
     // Inbox
     vm.inbox = [];
     // Active conversation
@@ -98,5 +100,4 @@ angular
       mailboxService.setSelectedMsgs([].concat(data));
       $state.go('index.mail.attachMsgs', {mailboxId: vm.mailboxId});
     };
-
   });

@@ -11,7 +11,7 @@ angular
       icon: 'fa-list-alt',
       title: 'Mailboxes',
       search: {placeholder: 'Search mailboxes'},
-      btn: {title: 'New mailbox', icon: 'fa-plus'},
+      createNew: {title: 'New mailbox'},
       state: 'lbox'
     };
 

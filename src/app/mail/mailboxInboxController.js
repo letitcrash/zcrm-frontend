@@ -2,17 +2,17 @@
 
 angular
   .module('inspinia')
-  .controller("MailboxInboxController", function($log, $scope, $rootScope, $state, $stateParams, $sanitize, mailboxService,
+  .controller("MailboxInboxController", function($log, $scope, $state, $stateParams, mailboxService,
         ticketService, dataService, textFromHTMLFilter) {
     // View
     var vm = this;
 
-    // View title
+    // View header
     $scope.mbox.header = {
       icon: 'fa-envelope-o',
       title: 'Inbox',
       search: {placeholder: 'Search email by user, text or ticket'},
-      btn: {title: 'New email', icon: 'fa-plus'},
+      createNew: {title: 'New email'},
       state: 'inbox'
     };
     // Inbox
@@ -29,6 +29,8 @@ angular
     vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
     // Tickets
     vm.tickets = [];
+    // Pages settings
+    vm.pages = {current: 1, all: 1, onPage: 50, total: 0};
 
     // Sorting inbox: conversations with last recived mails will go on top
     function sortInbox(c1, c2) {
@@ -45,12 +47,24 @@ angular
     }
 
     // Get inbox
-    function getInbox() {
-      mailboxService.getInbox($scope.mbox.mailboxId, false, 20, 1).then(function(res) {
+    vm.getInbox = function getInbox(p) {
+      var page = angular.isNumber(p) ? p : 1;
+
+      $scope.mbox.loadStatus = 2;
+
+      if (page === 1) { vm.inbox = []; }
+
+      mailboxService.getInbox($scope.mbox.mailboxId, false, vm.pages.onPage, page).then(function(res) {
         $log.log(res);
 
         if (res.data.length > 0) {
-          vm.inbox = res.data.sort(sortInbox).reverse();
+          if (vm.pages.total !== res.totalCount) { vm.pages.all = Math.ceil(res.totalCount / vm.pages.onPage); }
+          vm.pages.total = res.totalCount;
+          vm.pages.current = page;
+          $log.log(vm.pages);
+          // TODO: Delete local variable when sorting will be implemented on backend
+          var inbox = res.data.sort(sortInbox).reverse();
+          vm.inbox = vm.pages.current > 1 ? vm.inbox.concat(inbox) : inbox;
 
           vm.inbox.forEach(function(conv) {
             conv.active = false;
@@ -61,9 +75,18 @@ angular
               msg.replyForm = false;
             });
           });
+
+          $scope.mbox.loadStatus = 0;
+        } else {
+          $scope.mbox.loadStatus = 1;
         }
-      }, function() { $log.log('Mailbox error'); });
+      }, function() {
+        $scope.mbox.loadStatus = 1;
+        $log.log('Mailbox error');
+      });
     }
 
-    getInbox();
+    $scope.mbox.header.refresh = {func: vm.getInbox};
+
+    vm.getInbox();
   });

@@ -70,7 +70,7 @@ angular
       icon: 'fa-envelope-o',
       title: 'Messages to attach',
       search: {placeholder: 'Search tickets'},
-      btn: {title: 'New ticket', icon: 'fa-plus'},
+      createNew: {title: 'New ticket'},
       state: 'ambox'
     };
 

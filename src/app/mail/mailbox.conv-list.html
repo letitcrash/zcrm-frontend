@@ -47,3 +47,27 @@
     </div>
   </div>
 </li>
+<li class="mailbox-pholder text-muted" ng-show="mbox.loadStatus === 2 && vm.inbox.length === 0">
+  <h3>
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+    <span class="valign-middle">{{ 'Loading messages' | translate }}</span>
+  </h3>
+</li>
+<li class="mailbox-pholder text-muted" ng-show="mbox.loadStatus === 1 && vm.inbox.length === 0">
+  <h3>&nbsp;{{ 'Couldn\'t get messages. Try to reload list.' | translate }}</h3>
+  <button class="btn" ng-click="vm.getInbox(1)">
+    <i class="fa fa-refresh"></i>&nbsp;{{ 'Reload' | translate }}
+  </button>
+</li>
+<li ng-show="vm.pages.all > 1 && vm.pages.current < vm.pages.all">
+  <span class="load-more-msgs" ng-show="mbox.loadStatus === 2 && vm.inbox.length > 0">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>&nbsp;{{ 'Loading messages' | translate }}
+  </span>
+  <span class="load-more-msgs" ng-show="mbox.loadStatus === 1 && vm.inbox.length > 0">
+    <i class="fa fa-ban"></i>&nbsp;{{ 'Couldn\'t get messages. Please try again.' | translate }}
+  </span>
+  <button class="load-more-msgs btn btn-white" ng-click="vm.getInbox(vm.pages.current + 1)"
+    ng-show="mbox.loadStatus !== 2 && vm.inbox.length > 0">
+    <i class="fa fa-arrow-down"></i>&nbsp;{{ 'Load more' | translate }}
+  </button>
+</li>

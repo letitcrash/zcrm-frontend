@@ -87,7 +87,6 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
       url = BASE_URL + suburl;
       deferred = $q.defer();
       console.log("Making " + method + " request to " + url);
-      //console.log(data);
       token = dataService.getSessionToken();
       userId = dataService.getUserId();
       console.log("setting header");
@@ -96,12 +95,13 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
         method: method,
         url: url,
         data: data,
-        timeout : 4000,
+        timeout: 4000,
         headers: {
           "Content-Type": "application/json",
           "X-Access-Token": token,
           "X-User-Id": userId
-        }
+        },
+        withCredentials: true
       }).then(function(response) {
         console.log("got promise");
               console.log(response);
