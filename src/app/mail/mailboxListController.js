@@ -2,32 +2,44 @@
 
 angular
   .module('inspinia')
-  .controller("MailboxListController", function($log, $scope) {
+  .controller("MailboxListController", function($log, $scope, mailboxService) {
     // View
     var vm = this;
 
-    // View title
-    $scope.mbox.header = {
-      icon: 'fa-list-alt',
-      title: 'Mailboxes',
-      search: {placeholder: 'Search mailboxes'},
-      createNew: {title: 'New mailbox'},
-      state: 'lbox'
+    // Page header
+    $scope.mbox.header.title.icon = 'fa fa-list-alt';
+    $scope.mbox.header.title.content = 'Mailboxes';
+    // Refresh mailboxes
+    $scope.mbox.header.refresh.func = function refreshMboxes() { vm.getMailboxes(vm.pages.pSize, 1); };
+    // Search bar
+    $scope.mbox.header.search.placeholder = 'Search mailboxes by login name or by ID';
+    // Create mailbox
+    $scope.mbox.header.createNew.title = 'New mailbox';
+    $scope.mbox.header.createNew.func = function createMailbox() {
+      $scope.mbox.slidebox.mailbox = {id: null, server: '', login: '', password: ''};
+      $scope.mbox.slidebox.title = 'Create mailbox';
+      $scope.mbox.slidebox.active = true;
     };
 
+    // Pagination settings
+    vm.pages = {pNr: 1, pSize: 50, pCount: 1};
+
     // Mailboxes
-    vm.mailboxes = $scope.main.mailboxes;
+    vm.mailboxes = [];
+
+    // Get mailboxes for user
+    vm.getMailboxes = function getMailboxes(pSize, pNr, sTerm) {
+      mailboxService.mailboxes.all(pSize, pNr, sTerm).then(function(res) {
+        if (res.hasOwnProperty('data') && res.data.length > 0) {
+          mailboxService.mailboxes.list = res.data;
+          vm.mailboxes = mailboxService.mailboxes.list;
+        }
+      }, function() { return $log.log('Failed to get mailboxlist'); });
+    };
 
     // Slide box template
     $scope.mbox.slidebox.template = 'app/mail/mailbox.edit-form.html';
     $log.log($scope.mbox.slidebox);
-
-    // Create mailbox
-    $scope.mbox.header.btn.func = function createMailbox() {
-      $scope.mbox.slidebox.mailbox = {id: null, server: '', login: '', password: ''};
-      $scope.mbox.slidebox.title = 'Create';
-      $scope.mbox.slidebox.active = true;
-    };
 
     // Edit mailbox settings
     vm.editMailbox = function editMailbox(box) {
@@ -35,4 +47,7 @@ angular
       $scope.mbox.slidebox.title = 'Edit';
       $scope.mbox.slidebox.active = true;
     };
+
+    vm.getMailboxes(vm.pages.pSize, vm.pages.pNr);
+
   });

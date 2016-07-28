@@ -5,25 +5,9 @@ angular
   .controller('MainController', function($log, $scope, $state, dataService, mailboxService) {
     // View
     var vm = this;
-    // User ID
-    var userId = dataService.getUserId();
 
+    // UI Router state
     vm.state = $state;
-    $log.log($state);
-    vm.mailboxes = [];
-
-    // Get mailboxes for user
-    vm.getMailboxes = function getMailboxes() {
-      mailboxService.get(userId).then(function(res) {
-        if (res.length > 0) {
-          mailboxService.setList(res);
-          vm.mailboxes = mailboxService.getList();
-        }
-      }, function() { return $log.log('Failed to get mailboxlist'); });
-    };
-
-    if (angular.isNumber(userId)) { vm.getMailboxes(); }
-
     /*
     // Simple GET request example:
     $http({

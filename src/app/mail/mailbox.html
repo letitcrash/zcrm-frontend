@@ -4,10 +4,9 @@
     <!-- Mailbox header -->
     <div class="mailbox-header clearfix">
       <h2 class="col-md-4">
-        <i class="fa" ng-class="mbox.header.icon" aria-hidden="true"></i>
-        <span class="dsp-inline">{{ mbox.header.title | translate }}</span>
-        <button class="btn btn-white pull-right" ng-click="mbox.header.refresh.func(1)"
-                ng-show="mbox.loadStatus !== 2">
+        <i ng-class="mbox.header.title.icon" aria-hidden="true"></i>
+        <span class="dsp-inline">{{ mbox.header.title.content | translate }}</span>
+        <button class="btn btn-white pull-right" ng-click="mbox.header.refresh.func(1)" ng-show="mbox.loadStatus !== 2">
           <i class="fa fa-refresh"></i>
         </button>
       </h2>

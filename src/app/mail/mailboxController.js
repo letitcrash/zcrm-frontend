@@ -18,13 +18,20 @@ angular
       return text;
     }
   })
-  .controller("MailboxController", function($log, $rootScope, $state, $stateParams, $sanitize, mailboxService,
-        ticketService, dataService) {
+  .controller("MailboxController", function($log, $state, $stateParams, mailboxService) {
+    // View
     var vm = this;
 
     // Get current mailbox for current user
     vm.mailboxId = $stateParams.hasOwnProperty('mailboxId') ?
       $stateParams.mailboxId : 1;
+    // Page header params
+    vm.header = {
+      title: {icon: '', content: ''},
+      refresh: {tooltip: '', func: function() { return false; }},
+      search: {placeholder: 'Search email by user, text or ticket', func: function() { return false; }},
+      createNew: {title: 'New email', func: function() { return false; }}
+    };
     // Loading statuses: 0 - success, 1 - error, 2 - loading
     vm.loadStatus = {pFirst: 0};
     // Inbox

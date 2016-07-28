@@ -54,7 +54,7 @@ angular
 
       if (page === 1) { vm.inbox = []; }
 
-      mailboxService.getInbox($scope.mbox.mailboxId, false, vm.pages.onPage, page).then(function(res) {
+      mailboxService.messages.inbox($scope.mbox.mailboxId, vm.pages.onPage, page).then(function(res) {
         $log.log(res);
 
         if (res.data.length > 0) {

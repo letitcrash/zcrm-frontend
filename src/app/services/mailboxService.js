@@ -1,63 +1,55 @@
 'use strict';
+
 angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
-  var mailboxes = [];
+  var apiURL = 'users/{usrId}/mailboxes';
+  var re = /{usrId}/;
+  var mboxes = [];
   var selectedMsgs = [];
 
-  return {
-    getInbox: function(mailboxId, force, pageSize, pageNr, searchTerm) {
-      var url;
-        url = "users/" + dataService.getUserId() + "/mailboxes/" + mailboxId + "/mails";
-      if (pageSize && pageNr) {
-        if (searchTerm) {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;
-        } else {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr;
-        }
-      }
-      return requestService.ttGet(url);
-    },
-    getOutbox: function(force, pageSize, pageNr, searchTerm) {
-      var url;
-        url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + dataService.getEmployments().id + "/mail/sentbox";
-      if (pageSize && pageNr) {
-        if (searchTerm) {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;
-        } else {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr;
-        }
-      }
-      return requestService.ttGet(url);
-    },
-    post: function(email, mailboxId) {
+  function buildURLParams(mboxId, msgs, msgId, pSize, pNr, sTerm) {
+    var usrId = dataService.getUserId();
 
-      var url;
-        url = "users/" + dataService.getEmployments().id + "/mailboxes/" + mailboxId + "/send";
-      return requestService.ttPost(url, email);
+    if (!angular.isNumber(usrId)) { return false; }
+
+    var url = apiURL.replace(re, usrId);
+
+    if (angular.isNumber(mboxId)) { url += '/' + mboxId; }
+
+    if (angular.isString(msgs)) {
+      url += '/' + msgs;
+
+      if (angular.isNumber(msgId) && msgs === 'mails') { url += msgs + '/' + msgId; }
+    }
+
+    if (angular.isNumber(pSize) && angular.isNumber(pNr)) {
+      url += '?pageSize=' + pSize + '&pageNr=' + pNr;
+
+      if (angular.isString(sTerm)) { url += '&searchTerm=' + sTerm; }
+    }
+
+    return url;
+  }
+
+  return {
+    mailboxes: {
+      list: mboxes,
+      all: function(pSize, pNr, sTerm) {
+        return requestService.ttGet(buildURLParams(null, null, null, pSize, pNr, sTerm));
+      },
+      get: function(uId, mId) { return requestService.ttGet(buildURLParams(mId)); },
+      create: function(uId, mbox) { return requestService.ttPost(buildURLParams(), mbox); },
+      update: function(uId, mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); }
     },
-    get: function(id) { return requestService.ttGet('users/' + id + '/mailboxes'); },
-    update: function(cp) {
-      var url;
-      url = "companies/" + cp.id;
-      return requestService.ttPut(url, cp);
-    },
-    delete: function(id) {
-      var url;
-      url = "companies/" + id;
-      return requestService.ttDelete(url);
-    },
-    create: function(mb) {
-      var url;
-      mb.userId = dataService.getEmployments().id;
-      url = "users/" + dataService.getEmployments().id + "/mailboxes";
-      return requestService.ttPost(url, mb);
-    },
-    getList: function() { return mailboxes; },
-    setList: function(upd) {
-      if (angular.isArray(upd)) { mailboxes = upd.slice(); }
-    },
-    getSelectedMsgs: function() { return selectedMsgs },
-    setSelectedMsgs: function(upd) {
-      if (angular.isArray(upd)) { selectedMsgs = upd.slice(); }
+    messages: {
+      inbox: function(mId, pSize, pNr, sTerm) {
+        return requestService.ttGet(buildURLParams(mId, 'mails', null, pSize, pNr, sTerm));
+      },
+      outbox: function(mId, pSize, pNr) {
+        return requestService.ttGet(buildURLParams(mId, 'outbox', null, pSize, pNr));
+      },
+      get: function(mboxId, msgId) { return requestService.ttGet(buildURLParams(mboxId, 'mails', msgId)); },
+      create: function(mId, msg) { return requestService.ttPost(buildURLParams(mId, 'send'), msg); },
+      selected: selectedMsgs
     }
   };
 });

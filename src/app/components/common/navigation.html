@@ -36,26 +36,13 @@
             <li ui-sref-active="active">
                 <a ui-sref="index.main"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'Dashboard' | translate }}</span> </a>
             </li>
-            <li ng-class="{active: $state.includes('mailbox')}">
-              <a ui-sref="inbox">
+            <!-- Mailbox -->
+            <li ng-class="{active: main.state.includes('*.mail.*')}">
+              <a ui-sref="index.mail.list()">
                 <i class="fa fa-envelope"></i>
                 <span class="nav-label">{{ 'Mailbox' | translate }}</span>
                 <!-- <span class="label label-warning pull-right">16/24</span> -->
               </a>
-              <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('mailbox')}">
-                <!-- Mailboxes -->
-                <li ui-sref-active="active" ng-repeat="box in main.mailboxes">
-                  <a ui-sref="index.mail.inbox({mailboxId: box.id})">{{ 'Mailbox ' + box.id | translate }}</a>
-                </li>
-                <!-- All mailboxes -->
-                <li ui-sref-active="active"><a ui-sref="index.mail.list({mailboxId: box.id})">All</a></li>
-                <!-- Refresh mailbox list -->
-                <li>
-                  <a href="" role="button" ng-click="main.getMailboxes()">
-                    <i class="fa fa-refresh"></i>&nbsp;{{ 'Refresh' | translate }}
-                  </a>
-                </li>
-              </ul>
             </li>
 
             <li ui-sref-active="active">
