@@ -10,7 +10,7 @@ angular
     $scope.mbox.header.title.icon = 'fa fa-list-alt';
     $scope.mbox.header.title.content = 'Mailboxes';
     // Refresh mailboxes
-    $scope.mbox.header.refresh.func = function refreshMboxes() { vm.getMailboxes(vm.pages.pSize, 1); };
+    // $scope.mbox.header.refresh.func = function refreshMboxes() { vm.getMailboxes(vm.pages.pSize, 1); };
     // Search bar
     $scope.mbox.header.search.placeholder = 'Search mailboxes by login name or by ID';
     // Create mailbox
@@ -38,7 +38,7 @@ angular
     };
 
     // Slide box template
-    $scope.mbox.slidebox.template = 'app/mail/mailbox.edit-form.html';
+    $scope.mbox.slidebox.template = 'app/mail/mailbox.mbox-form.html';
     $log.log($scope.mbox.slidebox);
 
     // Edit mailbox settings
@@ -48,6 +48,13 @@ angular
       $scope.mbox.slidebox.active = true;
     };
 
-    vm.getMailboxes(vm.pages.pSize, vm.pages.pNr);
-
+    // vm.getMailboxes(vm.pages.pSize, vm.pages.pNr);
+    for (var i = 1; i < 21; i++) {
+      vm.mailboxes.push({
+        id: i,
+        server: 'https://outlook.office365.com/EWS/Exchange.asmx',
+        login: 'test@rowanie.no',
+        password: '1234' + i
+      });
+    }
   });

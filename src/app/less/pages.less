@@ -674,9 +674,31 @@ a.compose-mail {
 
 // Mailbox.List
 
-.mailbox-list {
+.mailboxes-mbox {
   background-color: #fff;
-  padding-left: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding: 10px 15px;
+}
+
+.mailboxes-mbox-col {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.mailboxes-mbox-id {
+  min-width: 40px;
+  padding-right: 10px;
+}
+
+.mailboxes-mbox-info { width: 100%; }
+
+.mailboxes-mbox-ctrls {
+  display: block;
+  min-width: 300px;
+  text-align: right;
+  width: 100%;
 }
 
 // Mailbox.Attach-messages
@@ -783,6 +805,11 @@ a.compose-mail {
   .mailbox-scroll-box {
     height: 100%;
     overflow-y: auto;
+  }
+
+  .mailboxes-mbox-ctrls {
+    display: table-cell;
+    width: 27%;
   }
 
   .mailbox-tickets-box { overflow-y: hidden; }

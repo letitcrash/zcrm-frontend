@@ -36,9 +36,9 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
       all: function(pSize, pNr, sTerm) {
         return requestService.ttGet(buildURLParams(null, null, null, pSize, pNr, sTerm));
       },
-      get: function(uId, mId) { return requestService.ttGet(buildURLParams(mId)); },
-      create: function(uId, mbox) { return requestService.ttPost(buildURLParams(), mbox); },
-      update: function(uId, mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); }
+      get: function(mId) { return requestService.ttGet(buildURLParams(mId)); },
+      create: function(mbox) { return requestService.ttPost(buildURLParams(), mbox); },
+      update: function(mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); }
     },
     messages: {
       inbox: function(mId, pSize, pNr, sTerm) {

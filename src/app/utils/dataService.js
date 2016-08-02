@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').factory('dataService', function($cookieStore) {
+angular.module('inspinia').factory('dataService', function($cookies) {
   var APP_VERSION, C_CURRENT_COMPANY_ID, C_CURRENT_COMPANY_NAME, C_EMPLOYMENTS, C_TOKEN, C_MAILBOXID, C_USER, C_USER_LANGUAGE, constants, data;
   APP_VERSION = '0.0.2';
   C_USER = "C_USER";
@@ -28,32 +28,32 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
       console.log("Clearing data");
       data = {};
       console.log("Clearing cache");
-      $cookieStore.remove(C_USER);
-      $cookieStore.remove(C_USER_LANGUAGE);
-      $cookieStore.remove(C_TOKEN);
-      $cookieStore.remove(C_EMPLOYMENTS);
-      $cookieStore.remove(C_CURRENT_COMPANY_ID);
-      return $cookieStore.remove(C_CURRENT_COMPANY_NAME);
+      $cookies.remove(C_USER);
+      $cookies.remove(C_USER_LANGUAGE);
+      $cookies.remove(C_TOKEN);
+      $cookies.remove(C_EMPLOYMENTS);
+      $cookies.remove(C_CURRENT_COMPANY_ID);
+      $cookies.remove(C_CURRENT_COMPANY_NAME);
     },
     getUser: function() {
       if (!data.user) {
-        data.user = $cookieStore.get(C_USER);
+        data.user = $cookies.getObject(C_USER);
       }
       return data.user;
     },
     setUser: function(user) {
       data.user = user;
-      return $cookieStore.put(C_USER, user);
+      return $cookies.putObject(C_USER, user);
     },
     getUserLanguage: function() {
       if (!data.language) {
-        data.language = $cookieStore.get(C_USER_LANGUAGE);
+        data.language = $cookies.get(C_USER_LANGUAGE);
       }
       return data.language;
     },
     setUserLanguage: function(language) {
       data.language = language;
-      return $cookieStore.put(C_USER_LANGUAGE, language);
+      return $cookies.put(C_USER_LANGUAGE, language);
     },
     getUserId: function() {
       if ((this.getUser() != null)) {
@@ -72,32 +72,32 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
     },
     getUserMailboxId: function() {
       if (!data.mailbox) {
-        data.mailbox = $cookieStore.get(C_MAILBOXID);
+        data.mailbox = $cookies.get(C_MAILBOXID);
       }
       return data.mailbox;
     },
     setUserMailboxId: function(mailbox) {
       data.mailbox = mailbox;
-      return $cookieStore.put(C_MAILBOXID, mailbox);
+      return $cookies.put(C_MAILBOXID, mailbox);
     },
     getSessionToken: function() {
       if (!data.token) {
-        data.token = $cookieStore.get(C_TOKEN);
+        data.token = $cookies.get(C_TOKEN);
       }
       return data.token;
     },
     setSessionToken: function(token) {
       data.token = token;
-      return $cookieStore.put(C_TOKEN, token);
+      return $cookies.put(C_TOKEN, token);
     },
     setCurrentCompany: function(company) {
       data.currentCompanyId = company.id;
-      $cookieStore.put(C_CURRENT_COMPANY_ID, company.id);
-      return $cookieStore.put(C_CURRENT_COMPANY_NAME, company.name);
+      $cookies.put(C_CURRENT_COMPANY_ID, company.id);
+      return $cookies.put(C_CURRENT_COMPANY_NAME, company.name);
     },
     getCurrentCompanyId: function() {
       if (!data.currentCompanyId) {
-        data.currentCompanyId = $cookieStore.get(C_CURRENT_COMPANY_ID);
+        data.currentCompanyId = $cookies.get(C_CURRENT_COMPANY_ID);
       }
       if (!data.currentCompanyId) {
         data.currentCompanyId = this.getEmployments().companyId;
@@ -106,7 +106,7 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
     },
     getCurrentCompanyStr: function() {
       if (!data.currentCompanyName) {
-        data.currentCompanyName = $cookieStore.get(C_CURRENT_COMPANY_NAME);
+        data.currentCompanyName = $cookies.get(C_CURRENT_COMPANY_NAME);
       }
       return data.currentCompanyName;
     },
@@ -127,13 +127,13 @@ angular.module('inspinia').factory('dataService', function($cookieStore) {
     },
     getEmployments: function() {
       if (!data.employments) {
-        data.employments = $cookieStore.get(C_EMPLOYMENTS);
+        data.employments = $cookies.getObject(C_EMPLOYMENTS);
       }
       return data.employments;
     },
     setEmployments: function(employments) {
       data.employments = employments;
-      return $cookieStore.put(C_EMPLOYMENTS, employments);
+      return $cookies.putObject(C_EMPLOYMENTS, employments);
     }
   };
 });

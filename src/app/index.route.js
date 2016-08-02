@@ -87,7 +87,7 @@
       .state('index.mail.list', {
         parent: 'index.mail',
         url: '/mailbox/list',
-        templateUrl: 'app/mail/mailbox.list.html',
+        templateUrl: 'app/mail/mailbox.mbox-list.html',
         controller: 'MailboxListController as lstbox'
       })
       .state('index.mail.attachMsgs', {

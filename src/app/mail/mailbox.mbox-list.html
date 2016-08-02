@@ -1,0 +1,19 @@
+<!-- Mailbox list -->
+<ul class="mailboxes-list mailbox-scroll-box list-unstyled">
+  <li class="mailboxes-mbox clearfix" ng-repeat="box in lstbox.mailboxes">
+    <div class="mailboxes-mbox-id mailboxes-mbox-col">
+      <i class="fa fa-hashtag"></i>&nbsp;{{ box.id }}
+    </div>
+    <div class="mailboxes-mbox-info mailboxes-mbox-col">
+      <i class="fa fa-user"></i>&nbsp;{{ box.login }}<br>
+      <i class="fa fa-server"></i>&nbsp;<a ng-href="box.server">{{ box.server }}</a>
+    </div>
+    <div class="mailboxes-mbox-ctrls mailboxes-mbox-col" ng-hide="mbox.slidebox.active">
+      <a ui-sref="index.mail.inbox({mailboxId: box.id})" class="btn btn-default">
+        <i class="fa fa-inbox"></i>&nbsp;Inbox
+      </a>
+      <button class="btn btn-default" ng-click="lbox.editMailbox(box)"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-default"><i class="fa fa-trash"></i></button>
+    </div>
+  </li>
+</ul>
