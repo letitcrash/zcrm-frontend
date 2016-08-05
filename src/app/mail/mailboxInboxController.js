@@ -7,14 +7,16 @@ angular
     // View
     var vm = this;
 
-    // View header
-    $scope.mbox.header = {
-      icon: 'fa-envelope-o',
-      title: 'Inbox',
-      search: {placeholder: 'Search email by user, text or ticket'},
-      createNew: {title: 'New email'},
-      state: 'inbox'
-    };
+    // Page header
+    var pheader = $scope.mbox.header;
+
+    // Page header
+    pheader.title.icon = 'fa fa-inbox';
+    pheader.title.content = 'Inbox';
+    pheader.refresh.func = vm.getInbox;
+    pheader.search.placeholder = 'Search email by user, text or ticket';
+    // Create mailbox
+    pheader.createNew.title = 'New email';
     // Inbox
     vm.inbox = [];
     // Active conversation
@@ -85,8 +87,6 @@ angular
         $log.log('Mailbox error');
       });
     }
-
-    $scope.mbox.header.refresh = {func: vm.getInbox};
 
     vm.getInbox();
   });

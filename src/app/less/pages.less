@@ -611,9 +611,10 @@ a.compose-mail {
 }
 
 .mailbox-header h2 {
+  line-height: 1.25;
+  margin: 0;
   padding-bottom: 10px;
   padding-top: 10px;
-  margin: 0;
 }
 
 .mailbox-header .fa {
@@ -651,6 +652,22 @@ a.compose-mail {
   top: 40%;
 }
 
+.mailbox-overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  left: 0;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.mailbox-overlay-title {
+  position: relative;
+  text-align: center;
+  top: 40%;
+  width: 100%;
+}
+
 .mailbox-conv-subject {
   background-color: #fff;
   padding: 10px 15px;
@@ -676,9 +693,8 @@ a.compose-mail {
 
 .mailboxes-mbox {
   background-color: #fff;
+  border-bottom: 1px solid @border-color;
   font-size: 14px;
-  margin-bottom: 15px;
-  margin-top: 15px;
   padding: 10px 15px;
 }
 
@@ -699,6 +715,11 @@ a.compose-mail {
   min-width: 300px;
   text-align: right;
   width: 100%;
+}
+
+.mailbox-form-overlay {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 // Mailbox.Attach-messages

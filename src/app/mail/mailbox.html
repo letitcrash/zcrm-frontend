@@ -16,7 +16,7 @@
                aria-invalid="false" />
         <span class="input-group-btn">
           <button type="button" class="btn btn btn-default"><i class="fa fa-close"></i></button>
-          <button class="btn btn-primary" ng-click="mbox.header.createNew.func()">
+          <button class="btn btn-primary" ng-click="mbox.header.createNew.func()" ng-disabled="mbox.slidebox.active">
             <i class="fa fa-plus"></i>&nbsp;{{ mbox.header.createNew.title | translate }}
           </button>
         </span>

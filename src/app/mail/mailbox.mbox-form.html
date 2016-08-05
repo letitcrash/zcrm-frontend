@@ -1,38 +1,100 @@
-<form role="form" ng-init="sbox = mbox.slidebox">
+<form name="form" ng-init="vm = mbox.slidebox.vm">
+  <div class="mailbox-overlay mailbox-form-overlay" ng-show="vm.showMboxFormOverlay">
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 2">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      <span class="valign-middle">{{ 'Submiting form' | translate }}</span>
+    </h3>
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 1">
+      <i class="fa fa-check text-success valign-middle"></i>
+      <span class="valign-middle">{{ 'Success' | translate }}</span>
+      <button class="btn btn-default m-t-sm center-block" ng-click="vm.hideMboxForm(form)">
+        {{ 'OK' | translate }}
+      </button>
+    </h3>
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 0">
+      <i class="fa fa-exclamation-circle text-danger valign-middle"></i>
+      <span class="valign-middle">{{ 'Form submiting has failed. Please try again' | translate }}</span><br>
+      <button class="btn btn-default m-t-sm center-block" ng-click="vm.showMboxFormOverlay = false">
+        {{ 'Edit form' | translate }}
+      </button>
+    </h3>
+  </div>
   <h3 class="mailbox-slidebox-title ibox-title clearfix">
-    {{ sbox.title | translate }}
-    <button class="btn btn-sm btn-default pull-right" ng-click="sbox.active = false">
+    {{ mbox.slidebox.title | translate }}
+    <button class="btn btn-sm btn-default pull-right" ng-click="vm.hideMboxForm(form)">
       <i class="fa fa-close"></i>
     </button>
   </h3>
   <div class="mailbox-slidebox-content ibox-content">
-    <div class="form-group">
-      <label for="mbox_server"><i class="fa fa-server"></i>&nbsp;Server address</label>
-      <input type="url" class="form-control" id="mbox_server" ng-model="sbox.mailbox.server"
-             placeholder="Server address" required>
+    <div class="form-group" ng-class="{'has-error': form.server.$dirty && form.server.$invalid}">
+      <label class="control-label" for="mbox_server"><i class="fa fa-server"></i>&nbsp;Server address</label>
+      <input type="url" class="form-control" id="mbox_server" name="server" ng-model="vm.mboxModel.server"
+             ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" required>
+      <span class="help-block" ng-show="form.server.$dirty && form.server.$error.required">
+        {{ 'This field is required' | translate }}
+      </span>
+      <span class="help-block" ng-show="form.server.$dirty && form.server.$error.url">
+        {{ 'This value must be in URL format' | translate }}
+      </span>
     </div>
-    <div class="form-group">
-      <label for="mbox_login"><i class="fa fa-user"></i>&nbsp;Login</label>
-      <input type="text" class="form-control" id="mbox_server" ng-model="sbox.mailbox.login" required>
+    <div class="form-group" ng-class="{'has-error': form.login.$dirty && form.login.$invalid}">
+      <label class="control-label" for="mbox_login"><i class="fa fa-user"></i>&nbsp;Login</label>
+      <input type="text" class="form-control" id="mbox_login" name="login" ng-model="vm.mboxModel.login"
+             ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" required>
+      <span class="help-block" ng-show="form.login.$dirty && form.login.$error.required">
+        {{ 'This field is required' | translate }}
+      </span>
     </div>
-    <div class="form-group" ng-if="sbox.mailbox.password.length > 0">
-      <label for="mbox_pswd_o"><i class="fa fa-lock">&nbsp;</i>Old password</label>
-      <input type="password" class="form-control" id="mbox_pswd_o" required>
+    <div class="form-group" ng-show="!vm.mboxModel.toCreate">
+      <input id="mbox_chng_pswd" class="green-check" type="checkbox" ng-model="vm.mboxModel.changePswd">
+      &nbsp;&nbsp;{{ 'Change password' | translate }}
     </div>
-    <div class="form-group">
-      <label for="mbox_pswd_n">
+    <div class="form-group" ng-class="{'has-error': form.pswdCur.$dirty && form.pswdCur.$invalid}"
+         ng-if="!vm.mboxModel.toCreate && vm.mboxModel.changePswd">
+      <label class="control-label" for="mbox_pswd_o"><i class="fa fa-lock">&nbsp;</i>Current password</label>
+      <input type="password" class="form-control" id="mbox_pswd_o" name="pswdCur" ng-model="vm.mboxModel.pswdCur"
+             data-mbox-check-cur-pswd required>
+      <span class="help-block" ng-show="form.pswdCur.$dirty && form.pswdCur.$error.required">
+        {{ 'This field is required' | translate }}
+      </span>
+      <span class="help-block" ng-show="form.pswdCur.$dirty && form.pswdCur.$error.invalidCurPswd">
+        {{ 'Given password is incorrect' | translate }}
+      </span>
+    </div>
+    <div class="form-group" ng-class="{'has-error': form.pswdNew.$dirty && form.pswdNew.$invalid}"
+         ng-if="vm.mboxModel.toCreate || vm.mboxModel.changePswd">
+      <label class="control-label" for="mbox_pswd_n">
         <i class="fa fa-lock"></i>
-        {{ sbox.mailbox.password.length > 0 ? 'New password' : 'Password' }}
+        {{ vm.mboxModel.id != null ? 'New password' : 'Password' }}
       </label>
-      <input type="password" class="form-control" id="mbox_pswd_n" required>
+      <input type="password" class="form-control" id="mbox_pswd_n" name="pswdNew" ng-model="vm.mboxModel.pswdNew"
+             ng-model-options="{updateOn: 'default blur', debounce: {default: 200, blur: 0}}"
+             data-mbox-check-new-pswd required>
+      <span class="help-block" ng-show="form.pswdNew.$dirty && form.pswdNew.$error.required">
+        {{ 'This field is required' | translate }}
+      </span>
     </div>
-    <div class="form-group">
-      <label for="mbox_pswd_c"><i class="fa fa-lock"></i>&nbsp;Confirm password</label>
-      <input type="password" class="form-control" id="mbox_pswd_c" required>
+    <div class="form-group" ng-class="{'has-error': form.pswdCnf.$dirty && form.pswdCnf.$invalid}"
+         ng-if="vm.mboxModel.toCreate || vm.mboxModel.changePswd">
+      <label class="control-label" for="mbox_pswd_c"><i class="fa fa-lock"></i>&nbsp;Confirm password</label>
+      <input type="password" class="form-control" id="mbox_pswd_c" name="pswdCnf" ng-model="vm.mboxModel.pswdCnf"
+             data-mbox-check-new-pswd ng-model-options="{updateOn: 'default blur', debounce: {default: 300, blur: 0}}"
+             required>
+      <span class="help-block" ng-show="form.pswdCnf.$dirty && form.pswdCnf.$error.required">
+        {{ 'This field is required' | translate }}
+      </span>
+      <span class="help-block" ng-show="form.pswdCnf.$dirty && form.pswdCnf.$error.invalidNewPswd">
+        {{ 'Passwords don\'t match' | translate }}
+      </span>
     </div>
   </div>
   <div class="ibox-footer text-right">
-    <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
-    <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
+    <button type="submit" form="form" class="btn btn-primary btn-sm" ng-click="vm.submitMboxForm(form)"
+            ng-disabled="form.$invalid">
+      <i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}
+    </button>
+    <button class="btn btn-danger btn-sm" ng-click="vm.hideMboxForm(form)">
+      <i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}
+    </button>
   </div>
 </form>
