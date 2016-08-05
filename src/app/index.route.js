@@ -172,12 +172,19 @@
         "authenticate": true
 
       })
+      .state('index.landing', {
+        url: "/landing",
+        templateUrl: "app/landing/landing.html",
+        data: { pageTitle: 'landing' },
+        "authenticate": true
+
+      })
       .state('index.employees', {
 		url: "/employees",
 		templateUrl: "app/employees/employees.html",
 		data: { pageTitle: 'Employees' },
         "authenticate": true
-        
+
       })
       .state('index.404', {
         url: "/404",
