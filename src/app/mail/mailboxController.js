@@ -28,6 +28,7 @@ angular
     // Page header params
     vm.header = {
       title: {icon: '', content: ''},
+      backBtnUrl: '',
       refresh: {tooltip: '', func: function() { return false; }},
       search: {placeholder: 'Search email by user, text or ticket', func: function() { return false; }},
       createNew: {title: 'New email', func: function() { return false; }}

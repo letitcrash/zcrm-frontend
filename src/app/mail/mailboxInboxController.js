@@ -13,6 +13,7 @@ angular
     // Page header
     pheader.title.icon = 'fa fa-inbox';
     pheader.title.content = 'Inbox';
+    pheader.backBtnUrl = $state.href('index.mail.list');
     pheader.refresh.func = vm.getInbox;
     pheader.search.placeholder = 'Search email by user, text or ticket';
     // Create mailbox
