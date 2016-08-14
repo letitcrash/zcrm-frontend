@@ -2,11 +2,11 @@
 <ul class="mailbox-conv-list mailbox-scroll-box list-unstyled col-xs-12"
     ng-class="{'hidden-xs hidden-sm hidden-md': mbox.convView.active, 'col-lg-4': !mbox.slidebox.active}"
     ng-hide="mbox.slidebox.active && mbox.convView.active"
-    ng-include="'/app/mail/mailbox.conv-list.html'" onload="vm = inbox">
+    ng-include="'app/mail/mailbox.conv-list.html'" onload="vm = inbox">
 </ul>
 <!-- Conversation view -->
 <ul class="mailbox-conv-view mailbox-scroll-box list-unstyled col-xs-12"
     ng-class="{'hidden-xs hidden-sm hidden-md': !mbox.convView.active, 'col-lg-8': !mbox.slidebox.active}"
     ng-hide="mbox.slidebox.active && !mbox.convView.active"
-    ng-include="'/app/mail/mailbox.conv-view.html'">
+    ng-include="'app/mail/mailbox.conv-view.html'">
 </ul>

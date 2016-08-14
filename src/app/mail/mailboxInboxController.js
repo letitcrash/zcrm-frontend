@@ -28,8 +28,6 @@ angular
       sbox.active = true;
     };
     */
-    $log.log(pheader);
-    $log.log($scope.mbox.header);
 
     // Active conversation
     vm.activeConv = null;
