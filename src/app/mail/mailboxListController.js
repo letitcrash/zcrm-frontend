@@ -94,6 +94,7 @@ angular
 
     // Edit mailbox settings
     vm.editMbox = function editMbox(box) {
+      $log.log(sbox);
       vm.mboxModel = box;
       vm.mboxModel.toCreate = false;
       vm.mboxModel.changePswd = false;

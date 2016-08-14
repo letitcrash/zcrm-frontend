@@ -1,73 +1,47 @@
 <!-- Last message in conversation list -->
-<li class="msg media clearfix" ng-repeat="conv in vm.inbox"
-    ng-init="msg = conv.mails[conv.mails.length - 1]" ng-class="{'active': conv.active}">
+<li class="email" ng-repeat="conv in mbox.convList" ng-show="vm.loadStats.convList === 1"
+    ng-init="email = conv.mails[conv.mails.length - 1]" ng-class="{'active': conv.active, 'selected': conv.selected}">
   <!-- Message header -->
-  <div class="msg-avatar media-left">
-    <a href="">
-      <img alt="image" src="img/a2.jpg">
-    </a>
+  <div class="email-header clearfix">
+    <h4 class="email-subject ng-binding">{{ ::email.subject }}</h4>
+    <a class="email-sender dsp-inline-block" href="#">{{ ::email.sender }}</a>
+    <small class="email-date dsp-inline-block text-muted">
+      {{ ::email.received | date:'medium' }}
+    </small>
   </div>
-  <!-- Message content -->
-  <div class="msg-content media-body">
-    <!-- Sender and send date -->
-    <p class="clearfix">
-      <a class="msg-sender dsp-inline-block" href="#">{{ ::msg.sender }}</a>
-      <small class="msg-date dsp-inline-block text-muted">
-        {{ ::msg.received | date:'medium' }}
-      </small>
-    </p>
-    <!-- Message body preview -->
-    <a href="" class="msg-body-preview" ng-click="mbox.selectConv(conv)"
-      role="button">
-      <h4 class="msg-subject">{{ ::msg.subject }}</h4>
-      {{ ::msg.preview | cutLongText:150:'...' }}
-    </a>
-    <div class="clearfix">
-      <div class="pull-left">
-        <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-        <button class="btn btn-white btn-xs"><a href>Important</a></button>
-      </div>
-      <div class="pull-right dropdown">
-        <!-- <button class="btn-white"> -->
-        <!--   <i class="fa fa-star-o"></i> -->
-        <!-- </button> -->
-        <span uib-dropdown dropdown-append-to-body="true">
-          <button data-toggle="dropdown" class="btn-white" uib-dropdown-toggle>
-            <i class="fa fa-ellipsis-h"></i>
-          </button>
-          <ul class="dropdown-menu m-t-xs" uib-dropdown-menu>
-            <li>
-              <a href="" role="button" ng-click="mbox.selectMsgsToAttach(msg)">
-                <i class="fa fa-plus"></i>&nbsp;{{ 'Attach to ticket' | translate }}
-              </a>
-            </li>
-          </ul>
-        </span>
-      </div>
+  <!-- Message body preview -->
+  <a href="" class="email-body" ng-click="mbox.viewConvDetail(conv, $index)">
+    {{ ::email.preview | cutLongText:150:'...' }}
+  </a>
+  <!-- Message footer -->
+  <div class="email-footer clearfix hidden">
+    <div class="pull-left">
+      <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
+      <button class="btn btn-white btn-xs"><a href>Important</a></button>
     </div>
   </div>
 </li>
-<li class="mailbox-pholder text-muted" ng-show="mbox.loadStatus === 2 && vm.inbox.length === 0">
+<li class="mailbox-pholder text-muted" ng-show="vm.loadStats.convList === 2">
   <h3>
     <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
     <span class="valign-middle">{{ 'Loading messages' | translate }}</span>
   </h3>
 </li>
-<li class="mailbox-pholder text-muted" ng-show="mbox.loadStatus === 1 && vm.inbox.length === 0">
+<li class="mailbox-pholder text-muted" ng-show="vm.loadStats.convList === 0">
   <h3>&nbsp;{{ 'Couldn\'t get messages. Try to reload list.' | translate }}</h3>
   <button class="btn" ng-click="vm.getInbox(1)">
     <i class="fa fa-refresh"></i>&nbsp;{{ 'Reload' | translate }}
   </button>
 </li>
-<li ng-show="vm.pages.all > 1 && vm.pages.current < vm.pages.all">
-  <span class="load-more-msgs" ng-show="mbox.loadStatus === 2 && vm.inbox.length > 0">
+<li ng-show="vm.pages.all > 1 && vm.pages.current < vm.pages.all && vm.loadStats.convList === 1">
+  <span class="email-load-more" ng-show="vm.loadStats.loadMore === 2">
     <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>&nbsp;{{ 'Loading messages' | translate }}
   </span>
-  <span class="load-more-msgs" ng-show="mbox.loadStatus === 1 && vm.inbox.length > 0">
+  <span class="email-load-more" ng-show="vm.loadStats.loadMore === 0">
     <i class="fa fa-ban"></i>&nbsp;{{ 'Couldn\'t get messages. Please try again.' | translate }}
   </span>
-  <button class="load-more-msgs btn btn-white" ng-click="vm.getInbox(vm.pages.current + 1)"
-    ng-show="mbox.loadStatus !== 2 && vm.inbox.length > 0">
+  <button class="email-load-more btn btn-white" ng-click="vm.getInbox(vm.pages.current + 1)"
+          ng-show="vm.loadStats.loadMore === 1">
     <i class="fa fa-arrow-down"></i>&nbsp;{{ 'Load more' | translate }}
   </button>
 </li>

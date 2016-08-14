@@ -1,0 +1,40 @@
+<form name="form" ng-init="vm = mbox.slidebox.vm">
+  <div class="mailbox-overlay mailbox-form-overlay" ng-show="vm.showMboxFormOverlay">
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 2">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      <span class="valign-middle">{{ 'Submiting form' | translate }}</span>
+    </h3>
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 1">
+      <i class="fa fa-check text-success valign-middle"></i>
+      <span class="valign-middle">{{ 'Success' | translate }}</span>
+      <button class="btn btn-default m-t-sm center-block" ng-click="vm.hideMboxForm(form)">
+        {{ 'OK' | translate }}
+      </button>
+    </h3>
+    <h3 class="mailbox-overlay-title" ng-show="vm.loadStats.mboxForm === 0">
+      <i class="fa fa-exclamation-circle text-danger valign-middle"></i>
+      <span class="valign-middle">{{ 'Form submiting has failed. Please try again' | translate }}</span><br>
+      <button class="btn btn-default m-t-sm center-block" ng-click="vm.showMboxFormOverlay = false">
+        {{ 'Edit form' | translate }}
+      </button>
+    </h3>
+  </div>
+  <h3 class="mailbox-slidebox-title ibox-title clearfix">
+    {{ mbox.slidebox.title | translate }}
+    <button class="btn btn-sm btn-default pull-right" ng-click="vm.hideMboxForm(form)">
+      <i class="fa fa-close"></i>
+    </button>
+  </h3>
+  <div class="mailbox-slidebox-content ibox-content">
+    Email form
+  </div>
+  <div class="ibox-footer text-right">
+    <button type="submit" form="form" class="btn btn-primary btn-sm" ng-click="vm.submitMboxForm(form)"
+            ng-disabled="form.$invalid">
+      <i class="fa fa-floppy-o"></i>&nbsp;{{ 'Compose' | translate }}
+    </button>
+    <button class="btn btn-danger btn-sm" ng-click="vm.hideMboxForm(form)">
+      <i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}
+    </button>
+  </div>
+</form>

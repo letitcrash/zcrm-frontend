@@ -7,6 +7,9 @@ angular
     // View
     var vm = this;
 
+    // Slidebox
+    var sbox = $scope.mbox.slidebox;
+    sbox.template = 'app/mail/mailbox.email-form.html'
     // Page header
     var pheader = $scope.mbox.header;
 
@@ -14,26 +17,31 @@ angular
     pheader.title.icon = 'fa fa-inbox';
     pheader.title.content = 'Inbox';
     pheader.backBtnUrl = $state.href('index.mail.list');
-    pheader.refresh.func = vm.getInbox;
+    pheader.refresh.func = getInbox;
     pheader.search.placeholder = 'Search email by user, text or ticket';
     // Create mailbox
     pheader.createNew.title = 'New email';
-    // Inbox
-    vm.inbox = [];
+    pheader.createNew.func = function () { return false; }
+    /*
+    pheader.createNew.func = function createNewMsg() {
+      sbox.title = 'Compose message';
+      sbox.active = true;
+    };
+    */
+    $log.log(pheader);
+    $log.log($scope.mbox.header);
+
     // Active conversation
     vm.activeConv = null;
     // Conversation view
     vm.convView = {active: false, title: '', msgList: []};
-    // Selected messages
-    vm.selectedMsgs = [];
-    // Mail reply form toggler
-    vm.msgReplyForm = false;
     // Attach to ticket form
     vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
-    // Tickets
-    vm.tickets = [];
     // Pages settings
     vm.pages = {current: 1, all: 1, onPage: 50, total: 0};
+    // Load statuses
+    // 0 - error, 1 - success, 2 - loading
+    vm.loadStats = {convList: 1, loadMore: 1};
 
     // Sorting inbox: conversations with last recived mails will go on top
     function sortInbox(c1, c2) {
@@ -50,12 +58,12 @@ angular
     }
 
     // Get inbox
-    vm.getInbox = function getInbox(p) {
+    function getInbox(p) {
       var page = angular.isNumber(p) ? p : 1;
+      var loadStat = page === 1 ? 'convList' : 'loadMore';
 
-      $scope.mbox.loadStatus = 2;
-
-      if (page === 1) { vm.inbox = []; }
+      vm.loadStats[loadStat] = 2;
+      pheader.refresh.hidden = true;
 
       mailboxService.messages.inbox($scope.mbox.mailboxId, vm.pages.onPage, page).then(function(res) {
         $log.log(res);
@@ -64,12 +72,12 @@ angular
           if (vm.pages.total !== res.totalCount) { vm.pages.all = Math.ceil(res.totalCount / vm.pages.onPage); }
           vm.pages.total = res.totalCount;
           vm.pages.current = page;
-          $log.log(vm.pages);
           // TODO: Delete local variable when sorting will be implemented on backend
           var inbox = res.data.sort(sortInbox).reverse();
-          vm.inbox = vm.pages.current > 1 ? vm.inbox.concat(inbox) : inbox;
+          $scope.mbox.convList = vm.pages.current > 1 ? $scope.mbox.convList.concat(inbox) : inbox;
 
-          vm.inbox.forEach(function(conv) {
+          $scope.mbox.convList.forEach(function(conv) {
+            conv.selected = false;
             conv.active = false;
 
             conv.mails.forEach(function(msg) {
@@ -79,15 +87,19 @@ angular
             });
           });
 
-          $scope.mbox.loadStatus = 0;
+          vm.loadStats[loadStat] = 1;
         } else {
-          $scope.mbox.loadStatus = 1;
+          vm.loadStats[loadStat] = 0;
         }
+
+        pheader.refresh.hidden = false;
       }, function() {
-        $scope.mbox.loadStatus = 1;
-        $log.log('Mailbox error');
+        vm.loadStats[loadStat] = 0;
+        pheader.refresh.hidden = false;
       });
     }
 
-    vm.getInbox();
+    vm.getInbox = getInbox;
+
+    getInbox();
   });

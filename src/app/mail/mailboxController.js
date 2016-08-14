@@ -29,26 +29,18 @@ angular
     vm.header = {
       title: {icon: '', content: ''},
       backBtnUrl: '',
-      refresh: {tooltip: '', func: function() { return false; }},
+      refresh: {tooltip: '', func: function() { return false; }, hidden: false},
       search: {placeholder: 'Search email by user, text or ticket', func: function() { return false; }},
       createNew: {title: 'New email', func: function() { return false; }}
     };
-    // Loading statuses: 0 - success, 1 - error, 2 - loading
-    vm.loadStatus = {pFirst: 0};
-    // Inbox
-    vm.inbox = [];
-    // Active conversation
-    vm.activeConv = null;
+    // Conversations list
+    vm.convList = [];
     // Conversation view
-    vm.convView = {active: false, title: '', msgList: []};
+    vm.convView = {active: false, subject: '', msgList: [], idx: -1};
     // Selected messages
     vm.selectedMsgs = [];
-    // Mail reply form toggler
-    vm.msgReplyForm = false;
     // Attach to ticket form
     vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
-    // Tickets
-    vm.tickets = [];
     // Slide box
     vm.slidebox = {active: false};
 
@@ -66,23 +58,24 @@ angular
       return 0;
     }
 
-    // Select active conversation for detailed view
-    vm.selectConv = function(conv) {
-      vm.inbox.forEach(function(elem) {
-        if (elem.hasOwnProperty('active') && elem.active) { elem.active = false; }
+    // View conversation details
+    vm.viewConvDetail = function viewConvDetail(conv, idx) {
+      vm.convList.forEach(function(elem) {
+        if (elem.hasOwnProperty('selected') && elem.active) { elem.active = false; }
       });
       conv.active = true;
       conv.mails[conv.mails.length - 1].active = true;
-      vm.activeConv = conv;
       vm.convView.active = true;
-      vm.convView.title = conv.mails[0].subject;
+      vm.convView.subject = conv.mails[0].subject;
       vm.convView.msgList = conv.mails;
+      vm.convView.idx = idx;
     };
 
-    // Toggle message reply form
-    vm.toggleReplyForm = function() {
-      vm.msgReplyForm = !vm.msgReplyForm;
-    };
+    // Hide conversation details
+    vm.hideConvDetail = function hideConvDetail() {
+      vm.convView.active = false;
+      vm.convList[vm.convView.idx].active = false;
+    }
 
     // Toggle attach to ticket form
     vm.toggleAttachMsgForm = function toggleAttachMsgForm() {
