@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').factory('requestService', function($http, $q, $rootScope, dataService) {
+angular.module('inspinia').factory('requestService', function($log, $http, $q, $rootScope, dataService) {
   var RESPONSE_OK, checkResponseHeader, getResponseBody, getResponseHeader, printRequest, reject, resolve;
   RESPONSE_OK = 0;
   checkResponseHeader = function(header) {
@@ -33,8 +33,8 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
     if (isSuccess) {
       deferred.resolve(body);
     } else {
-      console.log("Request failed with:");
-      console.log(response);
+      $log.log("Request failed with:");
+      $log.log(response);
       deferred.reject(header);
     }
     printRequest(request, response, true);
@@ -46,23 +46,22 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
   };
   return {
     ttPost: function(suburl, data) {
-      return this.ttRequest(suburl, data, 'POST');
+      return this.ttRequest(suburl, 'POST', data);
     },
     ttPut: function(suburl, data) {
-      return this.ttRequest(suburl, data, 'PUT');
+      return this.ttRequest(suburl, 'PUT', data);
     },
     ttGet: function(suburl) {
-      return this.ttRequest(suburl, void 0, 'GET');
+      return this.ttRequest(suburl, 'GET');
     },
     ttDelete: function(suburl) {
-      return this.ttRequest(suburl, void 0, 'DELETE');
+      return this.ttRequest(suburl, 'DELETE');
     },
     octetStreamRequest: function(url, method, data, callback) {
-      var baseUrl, deferred, token, userId;
-      token = dataService.getSessionToken();
-      userId = dataService.getUserId();
-      deferred = $q.defer();
-      baseUrl = dataService.getBaseServiceURL();
+      var token = dataService.getSessionToken();
+      var userId = dataService.getUserId();
+      var baseUrl = dataService.getBaseServiceURL();
+
       return $http({
         method: method,
         url: baseUrl + url,
@@ -75,41 +74,39 @@ angular.module('inspinia').factory('requestService', function($http, $q, $rootSc
         }
       }).then(function(response) {
         return callback(response);
-      }, function(response) {
-        return console.log("export failed");
+      }, function() {
+        return $log.log("export failed");
       });
     },
-    ttRequest: function(suburl, data, method) {
-      var BASE_URL, deferred, token, url, userId;
-      if (!BASE_URL) {
-        BASE_URL = dataService.getBaseServiceURL();
-      }
-      url = BASE_URL + suburl;
-      deferred = $q.defer();
-      console.log("Making " + method + " request to " + url);
-      token = dataService.getSessionToken();
-      userId = dataService.getUserId();
-      console.log("setting header");
+    ttRequest: function(suburl, method, data) {
+      var url = dataService.getBaseServiceURL() + suburl;
+      var deferred = $q.defer();
 
-      $http({
+      $log.log("Making " + method + " request to " + url);
+      $log.log("setting header");
+
+      var req = {
         method: method,
         url: url,
-        data: data,
         timeout: 4000,
         headers: {
           "Content-Type": "application/json",
-          "X-Access-Token": token,
-          "X-User-Id": userId
+          "X-Access-Token": dataService.getSessionToken(),
+          "X-User-Id": dataService.getUserId()
         },
         withCredentials: true
-      }).then(function(response) {
-        console.log("got promise");
-              console.log(response);
+      };
+
+      if (angular.isObject(data)) { req.data = data; }
+
+      $http(req).then(function(response) {
+        $log.log("got promise");
+        $log.log(response);
 
         return resolve(deferred, data, response);
       }, function(response) {
-        console.log("=== ALARM =====");
-        console.log(response);
+        $log.log("=== ALARM =====");
+        $log.log(response);
 
         return reject(deferred, data, response);
       });
