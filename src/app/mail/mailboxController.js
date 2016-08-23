@@ -18,13 +18,19 @@ angular
       return text;
     }
   })
-  .controller("MailboxController", function($log, $state, $stateParams, mailboxService) {
+  .controller("MailboxController", function($log, $state, $stateParams, mailboxService, $timeout) {
     // View
     var vm = this;
 
     // Get current mailbox for current user
-    vm.mailboxId = $stateParams.hasOwnProperty('mailboxId') ?
-      $stateParams.mailboxId : 1;
+    if ($state.params.hasOwnProperty('mailboxId')) {
+      vm.mboxId = parseInt($state.params.mailboxId);
+
+      mailboxService.mailboxes.get(vm.mboxId).then(function(res) {
+        mailboxService.mailboxes.selected = res;
+      });
+    }
+    // mailboxService.mailboxes.
     // Page header params
     vm.header = {
       title: {icon: '', content: ''},
@@ -43,6 +49,9 @@ angular
     vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
     // Slide box
     vm.slidebox = {active: false};
+    // Load statuses
+    // 0 - error, 1 - success, 2 - loading
+    vm.loadStats = {emailForm: 1};
 
     // Sorting inbox: conversations with last recived mails will go on top
     vm.sortInbox = function sortInbox(c1, c2) {
@@ -100,5 +109,80 @@ angular
       $log.log(data);
       mailboxService.setSelectedMsgs([].concat(data));
       $state.go('index.mail.attachMsgs', {mailboxId: vm.mailboxId});
+    };
+
+    // Email model for compose form
+    var eModel = {
+      sender: '',
+      receiver: [],
+      subject: '',
+      body: '',
+      emptySubj: false,
+      emptyBody: false,
+      showFormStatus: false
+    };
+    vm.emailFormModel = eModel;
+
+    // Clear email model for compose form
+    function clearEmailModel() {
+      eModel.sender = mailboxService.mailboxes.selected.login;
+      eModel.receiver = [];
+      eModel.subject = '';
+      eModel.body = '';
+    }
+
+    // Open form for composing new email
+    vm.composeEmail = function composeEmail() {
+      clearEmailModel();
+      vm.slidebox.active = true;
+      vm.slidebox.title = 'Compose Email';
+      $log.log(eModel);
+      $log.log(vm.emailFormModel);
+      $log.log(vm.form);
+    };
+
+    // Open form for replying to email/conversation
+    vm.replyEmail = function replyEmail(msg) {
+      clearEmailModel();
+
+      if (angular.isObject(msg) && msg.hasOwnProperty('sender')) {
+        eModel.receiver.push(msg.sender);
+      } else {
+        vm.convView.msgList.forEach(function(msg) {
+          if (eModel.receiver.indexOf(msg.sender) === -1) { eModel.receiver.push(msg.sender); }
+        });
+      }
+
+      eModel.subject = msg.subject;
+      vm.slidebox.title = 'Reply';
+      vm.slidebox.active = true;
+    };
+
+    // Hide email form
+    vm.hideEmailForm = function hideEmailForm(form) {
+      clearEmailModel();
+      form.$rollbackViewValue();
+      form.$setPristine();
+      form.$setUntouched();
+      vm.slidebox.active = false;
+      vm.showEmailFormOverlay = false;
+    };
+
+    // Show form overlay placeholder
+    vm.showEmailFormOverlay = false;
+
+    // Submit email form
+    vm.submitEmailForm = function submitEmailForm(form, force) {
+      eModel.emptySubj = form.subject.$isEmpty(eModel.subject) ? true : false;
+      eModel.emptyBody = form.body.$isEmpty(eModel.body) ? true : false;
+      vm.showEmailFormOverlay = true;
+      vm.loadStats.emailForm = 0;
+
+      if (force || (!eModel.emptySubj || !eModel.emptyBody)) {
+        vm.loadStats.emailForm = 2;
+        $timeout(function() {
+          vm.loadStats.emailForm = 1
+        }, 3000);
+      }
     };
   });

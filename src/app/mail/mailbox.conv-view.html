@@ -28,41 +28,40 @@
 <!-- Message -->
 <li class="email conv-view clearfix" ng-repeat="email in mbox.convView.msgList | orderBy:received:true"
     data-msg-id="{{ ::email.id }}" ng-show="mbox.convView.active">
-    <!-- Message header -->
-    <div class="email-header clearfix">
-      <!-- Message sender and controls -->
-      <div class="clearfix">
-        <a class="email-sender conv-view dsp-inline-block" href="#">{{ ::email.sender }}</a>
-        <span class="email-ctrls conv-view pull-right">
-          <button class="btn-white" ng-click="toggleReplyForm(mail)">
-            <i class="fa fa-reply"></i>&nbsp;{{ 'Reply' | translate }}
-          </button>
-          <button class="btn-white" ng-click="toggleReplyForm(mail)">
-            <i class="fa fa-reply-all"></i>&nbsp;{{ 'Reply all' | translate }}
-          </button>
-        </span>
-      </div>
-      <!-- Message receivers and receive date -->
-      <div class="clearfix">
-        <span class="text-muted">To:</span>
-        <ul class="list-unstyled list-inline dsp-inline-block">
-          <li><a href="">{{ ::email.receivedBy | cutLongText:50:'...' }}</a></li>
-        </ul>
-        <span class="email-date pull-right text-muted">{{ ::email.received | date:'medium' }}</span>
-      </div>
+  <!-- Message header -->
+  <div class="email-header clearfix">
+    <!-- Message sender and controls -->
+    <div class="clearfix">
+      <a class="email-sender conv-view dsp-inline-block" href="#">{{ ::email.sender }}</a>
+      <span class="email-ctrls conv-view pull-right">
+        <button class="btn-white" ng-click="mbox.replyEmail(email)">
+          <i class="fa fa-reply"></i>&nbsp;{{ 'Reply' | translate }}
+        </button>
+        <button class="btn-white" ng-click="mbox.replyEmail()">
+          <i class="fa fa-reply-all"></i>&nbsp;{{ 'Reply all' | translate }}
+        </button>
+      </span>
     </div>
-    <!-- Message body -->
-    <div class="email-body conv-view" uib-collapse="!email.active" ng-bind-html="email.body">
+    <!-- Message receivers and receive date -->
+    <div class="clearfix">
+      <span class="text-muted">To:</span>
+      <ul class="list-unstyled list-inline dsp-inline-block">
+        <li><a href="">{{ ::email.receivedBy | cutLongText:50:'...' }}</a></li>
+      </ul>
+      <span class="email-date pull-right text-muted">{{ ::email.received | date:'medium' }}</span>
     </div>
-    <!-- Message body preview -->
-    <div class="email-body conv-view" ng-hide="email.active">
-      {{ ::email.preview | cutLongText:150:'...' }}
-    </div>
-    <button class="btn btn-white pull-right" ng-hide="email.active" ng-click="email.active = true">
-      <i class="fa fa-chevron-down"></i>&nbsp;{{ 'Read more' | translate }}
-    </button>
-    <button class="btn btn-white pull-right" ng-show="email.active" ng-click="email.active = false">
-      <i class="fa fa-chevron-up"></i>&nbsp;{{ 'Hide' | translate }}
-    </button>
   </div>
+  <!-- Message body -->
+  <div class="email-body conv-view" uib-collapse="!email.active" ng-bind-html="email.body">
+  </div>
+  <!-- Message body preview -->
+  <div class="email-body conv-view" ng-hide="email.active">
+    {{ ::email.preview | cutLongText:150:'...' }}
+  </div>
+  <button class="btn btn-white pull-right" ng-hide="email.active" ng-click="email.active = true">
+    <i class="fa fa-chevron-down"></i>&nbsp;{{ 'Read more' | translate }}
+  </button>
+  <button class="btn btn-white pull-right" ng-show="email.active" ng-click="email.active = false">
+    <i class="fa fa-chevron-up"></i>&nbsp;{{ 'Hide' | translate }}
+  </button>
 </li>

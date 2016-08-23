@@ -77,6 +77,7 @@ angular
 
     // Mailboxes
     vm.mailboxes = [];
+    mailboxService.mailboxes.list = vm.mailboxes;
 
     // Get mailboxes for user
     vm.getMailboxes = function getMailboxes(pSize, pNr, sTerm) {
@@ -86,6 +87,12 @@ angular
           vm.mailboxes = mailboxService.mailboxes.list;
         }
       }, function() { return $log.log('Failed to get mailboxlist'); });
+    };
+
+    // Select mailbox
+    vm.selectMbox = function selectMbox(box) {
+      $scope.mbox.mboxId = box.id;
+      mailboxService.mailboxes.selected = box;
     };
 
     // Slide box settings
@@ -108,7 +115,6 @@ angular
     // Hide mailbox form
     vm.hideMboxForm = function hideMboxForm(form) {
       vm.showMboxFormOverlay = false;
-      form.$rollbackViewValue();
       form.$rollbackViewValue();
       form.$setPristine();
       form.$setUntouched();

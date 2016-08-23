@@ -33,6 +33,7 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
   return {
     mailboxes: {
       list: mboxes,
+      selected: null,
       all: function(pSize, pNr, sTerm) {
         return requestService.ttGet(buildURLParams(null, null, null, pSize, pNr, sTerm));
       },

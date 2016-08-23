@@ -21,7 +21,7 @@ angular
     pheader.search.placeholder = 'Search email by user, text or ticket';
     // Create mailbox
     pheader.createNew.title = 'New email';
-    pheader.createNew.func = function () { return false; }
+    pheader.createNew.func = $scope.mbox.composeEmail;
     /*
     pheader.createNew.func = function createNewMsg() {
       sbox.title = 'Compose message';
@@ -63,7 +63,7 @@ angular
       vm.loadStats[loadStat] = 2;
       pheader.refresh.hidden = true;
 
-      mailboxService.messages.inbox($scope.mbox.mailboxId, vm.pages.onPage, page).then(function(res) {
+      mailboxService.messages.inbox($scope.mbox.mboxId, vm.pages.onPage, page).then(function(res) {
         $log.log(res);
 
         if (res.data.length > 0) {
