@@ -3,6 +3,7 @@
     ng-init="email = conv.mails[conv.mails.length - 1]" ng-class="{'active': conv.active, 'selected': conv.selected}">
   <!-- Message header -->
   <div class="email-header clearfix">
+    <input class="green-check email-select" type="checkbox">
     <h4 class="email-subject ng-binding">{{ ::email.subject }}</h4>
     <a class="email-sender dsp-inline-block" href="#">{{ ::email.sender }}</a>
     <small class="email-date dsp-inline-block text-muted">

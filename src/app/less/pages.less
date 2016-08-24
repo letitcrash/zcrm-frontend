@@ -605,7 +605,7 @@ a.compose-mail {
 }
 
 /* MAILBOX */
-.mailbox-header {
+.mailbox-header, .mailbox-action-menu {
   background-color: #ffffff;
   border-bottom: 1px solid @border-color;
 }
@@ -627,6 +627,13 @@ a.compose-mail {
 .mailbox-search.input-group {
   margin-bottom: 0;
   padding: 10px 15px;
+}
+
+.mailbox-action-menu {
+  display: none;
+  padding: 10px 15px;
+
+  & > h4 { padding: 5px 0; }
 }
 
 .mailbox-content .tag-list li a {
@@ -764,7 +771,7 @@ a.compose-mail {
   background-color: #fff;
   border-bottom: 1px solid @border-color;
   margin-top: 0;
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 0 30px;
 
   &.active { background-color: @gray; }
   &.selected { border-left: 5px solid @navy; }
@@ -783,6 +790,8 @@ a.compose-mail {
   }
 }
 
+.email-subject { margin-top: 0; }
+
 .email-sender, .email-date { display: inline-block; }
 
 .email-sender {
@@ -791,6 +800,11 @@ a.compose-mail {
     line-height: 1.5;
     margin-bottom: 10px;
   }
+}
+
+.email-select[type="checkbox"] {
+  float: left;
+  margin: 5px 10px 0 -25px;
 }
 
 .email-ctrls {
