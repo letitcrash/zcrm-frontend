@@ -32,6 +32,8 @@
   <div class="email-header clearfix">
     <!-- Message sender and controls -->
     <div class="clearfix">
+      <input class="green-check email-select" type="checkbox" ng-model="email.selected"
+             ng-change="mbox.toggleMsgSelection(mbox.convList[mbox.convView.idx], email)">
       <a class="email-sender conv-view dsp-inline-block" href="#">{{ ::email.sender }}</a>
       <span class="email-ctrls conv-view pull-right">
         <button class="btn-white" ng-click="mbox.replyEmail(email)">

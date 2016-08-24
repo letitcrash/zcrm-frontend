@@ -30,7 +30,6 @@ angular
         mailboxService.mailboxes.selected = res;
       });
     }
-    // mailboxService.mailboxes.
     // Page header params
     vm.header = {
       title: {icon: '', content: ''},
@@ -39,6 +38,8 @@ angular
       search: {placeholder: 'Search email by user, text or ticket', func: function() { return false; }},
       createNew: {title: 'New email', func: function() { return false; }}
     };
+    // Show action menu
+    vm.showActionMenu = false;
     // Conversations list
     vm.convList = [];
     // Conversation view
@@ -52,20 +53,6 @@ angular
     // Load statuses
     // 0 - error, 1 - success, 2 - loading
     vm.loadStats = {emailForm: 1};
-
-    // Sorting inbox: conversations with last recived mails will go on top
-    vm.sortInbox = function sortInbox(c1, c2) {
-      var d1 = c1.mails[c1.mails.length - 1].received;
-      var d2 = c2.mails[c2.mails.length - 1].received;
-
-      if (d1 > d2) {
-        return 1;
-      } else if (d1 < d2) {
-        return -1;
-      }
-
-      return 0;
-    }
 
     // View conversation details
     vm.viewConvDetail = function viewConvDetail(conv, idx) {
@@ -104,11 +91,53 @@ angular
       vm.attachMsgForm.active = !vm.attachMsgForm.active;
     };
 
-    // Select messages for attaching to ticket
-    vm.selectMsgsToAttach = function selectMsgsToAttach(data) {
-      $log.log(data);
-      mailboxService.setSelectedMsgs([].concat(data));
-      $state.go('index.mail.attachMsgs', {mailboxId: vm.mailboxId});
+    // Add or remove message from selected
+    function updateSelectedMsgs(msg) {
+      if (msg.selected)
+        vm.selectedMsgs.push(msg);
+      else
+        vm.selectedMsgs.splice(vm.selectedMsgs.indexOf(msg), 1);
+    }
+
+    // Toggle selection of message or all of messages in conversation
+    vm.toggleMsgSelection = function toggleMsgSelection(conv, msg) {
+      if (msg != null) {
+        conv.selectedMsgs = msg.selected ? conv.selectedMsgs + 1 : conv.selectedMsgs - 1;
+        conv.selected = conv.selectedMsgs === conv.mails.length ? true : false;
+        updateSelectedMsgs(msg);
+      } else {
+        conv.selectedMsgs = conv.selected ? conv.mails.length : 0;
+        conv.mails.forEach(function(msg) {
+          msg.selected = conv.selected;
+          updateSelectedMsgs(msg);
+        });
+      }
+
+      vm.showActionMenu = vm.selectedMsgs.length > 0 ? true : false;
+    };
+
+    // Selected all messages and conversations
+    vm.selectAllMsgs = function selectAllMsgs() {
+      vm.convList.forEach(function(conv) {
+        conv.selected = true;
+        conv.selectedMsgs = conv.mails.length;
+
+        conv.mails.forEach(function(msg) {
+          msg.selected = true;
+          updateSelectedMsgs(msg);
+        });
+      });
+    };
+
+    // Clear all selected messages
+    vm.clearSelectedMsgs = function clearSelectedMsgs() {
+      vm.selectedMsgs.forEach(function(msg) { msg.selected = false; });
+      vm.selectedMsgs = [];
+      vm.convList.forEach(function(conv) {
+        conv.selected = false;
+        conv.selectedMsgs = 0;
+      });
+      vm.showActionMenu = false;
     };
 
     // Email model for compose form

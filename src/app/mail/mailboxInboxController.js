@@ -75,12 +75,14 @@ angular
           $scope.mbox.convList = vm.pages.current > 1 ? $scope.mbox.convList.concat(inbox) : inbox;
 
           $scope.mbox.convList.forEach(function(conv) {
+            conv.selectedMsgs = 0;
             conv.selected = false;
             conv.active = false;
 
             conv.mails.forEach(function(msg) {
               msg.preview = textFromHTMLFilter(msg.body);
               msg.active = false;
+              msg.selected = false;
               msg.replyForm = false;
             });
           });

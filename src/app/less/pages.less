@@ -630,10 +630,10 @@ a.compose-mail {
 }
 
 .mailbox-action-menu {
-  display: none;
-  padding: 10px 15px;
+  padding: 10px 15px 0 15px;
 
-  & > h4 { padding: 5px 0; }
+  & > h4 { padding: 10px 0; }
+  & .btn { margin-bottom: 10px; }
 }
 
 .mailbox-content .tag-list li a {
@@ -771,16 +771,19 @@ a.compose-mail {
   background-color: #fff;
   border-bottom: 1px solid @border-color;
   margin-top: 0;
-  padding: 15px 15px 0 30px;
+  padding: 15px 15px 0 40px;
 
   &.active { background-color: @gray; }
-  &.selected { border-left: 5px solid @navy; }
-  &.conv-view { padding: 10px 15px 15px 15px; }
+  &.selected {
+    border-left: 5px solid @navy;
+    padding-left: 35px;
+  }
+  &.conv-view { padding: 10px 15px 15px 40px; }
 }
 
 .email-body {
   color: @text-color;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   padding-top: 15px;
 
   a& { display: block; }
@@ -810,6 +813,8 @@ a.compose-mail {
 .email-ctrls {
   &.conv-view > button { padding: 5px 10px; }
 }
+
+.email-footer { padding-bottom: 15px; }
 
 @media screen and (min-width: 992px) {
   .mailbox-view {

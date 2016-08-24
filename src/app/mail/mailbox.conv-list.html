@@ -3,7 +3,8 @@
     ng-init="email = conv.mails[conv.mails.length - 1]" ng-class="{'active': conv.active, 'selected': conv.selected}">
   <!-- Message header -->
   <div class="email-header clearfix">
-    <input class="green-check email-select" type="checkbox">
+    <input class="green-check email-select" type="checkbox" ng-model="conv.selected"
+           ng-change="mbox.toggleMsgSelection(conv)">
     <h4 class="email-subject ng-binding">{{ ::email.subject }}</h4>
     <a class="email-sender dsp-inline-block" href="#">{{ ::email.sender }}</a>
     <small class="email-date dsp-inline-block text-muted">
@@ -15,11 +16,8 @@
     {{ ::email.preview | cutLongText:150:'...' }}
   </a>
   <!-- Message footer -->
-  <div class="email-footer clearfix hidden">
-    <div class="pull-left">
-      <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-      <button class="btn btn-white btn-xs"><a href>Important</a></button>
-    </div>
+  <div class="email-footer clearfix">
+    <h4 class="m-n"><i class="fa fa-envelope-o"></i>&nbsp;{{ conv.mails.length }}</h4>
   </div>
 </li>
 <li class="mailbox-pholder text-muted" ng-show="vm.loadStats.convList === 2">
