@@ -1,41 +1,30 @@
 <!-- Messages -->
-<ul class="mailbox-selected-msgs mailbox-scroll-box list-unstyled col-md-6 col-lg-4">
+<ul class="mailbox-attach-msgs mailbox-scroll-box list-unstyled col-lg-4"
+    ng-class="{'hidden-xs hidden-sm hidden-md': ambox.showTickets}">
+  <li class="mailbox-show-tickets clearfix hidden-lg">
+    <button class="btn btn-white pull-right" ng-click="vm.showTickets = true">
+      {{ 'Tickets' | translate }}&nbsp;<i class="fa fa-chevron-right"></i>
+    </button>
+  </li>
   <!-- Message -->
-  <li class="msg media clearfix" ng-repeat="msg in vm.msgs">
+  <li class="email attach-msg" ng-repeat="email in ambox.msgs">
     <!-- Message header -->
-    <div class="msg-avatar media-left">
-      <a href="">
-        <img alt="image" src="img/a2.jpg">
-      </a>
+    <button class="btn-default pull-right" ng-click="ambox.removeMsg($index)"><i class="fa fa-close"></i></button>
+    <div class="email-header clearfix">
+      <h4 class="email-subject ng-binding">{{ ::email.subject }}</h4>
+      <a class="email-sender dsp-inline-block" href="#">{{ ::email.sender }}</a>
+      <small class="email-date dsp-inline-block text-muted">
+        {{ ::email.received | date:'medium' }}
+      </small>
     </div>
-    <!-- Message content -->
-    <div class="msg-content media-body">
-      <!-- Sender and send date -->
-      <p class="clearfix">
-        <a class="msg-sender dsp-inline-block" href="#">{{ ::msg.sender }}</a>
-        <small class="msg-date dsp-inline-block text-muted">
-          {{ ::msg.received | date:'medium' }}
-        </small>
-      </p>
-      <!-- Message body preview -->
-      <p class="msg-body-preview" ng-click="mbox.selectConv(conv)"
-        role="button">
-        <h4 class="msg-subject">{{ ::msg.subject }}</h4>
-        {{ ::msg.preview | cutLongText:150:'...' }}
-      </p>
-      <div class="clearfix">
-        <div class="pull-left">
-          <button class="btn btn-white btn-xs"><a href>Ticket One</a></button>
-          <button class="btn btn-white btn-xs"><a href>Important</a></button>
-        </div>
-        <button class="btn-white pull-right" ng-click="ambox.removeMsg()">
-          <i class="fa fa-close"></i>
-        </button>
-      </div>
-    </div>
+    <!-- Message body preview -->
+    <p href="" class="email-body attach-msg">
+      {{ ::email.preview | cutLongText:150:'...' }}
+    </p>
   </li>
 </ul>
 <!-- Tickets -->
-<div class="mailbox-tickets-box mailbox-scroll-box col-md-6 col-lg-8"
+<div class="mailbox-tickets mailbox-scroll-box col-lg-8"
+     ng-class="{'hidden-xs hidden-sm hidden-md': !ambox.showTickets}"
      ng-include="'/app/mail/mailbox.ticket-list.html'" onload="vm = ambox">
 </div>

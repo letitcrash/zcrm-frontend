@@ -39,9 +39,9 @@
         <button class="btn btn-default" ng-click="mbox.clearSelectedMsgs()">
           <i class="fa fa-close"></i>&nbsp;{{ 'Clear selection' | translate }}
         </button>
-        <button class="btn btn-default">
+        <a ui-sref="index.mail.attachMsgs({mailboxId: mbox.mboxId})" class="btn btn-default" role="button">
           <i class="fa fa-share-alt"></i>&nbsp;{{ 'Attach to ticket' | translate }}
-        </button>
+        </a>
         <button class="btn btn-default">
           <i class="fa fa-trash"></i>&nbsp;{{ 'Delete' | translate }}
         </button>

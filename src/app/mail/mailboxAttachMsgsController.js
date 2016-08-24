@@ -65,19 +65,26 @@ angular
     // View
     var vm = this;
 
-    // View title
-    $scope.mbox.header = {
-      icon: 'fa-envelope-o',
-      title: 'Messages to attach',
-      search: {placeholder: 'Search tickets'},
-      createNew: {title: 'New ticket'},
-      state: 'ambox'
-    };
+    // Page header
+    var pheader = $scope.mbox.header;
+
+    // Page header
+    pheader.title.icon = 'fa fa-envelope-0';
+    pheader.title.content = 'Messages';
+    pheader.backBtnUrl = $state.href('index.mail.inbox');
+    // pheader.refresh.func = getInbox;
+    pheader.search.placeholder = 'Search tickets';
+    // Create mailbox
+    pheader.createNew.title = 'New ticket';
 
     // Selected messages
-    vm.msgs = mailboxService.getSelectedMsgs();
+    vm.msgs = $scope.mbox.selectedMsgs;
     // Tickets
     vm.tickets = [];
+    // Show tickets list
+    vm.showTickets = true;
+    // Show action meno
+    $scope.mbox.showActionMenu = false;
 
     // Get tickets list
     vm.getTickets = function getTickets() {
@@ -92,8 +99,11 @@ angular
     vm.selectTicket = function selectTicket(ticket) { vm.ticketId = ticket.id; };
 
     // Remove message from selected list
-    vm.removeMsg = function removeMsg() {
-      $state.go('index.mail.inbox', {mailboxId: $scope.mbox.mailboxId});
+    vm.removeMsg = function removeMsg(idx) {
+      vm.msgs.splice(idx, 1);
+
+      if (vm.msgs.length === 0)
+        $state.go('index.mail.inbox', {mailboxId: $scope.mbox.mboxId});
     };
 
     // TODO: disable test data
@@ -108,12 +118,13 @@ angular
     //     deadline: new Date()
     //   })
     // }
-    // vm.msgs = [{
-    //   sender: 'rowanemployeecomm@rowancompanies.com',
-    //   received: 1436547049000,
-    //   preview: 'Test preview',
-    //   id: 267
-    // }];
+    vm.msgs = [{
+      subject: 'Test',
+      sender: 'rowanemployeecomm@rowancompanies.com',
+      received: 1436547049000,
+      preview: 'Test preview',
+      id: 267
+    }];
     // TODO: disable test data
 
     vm.getTickets();
