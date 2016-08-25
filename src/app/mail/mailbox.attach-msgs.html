@@ -1,3 +1,37 @@
+<!-- Mailbox action menu -->
+<div class="mailbox-actions clearfix" ng-show="mbox.showActionMenu">
+  <div ng-show="ambox.showAttachConfirm">
+    <h4 class="mailbox-actions-title clearfix">
+      {{ 'Do you want to add messages to ticket' | translate }}
+      <a href="">#{{ ambox.selectedTicket.id }}</a>&nbsp;?
+    </h4>
+    <div class="pull-right">
+      <button class="mailbox-actions-ctrl btn btn-primary" ng-click="ambox.attachMsgs()">
+        <i class="fa fa-plus"></i>&nbsp;{{ 'Add' | translate }}
+      </button>
+      <button class="mailbox-actions-ctrl btn btn-danger" ng-click="ambox.cancelAttach()">
+        <i class="fa fa-close"></i>&nbsp;{{ 'Discard' | translate }}
+      </button>
+    </div>
+  </div>
+  <div ng-show="ambox.loadStats.attachForm === 2">
+    <h4 class="mailbox-actions-title clearfix col-xs-12 text-center">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      {{ 'Attaching messages' | translate }}
+    </h4>
+  </div>
+  <div ng-show="ambox.loadStats.attachForm === 1 && !ambox.showAttachConfirm">
+    <h4 class="mailbox-actions-title clearfix">
+      <i class="fa fa-check text-success valign-middle"></i>
+      {{ 'Message was successfuly attached to the ticket' | translate }}
+    </h4>
+    <div class="pull-right">
+      <button class="mailbox-actions-ctrl btn btn-default" ng-click="ambox.cancelAttach()">
+        {{ 'Ok' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
 <!-- Messages -->
 <ul class="mailbox-attach-msgs mailbox-scroll-box list-unstyled col-lg-4"
     ng-class="{'hidden-xs hidden-sm hidden-md': ambox.showTickets}">

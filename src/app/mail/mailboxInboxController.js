@@ -29,12 +29,10 @@ angular
     };
     */
 
-    // Active conversation
-    vm.activeConv = null;
-    // Conversation view
-    vm.convView = {active: false, title: '', msgList: []};
-    // Attach to ticket form
-    vm.attachMsgForm = {active: false, ticketId: null, msgList: []};
+    // Clear message selection
+    $scope.mbox.selectedMsgs = [];
+    // Hide action menu
+    $scope.mbox.showActionMenu = false;
     // Pages settings
     vm.pages = {current: 1, all: 1, onPage: 50, total: 0};
     // Load statuses

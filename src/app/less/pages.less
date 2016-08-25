@@ -605,7 +605,7 @@ a.compose-mail {
 }
 
 /* MAILBOX */
-.mailbox-header, .mailbox-action-menu {
+.mailbox-header, .mailbox-actions {
   background-color: #ffffff;
   border-bottom: 1px solid @border-color;
 }
@@ -629,12 +629,17 @@ a.compose-mail {
   padding: 10px 15px;
 }
 
-.mailbox-action-menu {
+.mailbox-actions {
+  margin-top: -50px;
   padding: 10px 15px 0 15px;
-
-  & > h4 { padding: 10px 0; }
-  & .btn { margin-bottom: 10px; }
 }
+
+.mailbox-actions-title {
+  float: left;
+  margin: 0;
+  padding: 10px 0;
+}
+.mailbox-actions-ctrl { margin-bottom: 10px; }
 
 .mailbox-content .tag-list li a {
   background: #fff;
@@ -851,7 +856,11 @@ a.compose-mail {
     overflow-y: auto;
   }
 
-  .mailbox-content { padding-bottom: 25px; }
+  .mailbox-content {
+    padding-bottom: 25px;
+
+    &.with-actions { padding-top: 50px; }
+  }
 
   .mailboxes-mbox-ctrls {
     display: table-cell;

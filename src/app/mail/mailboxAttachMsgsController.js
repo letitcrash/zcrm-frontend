@@ -61,7 +61,7 @@ angular
     };
   })
   .controller("MailboxAttachMsgsController", function($log, $scope, $state, $stateParams, mailboxService,
-        ticketService) {
+        ticketService, $timeout) {
     // View
     var vm = this;
 
@@ -71,7 +71,7 @@ angular
     // Page header
     pheader.title.icon = 'fa fa-envelope-0';
     pheader.title.content = 'Messages';
-    pheader.backBtnUrl = $state.href('index.mail.inbox');
+    pheader.backBtnUrl = $state.href('index.mail.inbox', {mailboxId: $scope.mbox.mboxId});
     // pheader.refresh.func = getInbox;
     pheader.search.placeholder = 'Search tickets';
     // Create mailbox
@@ -83,8 +83,15 @@ angular
     vm.tickets = [];
     // Show tickets list
     vm.showTickets = true;
-    // Show action meno
+    // Show action menu
     $scope.mbox.showActionMenu = false;
+    // Selected ticket
+    vm.selectedTicket = null;
+    // Load statuses
+    // 0 - error, 1 - success, 2 - loading
+    vm.loadStats = {attachForm: 1};
+    // Show attach confirmation dialog
+    vm.showAttachConfirm = true;
 
     // Get tickets list
     vm.getTickets = function getTickets() {
@@ -96,7 +103,10 @@ angular
     };
 
     // Select ticket
-    vm.selectTicket = function selectTicket(ticket) { vm.ticketId = ticket.id; };
+    vm.selectTicket = function selectTicket(ticket) {
+      vm.selectedTicket = ticket.selected ? ticket : null;
+      $scope.mbox.showActionMenu = ticket.selected ? true : false;
+    };
 
     // Remove message from selected list
     vm.removeMsg = function removeMsg(idx) {
@@ -105,6 +115,23 @@ angular
       if (vm.msgs.length === 0)
         $state.go('index.mail.inbox', {mailboxId: $scope.mbox.mboxId});
     };
+
+    // Attach messages to selected ticket
+    vm.attachMsgs = function attachMsgs() {
+      vm.showAttachConfirm = false;
+      vm.loadStats.attachForm = 2;
+      $timeout(function() {
+        vm.loadStats.attachForm = 1
+      }, 3000);
+    };
+
+    // Close action menu and reset ticket selection
+    vm.cancelAttach = function cancelAttach() {
+      vm.selectedTicket.selected = false;
+      vm.selectedTicket = null;
+      vm.showAttachConfirm = true;
+      $scope.mbox.showActionMenu = false;
+    }
 
     // TODO: disable test data
     // for (var i = 1; i < 41; i++) {

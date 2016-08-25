@@ -5,7 +5,6 @@
   <button class="btn btn-default pull-left hidden-lg" ng-click="vm.showTickets = false">
     <i class="fa fa-chevron-left"></i>&nbsp;{{ 'Messages' | translate }}
   </button>
-  &nbsp;
   <h2 class="m-n pull-left">{{ 'Select a ticket' | translate }}</h2>
 </div>
 <div class="mailbox-tickets-list">
@@ -23,10 +22,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="mailbox-ticket" ng-repeat="ticket in vm.tickets" ng-click="vm.selectTicket(ticket)">
+      <tr class="mailbox-ticket" ng-repeat="ticket in vm.tickets">
         <td>
-          <input id="ticket_{{ ticket.id }}" class="green-check" type="checkbox" ng-checked="ticket.id === vm.ticketId"
-                 value="{{ vm.ticketId }}">
+          <input id="ticket_{{ ticket.id }}" class="green-check" type="checkbox" ng-model="ticket.selected"
+                 ng-checked="ticket.id === vm.selectedTicket.id" ng-change="vm.selectTicket(ticket)">
         </td>
         <td><a href="">{{ '#' + ticket.id }}</a></td>
         <td data-ticket-status="ticket.status"></td>
@@ -38,8 +37,4 @@
       </tr>
     </tbody>
   </table>
-</div>
-<div class="mailbox-tickets-ctrls text-right">
-  <button class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' | translate }}</button>
-  <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i>&nbsp;{{ 'Discard' | translate }}</button>
 </div>
