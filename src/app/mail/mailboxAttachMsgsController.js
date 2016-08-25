@@ -145,13 +145,13 @@ angular
     //     deadline: new Date()
     //   })
     // }
-    vm.msgs = [{
-      subject: 'Test',
-      sender: 'rowanemployeecomm@rowancompanies.com',
-      received: 1436547049000,
-      preview: 'Test preview',
-      id: 267
-    }];
+    // vm.msgs = [{
+    //   subject: 'Test',
+    //   sender: 'rowanemployeecomm@rowancompanies.com',
+    //   received: 1436547049000,
+    //   preview: 'Test preview',
+    //   id: 267
+    // }];
     // TODO: disable test data
 
     vm.getTickets();
