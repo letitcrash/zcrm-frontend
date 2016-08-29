@@ -891,6 +891,121 @@ a.compose-mail {
   .mailbox-tickets-list { overflow-y: auto; }
 }
 
+// Tickets
+// Tickets box content
+.ibox-content.tickets-view {
+  padding: 20px 0 0 0;
+}
+
+// Form groups
+.form-group.tickets-view { margin-bottom: 20px; }
+
+// Tickets list modes controls
+.tickets-list-modes {
+  float: right;
+  padding-top: 10px;
+  text-align: right;
+
+  > a { margin-left: 5px; }
+}
+
+// Tickets list
+.tickets-list {
+  margin-bottom: 0;
+  margin-top: 15px;
+
+  & > thead .fa { padding-left: 5px; }
+}
+
+// Tickets list actions
+.tickets-list-actions {
+  float: left;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  min-width: 140px;
+}
+
+// Tickets list pagination
+.tickets-list-pagination {
+  float: right;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+// Tickets list column
+.tickets-list > tbody > tr > td {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+// Ticket row
+.ticket-row > td {
+  // Ticket selection control
+  &:first-child { width: 30px; }
+  // Ticket ID
+  &:nth-child(2) { width: 50px; }
+  // Ticket status and priority
+  &:nth-child(3),
+  &:nth-child(4) {
+    min-width: 80px;
+    width: 80px;
+  }
+  // Ticket title
+  &:nth-child(5) {
+    min-width: 100px;
+    width: 200px;
+  }
+  // Ticket clients, teams and agents
+  &:nth-child(6),
+  &:nth-child(7),
+  &:nth-child(8) {
+    cursor: pointer;
+    min-width: 100px;
+    width: 110px;
+  }
+  // Ticket project
+  &:nth-child(9) {
+    min-width: 100px;
+    width: 150px;
+  }
+  // Ticket create and deadline date
+  &:nth-child(10),
+  &:last-child {
+    min-width: 110px;
+    width: 120px;
+  }
+}
+
+// Overdue ticket
+.ticket-row.overdue {
+  border-left: 2px solid @red;
+
+  > td:last-child { color: @red; }
+}
+
+// Info tip for ticket row
+.ticket-row-tip {
+  border: 1px solid @dark-gray;
+  border-radius: 50%;
+  color: @dark-gray;
+  cursor: pointer;
+  padding-left: 3px;
+  padding-right: 3px;
+
+  &:hover {
+    border-color: @blue;
+    color: @blue;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .ticket-row.overdue {
+    border-left: none;
+    border-right: 2px solid @red;
+  }
+}
+
 
 /* PROJECTS */
 .project-people, .project-actions {

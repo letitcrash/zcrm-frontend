@@ -1,18 +1,77 @@
 'use strict';
 angular.module('inspinia').factory('ticketService', function(requestService, dataService) {
+  var apiURL = 'companies/{companyId}/tickets';
+  var re = /{companyId}/;
+
+  var TicketsList = function TicketsList() {
+    this.params = [];
+  };
+
+  TicketsList.prototype.get = function(pSize, pNr) {
+    var url = apiURL.replace(re, dataService.getCurrentCompanyId());
+
+    if (angular.isNumber(pSize)) { this.params.push('pageSize=' + pSize); }
+    if (angular.isNumber(pNr)) { this.params.push('pageNr=' + pNr); }
+
+    if (this.params.length > 0) { url += '?' + this.params.join('&'); }
+
+    console.log(url);
+    return requestService.ttGet(url);
+  };
+
+  TicketsList.prototype.search = function(sTerm) {
+    if (angular.isString(sTerm)) { this.params.push('searchTerm=' + sTerm); }
+
+    return this;
+  };
+
+  TicketsList.prototype.projectIds = function(ids) {
+    if (angular.isNumber(ids))
+      this.params.push('projectIds=' + ids);
+    else if (angular.isArray(pSize))
+      this.params.push('projectIds=' + ids.join(','));
+
+    return this;
+  };
+
+  TicketsList.prototype.createdBy = function(users) {
+    if (angular.isNumber(users))
+      this.params.push('createdByUserIds=' + users);
+    else if (angular.isArray(users))
+      this.params.push('createdByUserIds=' + users.join(','));
+
+    return this;
+  };
+
+  TicketsList.prototype.requestedBy = function(users) {
+    if (angular.isNumber(users))
+      this.params.push('requestedByUserIds=' + users);
+    else if (angular.isArray(users))
+      this.params.push('requestedByUserIds=' + users.join(','));
+
+    return this;
+  };
+
+  TicketsList.prototype.assigneToUsers = function(users) {
+    if (angular.isNumber(users))
+      this.params.push('assignedToUserIds=' + users);
+    else if (angular.isArray(users))
+      this.params.push('assignedToUserIds=' + users.join(','));
+
+    return this;
+  };
+
+  TicketsList.prototype.assigneToTeams = function(teams) {
+    if (angular.isNumber(teams))
+      this.params.push('assignedToTeamIds=' + teams);
+    else if (angular.isArray(teams))
+      this.params.push('assignedToTeamIds=' + teams.join(','));
+
+    return this;
+  };
+
   return {
-    getList: function(force, pageSize, pageNr, searchTerm) {
-      var url;
-        url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
-      /*if (pageSize && pageNr) {
-        if (searchTerm) {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;
-        } else {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr;
-        }
-      }*/
-      return requestService.ttGet(url);
-    },
+    getList: new TicketsList(),
     getActionsList: function(force, pageSize, pageNr, searchTerm, ticketId) {
       var url;
         url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticketId + "/actions";

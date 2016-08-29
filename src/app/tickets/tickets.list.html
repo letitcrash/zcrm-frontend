@@ -1,0 +1,126 @@
+<!-- Content box -->
+<div class="ibox">
+  <!-- Content box title -->
+  <div class="ibox-title clearfix">
+    <h3 class="ibox-title-text pull-left">{{ 'Tickets' | translate }}</h3>
+    <div class="pull-right">
+      <button class="btn btn-primary">
+        <i class="fa fa-plus"></i>&nbsp;{{ 'Create ticket' | translate }}
+      </button>
+      <button class="btn btn-default"><i class="fa fa-cog"></i></button>
+    </div>
+  </div>
+  <!-- Content box body -->
+  <div class="ibox-content tickets-view clearfix">
+    <!-- Tickets search -->
+    <div class="form-group tickets-view col-xs-12">
+      <div class="input-group">
+        <label class="input-group-addon label" for="tickets_search"><b>{{ 'Search' | translate }}:</b></label>
+        <input type="text" class="form-control" id="tickets_search">
+        <span class="input-group-addon fa fa-search"></span>
+      </div>
+    </div>
+    <!-- Tickets sort -->
+    <div class="form-group tickets-view col-md-6 col-lg-3">
+      <div class="input-group">
+        <label class="input-group-addon label" for="tickets_sort">{{ 'Sort by' | translate }}:</label>
+        <ui-select id="tickets_sort" ng-model="selected">
+          <ui-select-match placeholder="Choose an option">{{ $select.selected }}</ui-select-match>
+          <ui-select-choices repeat="opt in ::tslst.sortOpts">{{ ::opt }}</ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <!-- Tickets list modes -->
+    <div class="tickets-list-modes col-xs-6 col-lg-4">
+      <span>{{ 'Show' | translate }}:</span>&nbsp;
+      <a href="">{{ 'Only my tickets' | translate }}</a>
+      <a href="">{{ 'All tickets' | translate }}</a>
+    </div>
+    <!-- Tickets priority filter -->
+    <div class="col-xs-6 col-md-12 col-lg-4">
+      <div class="btn-group">
+        <button class="btn btn-primary">ASAP</button>
+        <button class="btn btn-default">{{ 'High' | translate }}</button>
+        <button class="btn btn-default">{{ 'Medium' | translate }}</button>
+        <button class="btn btn-default">{{ 'Low' | translate }}</button>
+      </div>
+    </div>
+    <!-- Tickets list container -->
+    <div class="col-xs-12 table-responsive">
+      <!-- Tickets list -->
+      <table class="tickets-list table table-stripped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>#<i class="fa fa-sort"></i></th>
+            <th>{{ 'Status' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Priority' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Title' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Client(s)' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Team(s)' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Agent(s)' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Project' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Created' | translate }}<i class="fa fa-sort"></i></th>
+            <th>{{ 'Deadline' | translate }}<i class="fa fa-sort"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ticket-row" ng-repeat="ticket in tslst.tickets"
+              ng-class="{'overdue': ticket.deadline <= ts.today.getTime()}">
+            <td>
+              <input class="green-check" type="checkbox">
+            </td>
+            <td><a href="">{{ ::ticket.id }}</a></td>
+            <td data-ticket-status="ticket.status"></td>
+            <td data-ticket-priority="ticket.priority"></td>
+            <td><a href="">{{ ::ticket.subject | cutLongText:25:'...' }}</a></td>
+            <td>
+              <span ng-repeat="pfile in ::ticket.requesters" ng-if="ticket.requesters.length === 1">
+                {{ pfile.contactProfile.firstname }} {{ pfile.contactProfile.lastname }}
+              </span>
+              <span ng-repeat="pfile in ::ticket.requesters | limitTo:3" ng-if="ticket.requesters.length > 1"
+                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
+                    title="{{ ::fname }} {{ ::lname }}">
+                {{ fname[0] + lname[0] + (!$last ? ',' : '') }}
+              </span>
+              <a href="" role="button" ng-if="ticket.requesters.length > 3">...</a>
+            </td>
+            <td>
+              <span>{{ ::ticket.teams[0].name }}{{ ticket.teams.length > 1 ? ',' : '' }}</span>
+              <a href="" role="button" ng-if="ticket.teams.length > 1">...</a>
+            </td>
+            <td>
+              <span ng-repeat="pfile in ::ticket.members" ng-if="ticket.members.length === 1">
+                {{ pfile.contactProfile.firstname }} {{ pfile.contactProfile.lastname }}
+              </span>
+              <span ng-repeat="pfile in ::ticket.members | limitTo:3" ng-if="ticket.members.length > 1"
+                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
+                    title="{{ ::fname }} {{ ::lname }}">
+                {{ fname[0] + lname[0] + (!$last ? ',' : '') }}
+              </span>
+              <a href="" role="button" ng-if="ticket.requesters.length > 3">...</a>
+            </td>
+            <td>{{ ::ticket.project.name }}</td>
+            <td>{{ ::ticket.createdAt | date:'mediumDate' }}</td>
+            <td>
+              <span>{{ ::ticket.deadline | date:'mediumDate' }}</span>
+              &nbsp;
+              <span class="ticket-row-tip fa fa-question" ng-if="ticket.deadline <= ts.today.getTime()"
+                    uib-popover="This ticket is passed the deadline and not been closed yet"
+                    popover-append-to-body="true" popover-placement="bottom-right" popover-trigger="mouseenter">
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-12 clearfix">
+      <ui-select class="tickets-list-actions" ng-model="selected">
+        <ui-select-match placeholder="Do with chosen">{{ $select.selected }}</ui-select-match>
+        <ui-select-choices repeat="opt in ::tslst.ticketsActions">{{ ::opt }}</ui-select-choices>
+      </ui-select>
+      <ul class="tickets-list-pagination" uib-pagination ng-model="tslst.pages.current" items-per-page="20"
+          total-items="tslst.pages.total" previous-text="&#xf053;" next-text="&#xf054;"></ul>
+    </div>
+  </div>
+</div>

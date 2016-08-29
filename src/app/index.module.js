@@ -4,7 +4,7 @@
   angular
     .module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'ngMessages', 'ngAria',
         'ngResource', 'ui.router', 'oc.lazyLoad',  'ui.calendar', 'ui.bootstrap', 'pascalprecht.translate', 'ui.select',
-        'ladda', 'ngFileUpload', '720kb.datepicker'])
+        'ladda', 'ngFileUpload', '720kb.datepicker', 'summernote'])
     .run(function ($log, $translate, $rootScope, $state, dataService, generalUtils, roleService) {
       var companyName, user;
       //$rootScope.$route = $route;

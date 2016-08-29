@@ -61,8 +61,12 @@
             <li ui-sref-active="active">
                 <a ui-sref="index.projects"><i class="fa fa-tasks"></i> <span class="nav-label">{{ 'Projects' | translate }}</span></a>
             </li>
-            <li ng-class="{active: ('index.tickets' | includedByState) || ('index.ticket_item' | includedByState)}">
-                <a ui-sref="index.tickets"><i class="fa fa-check"></i> <span class="nav-label">{{ 'Tickets' | translate }}</span></a>
+            <!-- <li ng-class="{active: ('index.tickets' | includedByState) || ('index.ticket_item' | includedByState)}"> -->
+            <li ng-class="{active: main.state.includes('*.tickets.*')}">
+              <a ui-sref="index.tickets.list()">
+                <i class="fa fa-check"></i>
+                <span class="nav-label">{{ 'Tickets' | translate }}</span>
+              </a>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="index.calendar"><i class="fa fa-calendar"></i> <span class="nav-label">{{ 'Calendar' | translate }}</span></a>

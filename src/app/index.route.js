@@ -58,6 +58,7 @@
         data: {pageTitle: 'Mailbox', viewClass: 'mailbox-view'},
         authenticate: true,
         controller: 'MailboxController as mbox',
+        /*
         resolve: {
           loadPlugin: function ($ocLazyLoad) {
             return $ocLazyLoad.load([
@@ -77,6 +78,7 @@
             ]);
           }
         }
+        */
       })
       .state('index.mail.inbox', {
         parent: 'index.mail',
@@ -137,12 +139,16 @@
 
       })
       .state('index.tickets', {
-        url: "/tickets",
-        templateUrl: "app/tickets/tickets.html",
-        controller: 'TicketsCtrl',
-        data: { pageTitle: 'Tickets' },
-                "authenticate": true
-
+        templateUrl: 'app/tickets/tickets.html',
+        data: {pageTitle: 'Tickets'},
+        authenticate: true,
+        controller: 'TicketsController as ts'
+      })
+      .state('index.tickets.list', {
+        parent: 'index.tickets',
+        url: '/tickets/list',
+        templateUrl: 'app/tickets/tickets.list.html',
+        controller: 'TicketsListController as tslst'
       })
       .state('index.ticket_item', {
         url: "/tickets/:id",

@@ -45,8 +45,8 @@ var buildStyles = function() {
 
 
   return gulp.src([
-    path.join(conf.paths.src, '/app/index.less')
-  ])
+      path.join(conf.paths.src, '/app/index.less')
+    ])
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sourcemaps.init())
