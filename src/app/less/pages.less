@@ -893,9 +893,7 @@ a.compose-mail {
 
 // Tickets
 // Tickets box content
-.ibox-content.tickets-view {
-  padding: 20px 0 0 0;
-}
+.ibox-content.tickets-view { padding: 20px 0 0 0; }
 
 // Form groups
 .form-group.tickets-view { margin-bottom: 20px; }
@@ -1006,6 +1004,78 @@ a.compose-mail {
   }
 }
 
+// Tickets.Detail
+// Ticket info containers
+.ticket-box {
+  &.primary {
+    clear: none;
+
+    > .ibox-content { padding: 20px 0 0 0; }
+  }
+
+  &.secondary {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    > .ticket-box-title {
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.ticket-descr {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+// Row with basic ticket info
+.ticket-info-row {
+}
+
+// Ticket info
+.ticket-info {
+  // Primary info: Status, Author, Clients, Teams, Agents
+  &.primary {
+    margin: 0 auto 20px auto;
+    max-width: 650px;
+    width: 100%;
+
+    > ul > li { margin-bottom: 5px; }
+  }
+  // Extra info: Priority, Deadline, Project files
+  &.secondary > li { margin-bottom: 10px; }
+};
+
+// Ticket tabs panel
+.ticket-tabs {
+  > .nav-tabs {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    > li > a {
+      background-color: #f4f6fa;
+      border: 1px solid @border-color;
+      border-bottom-width: 0;
+      border-radius: 0;
+      margin-right: 5px;
+      padding: 10px 15px;
+
+      &:hover { background-color: #fff; }
+    }
+
+    > li.active > a {
+      background-color: #fff;
+      border-top-color: @navy;
+      border-top-width: 2px;
+      border-bottom-width: 0;
+
+      &:hover { border-bottom-width: 0; }
+    }
+  }
+
+  > .tab-content { padding: 20px 15px; }
+}
 
 /* PROJECTS */
 .project-people, .project-actions {

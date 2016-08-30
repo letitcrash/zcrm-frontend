@@ -150,12 +150,11 @@
         templateUrl: 'app/tickets/tickets.list.html',
         controller: 'TicketsListController as tslst'
       })
-      .state('index.ticket_item', {
-        url: "/tickets/:id",
-        templateUrl: "app/tickets/tickets.html",
-        controller: 'ItemTicketsCtrl',
-        data: { pageTitle: 'Tickets' },
-                "authenticate": true
+      .state('index.tickets.detail', {
+        parent: 'index.tickets',
+        url: '/tickets/:ticketId',
+        templateUrl: 'app/tickets/tickets.detail.html',
+        controller: 'TicketsDetailController as tsdet'
       })
       .state('index.settings', {
         url: "/settings",

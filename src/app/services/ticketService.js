@@ -85,8 +85,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       return requestService.ttGet(url);
     },
     get: function(ticketId) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticketId;
-      return requestService.ttGet(url);
+      return requestService.ttGet(apiURL.replace(re, dataService.getCurrentCompanyId()) + '/' + ticketId);
     },
     getActions: function(ticket, actionsList) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/actions";

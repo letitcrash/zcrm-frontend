@@ -7,29 +7,33 @@ angular
   .directive('ticketStatus', function() {
     return {
       restrict: 'A',
-      scope: {stat: '=ticketStatus'},
+      require: 'ngModel',
+      // scope: {stat: '=ticketStatus'},
+      scope: {},
       template: '<span class="label" ng-class="labelClass">{{ labelTitle | translate }}</span>',
-      link: function(scope) {
-        switch (scope.stat) {
-          case 1:
-            scope.labelTitle = 'New';
-            scope.labelClass = 'label-danger';
-            break;
-          case 2:
-            scope.labelTitle = 'In progress';
-            scope.labelClass = 'label-success';
-            break;
-          case 3:
-            scope.labelTitle = 'Postponed';
-            scope.labelClass = 'label-info';
-            break;
-          case 4:
-            scope.labelTitle = 'Complete';
-            scope.labelClass = 'label-primary';
-            break;
-          default:
-            break;
-        }
+      link: function(scope, elem, atts, ngModel) {
+        ngModel.$render = function() {
+          switch (ngModel.$modelValue) {
+            case 1:
+              scope.labelTitle = 'New';
+              scope.labelClass = 'label-danger';
+              break;
+            case 2:
+              scope.labelTitle = 'In progress';
+              scope.labelClass = 'label-success';
+              break;
+            case 3:
+              scope.labelTitle = 'Postponed';
+              scope.labelClass = 'label-info';
+              break;
+            case 4:
+              scope.labelTitle = 'Complete';
+              scope.labelClass = 'label-primary';
+              break;
+            default:
+              break;
+          }
+        };
       }
     };
   })
@@ -37,28 +41,32 @@ angular
   .directive('ticketPriority', function() {
     return {
       restrict: 'A',
-      scope: {prior: '=ticketPriority'},
+      require: 'ngModel',
+      // scope: {prior: '=ticketPriority'},
+      scope: {},
       template: '<span class="label" ng-class="labelClass">{{ labelTitle | translate }}</span>',
-      link: function(scope) {
-        switch (scope.prior) {
-          case 0:
-            scope.labelTitle = 'Low';
-            break;
-          case 1:
-            scope.labelTitle = 'Middle';
-            scope.labelClass = 'label-info';
-            break;
-          case 2:
-            scope.labelTitle = 'High';
-            scope.labelClass = 'label-warning';
-            break;
-          case 3:
-            scope.labelTitle = 'ASAP';
-            scope.labelClass = 'label-danger';
-            break;
-          default:
-            break;
-        }
+      link: function(scope, elem, atts, ngModel) {
+        ngModel.$render = function() {
+          switch (ngModel.$modelValue) {
+            case 0:
+              scope.labelTitle = 'Low';
+              break;
+            case 1:
+              scope.labelTitle = 'Middle';
+              scope.labelClass = 'label-info';
+              break;
+            case 2:
+              scope.labelTitle = 'High';
+              scope.labelClass = 'label-warning';
+              break;
+            case 3:
+              scope.labelTitle = 'ASAP';
+              scope.labelClass = 'label-danger';
+              break;
+            default:
+              break;
+          }
+        };
       }
     };
   })

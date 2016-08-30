@@ -70,10 +70,12 @@
             <td>
               <input class="green-check" type="checkbox">
             </td>
-            <td><a href="">{{ ::ticket.id }}</a></td>
-            <td data-ticket-status="ticket.status"></td>
-            <td data-ticket-priority="ticket.priority"></td>
-            <td><a href="">{{ ::ticket.subject | cutLongText:25:'...' }}</a></td>
+            <td><a ui-sref="index.tickets.detail({ticketId: ticket.id})">{{ ::ticket.id }}</a></td>
+            <td data-ticket-status ng-model="ticket.status"></td>
+            <td data-ticket-priority ng-model="ticket.priority"></td>
+            <td>
+              <a ui-sref="index.tickets.detail({ticketId: ticket.id})">{{ ::ticket.subject | cutLongText:25:'...' }}</a>
+            </td>
             <td>
               <span ng-repeat="pfile in ::ticket.requesters" ng-if="ticket.requesters.length === 1">
                 {{ pfile.contactProfile.firstname }} {{ pfile.contactProfile.lastname }}

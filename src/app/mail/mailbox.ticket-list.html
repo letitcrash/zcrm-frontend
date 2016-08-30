@@ -28,8 +28,8 @@
                  ng-checked="ticket.id === vm.selectedTicket.id" ng-change="vm.selectTicket(ticket)">
         </td>
         <td><a href="">{{ '#' + ticket.id }}</a></td>
-        <td data-ticket-status="ticket.status"></td>
-        <td data-ticket-priority="ticket.priority"></td>
+        <td data-ticket-status ng-model="ticket.status"></td>
+        <td data-ticket-priority ng-model="ticket.priority"></td>
         <td><a href="">{{ ticket.subject }}</a></td>
         <td>{{ ticket.project.name }}</td>
         <td>{{ ticket.createdAt | date:'MMM d, yyyy' }}</td>
