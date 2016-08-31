@@ -36,6 +36,10 @@
             <li ui-sref-active="active">
                 <a ui-sref="index.main"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'Dashboard' | translate }}</span> </a>
             </li>
+			<!-- CMS -->
+            <li ui-sref-active="active">
+                <a ui-sref="index.cms"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">{{ 'CMS' | translate }}</span> </a>
+            </li>
             <!-- Mailbox -->
             <li ng-class="{active: main.state.includes('*.mail.*')}">
               <a ui-sref="index.mail.list()">
