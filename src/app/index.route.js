@@ -152,9 +152,15 @@
       })
       .state('index.tickets.detail', {
         parent: 'index.tickets',
-        url: '/tickets/:ticketId',
+        url: '/tickets/browse/:ticketId',
         templateUrl: 'app/tickets/tickets.detail.html',
         controller: 'TicketsDetailController as tsdet'
+      })
+      .state('index.tickets.create', {
+        parent: 'index.tickets',
+        url: '/tickets/create',
+        templateUrl: 'app/tickets/tickets.form.html',
+        controller: 'TicketsFormController as tsform'
       })
       .state('index.settings', {
         url: "/settings",
