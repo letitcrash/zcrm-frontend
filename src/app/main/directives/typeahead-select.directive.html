@@ -1,0 +1,8 @@
+<ul class="list-unstyled clearfix">
+  <li class="p-h-none" ng-repeat="item in items" ng-class="items.length < 6 ? 'col-xs-12': 'col-xs-6'">
+    <button class="btn-default" ng-click="removeItem(item)">
+      <i class="fa fa-close"></i>
+    </button>
+    {{ itemTitle(item) }}
+  </li>
+</ul>

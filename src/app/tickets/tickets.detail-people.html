@@ -1,0 +1,73 @@
+<!-- People tab content -->
+<h3>People</h3>
+<div class="ticket-info primary clearfix">
+  <label class="col-xs-3 text-right p-l-none">{{ 'Client(s):' | translate }}</label>
+  <div class="col-xs-8" ng-show="tsdet.forms.clients.active">
+    <div typeahead-select select-employees ng-model="tsdet.models.clients"></div>
+    <div>
+      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
+      <button class="btn btn-default" ng-click="tsdet.forms.clients.clear()">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="col-xs-8" ng-hide="tsdet.forms.clients.active">
+    <ul class="list-unstyled clearfix">
+      <li class="p-h-none" ng-repeat="pfile in ::tsdet.ticket.requesters"
+          ng-class="tsdet.ticket.requesters.length < 6 ? 'col-xs-12': 'col-xs-6'">
+        {{ ::pfile.contactProfile.firstname }}
+        {{ ::pfile.contactProfile.lastname }}
+      </li>
+    </ul>
+    <a href="" class="dsp-block" role="button" ng-click="tsdet.forms.clients.active = true">
+      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
+    </a>
+  </div>
+</div>
+<div class="ticket-info primary clearfix">
+  <label class="col-xs-3 text-right p-l-none">{{ 'Team(s):' | translate }}</label>
+  <div class="col-xs-8" ng-show="tsdet.forms.teams.active">
+    <div typeahead-select select-teams ng-model="tsdet.models.teams"></div>
+    <div>
+      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
+      <button class="btn btn-default" ng-click="tsdet.forms.teams.clear()">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="col-xs-8" ng-hide="tsdet.forms.teams.active">
+    <ul class="list-unstyled clearfix">
+      <li class="p-h-none" ng-repeat="team in ::tsdet.ticket.teams"
+          ng-class="tsdet.ticket.teams.length < 6 ? 'col-xs-12': 'col-xs-6'">
+        {{ ::team.name }}
+      </li>
+    </ul>
+    <a href="" class="dsp-block" role="button" ng-click="tsdet.forms.teams.active = true">
+      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
+    </a>
+  </div>
+</div>
+<div class="ticket-info primary clearfix">
+  <label class="col-xs-3 text-right">{{ 'Agent(s):' | translate }}</label>
+  <div class="col-xs-8" ng-show="tsdet.forms.agents.active">
+    <div typeahead-select select-employees ng-model="tsdet.models.agents"></div>
+    <div>
+      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
+      <button class="btn btn-default" ng-click="tsdet.forms.agents.clear()">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="col-xs-8" ng-hide="tsdet.forms.agents.active">
+    <ul class="list-unstyled clearfix">
+      <li class="p-h-none" ng-repeat="pfile in ::tsdet.ticket.members"
+          ng-class="tsdet.ticket.members.length < 6 ? 'col-xs-12': 'col-xs-6'">
+        {{ ::pfile.contactProfile.firstname }}
+        {{ ::pfile.contactProfile.lastname }}
+      </li>
+    </ul>
+    <a href="" class="dsp-block" role="button" ng-click="tsdet.forms.agents.active = true">
+      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
+    </a>
+  </div>
+</div>

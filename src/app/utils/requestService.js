@@ -88,7 +88,7 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
       var req = {
         method: method,
         url: url,
-        timeout: 4000,
+        timeout: 60000,
         headers: {
           "Content-Type": "application/json",
           "X-Access-Token": dataService.getSessionToken(),
