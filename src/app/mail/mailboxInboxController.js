@@ -34,7 +34,7 @@ angular
     // Hide action menu
     $scope.mbox.showActionMenu = false;
     // Pages settings
-    vm.pages = {current: 1, all: 1, onPage: 50, total: 0};
+    vm.pages = {current: 1, all: 1, onPage: 20, total: 0};
     // Load statuses
     // 0 - error, 1 - success, 2 - loading
     vm.loadStats = {convList: 1, loadMore: 1};

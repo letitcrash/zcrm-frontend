@@ -82,10 +82,7 @@ angular
     // Get mailboxes for user
     vm.getMailboxes = function getMailboxes(pSize, pNr, sTerm) {
       mailboxService.mailboxes.all(pSize, pNr, sTerm).then(function(res) {
-        if (res.hasOwnProperty('data') && res.data.length > 0) {
-          mailboxService.mailboxes.list = res.data;
-          vm.mailboxes = mailboxService.mailboxes.list;
-        }
+        vm.mailboxes = res;
       }, function() { return $log.log('Failed to get mailboxlist'); });
     };
 
@@ -151,14 +148,16 @@ angular
       $log.log(form);
     };
 
+    vm.getMailboxes();
+
     // vm.getMailboxes(vm.pages.pSize, vm.pages.pNr);
     // TODO: Delete test data
-    for (var i = 1; i < 2; i++) {
-      vm.mailboxes.push({
-        id: i,
-        server: 'https://outlook.office365.com/EWS/Exchange.asmx',
-        login: 'test@rowanie.no',
-        password: '1234' + i
-      });
-    }
+    // for (var i = 1; i < 2; i++) {
+    //   vm.mailboxes.push({
+    //     id: i,
+    //     server: 'https://outlook.office365.com/EWS/Exchange.asmx',
+    //     login: 'test@rowanie.no',
+    //     password: '1234' + i
+    //   });
+    // }
   });
