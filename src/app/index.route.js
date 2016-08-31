@@ -51,8 +51,15 @@
         templateUrl: "app/main/main.html",
         data: { pageTitle: 'Example view' },
         "authenticate": true
-
-      })
+	  })
+	  .state('index.cms', {
+		url: '/cms',
+		templateUrl: 'app/cms/news-list.html'
+	  })
+	  .state('index.cmsarticle', {
+		url: '/cms/article',
+		templateUrl: 'app/cms/article.html'
+	  })
       .state('index.mail', {
         templateUrl: 'app/mail/mailbox.html',
         data: {pageTitle: 'Mailbox', viewClass: 'mailbox-view'},
@@ -85,7 +92,7 @@
         url: '/mailbox/:mailboxId/inbox',
         templateUrl: 'app/mail/mailbox.inbox.html',
         controller: 'MailboxInboxController as inbox'
-      })
+	  })
       .state('index.mail.list', {
         parent: 'index.mail',
         url: '/mailbox/list',
@@ -97,7 +104,7 @@
         url: '/mailbox/:mailboxId/attach-msgs',
         templateUrl: 'app/mail/mailbox.attach-msgs.html',
         controller: 'MailboxAttachMsgsController as ambox'
-      })
+	  })
       .state('outlook', {
             url: "/outlook",
             templateUrl: "app/mail/outlook.html",
