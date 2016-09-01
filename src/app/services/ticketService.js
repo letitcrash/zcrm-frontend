@@ -206,17 +206,20 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
 
       return requestService.ttPost(url, args);
     },
-    attachEmailConversation: function(ticket, email) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/mails" + email.id;
-      var args = {};
-      args.companyId = dataService.getCurrentCompanyId();
-      args.createdByUser = dataService.getUser();
-      args.title = ticket.title;
-      args.description = ticket.description;
-      args.attachedMails = mails;
-      args.dueDate = "today";
+    attachEmail: function(ticketId, emailId) {
+      var url = apiURL.replace(re, dataService.getCurrentCompanyId()) + '/' + ticketId + '/mails/' + emailId;
 
-      return requestService.ttPost(url, args);
+      return requestService.ttPost(url);
+      // var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/mails" + email.id;
+      // var args = {};
+      // args.companyId = dataService.getCurrentCompanyId();
+      // args.createdByUser = dataService.getUser();
+      // args.title = ticket.title;
+      // args.description = ticket.description;
+      // args.attachedMails = mails;
+      // args.dueDate = "today";
+
+      // return requestService.ttPost(url, args);
     }
   };
 });

@@ -61,9 +61,13 @@ angular
     vm.attachMsgs = function attachMsgs() {
       vm.showAttachConfirm = false;
       vm.loadStats.attachForm = 2;
-      $timeout(function() {
-        vm.loadStats.attachForm = 1
-      }, 3000);
+      ticketService.attachEmail(vm.selectedTicket.id, vm.msgs[0].id).then(function(res) {
+        vm.loadStats.attachForm = 1;
+        $log.log(res);
+      }, function(res) {
+        vm.loadStats.attachForm = 0;
+        $log.log(res);
+      });
     };
 
     // Close action menu and reset ticket selection
