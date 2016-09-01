@@ -119,10 +119,16 @@ angular
     }
 
     // Create new mailbox
-    function createMbox(form) {
-      $timeout(function() {
-        vm.loadStats.mboxForm = 1
-      }, 3000);
+    function createMbox() {
+      var box = {server: vm.mboxModel.server, login: vm.mboxModel.login, password: vm.mboxModel.pswdNew};
+
+      mailboxService.mailboxes.create(box).then(function(res) {
+        vm.loadStats.mboxForm = 1;
+        $log.log(res);
+      }, function(res) {
+        vm.loadStats.mboxForm = 0;
+        $log.log(res);
+      });
     }
 
     // Update existing mailbox

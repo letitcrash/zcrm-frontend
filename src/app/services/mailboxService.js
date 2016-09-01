@@ -38,7 +38,11 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
         return requestService.ttGet(buildURLParams(null, null, null, pSize, pNr, sTerm));
       },
       get: function(mId) { return requestService.ttGet(buildURLParams(mId)); },
-      create: function(mbox) { return requestService.ttPost(buildURLParams(), mbox); },
+      create: function(mbox) {
+        mbox.userId = dataService.getUserId();
+
+        return requestService.ttPost(buildURLParams(), mbox);
+      },
       update: function(mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); }
     },
     messages: {
