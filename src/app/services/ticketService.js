@@ -92,20 +92,15 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       return requestService.ttGet(url);
     },
     create: function(ticket) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets";
       ticket.companyId = dataService.getCurrentCompanyId();
-      ticket.projectId=ticket.project.id;
-
-      ticket.deadline = new Date(ticket.deadline).getTime();
-      
       ticket.createdByUserId = dataService.getUserId();
 
-      ticket.status = Number(ticket.status.selectedOption.id);
-      ticket.priority = Number(ticket.priority.selectedOption.id);
+      // ticket.projectId=ticket.project.id;
+      // ticket.deadline = new Date(ticket.deadline).getTime();
+      // ticket.status = Number(ticket.status.selectedOption.id);
+      // ticket.priority = Number(ticket.priority.selectedOption.id);
 
-      console.log(ticket);
-
-      return requestService.ttPost(url, ticket);
+      return requestService.ttGet(apiURL.replace(re, dataService.getCurrentCompanyId()), ticket);
     },
     update: function(ticket, mails) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/"+ticket.id;
