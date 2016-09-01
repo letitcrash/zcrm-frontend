@@ -20,6 +20,38 @@
         <div data-summernote data-height="200" name="body" ng-model="tsform.model.description"></div>
       </div>
     </div>
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-xs-3">{{ 'Priority' | translate }}:</label>
+      <div class="col-xs-4">
+        <input class="hidden" type="number" name="priority" required ng-model="tsform.model.priority">
+        <div class="btn-group" uib-dropdown>
+          <button type="button" class="btn btn-sm" uib-dropdown-toggle
+                  ng-class="tsform.priority.list[tsform.priority.active].color">
+            {{ tsform.priority.list[tsform.priority.active].title | translate }}&nbsp;<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in tsform.priority.list">
+              <a href="" role="button" ng-click="tsform.setPriority($index)">{{ item.title | translate }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <label class="ticket-form-label control-label col-xs-2">{{ 'Status' | translate }}:</label>
+      <div class="col-xs-3">
+        <input class="hidden" type="number" name="status" required ng-model="tsform.model.status">
+        <div class="btn-group" uib-dropdown>
+          <button type="button" class="btn btn-sm" uib-dropdown-toggle
+                  ng-class="tsform.statuses.list[tsform.statuses.active].color">
+            {{ tsform.statuses.list[tsform.statuses.active].title | translate }}&nbsp;<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="item in tsform.statuses.list">
+              <a href="" role="button" ng-click="tsform.setStatus($index)">{{ item.title | translate }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="ibox-footer ticket-form-footer clearfix">
     <div class="col-xs-9 col-xs-offset-3">

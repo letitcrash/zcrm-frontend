@@ -95,7 +95,8 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       // ticket.status = Number(ticket.status.selectedOption.id);
       // ticket.priority = Number(ticket.priority.selectedOption.id);
 
-      return requestService.ttPost(apiURL.replace(re, dataService.getCurrentCompanyId()), ticket);
+      // TODO: Remove temporary hack with project id
+      return requestService.ttPost(apiURL.replace(re, dataService.getCurrentCompanyId()) + '/13', ticket);
     },
     update: function(ticket, mails) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/"+ticket.id;
