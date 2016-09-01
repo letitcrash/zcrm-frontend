@@ -1077,6 +1077,36 @@ a.compose-mail {
   > .tab-content { padding: 20px 15px; }
 }
 
+// Tickets.Detail.Email tab
+// Ticket attached email
+.ticket-email {
+  border: 1px solid @border-color;
+  border-radius: 4px;
+  margin-bottom: 30px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.ticket-email-header {
+  padding: 10px 15px;
+
+  h4 > {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+}
+
+.ticket-email-body {
+  background-color: @gray;
+  border-top: 1px solid @border-color;
+  border-bottom: 1px solid @border-color;
+  overflow-x: auto;
+  padding: 15px;
+  width: 100%;
+}
+
+.ticket-email-footer { padding: 15px; }
+
 // Tickets.Form
 // Ticket form footer
 .ticket-form-footer {

@@ -2,7 +2,8 @@
 
 angular
   .module('inspinia')
-  .controller('TicketsDetailController', function($log, $state, $stateParams, $scope, ticketService) {
+  .controller('TicketsDetailController', function($log, $state, $stateParams, $scope, ticketService,
+        textFromHTMLFilter) {
     // View
     var vm = this;
 
@@ -13,9 +14,9 @@ angular
     // Tab panel
     vm.tabs = [
       {icon: 'fa-comments-o', title: 'Messages', disabled: true},
-      {icon: 'fa-envelope', title: 'E-mail', disabled: true},
+      {icon: 'fa-envelope', title: 'E-mail', disabled: false, template: '/app/tickets/tickets.detail-email.html'},
       {icon: 'fa-user', title: 'People', disabled: false, template: '/app/tickets/tickets.detail-people.html'},
-      {icon: 'fa-paperclip', title: 'Files', disabled: false},
+      {icon: 'fa-paperclip', title: 'Files', disabled: true},
       {icon: 'fa-history', title: 'History', disabled: true}
     ];
     vm.activeTab = 3;
@@ -84,6 +85,8 @@ angular
         }
       }
     };
+    // Attached emails
+    vm.emails = [];
 
     // Get ticket
     vm.getTicket = function getTicket() {
@@ -99,5 +102,18 @@ angular
       }, function() { $log.log('Couldn\'t get Ticket details'); });
     };
 
+    // TODO: Run on tab activation
+    vm.getAttachedEmails = function getAttachedEmails() {
+      ticketService.getActions(vm.ticketId, [1]).then(function(res) {
+        $log.log(res);
+        vm.emails = res;
+        vm.emails.forEach(function(item) {
+          item.mail.preview = textFromHTMLFilter(item.mail.body);
+          item.mail.active = false;
+        });
+      }, function(res) { $log.log(res); });
+    };
+
     vm.getTicket();
+    vm.getAttachedEmails();
   });

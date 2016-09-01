@@ -72,23 +72,18 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
 
   return {
     getList: new TicketsList(),
-    getActionsList: function(force, pageSize, pageNr, searchTerm, ticketId) {
-      var url;
-        url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticketId + "/actions";
-      if (pageSize && pageNr) {
-        if (searchTerm) {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr + "&searchTerm=" + searchTerm;
-        } else {
-          url = url + "?pageSize=" + pageSize + "&pageNr=" + pageNr;
-        }
-      }
-      return requestService.ttGet(url);
-    },
     get: function(ticketId) {
       return requestService.ttGet(apiURL.replace(re, dataService.getCurrentCompanyId()) + '/' + ticketId);
     },
-    getActions: function(ticket, actionsList) {
-      var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/" + ticket.id + "/actions";
+    getActions: function(ticketId, actions, pSize, pNr, sTerm) {
+      var url = apiURL.replace(re, dataService.getCurrentCompanyId()) + '/' + ticketId + '/actions';
+
+      if (arguments.length > 1) { url += '?'; }
+      if (angular.isArray(actions)) { url += '&actionTypes=' + actions.join(); }
+      if (angular.isNumber(pSize)) { url += '&pageSize=' + pSize; }
+      if (angular.isNumber(pNr)) { url += '&pageNr=' + pNr; }
+      if (angular.isString(sTerm)) { url += '&searchTerm=' + sTerm; }
+
       return requestService.ttGet(url);
     },
     create: function(ticket) {
@@ -100,7 +95,7 @@ angular.module('inspinia').factory('ticketService', function(requestService, dat
       // ticket.status = Number(ticket.status.selectedOption.id);
       // ticket.priority = Number(ticket.priority.selectedOption.id);
 
-      return requestService.ttGet(apiURL.replace(re, dataService.getCurrentCompanyId()), ticket);
+      return requestService.ttPost(apiURL.replace(re, dataService.getCurrentCompanyId()), ticket);
     },
     update: function(ticket, mails) {
       var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/"+ticket.id;
