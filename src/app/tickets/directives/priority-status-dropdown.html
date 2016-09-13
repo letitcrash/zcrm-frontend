@@ -1,0 +1,11 @@
+<div class="btn-group" data-ng-class="cssClass" data-uib-dropdown>
+  <button class="btn" type="button" data-uib-dropdown-toggle data-ng-class="'btn-' + colors[selectedId]">
+    {{ labels[selectedId] | translate }}&nbsp;<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" data-uib-dropdown-menu>
+    <li role="menuitem" data-ng-repeat="(id, label) in ::labels">
+      <a href role="button" data-ng-click="changeSelected(id)"
+         data-ng-bind="::label | translate"></a>
+    </li>
+  </ul>
+</div>
