@@ -5,7 +5,12 @@ angular
   // TODO: Maybe we must create another module for general filters like this two bellow.
   // Extract text from DOM elems.
   .filter('textFromHTML', function($sanitize) {
-    return function(html) { return angular.element($sanitize(html))[0].textContent; }
+    return function(html) {
+      var sanitized = $sanitize(html.trim());
+      var elem = angular.element(sanitized);
+
+      return elem.length > 0 ? elem[0].textContent.trim() : sanitized;
+    }
   })
   // Cut long text until specified length value and optional insert secified text at the end of cutted text.
   .filter('cutLongText', function() {
