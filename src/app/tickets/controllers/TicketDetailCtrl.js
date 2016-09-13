@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketDetailCtrl', function($log, $state, $stateParams, $scope, ticketService,
+  .controller('TicketDetailCtrl', function($log, $state, $stateParams, $scope, ticketsAPI,
         textFromHTMLFilter) {
     // View
     var vm = this;
@@ -90,7 +90,7 @@ angular
 
     // Get ticket
     vm.getTicket = function getTicket() {
-      ticketService.get(vm.ticketId).then(function(res) {
+      ticketsAPI.get(vm.ticketId).then(function(res) {
         $log.log(res);
         vm.ticket = res;
         vm.models.clients = vm.ticket.requesters.slice();
@@ -104,7 +104,7 @@ angular
 
     // TODO: Run on tab activation
     vm.getAttachedEmails = function getAttachedEmails() {
-      ticketService.getActions(vm.ticketId, [1]).then(function(res) {
+      ticketsAPI.getActions(vm.ticketId, [1]).then(function(res) {
         $log.log(res);
         vm.emails = res;
         vm.emails.forEach(function(item) {

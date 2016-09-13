@@ -24,9 +24,9 @@
     <div class="form-group tickets-view col-md-6 col-lg-3">
       <div class="input-group">
         <label class="input-group-addon label" for="tickets_sort">{{ 'Sort by' | translate }}:</label>
-        <ui-select id="tickets_sort" ng-model="selected">
-          <ui-select-match placeholder="Choose an option">{{ $select.selected }}</ui-select-match>
-          <ui-select-choices repeat="opt in ::ts.sortOpts">{{ ::opt }}</ui-select-choices>
+        <ui-select id="tickets_sort" data-ng-model="param" data-on-select="ts.onSortChange($item)">
+          <ui-select-match placeholder="Choose an option">{{ $select.selected.title }}</ui-select-match>
+          <ui-select-choices repeat="opt in ::ts.sortOpts">{{ ::opt.title }}</ui-select-choices>
         </ui-select>
       </div>
     </div>
@@ -52,16 +52,14 @@
         <thead>
           <tr>
             <th></th>
-            <th>#<i class="fa fa-sort"></i></th>
-            <th>{{ 'Status' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Priority' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Title' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Client(s)' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Team(s)' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Agent(s)' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Project' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Created' | translate }}<i class="fa fa-sort"></i></th>
-            <th>{{ 'Deadline' | translate }}<i class="fa fa-sort"></i></th>
+            <th data-ng-repeat="field in ::ts.ticketFields">
+              <span data-ng-bind="::field.title | translate"></span>
+              <a class="fa" href role="button" title="{{ 'Change sort ordering' | translate }}"
+                 data-ng-class="ts.getParams.sortAsc ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"
+                 data-ng-show="field.name === ts.getParams.sortField"
+                 data-ng-click="ts.toggleSortOrder()">
+              </a>
+            </th>
           </tr>
         </thead>
         <tbody>

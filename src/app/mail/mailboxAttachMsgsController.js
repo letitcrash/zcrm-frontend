@@ -3,7 +3,7 @@
 angular
   .module('inspinia')
   .controller("MailboxAttachMsgsController", function($log, $scope, $state, $stateParams, mailboxService,
-        ticketService, $timeout) {
+        ticketsAPI, $timeout) {
     // View
     var vm = this;
 
@@ -37,7 +37,7 @@ angular
 
     // Get tickets list
     vm.getTickets = function getTickets() {
-      ticketService.getList.get(20, 1).then(function(res) {
+      ticketsAPI.getList.get(20, 1).then(function(res) {
         $log.log(res);
         if (res.data.length > 0) { vm.tickets = res.data; }
       }, function() { $log.log("Could not get tickets"); });
@@ -61,7 +61,7 @@ angular
     vm.attachMsgs = function attachMsgs() {
       vm.showAttachConfirm = false;
       vm.loadStats.attachForm = 2;
-      ticketService.attachEmail(vm.selectedTicket.id, vm.msgs[0].id).then(function(res) {
+      ticketsAPI.attachEmail(vm.selectedTicket.id, vm.msgs[0].id).then(function(res) {
         vm.loadStats.attachForm = 1;
         $log.log(res);
       }, function(res) {

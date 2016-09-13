@@ -3,7 +3,7 @@
 angular
   .module('inspinia')
   .controller("MailboxInboxController", function($log, $scope, $state, $stateParams, mailboxService,
-        ticketService, dataService, textFromHTMLFilter) {
+        ticketsAPI, dataService, textFromHTMLFilter) {
     // View
     var vm = this;
 
