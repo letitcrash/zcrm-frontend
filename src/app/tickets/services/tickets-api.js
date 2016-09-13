@@ -79,6 +79,12 @@ angular
       return this;
     };
 
+    TicketsList.prototype.priority = function(id) {
+      if (id > -1) { this.params.push('priority=' + id); }
+
+      return this;
+    };
+
     return {
       getList: function() { return new TicketsList(); },
       get: function(ticketId) {

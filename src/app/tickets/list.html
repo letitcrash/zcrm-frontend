@@ -39,10 +39,11 @@
     <!-- Tickets priority filter -->
     <div class="col-xs-6 col-md-12 col-lg-4">
       <div class="btn-group">
-        <button class="btn btn-primary">ASAP</button>
-        <button class="btn btn-default">{{ 'High' | translate }}</button>
-        <button class="btn btn-default">{{ 'Medium' | translate }}</button>
-        <button class="btn btn-default">{{ 'Low' | translate }}</button>
+        <button class="btn" data-ng-class="id === ts.getParams.priority ? 'btn-primary' : 'btn-default'"
+                data-ng-repeat="(id, label) in ::ts.ticketPriority"
+                data-ng-click="ts.filterByPriority(id)">
+          {{ ::label | translate }}
+        </button>
       </div>
     </div>
     <!-- Tickets list container -->

@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketsListCtrl', function($log, ticketsAPI) {
+  .controller('TicketsListCtrl', function($log, ticketsAPI, ticketPriorityConf) {
     // View
     var vm = this;
 
@@ -31,11 +31,13 @@ angular
       {name: 'created', title: 'Created'},
       {name: 'deadline', title: 'Deadline'}
     ];
+    // Ticket priority labels
+    vm.ticketPriority = ticketPriorityConf.labels;
     // Today
     vm.today = new Date();
 
     // GET params for ticket list
-    vm.getParams = {sTerm: '', sortField: 'id', sortAsc: false};
+    vm.getParams = {sTerm: '', sortField: 'id', sortAsc: false, priority: -1};
 
     // Pages settings
     vm.pages = {current: 1, all: 5, onPage: 50, total: 0};
@@ -43,6 +45,12 @@ angular
     // Get tickets on sort options change
     vm.onSortChange = function onSortChange(opt) {
       vm.getParams.sortField = opt.param;
+      vm.getTickets();
+    };
+
+    // Filter tickets by priority
+    vm.filterByPriority = function filterByPriority(id) {
+      vm.getParams.priority = vm.getParams.priority === id ? -1 : id;
       vm.getTickets();
     };
 
@@ -59,6 +67,7 @@ angular
 
       if (vm.getParams.sTerm.length > 0) { ticketsAPI.list.search(vm.getParams.sTerm); }
       if (vm.getParams.sortField.length > 0) { req.sort(vm.getParams.sortField, vm.getParams.sortAsc); }
+      if (vm.getParams.priority > -1) { req.priority(vm.getParams.priority); }
 
       req.get(vm.pages.onPage, page).then(function(res) {
         $log.log(res);
