@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketsDetailController', function($log, $state, $stateParams, $scope, ticketService,
+  .controller('TicketDetailCtrl', function($log, $state, $stateParams, $scope, ticketService,
         textFromHTMLFilter) {
     // View
     var vm = this;

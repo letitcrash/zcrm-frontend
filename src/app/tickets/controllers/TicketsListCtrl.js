@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketsListController', function($log, ticketService) {
+  .controller('TicketsListCtrl', function($log, ticketService) {
     // View
     var vm = this;
 
@@ -12,6 +12,8 @@ angular
     vm.ticketsActions = ['Delete'];
     // Tickets list
     vm.tickets = [];
+    // Today
+    vm.today = new Date();
 
     // GET params for ticket list
     var getParams = {sTerm: ''};

@@ -26,7 +26,7 @@
         <label class="input-group-addon label" for="tickets_sort">{{ 'Sort by' | translate }}:</label>
         <ui-select id="tickets_sort" ng-model="selected">
           <ui-select-match placeholder="Choose an option">{{ $select.selected }}</ui-select-match>
-          <ui-select-choices repeat="opt in ::tslst.sortOpts">{{ ::opt }}</ui-select-choices>
+          <ui-select-choices repeat="opt in ::ts.sortOpts">{{ ::opt }}</ui-select-choices>
         </ui-select>
       </div>
     </div>
@@ -65,16 +65,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="ticket-row" ng-repeat="ticket in tslst.tickets"
-              ng-class="{'overdue': ticket.deadline <= ts.today.getTime()}">
+          <tr class="ticket-row" data-ng-repeat="ticket in ts.tickets"
+              data-ng-class="{'overdue': ticket.deadline <= ts.today.getTime()}">
             <td>
               <input class="green-check" type="checkbox">
             </td>
-            <td><a ui-sref="index.tickets.detail({ticketId: ticket.id})">{{ ::ticket.id }}</a></td>
-            <td data-ticket-status ng-model="ticket.status"></td>
-            <td data-ticket-priority ng-model="ticket.priority"></td>
+            <td><a data-ui-sref="index.tickets.detail({ticketId: ticket.id})" data-ng-bind="::ticket.id"></a></td>
+            <td data-crm-ticket-status-label data-ng-model="ticket.status"></td>
+            <td data-crm-ticket-priority-label data-ng-model="ticket.priority"></td>
             <td>
-              <a ui-sref="index.tickets.detail({ticketId: ticket.id})">{{ ::ticket.subject | cutLongText:25:'...' }}</a>
+              <a data-ui-sref="index.tickets.detail({ticketId: ticket.id})"
+                 data-ng-bind="::ticket.subject | cutLongText:25:'...'"></a>
             </td>
             <td>
               <span ng-repeat="pfile in ::ticket.requesters" ng-if="ticket.requesters.length === 1">
@@ -119,10 +120,10 @@
     <div class="col-xs-12 clearfix">
       <ui-select class="tickets-list-actions" ng-model="selected">
         <ui-select-match placeholder="Do with chosen">{{ $select.selected }}</ui-select-match>
-        <ui-select-choices repeat="opt in ::tslst.ticketsActions">{{ ::opt }}</ui-select-choices>
+        <ui-select-choices repeat="opt in ::ts.ticketsActions">{{ ::opt }}</ui-select-choices>
       </ui-select>
-      <ul class="tickets-list-pagination" uib-pagination ng-model="tslst.pages.current" items-per-page="20"
-          total-items="tslst.pages.total" previous-text="&#xf053;" next-text="&#xf054;"></ul>
+      <ul class="tickets-list-pagination" uib-pagination ng-model="ts.pages.current" items-per-page="20"
+          total-items="ts.pages.total" previous-text="&#xf053;" next-text="&#xf054;"></ul>
     </div>
   </div>
 </div>
