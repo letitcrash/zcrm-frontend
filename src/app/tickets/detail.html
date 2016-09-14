@@ -1,6 +1,6 @@
 <!-- Secondary content box -->
 <div class="ticket-box secondary col-xs-12 col-lg-4 p-r-none pull-right"
-     ng-init="models = tsdet.models; forms = tsdet.forms">
+     ng-init="models = tsDetail.models; forms = tsDetail.forms">
   <h3 class="ticket-box-title dsp-inline-block">{{ 'Ticket description' | translate }}</h3>
   &nbsp;
   <a href="" class="dsp-inline-block" role="button" ng-click="forms.descr.active = true">
@@ -8,7 +8,7 @@
   </a>
   <!-- Ticket description -->
   <div class="ticket-descr">
-    <div ng-bind-html="tsdet.ticket.description" ng-hide="forms.descr.active"></div>
+    <div ng-bind-html="tsDetail.ticket.description" ng-hide="forms.descr.active"></div>
     <div ng-show="forms.descr.active">
       <div data-summernote data-height="200" name="body" ng-model="models.descr"></div>
       <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
@@ -30,7 +30,7 @@
     <li class="clearfix">
       <label class="col-xs-4 text-right">{{ 'Deadline' | translate }}:</label>
       <div class="col-xs-8">
-        <span class="dsp-inline-block">{{ tsdet.ticket.deadline | date:'M.d.yyyy hh:mm' }}</span>
+        <span class="dsp-inline-block">{{ tsDetail.ticket.deadline | date:'M.d.yyyy hh:mm' }}</span>
         &nbsp;
         <a href="" class="dsp-inline-block" role="button">{{ 'Edit' | translate }}</a>
       </div>
@@ -42,7 +42,7 @@
   <!-- Content box title -->
   <div class="ibox-title clearfix">
     <a ui-sref="index.tickets.list()" class="btn btn-default pull-left" ><i class="fa fa-chevron-left"></i></a>
-    <h3 class="ibox-title-text pull-left">{{ ::tsdet.ticket.subject }}</h3>
+    <h3 class="ibox-title-text pull-left">{{ ::tsDetail.ticket.subject }}</h3>
     <button class="btn btn-default pull-right"><i class="fa fa-cog"></i></button>
   </div>
   <!-- Content box body -->
@@ -67,36 +67,36 @@
     <div class="ticket-info primary clearfix">
       <label class="col-xs-3 text-right">{{ 'Created by:' | translate }}</label>
       <a href="" class="col-xs-3">
-        {{ ::tsdet.ticket.createdByUser.contactProfile.firstname }}
-        {{ ::tsdet.ticket.createdByUser.contactProfile.lastname }}
+        {{ ::tsDetail.ticket.createdByUser.contactProfile.firstname }}
+        {{ ::tsDetail.ticket.createdByUser.contactProfile.lastname }}
       </a>
       <label class="col-xs-2 text-right p-l-none">{{ 'Team(s):' | translate }}</label>
       <ul class="list-unstyled col-xs-3">
-        <li>{{ ::tsdet.ticket.teams[0].name }}</li>
-        <li><a href="" role="button" ng-click="tsdet.activeTab = 2">{{ 'See more' | translate }}</a></li>
+        <li>{{ ::tsDetail.ticket.teams[0].name }}</li>
+        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
       </ul>
     </div>
     <div class="ticket-info primary clearfix">
       <label class="col-xs-3 text-right p-l-none">{{ 'Client(s):' | translate }}</label>
       <ul class="list-unstyled col-xs-3">
-        <li ng-repeat="pfile in ::tsdet.ticket.requesters | limitTo:3">
+        <li ng-repeat="pfile in ::tsDetail.ticket.requesters | limitTo:3">
           {{ ::pfile.contactProfile.firstname }}
           {{ ::pfile.contactProfile.lastname }}
         </li>
-        <li><a href="" role="button" ng-click="tsdet.activeTab = 2">{{ 'See more' | translate }}</a></li>
+        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
       </ul>
       <label class="col-xs-2 text-right">{{ 'Agent(s):' | translate }}</label>
       <ul class="list-unstyled col-xs-3">
-        <li ng-repeat="pfile in ::tsdet.ticket.members | limitTo:3">
+        <li ng-repeat="pfile in ::tsDetail.ticket.members | limitTo:3">
           {{ ::pfile.contactProfile.firstname }}
           {{ ::pfile.contactProfile.lastname }}
         </li>
-        <li><a href="" role="button" ng-click="tsdet.activeTab = 2">{{ 'See more' | translate }}</a></li>
+        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
       </ul>
     </div>
     <!-- Ticket tabs -->
     <uib-tabset class="ticket-tabs" active="3">
-      <uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::tsdet.tabs">
+      <uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::tsDetail.tabs">
         <uib-tab-heading><i class="fa" ng-class="::tab.icon"></i>{{ ::tab.title | translate }}</uib-tab-heading>
         <div ng-include="tab.template"></div>
       </uib-tab>

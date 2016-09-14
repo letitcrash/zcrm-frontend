@@ -1,7 +1,7 @@
 <!-- Email tab content -->
-<h3>{{ 'Connected emails' | translate }}: {{ tsdet.emails.length }}</h3>
+<h3>{{ 'Connected emails' | translate }}: {{ tsDetail.emails.length }}</h3>
 <ul class="list-unstyled">
-  <li class="ticket-email" ng-repeat="item in tsdet.emails" ng-init="email = item.mail">
+  <li class="ticket-email" ng-repeat="item in tsDetail.emails" ng-init="email = item.mail">
     <div class="ticket-email-header clearfix">
       <h4 class="clearfix">{{ ::email.subject }}</h4>
       <small class="pull-left">{{ ::email.sender }}</small>

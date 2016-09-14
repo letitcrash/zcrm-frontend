@@ -14,8 +14,8 @@ angular
     // Tab panel
     vm.tabs = [
       {icon: 'fa-comments-o', title: 'Messages', disabled: true},
-      {icon: 'fa-envelope', title: 'E-mail', disabled: false, template: 'app/tickets/tickets.detail-email.html'},
-      {icon: 'fa-user', title: 'People', disabled: false, template: 'app/tickets/tickets.detail-people.html'},
+      {icon: 'fa-envelope', title: 'E-mail', disabled: false, template: 'app/tickets/detail-email.html'},
+      {icon: 'fa-user', title: 'People', disabled: false, template: 'app/tickets/detail-people.html'},
       {icon: 'fa-paperclip', title: 'Files', disabled: true},
       {icon: 'fa-history', title: 'History', disabled: true}
     ];
