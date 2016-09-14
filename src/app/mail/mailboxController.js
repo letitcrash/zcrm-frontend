@@ -7,7 +7,7 @@ angular
   .filter('textFromHTML', function($sanitize) {
     return function(html) {
       var sanitized = $sanitize(html.trim());
-      var elem = angular.element(sanitized);
+      var elem = angular.element(sanitized.slice(sanitized.indexOf('<')).slice(0, sanitized.lastIndexOf('>') - 1));
 
       return elem.length > 0 ? elem[0].textContent.trim() : sanitized;
     }
