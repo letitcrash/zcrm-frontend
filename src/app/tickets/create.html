@@ -11,42 +11,42 @@
       <label class="ticket-form-label control-label col-xs-3">{{ 'Ticket name' | translate }}:</label>
       <div class="col-xs-9">
         <input class="form-control" type="text" name="subject" required placeholder="Enter name here"
-               ng-model="tsform.model.subject">
+               ng-model="tsCreate.model.subject">
       </div>
     </div>
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Description' | translate }}:</label>
       <div class="col-xs-9">
-        <div data-summernote data-height="200" name="body" ng-model="tsform.model.description"></div>
+        <div data-summernote data-height="200" name="body" ng-model="tsCreate.model.description"></div>
       </div>
     </div>
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Priority' | translate }}:</label>
       <div class="col-xs-4">
-        <input class="hidden" type="number" name="priority" required ng-model="tsform.model.priority">
+        <input class="hidden" type="number" name="priority" required ng-model="tsCreate.model.priority">
         <div class="btn-group" uib-dropdown>
           <button type="button" class="btn btn-sm" uib-dropdown-toggle
-                  ng-class="tsform.priority.list[tsform.priority.active].color">
-            {{ tsform.priority.list[tsform.priority.active].title | translate }}&nbsp;<span class="caret"></span>
+                  ng-class="tsCreate.priority.list[tsCreate.priority.active].color">
+            {{ tsCreate.priority.list[tsCreate.priority.active].title | translate }}&nbsp;<span class="caret"></span>
           </button>
           <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-            <li role="menuitem" ng-repeat="item in tsform.priority.list">
-              <a href="" role="button" ng-click="tsform.setPriority($index)">{{ item.title | translate }}</a>
+            <li role="menuitem" ng-repeat="item in tsCreate.priority.list">
+              <a href="" role="button" ng-click="tsCreate.setPriority($index)">{{ item.title | translate }}</a>
             </li>
           </ul>
         </div>
       </div>
       <label class="ticket-form-label control-label col-xs-2">{{ 'Status' | translate }}:</label>
       <div class="col-xs-3">
-        <input class="hidden" type="number" name="status" required ng-model="tsform.model.status">
+        <input class="hidden" type="number" name="status" required ng-model="tsCreate.model.status">
         <div class="btn-group" uib-dropdown>
           <button type="button" class="btn btn-sm" uib-dropdown-toggle
-                  ng-class="tsform.statuses.list[tsform.statuses.active].color">
-            {{ tsform.statuses.list[tsform.statuses.active].title | translate }}&nbsp;<span class="caret"></span>
+                  ng-class="tsCreate.statuses.list[tsCreate.statuses.active].color">
+            {{ tsCreate.statuses.list[tsCreate.statuses.active].title | translate }}&nbsp;<span class="caret"></span>
           </button>
           <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-            <li role="menuitem" ng-repeat="item in tsform.statuses.list">
-              <a href="" role="button" ng-click="tsform.setStatus($index)">{{ item.title | translate }}</a>
+            <li role="menuitem" ng-repeat="item in tsCreate.statuses.list">
+              <a href="" role="button" ng-click="tsCreate.setStatus($index)">{{ item.title | translate }}</a>
             </li>
           </ul>
         </div>
@@ -55,7 +55,7 @@
   </div>
   <div class="ibox-footer ticket-form-footer clearfix">
     <div class="col-xs-9 col-xs-offset-3">
-      <button class="btn btn-primary" ng-click="tsform.createTicket(form)" ng-disabled="form.$invalid">
+      <button class="btn btn-primary" ng-click="tsCreate.createTicket(form)" ng-disabled="form.$invalid">
         {{ 'Create' | translate }}
       </button>
       <a ui-sref="index.tickets.list()" class="btn btn-danger">{{ 'Discard' | translate }}</a>

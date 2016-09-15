@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('CreateTicketCtrl', function($log, $state, $stateParams, ticketsAPI) {
+  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketsAPI) {
     // View
     var vm = this;
 

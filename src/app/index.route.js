@@ -138,7 +138,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     })
     .state('index.tickets.detail', {
       parent: 'index.tickets',
-      url: '/:ticketId',
+      url: '/browse/:ticketId',
       templateUrl: 'app/tickets/detail.html',
       controller: 'TicketDetailCtrl as tsDetail'
     })
@@ -146,7 +146,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       parent: 'index.tickets',
       url: '/create',
       templateUrl: 'app/tickets/create.html',
-      controller: 'CreateTicketCtrl as tsCreate'
+      controller: 'TicketCreateCtrl as tsCreate'
     })
     .state('index.settings', {
       url: "/settings",
