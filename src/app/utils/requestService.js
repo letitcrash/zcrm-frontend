@@ -35,7 +35,7 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
     } else {
       $log.log("Request failed with:");
       $log.log(response);
-      deferred.reject(header);
+      deferred.resolve(response);
     }
     printRequest(request, response, true);
     return deferred.resolve(response);

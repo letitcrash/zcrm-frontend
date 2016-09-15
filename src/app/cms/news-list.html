@@ -1,11 +1,17 @@
-<div class="wrapper wrapper-content" ng-controller="CmsnewsCtrl">
+<div class="wrapper wrapper-content" ng-controller="CmsController">
 	<div class="row">
 		<div class="col-sm-12" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
 			<!--Employee page-->
 			<div class="ibox">
 				<div class="ibox-content">
 
-					<h2>{{ 'News' | translate }}</h2>
+					<h2>{{ 'News' | translate }}
+					
+					<a href="" ui-sref="index.addnews" ><button type="button" class="btn btn-primary pull-right">
+            <i class="fa fa-eye" style="padding-right:5px"></i>Create News
+          </button></h2></a>
+          <br />
+          
 					<div class="input-group">
 						<input type="text" placeholder="Search pages, news or articles..." class="input form-control" />
 						<span class="input-group-btn">
@@ -28,67 +34,25 @@
 											<th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
 											<th> Title</th>
 											<th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
-											<th> Lang</th>
 											<th> Tags</th>
 											<th> Date</th>
 										</tr>
 									</thead>
 									<tbody>
 
-										<tr>
+										<tr ng-repeat="nw in news">
 										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Title of news</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>News, Draft</td>
-										  <td>25 Jul 2016</td>
+										  <td><a> {{ nw.title }}</a></td>
+										  <td>{{ nw.author }}</td>
+										  <td>{{ nw.tags }}</td>
+										  <td>{{ nw.date }}</td>
 										</tr>
 										
 									</tbody>
 								</table>
 							</div>
 							
-							<div class="table-responsive" id="tab-2" ng-show="tab == 2">
+							<!--<div class="table-responsive" id="tab-2" ng-show="tab == 2">
 								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
@@ -121,7 +85,7 @@
 										
 									</tbody>
 								</table>
-							</div>
+							</div>-->
 						</div>
 
 					</div>

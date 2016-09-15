@@ -45,8 +45,16 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       "authenticate": true
     })
     .state('index.cms', {
-      url: '/cms',
-      templateUrl: 'app/cms/news-list.html'
+      url: '/cms/news',
+      templateUrl: 'app/cms/news-list.html',
+      data: { pageTitle: 'Site' },
+      "authenticate": true
+    })
+    .state('index.addnews', {
+      url: '/cms/news/add',
+      templateUrl: 'app/cms/add-news.html',
+      data: { pageTitle: 'Site' },
+      "authenticate": true
     })
     .state('index.cmsarticle', {
       url: '/cms/article',
