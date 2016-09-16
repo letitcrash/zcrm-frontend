@@ -47,8 +47,21 @@
       </div>
     </div>
   </div>
+  <!-- Form footer -->
   <div class="ibox-footer ticket-form-footer clearfix">
-    <div class="col-xs-9 col-xs-offset-3">
+    <h4 class="text-center" data-ng-show="tsCreate.loadStats.form === 2">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      <span class="valign-middle">{{ 'Creating' | translate }}...</span>
+    </h4>
+    <div class="text-center" data-ng-show="tsCreate.loadStats.form === 0">
+      <h4>
+        <span class="fa fa-ban text-danger"></span>
+        {{ 'Something goes wrong. Please try again.' | translate }}
+      </h4>
+      <button class="btn btn-default btn-sm" type="button" data-ng-click="tsCreate.loadStats.form = 1"
+              data-ng-bind="'Try again' | translate "></button>
+    </div>
+    <div class="col-xs-9 col-xs-offset-3" data-ng-show="tsCreate.loadStats.form === 1">
       <button class="btn btn-primary" type="submit" data-ng-click="tsCreate.createTicket(form)"
               data-ng-disabled="form.$invalid">
         {{ 'Create' | translate }}
