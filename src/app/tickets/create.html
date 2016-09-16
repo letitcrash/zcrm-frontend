@@ -25,35 +25,9 @@
     <!-- Ticket priority and status -->
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Priority' | translate }}:</label>
-      <div class="col-xs-4">
-        <input class="hidden" type="number" name="priority" required ng-model="tsCreate.model.priority">
-        <div class="btn-group" uib-dropdown>
-          <button type="button" class="btn btn-sm" uib-dropdown-toggle
-                  ng-class="tsCreate.priority.list[tsCreate.priority.active].color">
-            {{ tsCreate.priority.list[tsCreate.priority.active].title | translate }}&nbsp;<span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-            <li role="menuitem" ng-repeat="item in tsCreate.priority.list">
-              <a href="" role="button" ng-click="tsCreate.setPriority($index)">{{ item.title | translate }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div class="col-xs-4" data-crm-ticket-priority-dropdown data-ng-model="tsCreate.model.priority"></div>
       <label class="ticket-form-label control-label col-xs-2">{{ 'Status' | translate }}:</label>
-      <div class="col-xs-3">
-        <input class="hidden" type="number" name="status" required ng-model="tsCreate.model.status">
-        <div class="btn-group" uib-dropdown>
-          <button type="button" class="btn btn-sm" uib-dropdown-toggle
-                  ng-class="tsCreate.statuses.list[tsCreate.statuses.active].color">
-            {{ tsCreate.statuses.list[tsCreate.statuses.active].title | translate }}&nbsp;<span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-            <li role="menuitem" ng-repeat="item in tsCreate.statuses.list">
-              <a href="" role="button" ng-click="tsCreate.setStatus($index)">{{ item.title | translate }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div class="col-xs-3" data-crm-ticket-status-dropdown data-ng-model="tsCreate.model.status"></div>
     </div>
     <!-- Ticket project -->
     <div class="form-group ticket-form-group clearfix">
