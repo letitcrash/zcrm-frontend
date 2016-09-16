@@ -42,6 +42,10 @@ angular
     // Pages settings
     vm.pages = {current: 1, all: 5, onPage: 50, total: 0};
 
+    // Loading statuses
+    // 0 - error, 1 - success, 2 - loading
+    vm.loadStats = {list: 1};
+
     // Get tickets on sort options change
     vm.onSortChange = function onSortChange(opt) {
       vm.getParams.sortField = opt.param;
@@ -69,11 +73,20 @@ angular
       if (vm.getParams.sortField.length > 0) { req.sort(vm.getParams.sortField, vm.getParams.sortAsc); }
       if (vm.getParams.priority > -1) { req.priority(vm.getParams.priority); }
 
-      req.get(vm.pages.onPage, page).then(function(res) {
-        $log.log(res);
+      vm.loadStats.list = 2;
 
-        if (res.data.length > 0) { vm.tickets = res.data; }
-      }, function() { $log.log('Couldn\'t get ticket list'); });
+      req.get(vm.pages.onPage, page).then(function(res) {
+        if (res.hasOwnProperty('data')) {
+          vm.tickets = res.data;
+          vm.loadStats.list = 1;
+        } else {
+          vm.loadStats.list = 0;
+          $log.log(res);
+        }
+      }, function(res) {
+        vm.loadStats.list = 0;
+        $log.log(res);
+      });
     };
 
     vm.getTickets();
