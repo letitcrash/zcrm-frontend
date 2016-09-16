@@ -159,7 +159,16 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: "app/companies/companies.html",
       data: { pageTitle: 'companies' },
       "authenticate": true
-
+    })
+    .state('index.companies-crate', {
+      url: "/companies-create",
+      templateUrl: "app/companies/companies.crate.html"
+    })
+    .state('index.companies.detail', {
+      url: "/companies/:companyId",
+      templateUrl: "app/companies/company.detail.html",
+      data: { pageTitle: 'companies' },
+      "authenticate": true
     })
     .state('index.timer', {
       url: "/timer",
