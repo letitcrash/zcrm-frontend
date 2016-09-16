@@ -7,6 +7,7 @@
   </div>
   <!-- Form body -->
   <div class="ibox-content clearfix">
+    <!-- Ticket title -->
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Ticket name' | translate }}:</label>
       <div class="col-xs-9">
@@ -14,12 +15,14 @@
                ng-model="tsCreate.model.subject">
       </div>
     </div>
+    <!-- Ticket description -->
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Description' | translate }}:</label>
       <div class="col-xs-9">
-        <div data-summernote data-height="200" name="body" ng-model="tsCreate.model.description"></div>
+        <div data-summernote data-height="200" name="description" ng-model="tsCreate.model.description"></div>
       </div>
     </div>
+    <!-- Ticket priority and status -->
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Priority' | translate }}:</label>
       <div class="col-xs-4">
@@ -52,13 +55,31 @@
         </div>
       </div>
     </div>
+    <!-- Ticket project -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-xs-3">{{ 'Project' | translate }}:</label>
+      <div class="col-xs-9">
+        <input type="number" data-ng-model="tsCreate.project" name="project" hidden required>
+        <div data-ui-select name="project" data-ng-model="tsCreate.project">
+          <div data-ui-select-match placeholder="Select a project">{{ $select.selected.name }}</div>
+          <div data-ui-select-choices
+               data-repeat="proj.id as proj in tsCreate.projects | filter: $select.search track by proj.name"
+               data-refresh="tsCreate.getProjects($select.search)" data-refresh-delay="500"
+               data-minimum-input-length="1">
+            <h4 data-ng-bind-html="::proj.name | highlight: $select.search"></h4>
+            <span class="text-muted" data-ng-if="proj.description.length > 0" data-ng-bind="::proj.description"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="ibox-footer ticket-form-footer clearfix">
     <div class="col-xs-9 col-xs-offset-3">
-      <button class="btn btn-primary" ng-click="tsCreate.createTicket(form)" ng-disabled="form.$invalid">
+      <button class="btn btn-primary" type="submit" data-ng-click="tsCreate.createTicket(form)"
+              data-ng-disabled="form.$invalid">
         {{ 'Create' | translate }}
       </button>
-      <a ui-sref="index.tickets.list()" class="btn btn-danger">{{ 'Discard' | translate }}</a>
+      <a data-ui-sref="index.tickets.list()" class="btn btn-danger">{{ 'Discard' | translate }}</a>
     </div>
   </div>
 </form>

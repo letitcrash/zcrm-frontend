@@ -101,17 +101,11 @@ angular
 
         return requestService.ttGet(url);
       },
-      create: function(ticket) {
-        ticket.companyId = dataService.getCurrentCompanyId();
+      create: function(projectId, ticket) {
+        ticket.companyId = parseInt(dataService.getCurrentCompanyId());
         ticket.createdByUserId = dataService.getUserId();
 
-        // ticket.projectId=ticket.project.id;
-        // ticket.deadline = new Date(ticket.deadline).getTime();
-        // ticket.status = Number(ticket.status.selectedOption.id);
-        // ticket.priority = Number(ticket.priority.selectedOption.id);
-
-        // TODO: Remove temporary hack with project id
-        return requestService.ttPost(apiURL.replace(re, dataService.getCurrentCompanyId()) + '/13', ticket);
+        return requestService.ttPost(apiURL.replace(re, dataService.getCurrentCompanyId()) + '/' + projectId, ticket);
       },
       update: function(ticket, mails) {
         var url = "companies/" + dataService.getCurrentCompanyId() + "/tickets/"+ticket.id;

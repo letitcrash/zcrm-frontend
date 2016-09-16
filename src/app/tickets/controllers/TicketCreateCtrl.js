@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketsAPI) {
+  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketsAPI, projectService) {
     // View
     var vm = this;
 
@@ -39,10 +39,22 @@ angular
       vm.model.priority = vm.priority.list[i].id;
     };
 
+    // Selected project
+    vm.project = null;
+
+    // Projects
+    vm.projects = [];
+
+    // Get projects
+    vm.getProjects = function getProjects(search) {
+      // TODO: Rewrite projectService for pacing search term only
+      projectService.getList(null, 100, 1, search).then(function(res) { vm.projects = res.data; });
+    };
+
     // Create ticket
     vm.createTicket = function createTicket() {
       $log.log(vm.model);
-      ticketsAPI.create(vm.model).then(function(res) {
+      ticketsAPI.create(vm.project, vm.model).then(function(res) {
         $log.log(res);
       }, function(res) { $log.log(res); });
     };
