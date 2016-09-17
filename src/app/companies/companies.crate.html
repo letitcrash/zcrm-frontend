@@ -1,0 +1,155 @@
+<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">           <style>
+            h3 + hr {
+              margin: 20px -15px;
+            }
+            .form-group {
+              display: inline-block;
+              width: 100%
+            }
+            .form-control {
+              width: 77% !important;
+            }
+            .form-group > label {
+              width: 23%;
+              float: left;
+              text-align: right;
+              padding: 7px 20px;
+              font-weight: bold;
+            }
+            .no-padding > div {
+              border: none !important;
+            }
+            .panel-heading {
+              border-radius: none !important;
+            }
+            
+
+            .bttpe {
+              text-align: center;
+            }
+
+            .green-check ~ label {
+              margin-bottom: 20px;
+              margin-left: 20px;
+              cursor: pointer;
+            }
+            </style>
+    <div class="row">
+    <form>
+        <div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
+            <!--Employee page-->
+            
+
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.cms">
+                            <i class="fa fa-chevron-left"></i>
+                        </a> {{ 'Article' | translate }}</h3>
+                    
+                    <hr />
+                    
+                    <div class="input-group col-sm-12">
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Name of company</label>
+                          <input  type="text" class="form-control"> 
+                        </div>
+
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Phone</label>
+                          <input  type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Email</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Description</label>
+                          <textarea  type="text" class="form-control" style="height: 100px;"></textarea>
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Owner Name</label>
+                          <input placeholder="First Name" type="text" class="form-control" style="width: 35% !important; margin-right: 20px;"> 
+                          <input placeholder="Last Name" ="text" class="form-control" style="width: 35% !important;"> 
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Admin Name</label>
+                          <input placeholder="First Name" type="text" class="form-control" style="width: 35% !important; margin-right: 20px;"> 
+                          <input placeholder="Last Name" ="text" class="form-control" style="width: 35% !important;"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Email</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Owner</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Password</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Modules</label>
+                          <div style="width: 35%; float: left">
+                            <input class="green-check" type="checkbox" name="perm"><label>CMS Support</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Employees</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >MailBox</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Companies</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Timer</label>
+                          </div>
+                          <div style="width: 35%; float: left">
+                            <input class="green-check" type="checkbox" name="perm"><label>Projects</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Calendar</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Docs</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Teams</label>
+                          </div>
+                        </div>
+                        
+                        
+<!--                        Editor -->
+                    </div>
+
+                        
+                        
+<div style="width: 100%; margin-bottom: 20px 0; display: inline-block;">
+                        <button type="button" class="btn btn-primary pull-right" aria-hidden="false">
+            <i class="fa fa-eye" style="padding-right:5px"></i>Create
+          </button>
+          
+          <a ui-sref="index.companies"><button type="button" class="btn pull-right" style="margin-right: 20px;">
+            <i class="fa fa-eye" style="padding-right:5px"></i>Cancel
+          </button></a>
+          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+</div>
