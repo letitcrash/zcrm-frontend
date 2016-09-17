@@ -40,7 +40,7 @@ angular
     vm.getParams = {sTerm: '', sortField: 'id', sortAsc: false, priority: -1};
 
     // Pages settings
-    vm.pages = {current: 1, all: 5, onPage: 50, total: 0};
+    vm.pages = {current: 1, onPage: 10, total: 0};
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
@@ -65,8 +65,7 @@ angular
     };
 
     // Get tickets
-    vm.getTickets = function getTickets(pNr) {
-      var page = angular.isNumber(pNr) ? pNr : 1;
+    vm.getTickets = function getTickets() {
       var req = ticketsAPI.getList();
 
       if (vm.getParams.sTerm.length > 0) { ticketsAPI.list.search(vm.getParams.sTerm); }
@@ -75,9 +74,11 @@ angular
 
       vm.loadStats.list = 2;
 
-      req.get(vm.pages.onPage, page).then(function(res) {
+      req.get(vm.pages.onPage, vm.pages.current).then(function(res) {
+        $log.log(res);
         if (res.hasOwnProperty('data')) {
           vm.tickets = res.data;
+          vm.pages.total = res.totalCount;
           vm.loadStats.list = 1;
         } else {
           vm.loadStats.list = 0;

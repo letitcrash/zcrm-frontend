@@ -148,8 +148,11 @@
         <ui-select-match placeholder="Do with chosen">{{ $select.selected }}</ui-select-match>
         <ui-select-choices repeat="opt in ::ts.ticketsActions">{{ ::opt }}</ui-select-choices>
       </ui-select>
-      <ul class="tickets-list-pagination" uib-pagination ng-model="ts.pages.current" items-per-page="20"
-          total-items="ts.pages.total" previous-text="&#xf053;" next-text="&#xf054;"></ul>
+      <ul class="tickets-list-pagination" data-uib-pagination data-ng-model="ts.pages.current"
+          data-items-per-page="ts.pages.onPage" max-size="4" data-boundary-link-numbers="true"
+          data-ng-change="ts.getTickets()" data-total-items="ts.pages.total" data-previous-text="&#xf053;"
+          data-next-text="&#xf054;">
+      </ul>
     </div>
   </div>
 </div>
