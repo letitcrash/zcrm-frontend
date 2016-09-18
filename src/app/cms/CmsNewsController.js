@@ -9,6 +9,16 @@ angular
   $scope.user = dataService.getUser();
   console.log($scope.user.contactProfile.firstname);
   
+  $scope.editArticle = function(article){
+
+    //$state.transitionTo("index.addnews");
+    console.log(article);
+    $state.go('index.editnews', {articleId:article.id});
+
+    //$scope.addNews = article;
+
+  };
+
   $scope.setTab = function(newTab){
     $scope.tab = newTab;
   };

@@ -8,14 +8,9 @@ angular.module('inspinia').factory('cmsService', function(requestService) {
       
       return requestService.ttGet(url);
     },
-    update: function(newsitem) {
-      var url;
-      url = "news/" + newsitem.id;
-      return requestService.ttPut(url, newsitem);
-    },
     get: function(id) {
       var url;
-      url = "news/" + id;
+      url = "news/get/" + id;
       return requestService.ttGet(url);
     },
     post: function(addNews) {
@@ -30,6 +25,16 @@ angular.module('inspinia').factory('cmsService', function(requestService) {
         args.tags =         addNews.tags;
         args.permission =   addNews.permission;
       return requestService.ttPost(url, args);
+    },
+    put: function(article) {
+      var url, args;
+      url = "news/edit/" + article.id;
+      args = {};
+        args.title =        article.title;
+        args.desc =         article.desc;
+        args.text =         article.text;
+        args.tags =         article.tags;
+      return requestService.ttPut(url, args);
     }
   };
 });
