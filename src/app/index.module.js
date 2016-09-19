@@ -7,10 +7,8 @@
         'ladda', 'ngFileUpload', '720kb.datepicker', 'summernote'])
     .run(function ($log, $translate, $rootScope, $state, dataService, generalUtils, roleService) {
       var companyName, user;
-      //$rootScope.$route = $route;
-      //$rootScope.routeService = routeService;
-      //$rootScope.generalUtils = generalUtils;
 
+      $rootScope.$state = $state;
 
       $rootScope.setUser = function(user) {
         $rootScope.userStr = generalUtils.formatUser(user);

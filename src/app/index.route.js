@@ -7,60 +7,55 @@ angular
 function routerConfig($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('login', {
-      url: "/login",
+      url: '/login',
       abstract: false,
-      templateUrl: "app/login/login_two_columns.html",
+      templateUrl: 'app/login/login_two_columns.html',
       data: { pageTitle: 'Register', specialClass: 'gray-bg' },
-      "authenticate": false
+      'authenticate': false
     })
     .state('apply', {
-      url: "/apply",
-      templateUrl: "app/singup/apply.html",
+      url: '/apply',
+      templateUrl: 'app/singup/apply.html',
       data: { pageTitle: 'Wizard form' },
       //controller: 'SignupCtrl',
-      "authenticate": false
+      'authenticate': false
     })
     .state('passwordrecovery', {
-      url: "/password-recovery/{userId}/{token}",
-      templateUrl: "app/singup/password-recovery.html",
+      url: '/password-recovery/{userId}/{token}',
+      templateUrl: 'app/singup/password-recovery.html',
       data: { pageTitle: 'Wizard form' },
       //controller: 'SignupCtrl',
-      "authenticate": false
+      'authenticate': false
     })
     .state('signup', {
-      url: "/signup/user?token&email",
-      templateUrl: "app/singup/singup.html",
+      url: '/signup/user?token&email',
+      templateUrl: 'app/singup/singup.html',
       data: { pageTitle: 'Wizard form' },
-      "authenticate": false
+      'authenticate': false
     })
     .state('index', {
       abstract: true,
-      url: "/index",
-      templateUrl: "app/components/common/content.html"
-    })
-    .state('index.main', {
-      url: "/main",
-      templateUrl: "app/main/main.html",
-      data: { pageTitle: 'Example view' },
-      "authenticate": true
+      url: '/index',
+      templateUrl: 'app/common/content.html',
+      authenticate: true
     })
     .state('index.cms', {
       url: '/cms/news',
       templateUrl: 'app/cms/news-list.html',
       data: { pageTitle: 'Site' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.addnews', {
       url: '/cms/news/add',
       templateUrl: 'app/cms/add-news.html',
       data: { pageTitle: 'Site' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.editnews', {
       url: '/cms/news/edit?articleId',
       templateUrl: 'app/cms/edit-news.html',
       data: { pageTitle: 'Edit article' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.cmsarticle', {
       url: '/cms/article',
@@ -91,43 +86,43 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controller: 'MailboxAttachMsgsController as ambox'
     })
     .state('outlook', {
-      url: "/outlook",
-      templateUrl: "app/mail/outlook.html",
+      url: '/outlook',
+      templateUrl: 'app/mail/outlook.html',
       data: { pageTitle: 'Outlook view', specialClass: 'fixed-sidebar' }
     })
     .state('index.teams', {
-      url: "/teams",
-      templateUrl: "app/teams/teams.html",
+      url: '/teams',
+      templateUrl: 'app/teams/teams.html',
       data: { pageTitle: 'Teams' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.clients', {
-      url: "/clients",
-      templateUrl: "app/clients/clients.html",
+      url: '/clients',
+      templateUrl: 'app/clients/clients.html',
       data: { pageTitle: 'Clients' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.docs', {
-      url: "/documents",
-      templateUrl: "app/docs/docs.html",
+      url: '/documents',
+      templateUrl: 'app/docs/docs.html',
       data: { pageTitle: 'Documents' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.calendar', {
-      url: "/calendar",
-      templateUrl: "app/calendar/calendar.html",
+      url: '/calendar',
+      templateUrl: 'app/calendar/calendar.html',
       data: { pageTitle: 'Calendar' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.projects', {
-      url: "/projects",
-      templateUrl: "app/projects/projects.html",
+      url: '/projects',
+      templateUrl: 'app/projects/projects.html',
       controller: 'ProjectsCtrl',
       data: { pageTitle: 'projects' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.tickets', {
       abstract: true,
@@ -155,53 +150,53 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       controller: 'TicketCreateCtrl as tsCreate'
     })
     .state('index.settings', {
-      url: "/settings",
-      templateUrl: "app/settings/setting.html",
+      url: '/settings',
+      templateUrl: 'app/settings/setting.html',
       data: { pageTitle: 'Settings' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.companies', {
-      url: "/companies",
-      templateUrl: "app/companies/companies.html",
+      url: '/companies',
+      templateUrl: 'app/companies/companies.html',
       data: { pageTitle: 'companies' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.companies-create', {
-      url: "/companies-create",
-      templateUrl: "app/companies/companies.create.html"
+      url: '/companies-create',
+      templateUrl: 'app/companies/companies.create.html'
     })
     .state('index.companies.detail', {
-      url: "/companies/:companyId",
-      templateUrl: "app/companies/company.detail.html",
+      url: '/companies/:companyId',
+      templateUrl: 'app/companies/company.detail.html',
       data: { pageTitle: 'companies' },
-      "authenticate": true
+      'authenticate': true
     })
     .state('index.timer', {
-      url: "/timer",
-      templateUrl: "app/timer/timer.html",
+      url: '/timer',
+      templateUrl: 'app/timer/timer.html',
       data: { pageTitle: 'timer' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.landing', {
-      url: "/landing",
-      templateUrl: "app/landing/landing.html",
+      url: '/landing',
+      templateUrl: 'app/landing/landing.html',
       data: { pageTitle: 'landing' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.employees', {
-      url: "/employees",
-      templateUrl: "app/employees/employees.html",
+      url: '/employees',
+      templateUrl: 'app/employees/employees.html',
       data: { pageTitle: 'Employees' },
-      "authenticate": true
+      'authenticate': true
 
     })
     .state('index.404', {
-      url: "/404",
-      templateUrl: "app/404/404.html",
+      url: '/404',
+      templateUrl: 'app/404/404.html',
       data: { pageTitle: '404 Page not found' },
-      "authenticate": true
+      'authenticate': true
     });
 
   $urlRouterProvider.otherwise('/index/main');
