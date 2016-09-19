@@ -1,33 +1,12 @@
 'use strict';
 angular.module('inspinia').factory('periodService', function(requestService, dataService) {
   return {
-    getEmployeePeriods: function(eid, startDate, endDate) {
-      var l, url;
-      l = [
-        {
-          'name': 'startDate',
-          'value': startDate
-        }, {
-          'name': 'endDate',
-          'value': endDate
-        }
-      ];
-      url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + eid + "/periods" + requestService.buildGetParams(l);
+    getEmployeePeriods: function(eid, sDate, eDate) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/employees/" + eid + "/periods" + requestService.buildGetParams({startDate: sDate, endDate: eDate});
       return requestService.ttGet(url);
     },
-    getPeriods: function(startDate, endDate) {
-      var l, url;
-      url = "companies/" + dataService.getCurrentCompanyId() + "/periods";
-      l = [
-        {
-          'name': 'startDate',
-          'value': startDate
-        }, {
-          'name': 'endDate',
-          'value': endDate
-        }
-      ];
-      url = url + requestService.buildGetParams(l);
+    getPeriods: function(sDate, eDate) {
+      var url = "companies/" + dataService.getCurrentCompanyId() + "/periods" + requestService.buildGetParams({startDate: sDate, endDate: eDate});
       return requestService.ttGet(url);
     },
     getLatestPeriodByEmployeeId: function(employeeId) {

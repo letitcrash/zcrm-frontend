@@ -44,6 +44,26 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
     printRequest(data, response, false);
     return promise.reject(response);
   };
+
+  function buildGetParams(params) {
+    var res = '';
+
+    if (params != null) {
+      var pCount = 0;
+
+      for (var key in params) {
+        if (hasOwnProperty.call(params, key)) {
+          var val = params[key];
+
+          pCount += 1;
+          res = res + (pCount === 1 ? '?' : '&') + key + '=' + (angular.isArray(val) ? val.join() : val);
+        }
+      }
+    }
+
+    return res;
+  }
+
   return {
     ttPost: function(suburl, data) {
       return this.ttRequest(suburl, 'POST', data);
@@ -51,8 +71,8 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
     ttPut: function(suburl, data) {
       return this.ttRequest(suburl, 'PUT', data);
     },
-    ttGet: function(suburl) {
-      return this.ttRequest(suburl, 'GET');
+    ttGet: function(suburl, getParams) {
+      return this.ttRequest(suburl + buildGetParams(getParams), 'GET');
     },
     ttDelete: function(suburl) {
       return this.ttRequest(suburl, 'DELETE');
@@ -112,32 +132,6 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
       });
       return deferred.promise;
     },
-
-    /*
-      buildGetParams makes this:
-      l = [
-            {'name': 'startDate', 'value': 123123123},
-            {'name': 'endDate', 'value': 123123123}
-          ]
-      into this:
-        '?startDate=123123123&endDate=1231231231'
-     */
-    buildGetParams: function(l) {
-      var i, j, params, ref;
-      params = '';
-      if ((l != null) && l.length > 0) {
-        if ((l[0].name != null) && (l[0].value != null)) {
-          params = '?' + l[0].name + "=" + l[0].value;
-        }
-        for (i = j = 1, ref = l.length - 1; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
-          if ((l[i].name != null) && (l[i].value != null)) {
-            params = params + '&' + l[i].name + "=" + l[i].value;
-          }
-        }
-      }
-      return params;
-    }
+    buildGetParams: buildGetParams
   };
 });
-
-//# sourceMappingURL=requestService.js.map
