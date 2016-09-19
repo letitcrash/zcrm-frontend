@@ -26,6 +26,10 @@ angular
   $scope.isSet = function(tabNum){
     return $scope.tab === tabNum;
   };
+
+  $scope.convertToDate = function(ts) {
+    return generalUtils.formatTimestampToDate(ts);
+  }
   
   console.log("news");
   
@@ -86,8 +90,6 @@ angular
     $scope.pageSize = 10;
     $scope.pageNr = 1;
     $scope.searchTerm = "";
-    $scope.getNewsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
-    
     $scope.getNewsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     
     $scope.currentCompanyId = dataService.getCurrentCompanyId();
