@@ -1,0 +1,136 @@
+<div class="wrapper wrapper-content" ng-controller="CMSArticleEditController">
+			<style>
+			h3 + hr {
+			  margin: 20px -15px;
+			}
+			.form-group {
+			  display: inline-block;
+			  width: 100%
+			}
+			.form-control {
+			  width: 77% !important;
+			}
+			.form-group > label {
+			  width: 23%;
+			  float: left;
+			  text-align: right;
+			  padding: 7px 20px;
+			  font-weight: bold;
+			}
+			.no-padding > div {
+			  border: none !important;
+			}
+			.panel-heading {
+			  border-radius: none !important;
+			}
+			
+
+			.bttpe {
+			  text-align: center;
+			}
+            #bttne2:before {
+              background: #2c8f7b;
+              border: 1px solid #2c8f7b;
+              color: #fff;
+              content: "\f00c";
+            }
+            #bttne2:disabled:before {
+              content: none !important;
+            }
+			.green-check ~ label {
+			  margin-left: 20px;
+			  cursor: pointer;
+			}
+			</style>
+	<div class="row">
+	<form>
+		<div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
+			<!--Employee page-->
+			
+
+			<div class="ibox">
+				<div class="ibox-content">
+
+					<h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.cms">
+                            <i class="fa fa-chevron-left"></i>
+                        </a> {{ 'Article' | translate }}</h3>
+					
+					<hr />
+					
+					<div class="input-group col-sm-12">
+						
+						<div class="form-group">
+                          <label class="font-noraml ng-binding" >News Title</label>
+                          <input placeholder="Name of page.." type="text" class="form-control" ng-model="article.title"> 
+                        </div>
+						
+						<!--<div class="form-group">
+                          <label class="font-noraml ng-binding">News Description</label>
+                          <input placeholder="Title in url.." type="text" class="form-control" ng-model="addNews.description"> 
+                        </div>-->
+                        
+						
+<!-- 						Editor -->
+
+						<div class="ibox-content no-padding" style="border: none">
+
+
+                        <div class="ibox-content no-padding">
+                        <summernote config="summernote"  ng-model="article.text"></summernote>
+
+                        </div>
+                    </div>
+
+						
+<!-- 						/editor -->
+						<!--<hr />-->
+						
+						
+						
+						<div class="form-group">
+                          <label class="font-noraml ng-binding" >Tags</label>
+                          <input placeholder="Enter tags here" type="text" class="form-control" ng-model="article.tags"> 
+                        </div>
+						
+						<button type="button" ng-click="update(article)" ng-hide="isCollapsed==true" class="btn btn-primary pull-right" aria-hidden="false">
+            <i class="fa fa-eye" style="padding-right:5px"></i>Update
+          </button>
+          
+          <a ui-sref="index.cms"><button type="button" class="btn pull-right" style="margin-right: 20px;">
+            <i class="fa fa-eye" style="padding-right:5px"></i>Cancel
+          </button></a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="col-sm-4">
+			<div class="ibox">
+				<div class="ibox-content">
+
+					<h3>{{ 'Publish' | translate }}</h3>
+					<hr />
+<!--					<div class="bttpe">
+						<b>Show:</b>
+						<div class="btn-group">
+							<button class="btn btn-white" type="button">No</button>
+							<button class="btn btn-primary" type="button">Yes</button>
+						</div>
+					</div>
+					<hr />-->
+					<h4>Permission</h4>
+					<br />
+					<input class="green-check" type="radio" id="bttne1" name="perm" value="9" ng-model="addNews.permission" ng-disabled="true"><label for="bttne1">Employees</label>
+					<br />
+					<input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="addNews.permission" checked><label for="bttne2">Public</label>
+					<br />
+					<input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-model="addNews.permission" ng-disabled="true"><label for="bttne3">Draft</label>
+				</div>
+			</div>
+		</div>
+
+		</form>
+    </div>
+</div>

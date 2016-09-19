@@ -1,4 +1,65 @@
-<div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">           <style>
+            h3 + hr {
+              margin: 20px -15px;
+            }
+            .form-group {
+              display: inline-block;
+              width: 100%
+            }
+            .form-group > input, textarea {
+              width: 77% !important;
+            }
+            div.right-form {
+              width: 77% !important;
+              display: inline-block;
+              height: auto;
+            }
+            div.right-form > div {
+              margin-bottom: 5px;
+              width: 100%;
+              display: inline-block;
+            }
+            div.right-form > div:nth-child(1) > .form-control {
+              width: 100%;
+            }
+            div.right-form > div > .form-control {
+              width: calc(100% - 70px);
+            }
+            div.right-form a {
+              padding: 8px 0;
+            }
+            .form-group > label {
+              width: 23%;
+              float: left;
+              text-align: right;
+              padding: 7px 20px;
+              font-weight: bold;
+            }
+            .form-group.twocol div > input {
+              width: calc(38.5% - 5px) !important;
+              display: inline-block;
+            }
+            .form-group.twocol div > input:nth-child(2) {
+              margin-left: 10px;
+            }
+            .no-padding > div {
+              border: none !important;
+            }
+            .panel-heading {
+              border-radius: none !important;
+            }
+            
+
+            .bttpe {
+              text-align: center;
+            }
+
+            .green-check ~ label {
+              margin-bottom: 20px;
+              margin-left: 20px;
+              cursor: pointer;
+            }
+            </style>
     <div class="row">
     <form>
         <div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
@@ -8,7 +69,7 @@
             <div class="ibox">
                 <div class="ibox-content">
 
-                    <h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.cms">
+                    <h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.companies">
                             <i class="fa fa-chevron-left"></i>
                         </a> {{ 'Article' | translate }}</h3>
                     
@@ -17,69 +78,130 @@
                     <div class="input-group col-sm-12">
                         
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >News Title</label>
-                          <input placeholder="Name of page.." type="text" class="form-control"> 
+                          <label class="font-noraml ng-binding" >Name of company</label>
+                          <input type="text" class="form-control"> 
                         </div>
 
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Phone</label>
+                          <div class="right-form">
+                            <div>
+                              <input type="text" class="form-control">
+                            </div>
+                            <div ng-repeat="items in comPhone" >
+                              <input type="text" class="form-control">
+                              <span class="pull-right" ng-click="rmcomPhone($index)">
+                                <a class="pull-right" href >{{ 'Remove' | translate }} </a>
+                              </span>
+                            </div>
+                          <span ng-click="addPhone()">
+                            <a href ><i class="fa fa-plus"></i> {{ 'Add more' | translate }} </a>
+                          </span>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Email</label>
+                          <div class="right-form">
+                            <div>
+                              <input type="text" class="form-control">
+                            </div>
+                            <div ng-repeat="items in comMail" >
+                              <input type="text" class="form-control">
+                              <span class="pull-right" ng-click="rmcomMail($index)">
+                                <a class="pull-right" href >{{ 'Remove' | translate }} </a>
+                              </span>
+                            </div>
+                          <span ng-click="addMail()">
+                            <a href ><i class="fa fa-plus"></i> {{ 'Add more' | translate }} </a>
+                          </span>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Description</label>
+                          <textarea  type="text" class="form-control" style="height: 100px;"></textarea>
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group twocol">
+                          <label class="font-noraml ng-binding" >Owner Name</label>
+                          <div>
+                            <input placeholder="First Name" type="text" class="form-control"> 
+                            <input placeholder="Last Name" ="text" class="form-control"> 
+                          </div>
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group twocol">
+                          <label class="font-noraml ng-binding" >Admin Name</label>
+                          <div>
+                            <input placeholder="First Name" type="text" class="form-control"> 
+                            <input placeholder="Last Name" ="text" class="form-control">
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Email</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Owner</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Password</label>
+                          <input type="text" class="form-control"> 
+                        </div>
+                        
+                        <hr />
+                        
+                        <div class="form-group">
+                          <label class="font-noraml ng-binding" >Modules</label>
+                          <div style="width: 35%; float: left">
+                            <input class="green-check" type="checkbox" name="perm"><label>CMS Support</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Employees</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >MailBox</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Companies</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Timer</label>
+                          </div>
+                          <div style="width: 35%; float: left">
+                            <input class="green-check" type="checkbox" name="perm"><label>Projects</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Calendar</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Docs</label>
+                            <br />
+                            <input class="green-check" type="checkbox"  name="perm" ><label >Teams</label>
+                          </div>
+                        </div>
                         
                         
 <!--                        Editor -->
-
-                        <div class="ibox-content no-padding" style="border: none">
-
-
-                        <div class="ibox-content no-padding">
-                        <summernote config="summernote" ></summernote>
-
-                        </div>
                     </div>
 
                         
-<!--                        /editor -->
-                        <!--<hr />-->
                         
-                        
-                        
-                        <div class="form-group">
-                          <label class="font-noraml ng-binding" >Tags</label>
-                          <input placeholder="Enter tags here" type="text" class="form-control"> 
-                        </div>
-                        
-                        <button type="button" ng-hide="isCollapsed==true" class="btn btn-primary pull-right" aria-hidden="false">
+<div style="width: 100%; margin-bottom: 20px 0; display: inline-block;">
+                        <button type="button" class="btn btn-primary pull-right" aria-hidden="false">
             <i class="fa fa-eye" style="padding-right:5px"></i>Create
           </button>
           
-          <a ui-sref="index.cms"><button type="button" class="btn pull-right" style="margin-right: 20px;">
-            <i class="fa fa-eye" style="padding-right:5px"></i>Cancel
+          <a ui-sref="index.companies"><button type="button" class="btn pull-right" style="margin-right: 20px;">
+            <i class="fa fa-times" style="padding-right:5px"></i>Cancel
           </button></a>
+          </div>
                         
                     </div>
-                </div>
-            </div>
-        </div>
-
-        
-        <div class="col-sm-4">
-            <div class="ibox">
-                <div class="ibox-content">
-
-                    <h3>{{ 'Publish' | translate }}</h3>
-                    <hr />
-<!--                    <div class="bttpe">
-                        <b>Show:</b>
-                        <div class="btn-group">
-                            <button class="btn btn-white" type="button">No</button>
-                            <button class="btn btn-primary" type="button">Yes</button>
-                        </div>
-                    </div>
-                    <hr />-->
-                    <h4>Permission</h4>
-                    <br />
-                    <input class="green-check" type="radio" id="bttne1" name="perm" value="9"  ng-disabled="true"><label for="bttne1">Employees</label>
-                    <br />
-                    <input class="green-check" type="radio" id="bttne2" name="perm" value="99"  checked><label for="bttne2">Public</label>
-                    <br />
-                    <input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-disabled="true"><label for="bttne3">Draft</label>
                 </div>
             </div>
         </div>

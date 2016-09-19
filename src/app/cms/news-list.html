@@ -42,10 +42,10 @@
 
 										<tr ng-repeat="nw in news">
 										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a> {{ nw.title }}</a></td>
+										  <td><a ng-click="editArticle(nw)"> {{ nw.title }}</a></td>
 										  <td>{{ nw.author }}</td>
 										  <td>{{ nw.tags }}</td>
-										  <td>{{ nw.date }}</td>
+										  <td>{{ convertToDate(nw.date) }}</td>
 										</tr>
 										
 									</tbody>
