@@ -45,6 +45,10 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
     return promise.reject(response);
   };
 
+  var formatters = [
+    {regex: /:companyId/, sub: dataService.getCurrentCompanyId}
+  ];
+
   function buildGetParams(params) {
     var res = '';
 
@@ -99,6 +103,12 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
       });
     },
     ttRequest: function(suburl, method, data) {
+      formatters.forEach(function(frmt) {
+        if (frmt.regex.test(suburl)) {
+          suburl = suburl.replace(frmt.regex, angular.isFunction(frmt.sub) ? frmt.sub() : frmt.sub);
+        }
+      });
+
       var url = dataService.getBaseServiceURL() + suburl;
       var deferred = $q.defer();
 
