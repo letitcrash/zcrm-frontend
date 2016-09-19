@@ -38,12 +38,17 @@ angular.module('inspinia').controller("CompanyCtrl", function($scope, $rootScope
     return companyService.update(cp).then(function(response) {
       $scope.cancel();
       $scope.setSelected(response);
+      
+      $scope.page.editPhone = false;
+      
       return $scope.setAlertCp(true, "Företaget har uppdaterats");
     }, function(response) {
       console.log("Update company failed");
       return $scope.setAlertCp(false, "Företaget kunde inte uppdateras");
     });
   };
+  
+  
   $scope.setCurrentCompany = function(company) {
     dataService.setCurrentCompany(company);
     $rootScope.setCompanyStr(company.name);
@@ -239,6 +244,23 @@ $scope.getRoleABRV = function(name) {
     $scope.activeEmp = false;
     $scope.curentCp = undefined;
   }
+
+  $scope.comPhone = [];
+  $scope.addPhone = function(){
+    $scope.comPhone.push({});
+  };
+  $scope.rmcomPhone = function(index){
+    $scope.comPhone.splice(index, 1);
+  };
+  
+  $scope.comMail = [];
+  $scope.addMail = function(){
+    $scope.comMail.push({});
+  };
+  $scope.rmcomMail = function(index){
+    $scope.comMail.splice(index, 1);
+  };
+  
 
   $scope.init = function() {
     $scope.pageSize = 10;
