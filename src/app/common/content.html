@@ -1,15 +1,12 @@
-<!-- Wrapper-->
-<div id="wrapper">
-  <!-- Navigation -->
-  <div ng-include="'app/common/navigation.html'"></div>
-  <!-- Page wraper -->
-  <!-- ng-class with current state name give you the ability to extended customization your view -->
-  <div id="page-wrapper" class="gray-bg">
-      <!-- Page wrapper -->
-      <div ng-include="'app/common/topnavbar.html'"></div>
-      <!-- Main view  -->
-      <div ui-view class="main-view {{ $state.current.data.viewClass }}"></div>
-      <!-- Footer -->
-      <div ng-include="'app/common/footer.html'"></div>
-  </div>
+<!-- Navigation -->
+<nav class="navbar-default navbar-static-side" role="navigation" ng-include="'app/common/navigation.html'"></nav>
+<!-- Page wraper -->
+<div id="page-wrapper" class="gray-bg">
+    <!-- Page wrapper -->
+    <nav class="navbar navbar-static-top white-bg border-bottom clearfix" role="navigation"
+         ng-include="'app/common/header.html'"></nav>
+    <!-- Main view  -->
+    <div ui-view class="main-view {{ $state.current.data.viewClass }}"></div>
+    <!-- Footer -->
+    <div class="footer clearfix" ng-include="'app/common/footer.html'"></div>
 </div>
