@@ -198,6 +198,10 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       data: { pageTitle: 'companies' },
       'authenticate': true
     })
+    .state('index.companies-detail', {
+      url: '/companies-detail',
+      templateUrl: 'app/companies/company.detail.html'
+    })
     
     // Templates
     
