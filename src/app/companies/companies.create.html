@@ -1,145 +1,167 @@
-<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">           
+<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">
     <div class="row">
     <form>
         <div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
             <!--Employee page-->
-            
+
 
             <div class="ibox">
-                <div class="ibox-content editor">
+                <div class="ibox-content">
 
                     <h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.companies">
                             <i class="fa fa-chevron-left"></i>
                         </a> {{ 'Article' | translate }}</h3>
-                    
+
                     <hr />
-                    
-                    <div class="input-group col-sm-12">
-                        
+
+                    <div class="form-horizontal">
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Name of company</label>
-                          <input type="text" class="form-control"> 
+                          <label class="col-sm-2 control-label">Company Name</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" placeholder="First Name" class="form-control">
+                          </div>
                         </div>
 
-                        
+                        <div class="hr-line-dashed"></div>
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Phone</label>
-                          <div class="right-form">
-                            <div>
+                          <label class="col-sm-2 control-label">Phone</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" class="form-control m-b">
+
+                            <div class="no-padding m-b input-group" ng-repeat="items in comPhone">
                               <input type="text" class="form-control">
+                              <span class="input-group-btn"> <button type="button" class="btn btn-white" ng-click="rmcomPhone($index)">{{ 'Remove' | translate }}</button> </span>
                             </div>
-                            <div ng-repeat="items in comPhone" >
+
+                            <span ng-click="addPhone()"><i class="fa fa-plus"></i> {{ 'Add more' | translate }}</span>
+                          </div>
+
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Email</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" class="form-control m-b">
+
+                            <div class="no-padding m-b input-group" ng-repeat="items in comMail">
                               <input type="text" class="form-control">
-                              <span class="pull-right" ng-click="rmcomPhone($index)">
-                                <a class="pull-right" href >{{ 'Remove' | translate }} </a>
-                              </span>
+                              <span class="input-group-btn"> <button type="button" class="btn btn-white" ng-click="rmcomMail($index)">{{ 'Remove' | translate }}</button> </span>
                             </div>
-                          <span ng-click="addPhone()">
-                            <a href ><i class="fa fa-plus"></i> {{ 'Add more' | translate }} </a>
-                          </span>
+
+                            <span ng-click="addMail()"><i class="fa fa-plus"></i> {{ 'Add more' | translate }}</span>
+                          </div>
+
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Description</label>
+                          <div class="col-sm-10 control-label">
+                            <textarea type="text" class="form-control"></textarea>
                           </div>
                         </div>
-                        
-                        <div class="form-group">
-                          <label class="font-noraml ng-binding" >Email</label>
-                          <div class="right-form">
-                            <div>
-                              <input type="text" class="form-control">
-                            </div>
-                            <div ng-repeat="items in comMail" >
-                              <input type="text" class="form-control">
-                              <span class="pull-right" ng-click="rmcomMail($index)">
-                                <a class="pull-right" href >{{ 'Remove' | translate }} </a>
-                              </span>
-                            </div>
-                          <span ng-click="addMail()">
-                            <a href ><i class="fa fa-plus"></i> {{ 'Add more' | translate }} </a>
-                          </span>
-                          </div>
-                        </div>
-                        
-                        <div class="form-group">
-                          <label class="font-noraml ng-binding" >Description</label>
-                          <textarea  type="text" class="form-control" style="height: 100px;"></textarea>
-                        </div>
-                        
+
                         <hr />
-                        
-                        <div class="form-group twocol">
-                          <label class="font-noraml ng-binding" >Owner Name</label>
-                          <div>
-                            <input placeholder="First Name" type="text" class="form-control"> 
-                            <input placeholder="Last Name" ="text" class="form-control"> 
+
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Owner Name</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-md-6"><input type="text" placeholder="First Name" class="form-control"></div>
+                              <div class="col-md-6"><input type="text" placeholder="Last Name" class="form-control"></div>
+                            </div>
                           </div>
                         </div>
-                        
+
                         <hr />
-                        
-                        <div class="form-group twocol">
-                          <label class="font-noraml ng-binding" >Admin Name</label>
-                          <div>
-                            <input placeholder="First Name" type="text" class="form-control"> 
-                            <input placeholder="Last Name" ="text" class="form-control">
+
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Admin Name</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-md-6"><input type="text" placeholder="First Name" class="form-control"></div>
+                              <div class="col-md-6"><input type="text" placeholder="Last Name" class="form-control"></div>
+                            </div>
                           </div>
                         </div>
-                        
+
+                        <div class="hr-line-dashed"></div>
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Email</label>
-                          <input type="text" class="form-control"> 
+                          <label class="col-sm-2 control-label">Admin Email</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" class="form-control m-b">
+
+                            <div class="no-padding m-b input-group" ng-repeat="items in admMail">
+                              <input type="text" class="form-control">
+                              <span class="input-group-btn"> <button type="button" class="btn btn-white" ng-click="rmAdmMail($index)">{{ 'Remove' | translate }}</button> </span>
+                            </div>
+
+                            <span ng-click="addAmdMail()"><i class="fa fa-plus"></i> {{ 'Add more' | translate }}</span>
+                          </div>
+
                         </div>
-                        
+
+                        <div class="hr-line-dashed"></div>
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Owner</label>
-                          <input type="text" class="form-control"> 
+                          <label class="col-sm-2 control-label">Owner</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" class="form-control">
+                          </div>
                         </div>
-                        
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Password</label>
-                          <input type="text" class="form-control"> 
+                          <label class="col-sm-2 control-label">Password</label>
+                          <div class="col-sm-10 control-label">
+                            <input type="text" class="form-control">
+                          </div>
                         </div>
-                        
+
                         <hr />
-                        
+
                         <div class="form-group">
-                          <label class="font-noraml ng-binding" >Modules</label>
-                          <div style="width: 35%; float: left">
-                            <input class="green-check" type="checkbox" name="perm"><label>CMS Support</label>
+                          <b class="col-sm-2 control-label">Modules</b>
+                          <div class="col-sm-5">
+                            <input class="green-check" type="checkbox" id="1"><label for="1">CMS Support</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Employees</label>
+                            <input class="green-check" type="checkbox" id="2"><label for="2">Employees</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >MailBox</label>
+                            <input class="green-check" type="checkbox" id="3"><label for="3">MailBox</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Companies</label>
+                            <input class="green-check" type="checkbox" id="4"><label for="4">Companies</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Timer</label>
+                            <input class="green-check" type="checkbox" id="5"><label for="5">Timer</label>
                           </div>
-                          <div style="width: 35%; float: left">
-                            <input class="green-check" type="checkbox" name="perm"><label>Projects</label>
+                          <div class="col-sm-5">
+                            <input class="green-check" type="checkbox" id="6"><label for="6">Projects</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Calendar</label>
+                            <input class="green-check" type="checkbox" id="7"><label for="7">Calendar</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Docs</label>
+                            <input class="green-check" type="checkbox" id="8"><label for="8">Docs</label>
                             <br />
-                            <input class="green-check" type="checkbox"  name="perm" ><label >Teams</label>
+                            <input class="green-check" type="checkbox" id="9"><label for="9">Teams</label>
                           </div>
                         </div>
-                        
-                        
+
+
 <!--                        Editor -->
-                    </div>
 
-                        
-                        
-<div style="width: 100%; margin-bottom: 20px 0; display: inline-block;">
-                        <button type="button" class="btn btn-primary pull-right" aria-hidden="false">
-            <i class="fa fa-eye" style="padding-right:5px"></i>Create
-          </button>
-          
-          <a ui-sref="index.companies"><button type="button" class="btn pull-right" style="margin-right: 20px;">
-            <i class="fa fa-times" style="padding-right:5px"></i>Cancel
-          </button></a>
-          </div>
-                        
+                        <hr />
+
+                        <div class="form-group">
+                          <div class="col-sm-4 col-sm-offset-2">
+                              <button class="btn btn-white" type="submit">Cancel</button>
+                              <button class="btn btn-primary" type="submit">Create</button>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                 </div>
             </div>

@@ -1964,7 +1964,13 @@ body.body-small .vote-icon {
 .folders ul li {
   margin-right: 10px;
 }
-
+.green-check + label {
+  margin-left: 20px;
+  cursor: pointer;
+}
+.green-check:focus {
+  outline: none;
+}
 .green-check:hover:before {
   border: 2px solid #2c8f7b;
   color: #fff;
@@ -1991,4 +1997,5 @@ body.body-small .vote-icon {
   position: relative;
   top: -3px;
   cursor: pointer;
+  outline: none;
 }
