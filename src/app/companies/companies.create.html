@@ -1,65 +1,4 @@
-<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">           <style>
-            h3 + hr {
-              margin: 20px -15px;
-            }
-            .form-group {
-              display: inline-block;
-              width: 100%
-            }
-            .form-group > input, textarea {
-              width: 77% !important;
-            }
-            div.right-form {
-              width: 77% !important;
-              display: inline-block;
-              height: auto;
-            }
-            div.right-form > div {
-              margin-bottom: 5px;
-              width: 100%;
-              display: inline-block;
-            }
-            div.right-form > div:nth-child(1) > .form-control {
-              width: 100%;
-            }
-            div.right-form > div > .form-control {
-              width: calc(100% - 70px);
-            }
-            div.right-form a {
-              padding: 8px 0;
-            }
-            .form-group > label {
-              width: 23%;
-              float: left;
-              text-align: right;
-              padding: 7px 20px;
-              font-weight: bold;
-            }
-            .form-group.twocol div > input {
-              width: calc(38.5% - 5px) !important;
-              display: inline-block;
-            }
-            .form-group.twocol div > input:nth-child(2) {
-              margin-left: 10px;
-            }
-            .no-padding > div {
-              border: none !important;
-            }
-            .panel-heading {
-              border-radius: none !important;
-            }
-            
-
-            .bttpe {
-              text-align: center;
-            }
-
-            .green-check ~ label {
-              margin-bottom: 20px;
-              margin-left: 20px;
-              cursor: pointer;
-            }
-            </style>
+<div class="wrapper wrapper-content" ng-controller="CompanyCtrl">           
     <div class="row">
     <form>
         <div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
@@ -67,7 +6,7 @@
             
 
             <div class="ibox">
-                <div class="ibox-content">
+                <div class="ibox-content editor">
 
                     <h3><a style="margin-right: 15px" class="btn btn-white btn-bitbucket" ui-sref="index.companies">
                             <i class="fa fa-chevron-left"></i>

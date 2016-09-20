@@ -1,0 +1,196 @@
+<div class="wrapper wrapper-content editor" ng-controller="CmsController">
+  <div class="row">
+
+<!-- Basic info -->
+
+    <div class="col-sm-12">
+      <div class="ibox row m-b-lg m-t-lg">
+
+<!-- Description -->
+
+        <div class="col-sm-6">
+          <div class="profile-image">
+            <img src="img/a4.jpg" class="m-b-md" alt="profile image" />
+          </div>
+          <div class="profile-info">
+            <h2>Multimedia Nordic</h2>
+            <small>
+              There are many variations of passages of Lorem Ipsum available, but the majority
+              have suffered alteration in some form Ipsum available.
+            </small>
+            <br />
+            <a href>{{ 'Read more' | translate }}</a>
+          </div>
+        </div>
+
+<!-- Statistic -->
+
+<!-- Main Statistic -->
+
+        <div class="col-sm-3">
+          <div>
+            <h4>{{ 'MAIN STATISTIC' | translate}}</h4>
+            <table class="table">
+              <tr>
+                <td><b>{{ 'Employees' | translate }}: </b> 25</td>
+                <td><b>{{ 'Teams' | translate }}: </b> 3</td>
+              </tr>
+              <tr>
+                <td><b>{{ 'Tickets' | translate }}: </b> 45</td>
+                <td><b>{{ 'Projects' | translate }}: </b> 8</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+<!-- Data Usage Statistic -->
+
+        <div class="col-sm-3">
+          <div>
+            <h4>{{ 'SPACE' | translate}}</h4>
+
+            <table class="table">
+              <tr>
+                <td><b>{{ 'Used' | translate }}: </b> 42,4 GB</td>
+                <td><b>{{ 'Total' | translate }}: </b> 42,4 GB</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div class="progress progress-bar-default">
+                    <div style="width: 43%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="43" role="progressbar" class="progress-bar">
+                      <span class="sr-only">43% Complete (success)</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<!-- Company Detail -->
+
+    <div class="col-sm-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>{{ 'Company detail' | translate }}</h5>
+
+          <div class="ibox-tools">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-wrench"></i>
+            </a>
+
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#">Config option 1</a>
+                </li>
+                <li><a href="#">Config option 2</a>
+                </li>
+            </ul>
+
+        </div>
+
+        </div>
+        <div class="ibox-content">
+
+          <h4>{{ 'Contact Information' | translate }}</h4>
+
+          <table class="table">
+            <tr>
+              <td><b>{{ 'Phone' | translate }}</b></td>
+              <td>+4799431562</td>
+            </tr>
+            <tr>
+              <td><b>{{ 'EMail' | translate }}</b></td>
+              <td><a href>info@multimedianordic.no</a></td>
+            </tr>
+            <tr>
+              <td><b>{{ 'Owner' | translate }}</b></td>
+              <td>Donald Trump</td>
+            </tr>
+          </table>
+
+          <h4>{{ 'Admin Information' | translate }}</h4>
+
+          <table class="table">
+            <tr>
+              <td><b>{{ 'Name' | translate }}</b></td>
+              <td>Hillary Clinton</td>
+            </tr>
+            <tr>
+              <td><b>{{ 'EMail' | translate }}</b></td>
+              <td><a href>info@multimedianordic.no</a></td>
+            </tr>
+            <tr>
+              <td><b>{{ 'Phone' | translate }}</b></td>
+              <td>+4799431562</td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+<!-- Active modules in crm -->
+
+    <div class="col-sm-8">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>{{ 'Company detail' | translate }}</h5>
+        </div>
+        
+        <div class="ibox-content">
+          <p>{{ 'Activated modules in this company' | translate }}</p>
+          <br />
+          <h4>{{ 'ACTIVATED' | translate }}</h4>
+          <hr />
+          
+          <div class="form-group">
+
+            <div class="col-sm-6">
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn1"><label for="btn1">{{ 'CMS Support' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn2"><label for="btn2">{{ 'Employees' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn3"><label for="btn3">{{ 'Timer' | translate }}</label>
+            </div>
+
+            <div class="col-sm-6">
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn4"><label for="btn4">{{ 'Projects' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn5"><label for="btn5">{{ 'Calendar' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn6"><label for="btn6">{{ 'Docs' | translate }}</label>
+            </div>
+          </div>
+          <h4>{{ 'DONT ACTIVATED' | translate }}</h4>
+          <hr />
+          
+          <div class="form-group">
+
+            <div class="col-sm-6">
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn7"><label for="btn7">{{ 'Companies' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn8"><label for="btn8">{{ 'Mailbox' | translate }}</label>
+              <br />
+              <input class="green-check ng-pristine ng-untouched ng-valid ng-empty" type="radio" id="btn9"><label for="btn9">{{ 'Teams' | translate }}</label>
+            </div>
+
+            <div class="col-sm-6">
+            </div>
+            
+          </div>
+            <hr />
+            
+          <div class="form-group">
+                <button class="btn btn-white" type="submit">Cancel</button>
+                <button class="btn btn-primary" type="submit">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

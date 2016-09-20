@@ -542,6 +542,7 @@ code {
   color: inherit;
   margin-bottom: 0;
   padding: 10px 15px;
+  min-height: 40px;
 
   > .btn:first-of-type { margin-right: 10px; }
 }
@@ -1373,3 +1374,66 @@ body.mini-navbar.fixed-sidebar .logo-element {
 
 .p-l-none { padding-left: 0; }
 .p-r-none { padding-right: 0; }
+
+
+/* editors */
+
+.editor {
+  h3 + hr {
+    margin: 20px -15px;
+  }
+  .form-group {
+    display: inline-block;
+    width: 100%
+  }
+  .form-group > input, textarea, div.right-form {
+    width: 77% !important;
+  }
+  div.right-form {
+    display: inline-block;
+    height: auto;
+  }
+  div.right-form > div {
+    margin-bottom: 5px;
+    width: 100%;
+    display: inline-block;
+  }
+  div.right-form > div:nth-child(1) > .form-control {
+    width: 100%;
+  }
+  div.right-form > div > .form-control {
+    width: calc(100% - 70px);
+  }
+  div.right-form a {
+    padding: 8px 0;
+  }
+  .form-group > label {
+    width: 23%;
+    float: left;
+    text-align: right;
+    padding: 7px 20px;
+    font-weight: bold;
+  }
+  .form-group.twocol div > input {
+    width: calc(38.5% - 5px) !important;
+    display: inline-block;
+  }
+  .form-group.twocol div > input:nth-child(2) {
+    margin-left: 10px;
+  }
+  .no-padding > div {
+    border: none !important;
+  }
+  .panel-heading {
+    border-radius: none !important;
+  }
+  .bttpe {
+    text-align: center;
+  }
+
+  .green-check ~ label {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+}
