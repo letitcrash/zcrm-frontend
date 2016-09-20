@@ -37,7 +37,7 @@
       <a ui-sref="index.cms"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">{{ 'CMS' | translate }}</span> </a>
     </li>
     <!-- Mailbox -->
-    <li ng-class="{active: main.state.includes('*.mail.*')}">
+    <li ng-class="{active: $state.includes('*.mail.*')}">
       <a ui-sref="index.mail.list()">
         <i class="fa fa-envelope"></i>
         <span class="nav-label">{{ 'Mailboxes' | translate }}</span>
@@ -59,7 +59,7 @@
     <li ui-sref-active="active">
       <a ui-sref="index.projects"><i class="fa fa-tasks"></i> <span class="nav-label">{{ 'Projects' | translate }}</span></a>
     </li>
-    <li data-ng-class="{active: main.state.includes('*.tickets.*')}">
+    <li data-ng-class="{active: $state.includes('*.tickets.*')}">
       <a data-ui-sref="index.tickets.list()">
         <i class="fa fa-check"></i>
         <span class="nav-label" data-ng-bind="'Tickets' | translate "></span>
