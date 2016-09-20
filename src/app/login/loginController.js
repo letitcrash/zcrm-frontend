@@ -31,7 +31,7 @@ angular.module('inspinia').controller("LoginCtrl", function($scope, $rootScope, 
       });
 
       $rootScope.setUser(response.user);
-      $state.transitionTo("index.main");
+      $state.transitionTo("index.tickets.list");
     } else {
       $scope.alertPassword = {};
       return $scope.alertPassword.failed = "Ett fel har inträffat, vänligen kontakta administration.";

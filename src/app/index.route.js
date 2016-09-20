@@ -229,5 +229,5 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       'authenticate': true
     });
 
-  $urlRouterProvider.otherwise('/index/main');
+  $urlRouterProvider.otherwise('/index/tickets/list');
 }
