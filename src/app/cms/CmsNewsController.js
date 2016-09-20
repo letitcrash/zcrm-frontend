@@ -10,13 +10,20 @@ angular
   console.log($scope.user.contactProfile.firstname);
   
   $scope.editArticle = function(article){
-
+    
     //$state.transitionTo("index.addnews");
     console.log(article);
     $state.go('index.editnews', {articleId:article.id});
-
+    
     //$scope.addNews = article;
-
+    
+  };
+  $scope.editPage = function(page){
+    
+    //$state.transitionTo("index.addnews");
+    console.log(page);
+    $state.go('index.editpage', {articleId:page.id});
+    
   };
 
   $scope.setTab = function(newTab){
@@ -43,6 +50,16 @@ angular
     });
   };
   
+  $scope.getPagesList = function(force, pageSize, pageNr, searchTerm) {
+    cmsService.getPagesList(force, pageSize, pageNr, searchTerm).then(function(response) {
+      console.log(response);
+      $scope.pages = response.data;
+      $scope.totalPages = response.totalSize;
+    }, function(response) {
+      console.log("Failed to get news");
+    });
+  };
+  
   
   var ThisDate = new Date().getTime();
   
@@ -60,6 +77,27 @@ angular
       console.log("News posted");
       console.log(response);
       $scope.news.push(response);
+      $scope.userFormStep = undefined;
+    }, function(response) {
+      console.log("News could not be created");
+      $scope.useralert = "News could not be created";
+    });
+  };
+  
+  $scope.createPage = function(addPage) {
+    
+    
+    $scope.addPage.date = ThisDate;
+    $scope.addPage.author = $scope.user.contactProfile.id;
+    $scope.addPage.permission = 99;
+    $scope.addPage.description = $scope.addPage.text.split("<hr>")[0];
+    cmsService.postPage(addPage).then(function(response) {
+      
+      
+      
+      console.log("Page posted");
+      console.log(response);
+      $scope.page.push(response);
       $scope.userFormStep = undefined;
     }, function(response) {
       console.log("News could not be created");
@@ -91,6 +129,9 @@ angular
     $scope.pageNr = 1;
     $scope.searchTerm = "";
     $scope.getNewsList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+    $scope.getPagesList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
+    
+//     $scope.getPagesList(false, $scope.pageSize, $scope.pageNr, $scope.searchTerm);
     
     $scope.currentCompanyId = dataService.getCurrentCompanyId();
   };

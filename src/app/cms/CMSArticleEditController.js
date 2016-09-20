@@ -15,27 +15,60 @@ angular
     });
   };
   
-
+  
   $scope.update = function(article) {
     cmsService.put(article).then(function(response) {
       console.log(response);
       $state.go('index.cms');
-
+      
       //$scope.article = response.data;
       //$scope.totalItems = response.totalSize;
     }, function(response) {
       console.log("Failed to get news");
     });
   };
-
+  
   $scope.init = function() {
     $scope.articleId = $state.params.articleId;
     console.log("Mod " + $scope.articleId);
     $scope.getNewsArticle($scope.articleId);
-
+    
+    
+  };
+  
+  $scope.init();
+  
+})
+.controller('CMSPageEditController', function($scope, $rootScope, $state, $log, dataService, generalUtils, cmsService) {
+  
+  $scope.getPage = function(id) {
+    cmsService.getPage(id).then(function(response) {
+      console.log(response);
+      $scope.page = response.data;
+      $scope.totalItems = response.totalSize;
+    }, function(response) {
+      console.log("Failed to get news");
+    });
+  };
+  
+  
+  $scope.update = function(page) {
+    cmsService.putPage(page).then(function(response) {
+      console.log(response);
+      $state.go('index.cms');
+      
+    }, function(response) {
+      console.log("Failed to get news");
+    });
+  };
+  
+  $scope.init = function() {
+    $scope.pageId = $state.params.pageId;
+    console.log("Mod " + $scope.pageId);
+    $scope.getPage($scope.pageId);
 
   };
-
+  
   $scope.init();
   
 });

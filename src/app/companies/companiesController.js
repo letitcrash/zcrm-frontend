@@ -254,11 +254,20 @@ $scope.getRoleABRV = function(name) {
   };
   
   $scope.comMail = [];
+  $scope.admMail = [];
+  
   $scope.addMail = function(){
     $scope.comMail.push({});
   };
+  $scope.addAmdMail = function(){
+    $scope.admMail.push({});
+  };
+  
   $scope.rmcomMail = function(index){
     $scope.comMail.splice(index, 1);
+  };
+  $scope.rmAdmMail = function(index){
+    $scope.admMail.splice(index, 1);
   };
   
 

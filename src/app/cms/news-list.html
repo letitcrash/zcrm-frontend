@@ -7,9 +7,9 @@
 
 					<h2>{{ 'News' | translate }}
 					
-					<a href="" ui-sref="index.addnews" ><button type="button" class="btn btn-primary pull-right">
-            <i class="fa fa-eye" style="padding-right:5px"></i>Create News
-          </button></h2></a>
+                    <a href="" ui-sref="index.addnews" ><button type="button" class="btn btn-primary pull-right" ng-show="tab == 1">{{ 'Create News' | translate }}</button></a>
+                    <a href="" ui-sref="index.addpage" ><button type="button" class="btn btn-primary pull-right" ng-show="tab == 2">{{ 'Create Page' | translate }}</button></a>
+					</h2>
           <br />
           
 					<div class="input-group">
@@ -27,65 +27,62 @@
 
 					<div class="clients-list">
 						<div class="full-height-scroll" full-scroll>
-							<div class="table-responsive" id="tab-1" ng-show="tab == 1">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
-											<th> Title</th>
-											<th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
-											<th> Tags</th>
-											<th> Date</th>
-										</tr>
-									</thead>
-									<tbody>
+                            
+                            <!-- News list -->
+						
+                            <div class="table-responsive" id="tab-1" ng-show="tab == 1">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+                                            <th> Title</th>
+                                            <th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
+                                            <th> Tags</th>
+                                            <th> Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-										<tr ng-repeat="nw in news">
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ng-click="editArticle(nw)"> {{ nw.title }}</a></td>
-										  <td>{{ nw.author }}</td>
-										  <td>{{ nw.tags }}</td>
-										  <td>{{ convertToDate(nw.date) }}</td>
-										</tr>
-										
-									</tbody>
-								</table>
-							</div>
+                                        <tr ng-repeat="nw in news">
+                                          <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
+                                          <td><a ng-click="editArticle(nw)"> {{ nw.title }}</a></td>
+                                          <td>{{ nw.author }}</td>
+                                          <td>{{ nw.tags }}</td>
+                                          <td>{{ convertToDate(nw.date) }}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Pages list-->
+                            
+                            <div class="table-responsive" id="tab-2" ng-show="tab == 2">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+                                            <th> Title</th>
+                                            <th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
+                                            <th> Tags</th>
+                                            <th> Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="pg in pages">
+                                          <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
+                                          <td><a ng-click="editPage(pg)"> {{ pg.title }}</a></td>
+                                          <td>{{ pg.author }}</td>
+                                          <td>{{ pg.tags }}</td>
+                                          <td>{{ convertToDate(pg.date) }}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
 							
-							<!--<div class="table-responsive" id="tab-2" ng-show="tab == 2">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
-											<th> Title</th>
-											<th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
-											<th> Lang</th>
-											<th> Tags</th>
-											<th> Date</th>
-										</tr>
-									</thead>
-									<tbody>
 
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">About us</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>Page</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										<tr>
-										  <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-										  <td><a ui-sref="index.cmsarticle">Benefits</a></td>
-										  <td>Admin</td>
-										  <td>En, No</td>
-										  <td>Page</td>
-										  <td>25 Jul 2016</td>
-										</tr>
-										
-									</tbody>
-								</table>
-							</div>-->
 						</div>
 
 					</div>

@@ -39,12 +39,18 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/common/content.html',
       authenticate: true
     })
+    
+    // CMS
+    
     .state('index.cms', {
       url: '/cms/news',
       templateUrl: 'app/cms/news-list.html',
       data: { pageTitle: 'Site' },
       'authenticate': true
     })
+    
+    // CMS news edit
+    
     .state('index.addnews', {
       url: '/cms/news/add',
       templateUrl: 'app/cms/add-news.html',
@@ -61,6 +67,24 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       url: '/cms/article',
       templateUrl: 'app/cms/article.html'
     })
+    
+    // CMS page edit
+    
+    .state('index.editpage', {
+      url: '/cms/page/edit?pageId',
+      templateUrl: 'app/cms/edit-page.html',
+      data: { pageTitle: 'Page edit' },
+      "authenticate": true
+    })
+    .state('index.addpage', {
+      url: '/cms/pages/add',
+      templateUrl: 'app/cms/add-page.html',
+      data: { pageTitle: 'Create page' },
+      "authenticate": true
+    })
+    
+    // CMS
+    
     .state('index.mail', {
       templateUrl: 'app/mail/mailbox.html',
       data: {pageTitle: 'Mailbox', viewClass: 'mailbox-view'},
@@ -161,6 +185,9 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       data: { pageTitle: 'companies' },
       'authenticate': true
     })
+    
+    // Templates; only html
+    
     .state('index.companies-create', {
       url: '/companies-create',
       templateUrl: 'app/companies/companies.create.html'
@@ -171,6 +198,9 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       data: { pageTitle: 'companies' },
       'authenticate': true
     })
+    
+    // Templates
+    
     .state('index.timer', {
       url: '/timer',
       templateUrl: 'app/timer/timer.html',

@@ -1,47 +1,4 @@
-<div class="wrapper wrapper-content" ng-controller="CmsController">
-			<style>
-			h3 + hr {
-			  margin: 20px -15px;
-			}
-			.form-group {
-			  display: inline-block;
-			  width: 100%
-			}
-			.form-control {
-			  width: 77% !important;
-			}
-			.form-group > label {
-			  width: 23%;
-			  float: left;
-			  text-align: right;
-			  padding: 7px 20px;
-			  font-weight: bold;
-			}
-			.no-padding > div {
-			  border: none !important;
-			}
-			.panel-heading {
-			  border-radius: none !important;
-			}
-			
-
-			.bttpe {
-			  text-align: center;
-			}
-            #bttne2:before {
-              background: #2c8f7b;
-              border: 1px solid #2c8f7b;
-              color: #fff;
-              content: "\f00c";
-            }
-            #bttne2:disabled:before {
-              content: none !important;
-            }
-			.green-check ~ label {
-			  margin-left: 20px;
-			  cursor: pointer;
-			}
-			</style>
+<div class="wrapper wrapper-content editor" ng-controller="CmsController">
 	<div class="row">
 	<form>
 		<div class="col-sm-8" ng-class="{'hidden-lg visible-xl col-xl-8' : activeEmp}">
