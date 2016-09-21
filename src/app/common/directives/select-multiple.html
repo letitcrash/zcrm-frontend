@@ -1,0 +1,19 @@
+<div class="ui-select-multiple ui-select-bootstrap crm-select-multiple dropdown" data-ng-class="{open: $select.open}">
+  <input type="search"
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"
+         class="ui-select-search input-xs form-control"
+         placeholder="{{$selectMultiple.getPlaceholder()}}"
+         data-ng-disabled="$select.disabled"
+         data-ng-click="$select.activate()"
+         data-ng-model="$select.search"
+         role="combobox"
+         aria-expanded="{{$select.open}}"
+         aria-label="{{$select.baseTitle}}"
+         ondrop="return false;">
+  <div class="ui-select-match"></div>
+  <div class="ui-select-choices"></div>
+  <div class="ui-select-no-choice"></div>
+</div>

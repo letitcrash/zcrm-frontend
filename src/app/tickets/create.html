@@ -9,35 +9,91 @@
   <div class="ibox-content clearfix">
     <!-- Ticket title -->
     <div class="form-group ticket-form-group clearfix">
-      <label class="ticket-form-label control-label col-xs-3">{{ 'Ticket name' | translate }}:</label>
-      <div class="col-xs-9">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Ticket name' | translate }}:</label>
+      <div class="col-md-9">
         <input class="form-control" type="text" name="subject" required placeholder="Enter name here"
                ng-model="tsCreate.model.subject">
       </div>
     </div>
     <!-- Ticket description -->
     <div class="form-group ticket-form-group clearfix">
-      <label class="ticket-form-label control-label col-xs-3">{{ 'Description' | translate }}:</label>
-      <div class="col-xs-9">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Description' | translate }}:</label>
+      <div class="col-md-9">
         <div data-summernote data-height="200" name="description" ng-model="tsCreate.model.description"></div>
       </div>
     </div>
+    <hr class="hr-line-dashed">
+    <!-- Ticket date and time -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Deadline' | translate }}:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="tsCreate.model.deadline"
+                 is-open="tsCreate.dateOpened"
+                 placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="tsCreate.dateOpened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="ticket-form-label control-label col-md-2">{{ 'Enter time' | translate }}:</label>
+      <div class="col-md-3">
+        <div uib-timepicker ng-model="tsCreate.model.deadline" show-spinners="false" show-meridian="false"></div>
+      </div>
+    </div>
+    <hr class="hr-line-dashed">
     <!-- Ticket priority and status -->
     <div class="form-group ticket-form-group clearfix">
-      <label class="ticket-form-label control-label col-xs-3">{{ 'Priority' | translate }}:</label>
-      <div class="col-xs-4" data-crm-ticket-priority-dropdown data-ng-model="tsCreate.model.priority"></div>
-      <label class="ticket-form-label control-label col-xs-2">{{ 'Status' | translate }}:</label>
-      <div class="col-xs-3" data-crm-ticket-status-dropdown data-ng-model="tsCreate.model.status"></div>
+      <div class="col-xs-6 p-h-none">
+        <label class="ticket-form-label control-label col-md-6">{{ 'Priority' | translate }}:</label>
+        <div class="col-md-6" data-crm-ticket-priority-dropdown data-ng-model="tsCreate.model.priority"></div>
+      </div>
+      <div class="col-xs-6 p-h-none">
+        <label class="ticket-form-label control-label col-md-2 p-l-none">{{ 'Status' | translate }}:</label>
+        <div class="col-md-10 p-l-none" data-crm-ticket-status-dropdown data-ng-model="tsCreate.model.status"></div>
+      </div>
     </div>
+    <hr class="hr-line-dashed">
+    <!-- Ticket agents -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Agent(s)' | translate }}:</label>
+      <div class="col-md-3 pull-right">
+        <button class="btn btn-default btn-block" type="button" ng-bind="'Assign to me' | translate"
+                ng-click="tsCreate.assignToMe()"></button>
+      </div>
+      <div class="col-md-6" crm-select-employees="tsCreate.model.agents" placeholder="Enter name or username here">
+      </div>
+    </div>
+    <!-- Ticket teams -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Team(s)' | translate }}:</label>
+      <div class="col-md-9">
+        <div data-ui-select name="teams" data-ng-model="tsCreate.model.teams" multiple data-crm-select-multiple>
+          <div data-ui-select-choices
+               data-repeat="team in tsCreate.teams | filter: $select.search track by team.id"
+               data-refresh="tsCreate.getTeams($select.search)" data-refresh-delay="500"
+               data-minimum-input-length="1">
+               <h4 class="dsp-inline-block" data-ng-bind-html="::team.name | highlight: $select.search"></h4>
+               <span class="dsp-inline-block" data-ng-if="team.description.length > 0">
+                 ({{ ::team.description }})
+               </span>
+          </div>
+          <div data-ui-select-match placeholder="Enter name of the team here">{{ $item.name }}</div>
+        </div>
+      </div>
+    </div>
+    <hr class="hr-line-dashed">
     <!-- Ticket project -->
     <div class="form-group ticket-form-group clearfix">
-      <label class="ticket-form-label control-label col-xs-3">{{ 'Project' | translate }}:</label>
-      <div class="col-xs-9">
-        <input type="number" data-ng-model="tsCreate.project" name="project" hidden required>
-        <div data-ui-select name="project" data-ng-model="tsCreate.project">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Project' | translate }}:</label>
+      <div class="col-md-9">
+        <input type="text" data-ng-model="tsCreate.model.project" name="project" hidden required>
+        <div data-ui-select name="project" data-ng-model="tsCreate.model.project">
           <div data-ui-select-match placeholder="Select a project">{{ $select.selected.name }}</div>
           <div data-ui-select-choices
-               data-repeat="proj.id as proj in tsCreate.projects | filter: $select.search track by proj.name"
+               data-repeat="proj in tsCreate.projects | filter: $select.search track by proj.name"
                data-refresh="tsCreate.getProjects($select.search)" data-refresh-delay="500"
                data-minimum-input-length="1">
             <h4 data-ng-bind-html="::proj.name | highlight: $select.search"></h4>
@@ -61,7 +117,7 @@
       <button class="btn btn-default btn-sm" type="button" data-ng-click="tsCreate.loadStats.form = 1"
               data-ng-bind="'Try again' | translate "></button>
     </div>
-    <div class="col-xs-9 col-xs-offset-3" data-ng-show="tsCreate.loadStats.form === 1">
+    <div class="col-md-9 col-md-offset-3 pull-right" data-ng-show="tsCreate.loadStats.form === 1">
       <button class="btn btn-primary" type="submit" data-ng-click="tsCreate.createTicket(form)"
               data-ng-disabled="form.$invalid">
         {{ 'Create' | translate }}
