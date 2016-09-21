@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketsAPI, projectService) {
+  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketModel, ticketsAPI, projectService, teamService) {
     // View
     var vm = this;
 
@@ -11,10 +11,8 @@ angular
     vm.loadStats = {form: 1};
 
     // Model
-    vm.model = {subject: '', description: '',  status: 1, priority: 0};
-
-    // Selected project
-    vm.project = null;
+    vm.model = ticketModel.model;
+    ticketModel.clear();
 
     // Projects
     vm.projects = [];
@@ -22,13 +20,22 @@ angular
     // Get projects
     vm.getProjects = function getProjects(search) {
       // TODO: Rewrite projectService for pacing search term only
-      projectService.getList(null, 100, 1, search).then(function(res) { vm.projects = res.data; });
+      projectService.getList(null, 1000, 1, search).then(function(res) { vm.projects = res.data; });
+    };
+
+    // Teams
+    vm.teams = [];
+
+    // Get teams
+    vm.getTeams = function getTeams(search) {
+      // TODO: Rewrite teamService for pacing search term only
+      teamService.getList(null, 1000, 1, search).then(function(res) { vm.teams = res.data; });
     };
 
     // Create ticket
     vm.createTicket = function createTicket() {
       vm.loadStats.form = 2;
-      ticketsAPI.create(vm.project, vm.model).then(function(res) {
+      ticketsAPI.create(vm.model.project.id, vm.model).then(function(res) {
         if (res.hasOwnProperty('id')) {
           vm.loadStats.form = 1;
           $state.go('^.detail', {ticketId: res.id});
