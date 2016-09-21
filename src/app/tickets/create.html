@@ -29,6 +29,16 @@
       <label class="ticket-form-label control-label col-xs-2">{{ 'Status' | translate }}:</label>
       <div class="col-xs-3" data-crm-ticket-status-dropdown data-ng-model="tsCreate.model.status"></div>
     </div>
+    <!-- Ticket agents -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-xs-3">{{ 'Agent(s)' | translate }}:</label>
+      <div class="col-xs-7" crm-select-employees="tsCreate.model.agents" placeholder="Enter name or username here">
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default btn-block" type="button" ng-bind="'Assign to me' | translate"
+                ng-click="tsCreate.assignToMe()"></button>
+      </div>
+    </div>
     <!-- Ticket teams -->
     <div class="form-group ticket-form-group clearfix">
       <label class="ticket-form-label control-label col-xs-3">{{ 'Team(s)' | translate }}:</label>

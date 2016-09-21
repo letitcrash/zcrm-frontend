@@ -2,7 +2,8 @@
 
 angular
   .module('inspinia')
-  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketModel, ticketsAPI, projectService, teamService) {
+  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketModel, ticketsAPI, dataService,
+        projectService, teamService) {
     // View
     var vm = this;
 
@@ -31,6 +32,9 @@ angular
       // TODO: Rewrite teamService for pacing search term only
       teamService.getList(null, 1000, 1, search).then(function(res) { vm.teams = res.data; });
     };
+
+    // Assign ticket to current user
+    vm.assignToMe = function assignToMe() { vm.model.agents.push({user: dataService.getUser()}); }
 
     // Create ticket
     vm.createTicket = function createTicket() {
