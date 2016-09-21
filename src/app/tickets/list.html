@@ -77,30 +77,32 @@
                  data-ng-bind="::ticket.subject | cutLongText:25:'...'"></a>
             </td>
             <td>
-              <span ng-repeat="pfile in ::ticket.requesters" ng-if="ticket.requesters.length === 1">
-                {{ pfile.contactProfile.firstname }} {{ pfile.contactProfile.lastname }}
+              <span ng-repeat="pfile in ::ticket.clients" ng-if="ticket.clients.length === 1"
+                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname">
+                {{ fname || lname ? fname + ' ' + lname : pfile.username }}
               </span>
-              <span ng-repeat="pfile in ::ticket.requesters | limitTo:3" ng-if="ticket.requesters.length > 1"
+              <span ng-repeat="pfile in ::ticket.clients | limitTo:3" ng-if="ticket.clients.length > 1"
                     ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
                     title="{{ ::fname }} {{ ::lname }}">
-                {{ fname[0] + lname[0] + (!$last ? ',' : '') }}
+                {{ fname || lname ? fname[0] + lname[0] : pfile.username }}{{ !$last ? ',' : '' }}
               </span>
-              <a href="" role="button" ng-if="ticket.requesters.length > 3">...</a>
+              <a href="" role="button" ng-if="ticket.clients.length > 3">...</a>
             </td>
             <td>
               <span>{{ ::ticket.teams[0].name }}{{ ticket.teams.length > 1 ? ',' : '' }}</span>
               <a href="" role="button" ng-if="ticket.teams.length > 1">...</a>
             </td>
             <td>
-              <span ng-repeat="pfile in ::ticket.members" ng-if="ticket.members.length === 1">
-                {{ pfile.contactProfile.firstname }} {{ pfile.contactProfile.lastname }}
+              <span ng-repeat="pfile in ::ticket.agents" ng-if="ticket.agents.length === 1"
+                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname">
+                {{ fname || lname ? fname + ' ' + lname : pfile.username }}
               </span>
-              <span ng-repeat="pfile in ::ticket.members | limitTo:3" ng-if="ticket.members.length > 1"
+              <span ng-repeat="pfile in ::ticket.agents | limitTo:3" ng-if="ticket.agents.length > 1"
                     ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
                     title="{{ ::fname }} {{ ::lname }}">
-                {{ fname[0] + lname[0] + (!$last ? ',' : '') }}
+                {{ fname || lname ? fname[0] + lname[0] : pfile.username }}{{ !$last ? ',' : '' }}
               </span>
-              <a href="" role="button" ng-if="ticket.requesters.length > 3">...</a>
+              <a href="" role="button" ng-if="ticket.agents.length > 3">...</a>
             </td>
             <td>{{ ::ticket.project.name }}</td>
             <td>{{ ::ticket.createdAt | date:'mediumDate' }}</td>
