@@ -1967,6 +1967,7 @@ body.body-small .vote-icon {
 .green-check + label {
   margin-left: 20px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .green-check:focus {
   outline: none;
@@ -1998,4 +1999,58 @@ body.body-small .vote-icon {
   top: -3px;
   cursor: pointer;
   outline: none;
+}
+
+.line-check {
+  input { display: none }
+  div {
+    display: inline-block;
+    position: relative;
+    label {
+      cursor: pointer;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      margin: 0 -2px;
+    }
+    label:after, label:before {
+      color: #ddd;
+      background: #eee;
+      margin-bottom: -4px;
+      border: 1px solid;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+    label:nth-child(1):after {
+      content: '';
+      margin-left: 10px;
+      border-radius: 4px 0 0 4px;
+      border-right: none;
+    }
+    label:nth-last-child(1):before {
+      content: '';
+      margin-right: 10px;
+      border-radius: 0 4px 4px 0;
+      border-left: none;
+    }
+  }
+  div:before {
+    left: ~"calc(50% - 16px)";
+    background: @navy;
+    position: absolute;
+    top: ~"calc(50% - 9px)";
+    border-radius: 3px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: '';
+    transition: .1s;
+  }
+  }
+.line-check  input:nth-child(1):checked ~ div:before {
+    left: ~"calc(50% - 15px)";
+  }
+.line-check  input:nth-child(2):checked ~ div:before {
+    left: ~"calc(50% + 4px)";
 }

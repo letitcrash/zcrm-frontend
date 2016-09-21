@@ -1,0 +1,22 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th style="width:40px"> <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></th>
+            <th> Title</th>
+            <th> Author<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a></th>
+            <th> Tags</th>
+            <th> Date</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr ng-repeat="nw in news">
+          <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
+          <td><a ng-click="editArticle(nw)"> {{ nw.title }}</a></td>
+          <td>{{ nw.author }}</td>
+          <td>{{ nw.tags }}</td>
+          <td>{{ convertToDate(nw.date) }}</td>
+        </tr>
+        
+    </tbody>
+</table>
