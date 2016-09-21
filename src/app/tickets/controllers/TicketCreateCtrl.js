@@ -39,6 +39,10 @@ angular
     // Create ticket
     vm.createTicket = function createTicket() {
       vm.loadStats.form = 2;
+
+      if (angular.isDate(vm.model.deadline))
+        vm.model.deadline = vm.model.deadline.getTime();
+
       ticketsAPI.create(vm.model.project.id, vm.model).then(function(res) {
         if (res.hasOwnProperty('id')) {
           vm.loadStats.form = 1;

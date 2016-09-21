@@ -23,6 +23,27 @@
       </div>
     </div>
     <hr class="hr-line-dashed">
+    <!-- Ticket date and time -->
+    <div class="form-group ticket-form-group clearfix">
+      <label class="ticket-form-label control-label col-md-3">{{ 'Deadline' | translate }}:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="tsCreate.model.deadline"
+                 is-open="tsCreate.dateOpened"
+                 placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="tsCreate.dateOpened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="ticket-form-label control-label col-md-2">{{ 'Enter time' | translate }}:</label>
+      <div class="col-md-3">
+        <div uib-timepicker ng-model="tsCreate.model.deadline" show-spinners="false" show-meridian="false"></div>
+      </div>
+    </div>
+    <hr class="hr-line-dashed">
     <!-- Ticket priority and status -->
     <div class="form-group ticket-form-group clearfix">
       <div class="col-xs-6 p-h-none">
