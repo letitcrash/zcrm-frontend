@@ -1,0 +1,9 @@
+<ul class="ui-select-match list-unstyled" data-ng-show="$select.selected.length > 0">
+  <li class="ui-select-match-item p-h-none" data-ng-repeat="$item in $select.selected track by $index"
+      data-ng-class="{'col-sm-6 col-lg-4': $select.selected.length > 3}">
+    <button class="btn btn-default btn-xs" role="button" data-ng-click="$selectMultiple.removeChoice($index)">
+      <i class="fa fa-close"></i>
+    </button>
+    <span data-uis-transclude-append></span>
+  </li>
+</ul>
