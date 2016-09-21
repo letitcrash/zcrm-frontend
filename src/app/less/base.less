@@ -538,7 +538,7 @@ code {
   color: inherit;
   margin-bottom: 0;
   padding: 10px 15px;
-  min-height: 40px;
+  height: 60px;
 
   > .btn:first-of-type { margin-right: 10px; }
 }
@@ -615,11 +615,12 @@ table.table-mail tr td {
 
 .ibox-title h5 {
   display: inline-block;
-  font-size: 14px;
+  font-size: 16px;
   margin: 0 0 7px;
   padding: 0;
   text-overflow: ellipsis;
   float: left;
+  line-height: 37px;
 }
 
 .ibox-title .label {
@@ -636,10 +637,20 @@ table.table-mail tr td {
   text-align: right;
 }
 
-.ibox-tools a {
+.ibox-tools > a {
   cursor: pointer;
   margin-left: 5px;
   color: #c4c4c4;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  line-height: 36px;
+  display: inline-block;
+  text-align: center;
+}
+.ibox-tools > a:hover {
+  border: 1px solid #ccc;
 }
 
 .ibox-tools a.btn-primary {
@@ -1371,6 +1382,9 @@ body.mini-navbar.fixed-sidebar .logo-element {
 .p-l-none { padding-left: 0; }
 .p-r-none { padding-right: 0; }
 
+.form-group {
+  margin-bottom: 0;
+}
 
 /* editors */
 
@@ -1380,7 +1394,8 @@ body.mini-navbar.fixed-sidebar .logo-element {
   }
   .form-group {
     display: inline-block;
-    width: 100%
+    width: 100%;
+    margin-bottom: 0;
   }
   .form-group > input, textarea, div.right-form {
     width: 77% !important;
@@ -1437,4 +1452,8 @@ body.mini-navbar.fixed-sidebar .logo-element {
 hr {
   margin: 20px -15px;
   color: #ccc;
+}
+
+.progress {
+  border-radius: 10px;
 }
