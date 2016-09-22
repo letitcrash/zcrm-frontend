@@ -1026,47 +1026,14 @@ a.compose-mail {
 }
 
 // Tickets.Detail
-// Ticket info containers
+// Ticket info container
 .ticket-box {
-  &.primary {
-    clear: none;
-
-    > .ibox-content { padding: 20px 0 0 0; }
-  }
-
-  &.secondary {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    > .ticket-box-title {
-      margin-top: 2px;
-      margin-bottom: 0;
-    }
-  }
+  & > .ibox-title { height: auto; }
+  & > .ibox-content { padding: 30px 0 0 0; }
 }
 
-.ticket-descr {
-  padding-bottom: 20px;
-  padding-top: 20px;
-}
-
-// Row with basic ticket info
-.ticket-info-row {
-}
-
-// Ticket info
-.ticket-info {
-  // Primary info: Status, Author, Clients, Teams, Agents
-  &.primary {
-    margin: 0 auto 20px auto;
-    max-width: 650px;
-    width: 100%;
-
-    > ul > li { margin-bottom: 5px; }
-  }
-  // Extra info: Priority, Deadline, Project files
-  &.secondary > li { margin-bottom: 10px; }
-};
+// Ticket info row
+.ticket-info-row { margin-bottom: 20px; }
 
 // Ticket tabs panel
 .ticket-tabs {

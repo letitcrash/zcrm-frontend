@@ -1,101 +1,92 @@
-<!-- Secondary content box -->
-<div class="ticket-box secondary col-xs-12 col-lg-4 p-r-none pull-right"
-     ng-init="models = tsDetail.models; forms = tsDetail.forms">
-  <h3 class="ticket-box-title dsp-inline-block">{{ 'Ticket description' | translate }}</h3>
-  &nbsp;
-  <a href="" class="dsp-inline-block" role="button" ng-click="forms.descr.active = true">
-    {{ 'Edit' | translate }}
-  </a>
-  <!-- Ticket description -->
-  <div class="ticket-descr">
-    <div ng-bind-html="tsDetail.ticket.description" ng-hide="forms.descr.active"></div>
-    <div ng-show="forms.descr.active">
-      <div data-summernote data-height="200" name="body" ng-model="models.descr"></div>
-      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-      <button class="btn btn-default" ng-click="forms.descr.clear()">
-        {{ 'Cancel' | translate }}
-      </button>
-    </div>
-  </div>
-  <ul class="ticket-info secondary list-unstyled">
-    <li class="clearfix">
-      <label class="col-xs-4 text-right">{{ 'Priority' | translate }}:</label>
-      <div class="col-xs-8" data-crm-ticket-priority-dropdown data-ng-model="tsDetail.models.priority"
-           data-dropdown-class="btn-group-sm"></div>
-      <div class="col-xs-8 col-xs-offset-4 m-t-sm" ng-show="forms.priority.active">
-        <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-        <button class="btn btn-default" ng-click="forms.priority.clear()">{{ 'Cancel' | translate }}</button>
-      </div>
-    </li>
-    <li class="clearfix">
-      <label class="col-xs-4 text-right">{{ 'Deadline' | translate }}:</label>
-      <div class="col-xs-8">
-        <span class="dsp-inline-block">{{ tsDetail.ticket.deadline | date:'M.d.yyyy hh:mm' }}</span>
-        &nbsp;
-        <a href="" class="dsp-inline-block" role="button">{{ 'Edit' | translate }}</a>
-      </div>
-    </li>
-  </ul>
-</div>
 <!-- Content box -->
-<div class="ibox ticket-box primary col-xs-12 col-lg-8 p-l-none">
+<div class="ibox ticket-box col-xs-12 p-h-none">
   <!-- Content box title -->
   <div class="ibox-title clearfix">
     <a ui-sref="index.tickets.list()" class="btn btn-default pull-left" ><i class="fa fa-chevron-left"></i></a>
-    <h3 class="ibox-title-text pull-left">{{ ::tsDetail.ticket.subject }}</h3>
     <button class="btn btn-default pull-right"><i class="fa fa-cog"></i></button>
+    <h3 class="ibox-title-text pull-left" ng-bind="tsDetail.model.subject"></h3>
   </div>
   <!-- Content box body -->
   <div class="ibox-content clearfix">
-    <!-- Ticket basic info -->
-    <div class="ticket-info primary clearfix">
-      <label class="col-xs-3 text-right p-l-none">{{ 'Status:' | translate }}</label>
-      <div class="col-xs-2">
-        <div class="col-xs-8" data-crm-ticket-status-dropdown data-ng-model="tsDetail.models.status"
-             data-dropdown-class="btn-group-sm"></div>
+    <!-- Ticket main info -->
+    <ul class="list-unstyled col-md-6 col-lg-4">
+      <!-- Creator -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Created by' | translate }}:</label>
+        <span class="col-xs-6">{{ tsDetail.model.createdByUser | crmUserDisplayName }}</span>
+      </li>
+      <!-- Status -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Status' | translate }}:</label>
+        <div class="col-xs-6" crm-ticket-status-dropdown ng-model="tsDetail.model.status"
+             dropdown-class="btn-group-sm"></div>
+      </li>
+      <!-- Priority -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Priority' | translate }}:</label>
+        <div class="col-xs-6" crm-ticket-priority-dropdown ng-model="tsDetail.model.priority"
+             dropdown-class="btn-group-sm"></div>
+      </li>
+      <!-- Deadline -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Deadline' | translate }}:</label>
+        <span class="col-xs-6" ng-bind="tsDetail.model.deadline | date:'MM.dd.yyyy HH:mm'"></span>
+      </li>
+      <!-- Last update -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Last update' | translate }}:</label>
+        <span class="col-xs-6" ng-bind="'Unavailable' | translate"></span>
+      </li>
+    </ul>
+    <!-- Ticket people -->
+    <ul class="list-unstyled col-md-6 col-lg-4">
+      <!-- Teams -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Team(s)' | translate }}:</label>
+        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.teams.length > 0">
+          <li ng-repeat="team in tsDetail.model.teams | limitTo:3"><span ng-bind="team.name"></span></li>
+          <li ng-show="tsDeatil.model.teams.length > 3">
+            <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+          </li>
+        </ul>
+        <span class="col-xs-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
+      </li>
+      <!-- Clients -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Client(s)' | translate }}:</label>
+        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.clients.length > 0">
+          <li ng-repeat="client in tsDetail.model.clients | limitTo:3">
+            <span ng-bind="client | crmUserDisplayName"></span>
+          </li>
+          <li ng-show="tsDeatil.model.clients.length > 3">
+            <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+          </li>
+        </ul>
+        <span class="col-xs-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
+      </li>
+      <!-- Agents -->
+      <li class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Agent(s)' | translate }}:</label>
+        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.agents.length > 0">
+          <li ng-repeat="agent in tsDetail.model.agents | limitTo:3">
+            <span ng-bind="agent | crmUserDisplayName"></span>
+          </li>
+          <li ng-show="tsDeatil.model.agents.length > 3">
+            <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+          </li>
+        </ul>
+        <span class="col-xs-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
+      </li>
+    </ul>
+    <!-- Ticket files -->
+    <div class="list-unstyled col-md-12 col-lg-4">
+      <div class="ticket-info-row clearfix">
+        <label class="col-xs-6 text-right">{{ 'Ticket files' | translate }}:</label>
+        <span class="col-xs-6" ng-bind="'Unavailable' | translate"></span>
       </div>
-      <label class="col-xs-3 text-right">{{ 'Last updated:' | translate }}</label>
-      <div class="col-xs-3">
-        <span class="text-muted">Unavailable</span>
-        <!-- <a href="">{{ 'See history' | translate }}</a> -->
-      </div>
-      <div class="col-xs-9 col-xs-offset-3 m-t-sm" ng-show="forms.status.active">
-        <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-        <button class="btn btn-default" ng-click="forms.status.clear()">{{ 'Cancel' | translate }}</button>
-      </div>
-    </div>
-    <div class="ticket-info primary clearfix">
-      <label class="col-xs-3 text-right">{{ 'Created by:' | translate }}</label>
-      <a href="" class="col-xs-3">
-        {{ ::tsDetail.ticket.createdByUser.contactProfile.firstname }}
-        {{ ::tsDetail.ticket.createdByUser.contactProfile.lastname }}
-      </a>
-      <label class="col-xs-2 text-right p-l-none">{{ 'Team(s):' | translate }}</label>
-      <ul class="list-unstyled col-xs-3">
-        <li>{{ ::tsDetail.ticket.teams[0].name }}</li>
-        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
-      </ul>
-    </div>
-    <div class="ticket-info primary clearfix">
-      <label class="col-xs-3 text-right p-l-none">{{ 'Client(s):' | translate }}</label>
-      <ul class="list-unstyled col-xs-3">
-        <li ng-repeat="pfile in ::tsDetail.ticket.requesters | limitTo:3">
-          {{ ::pfile.contactProfile.firstname }}
-          {{ ::pfile.contactProfile.lastname }}
-        </li>
-        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
-      </ul>
-      <label class="col-xs-2 text-right">{{ 'Agent(s):' | translate }}</label>
-      <ul class="list-unstyled col-xs-3">
-        <li ng-repeat="pfile in ::tsDetail.ticket.members | limitTo:3">
-          {{ ::pfile.contactProfile.firstname }}
-          {{ ::pfile.contactProfile.lastname }}
-        </li>
-        <li><a href="" role="button" ng-click="tsDetail.activeTab = 2">{{ 'See more' | translate }}</a></li>
-      </ul>
     </div>
     <!-- Ticket tabs -->
-    <uib-tabset class="ticket-tabs" active="3">
+    <uib-tabset class="ticket-tabs col-xs-12" active="3">
       <uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::tsDetail.tabs">
         <uib-tab-heading><i class="fa" ng-class="::tab.icon"></i>{{ ::tab.title | translate }}</uib-tab-heading>
         <div ng-include="tab.template"></div>
