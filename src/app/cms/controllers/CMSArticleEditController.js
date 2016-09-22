@@ -3,9 +3,11 @@
 
 angular
 .module('inspinia')
-.controller('CMSArticleEditController', function($scope, $rootScope, $state, $log, dataService, generalUtils, cmsService) {
+.controller('CMSArticleEditController', function($scope, $rootScope, $state, $log, dataService, generalUtils, cmsService, imagesService, configurationService) {
   
-  $scope.getNewsArticle = function(id) {
+  $scope.baseServiceUrl = configurationService.staticBaseUrl;
+
+  $scope.getNewsArticle = function(id) {dataService
     cmsService.get(id).then(function(response) {
       console.log(response);
       $scope.article = response.data;
@@ -16,8 +18,8 @@ angular
   };
   
   
-  $scope.update = function(article) {
-    cmsService.put(article).then(function(response) {
+  $scope.update = function() {
+    cmsService.put($scope.article).then(function(response) {
       console.log(response);
       $state.go('index.cms');
       
@@ -32,10 +34,24 @@ angular
     $scope.articleId = $state.params.articleId;
     console.log("Mod " + $scope.articleId);
     $scope.getNewsArticle($scope.articleId);
-    
-    
   };
   
+  $scope.uploadImage = function(attachedImage) {
+    if(!attachedImage)
+        return;
+
+    $scope.attachedImage = attachedImage;
+    imagesService.upload(attachedImage).then(function(response) {
+        console.log(response);
+        $scope.article.image = response.data;
+    });
+  };
+
+  $scope.dropImageButtonClick = function() {
+    $scope.attachedImage = undefined;
+    $scope.article.image = undefined;
+  };
+
   $scope.init();
   
 })

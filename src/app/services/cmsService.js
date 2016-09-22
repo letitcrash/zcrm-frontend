@@ -27,6 +27,9 @@ angular.module('inspinia').factory('cmsService', function(requestService) {
         args.text =         addNews.text;
         args.tags =         addNews.tags;
         args.permission =   addNews.permission;
+        if(addNews.image)
+          args.image = addNews.image;
+
       return requestService.ttPost(url, args);
     },
     put: function(article) {
@@ -37,6 +40,7 @@ angular.module('inspinia').factory('cmsService', function(requestService) {
         args.desc =         article.desc;
         args.text =         article.text;
         args.tags =         article.tags;
+        args.image =        article.image;
       return requestService.ttPut(url, args);
     },
     
