@@ -10,6 +10,10 @@ angular
     // Selected ticket ID
     vm.ticketId = $state.params.ticketId;
 
+    // Loading statuses
+    // 0 - error, 1 - success, 2 - loading
+    vm.loadStats = {page: 2};
+
     // Tab panel
     vm.tabs = [
       {icon: 'fa-file-text-o', title: 'Description', disabled: false, template: 'app/tickets/detail-descr.html'},
@@ -33,7 +37,11 @@ angular
       ticketsAPI.get(vm.ticketId).then(function(res) {
         $log.log(res);
         vm.model = res;
-      }, function() { $log.log('Couldn\'t get Ticket details'); });
+        vm.loadStats.page = 1;
+      }, function(res) {
+        $log.log(res);
+        vm.loadStats.page = 0;
+      });
     };
 
     // TODO: Run on tab activation
