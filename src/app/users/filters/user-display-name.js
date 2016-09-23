@@ -21,7 +21,8 @@ angular
           if (pfile.hasOwnProperty('lastname'))
             parts.push(initialsOnly ?  pfile.lastname[0] : pfile.lastname);
 
-          res = parts.join(' ');
+          if (parts.length > 0)
+            res = parts.join(initialsOnly ? '' : ' ');
         }
       }
 
