@@ -1,73 +1,40 @@
 <!-- People tab content -->
-<h3>People</h3>
-<div class="ticket-info primary clearfix">
-  <label class="col-xs-3 text-right p-l-none">{{ 'Client(s):' | translate }}</label>
-  <div class="col-xs-8" ng-show="tsDetail.forms.clients.active">
-    <div typeahead-select select-employees ng-model="tsDetail.models.clients"></div>
-    <div>
-      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-      <button class="btn btn-default" ng-click="tsDetail.forms.clients.clear()">
-        {{ 'Cancel' | translate }}
-      </button>
-    </div>
-  </div>
-  <div class="col-xs-8" ng-hide="tsDetail.forms.clients.active">
-    <ul class="list-unstyled clearfix">
-      <li class="p-h-none" ng-repeat="pfile in ::tsDetail.ticket.requesters"
-          ng-class="tsDetail.ticket.requesters.length < 6 ? 'col-xs-12': 'col-xs-6'">
-        {{ ::pfile.contactProfile.firstname }}
-        {{ ::pfile.contactProfile.lastname }}
-      </li>
-    </ul>
-    <a href="" class="dsp-block" role="button" ng-click="tsDetail.forms.clients.active = true">
-      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
-    </a>
-  </div>
+<h3 class="col-xs-12">People</h3>
+<!-- Teams -->
+<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
+  <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.teams.length > 0">
+    <li ng-repeat="team in tsDetail.model.teams | limitTo:3"><span ng-bind="team.name"></span></li>
+    <li ng-show="tsDeatil.model.teams.length > 3">
+      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+    </li>
+  </ul>
+  <span class="col-sm-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
 </div>
-<div class="ticket-info primary clearfix">
-  <label class="col-xs-3 text-right p-l-none">{{ 'Team(s):' | translate }}</label>
-  <div class="col-xs-8" ng-show="tsDetail.forms.teams.active">
-    <div typeahead-select select-teams ng-model="tsDetail.models.teams"></div>
-    <div>
-      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-      <button class="btn btn-default" ng-click="tsDetail.forms.teams.clear()">
-        {{ 'Cancel' | translate }}
-      </button>
-    </div>
-  </div>
-  <div class="col-xs-8" ng-hide="tsDetail.forms.teams.active">
-    <ul class="list-unstyled clearfix">
-      <li class="p-h-none" ng-repeat="team in ::tsDetail.ticket.teams"
-          ng-class="tsDetail.ticket.teams.length < 6 ? 'col-xs-12': 'col-xs-6'">
-        {{ ::team.name }}
-      </li>
-    </ul>
-    <a href="" class="dsp-block" role="button" ng-click="tsDetail.forms.teams.active = true">
-      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
-    </a>
-  </div>
+<!-- Clients -->
+<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
+  <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.clients.length > 0">
+    <li ng-repeat="client in tsDetail.model.clients | limitTo:3">
+      <span ng-bind="client | crmUserDisplayName"></span>
+    </li>
+    <li ng-show="tsDeatil.model.clients.length > 3">
+      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+    </li>
+  </ul>
+  <span class="col-sm-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
 </div>
-<div class="ticket-info primary clearfix">
-  <label class="col-xs-3 text-right">{{ 'Agent(s):' | translate }}</label>
-  <div class="col-xs-8" ng-show="tsDetail.forms.agents.active">
-    <div typeahead-select select-employees ng-model="tsDetail.models.agents"></div>
-    <div>
-      <button class="btn btn-primary">{{ 'Publish' | translate }}</button>
-      <button class="btn btn-default" ng-click="tsDetail.forms.agents.clear()">
-        {{ 'Cancel' | translate }}
-      </button>
-    </div>
-  </div>
-  <div class="col-xs-8" ng-hide="tsDetail.forms.agents.active">
-    <ul class="list-unstyled clearfix">
-      <li class="p-h-none" ng-repeat="pfile in ::tsDetail.ticket.members"
-          ng-class="tsDetail.ticket.members.length < 6 ? 'col-xs-12': 'col-xs-6'">
-        {{ ::pfile.contactProfile.firstname }}
-        {{ ::pfile.contactProfile.lastname }}
-      </li>
-    </ul>
-    <a href="" class="dsp-block" role="button" ng-click="tsDetail.forms.agents.active = true">
-      {{ 'Add more' | translate }} / {{ 'Remove' | translate }}
-    </a>
-  </div>
+<span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>
+<!-- Agents -->
+<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
+  <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.agents.length > 0">
+    <li ng-repeat="agent in tsDetail.model.agents | limitTo:3">
+      <span ng-bind="agent | crmUserDisplayName"></span>
+    </li>
+    <li ng-show="tsDeatil.model.agents.length > 3">
+      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
+    </li>
+  </ul>
+  <span class="col-sm-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
 </div>

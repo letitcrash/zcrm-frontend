@@ -24,52 +24,52 @@
       </div>
     </div>
     <!-- Ticket main info -->
-    <ul class="list-unstyled col-md-6 col-lg-4">
+    <ul class="list-unstyled col-xs-6 col-md-4">
       <!-- Creator -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Created by' | translate }}:</label>
-        <span class="col-xs-6">{{ tsDetail.model.createdByUser | crmUserDisplayName }}</span>
+        <label class="col-sm-6 text-right">{{ 'Created by' | translate }}:</label>
+        <span class="dsp-inline-block col-sm-6">{{ tsDetail.model.createdByUser | crmUserDisplayName }}</span>
       </li>
       <!-- Status -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Status' | translate }}:</label>
-        <div class="col-xs-6" crm-ticket-status-dropdown ng-model="tsDetail.model.status"
+        <label class="col-sm-6 text-right">{{ 'Status' | translate }}:</label>
+        <div class="dsp-inline-block col-sm-6" crm-ticket-status-dropdown ng-model="tsDetail.model.status"
              dropdown-class="btn-group-sm"></div>
       </li>
       <!-- Priority -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Priority' | translate }}:</label>
-        <div class="col-xs-6" crm-ticket-priority-dropdown ng-model="tsDetail.model.priority"
+        <label class="col-sm-6 text-right">{{ 'Priority' | translate }}:</label>
+        <div class="dsp-inline-block col-sm-6" crm-ticket-priority-dropdown ng-model="tsDetail.model.priority"
              dropdown-class="btn-group-sm"></div>
       </li>
       <!-- Deadline -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Deadline' | translate }}:</label>
-        <span class="col-xs-6" ng-bind="tsDetail.model.deadline | date:'MM.dd.yyyy HH:mm'"></span>
+        <label class="col-sm-6 text-right">{{ 'Deadline' | translate }}:</label>
+        <span class="dsp-inline-block col-sm-6" ng-bind="tsDetail.model.deadline | date:'MM.dd.yyyy HH:mm'"></span>
       </li>
       <!-- Last update -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Last update' | translate }}:</label>
-        <span class="col-xs-6" ng-bind="'Unavailable' | translate"></span>
+        <label class="col-sm-6 text-right">{{ 'Last update' | translate }}:</label>
+        <span class="dsp-inline-block col-sm-6" ng-bind="'Unavailable' | translate"></span>
       </li>
     </ul>
     <!-- Ticket people -->
-    <ul class="list-unstyled col-md-6 col-lg-4">
+    <ul class="list-unstyled col-xs-6 col-md-4">
       <!-- Teams -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Team(s)' | translate }}:</label>
-        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.teams.length > 0">
+        <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.teams.length > 0">
           <li ng-repeat="team in tsDetail.model.teams | limitTo:3"><span ng-bind="team.name"></span></li>
           <li ng-show="tsDeatil.model.teams.length > 3">
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-xs-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
       </li>
       <!-- Clients -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Client(s)' | translate }}:</label>
-        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.clients.length > 0">
+        <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.clients.length > 0">
           <li ng-repeat="client in tsDetail.model.clients | limitTo:3">
             <span ng-bind="client | crmUserDisplayName"></span>
           </li>
@@ -77,12 +77,12 @@
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-xs-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
       </li>
       <!-- Agents -->
       <li class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Agent(s)' | translate }}:</label>
-        <ul class="list-unstyled col-xs-6" ng-show="tsDetail.model.agents.length > 0">
+        <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.agents.length > 0">
           <li ng-repeat="agent in tsDetail.model.agents | limitTo:3">
             <span ng-bind="agent | crmUserDisplayName"></span>
           </li>
@@ -90,21 +90,22 @@
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-xs-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
       </li>
     </ul>
+    <span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>
     <!-- Ticket files -->
-    <div class="list-unstyled col-md-12 col-lg-4">
+    <div class="list-unstyled col-xs-6 col-md-4">
       <div class="ticket-info-row clearfix">
-        <label class="col-xs-6 text-right">{{ 'Ticket files' | translate }}:</label>
-        <span class="col-xs-6" ng-bind="'Unavailable' | translate"></span>
+        <label class="col-sm-6 text-right">{{ 'Ticket files' | translate }}:</label>
+        <span class="col-sm-6" ng-bind="'Unavailable' | translate"></span>
       </div>
     </div>
     <!-- Ticket tabs -->
-    <uib-tabset class="ticket-tabs col-xs-12" active="3">
+    <uib-tabset class="ticket-tabs col-xs-12 p-h-none" active="3">
       <uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::tsDetail.tabs">
         <uib-tab-heading><i class="fa" ng-class="::tab.icon"></i>{{ ::tab.title | translate }}</uib-tab-heading>
-        <div ng-include="tab.template"></div>
+        <div class="clearfix" ng-include="tab.template"></div>
       </uib-tab>
     </uib-tabset>
   </div>
