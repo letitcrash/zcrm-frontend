@@ -62,7 +62,7 @@ angular
   
   
   var ThisDate = new Date().getTime();
-  
+
   $scope.create = function(addNews) {
     
     
@@ -85,7 +85,7 @@ angular
   };
   
   $scope.dateoptions = {
-  dateDisabled: disabled,
+  dateDisabled: true,
   formatYear: 'yy',
     maxDate: new Date(2020, 5, 22),
             minDate: new Date(),
@@ -101,7 +101,7 @@ $scope.clear = function() {
 };
 
 $scope.inlineOptions = {
-  customClass: getDayClass,
+  customClass: 'getDayClass',
   minDate: new Date(),
             showWeeks: true
 };

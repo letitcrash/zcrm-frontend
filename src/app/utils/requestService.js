@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').factory('requestService', function($log, $http, $q, $rootScope, dataService) {
+angular.module('inspinia').factory('requestService', function($log, $http, $q, $rootScope, dataService, Upload) {
   var RESPONSE_OK, checkResponseHeader, getResponseBody, getResponseHeader, printRequest, reject, resolve;
   RESPONSE_OK = 0;
   checkResponseHeader = function(header) {
@@ -68,6 +68,47 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
     return res;
   }
 
+  function getBaseRequest(suburl, method) {
+      formatters.forEach(function(frmt) {
+        if (frmt.regex.test(suburl)) {
+          suburl = suburl.replace(frmt.regex, angular.isFunction(frmt.sub) ? frmt.sub() : frmt.sub);
+        }
+      });
+
+      var url = dataService.getBaseServiceURL() + suburl;
+
+      return {
+        method: method,
+        url: url,
+        timeout: 60000,
+        headers: {
+          "X-Access-Token": dataService.getSessionToken(),
+          "X-User-Id": dataService.getUserId()
+        },
+        withCredentials: true
+      };
+  };
+
+  function doRequest(operation, request) {
+      $log.log("Making " + request.method + " request to " + request.url);
+      $log.log("With request: ", request);
+      var deferred = $q.defer();
+
+      operation(request).then(function(response) {
+        $log.log("got promise");
+        $log.log(response);
+
+        return resolve(deferred, request.data, response);
+      }, function(response) {
+        $log.log("===== ALARM =====");
+        $log.log(response);
+
+        return reject(deferred, request.data, response);
+      });
+
+      return deferred.promise;
+  };
+
   return {
     ttPost: function(suburl, data) {
       return this.ttRequest(suburl, 'POST', data);
@@ -102,45 +143,30 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
         return $log.log("export failed");
       });
     },
-    ttRequest: function(suburl, method, data) {
-      formatters.forEach(function(frmt) {
-        if (frmt.regex.test(suburl)) {
-          suburl = suburl.replace(frmt.regex, angular.isFunction(frmt.sub) ? frmt.sub() : frmt.sub);
-        }
-      });
+    ttRequest: function(suburl, method, data, contentType) {
+      var request = getBaseRequest(suburl, method, data);
+      request.data = data;
 
-      var url = dataService.getBaseServiceURL() + suburl;
-      var deferred = $q.defer();
+      if(contentType == undefined)
+        contentType = "application/json";
 
-      $log.log("Making " + method + " request to " + url);
-      $log.log("setting header");
-
-      var req = {
-        method: method,
-        url: url,
-        timeout: 60000,
-        headers: {
-          "Content-Type": "application/json",
-          "X-Access-Token": dataService.getSessionToken(),
-          "X-User-Id": dataService.getUserId()
-        },
-        withCredentials: true
+      request.headers['Content-Type'] = contentType;
+      
+      return doRequest($http, request);
+    },
+    ttUploadFileRequest: function(suburl, method, fileBlob) {
+      var contentType = undefined;
+      var request = getBaseRequest(suburl, method, contentType);
+      
+      request.data = {
+        image: fileBlob,
       };
 
-      if (angular.isObject(data)) { req.data = data; }
+      request.transformRequest = function(data) {
+        return data;
+      };
 
-      $http(req).then(function(response) {
-        $log.log("got promise");
-        $log.log(response);
-
-        return resolve(deferred, data, response);
-      }, function(response) {
-        $log.log("=== ALARM =====");
-        $log.log(response);
-
-        return reject(deferred, data, response);
-      });
-      return deferred.promise;
+      return doRequest(Upload.upload, request);
     },
     buildGetParams: buildGetParams
   };
