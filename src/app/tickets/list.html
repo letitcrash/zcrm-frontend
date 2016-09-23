@@ -78,13 +78,10 @@
             </td>
             <td>
               <span ng-repeat="pfile in ::ticket.clients" ng-if="ticket.clients.length === 1"
-                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname">
-                {{ fname || lname ? fname + ' ' + lname : pfile.username }}
-              </span>
+                    ng-bind="pfile | crmUserDisplayName"></span>
               <span ng-repeat="pfile in ::ticket.clients | limitTo:3" ng-if="ticket.clients.length > 1"
-                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
-                    title="{{ ::fname }} {{ ::lname }}">
-                {{ fname || lname ? fname[0] + lname[0] : pfile.username }}{{ !$last ? ',' : '' }}
+                    title="{{ pfile | crmUserDisplayName }}">
+                {{ pfile | crmUserDisplayName:true }}{{ !$last ? ',' : '' }}
               </span>
               <a href="" role="button" ng-if="ticket.clients.length > 3">...</a>
             </td>
@@ -94,13 +91,10 @@
             </td>
             <td>
               <span ng-repeat="pfile in ::ticket.agents" ng-if="ticket.agents.length === 1"
-                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname">
-                {{ fname || lname ? fname + ' ' + lname : pfile.username }}
-              </span>
+                    ng-bind="pfile | crmUserDisplayName"></span>
               <span ng-repeat="pfile in ::ticket.agents | limitTo:3" ng-if="ticket.agents.length > 1"
-                    ng-init="fname = pfile.contactProfile.firstname; lname = pfile.contactProfile.lastname"
-                    title="{{ ::fname }} {{ ::lname }}">
-                {{ fname || lname ? fname[0] + lname[0] : pfile.username }}{{ !$last ? ',' : '' }}
+                    title="{{ pfile | crmUserDisplayName }}">
+                {{ pfile | crmUserDisplayName:true }}{{ !$last ? ',' : '' }}
               </span>
               <a href="" role="button" ng-if="ticket.agents.length > 3">...</a>
             </td>

@@ -1026,47 +1026,29 @@ a.compose-mail {
 }
 
 // Tickets.Detail
-// Ticket info containers
+// Ticket info container
 .ticket-box {
-  &.primary {
-    clear: none;
-
-    > .ibox-content { padding: 20px 0 0 0; }
-  }
-
-  &.secondary {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    > .ticket-box-title {
-      margin-top: 2px;
-      margin-bottom: 0;
-    }
-  }
+  & > .ibox-title { height: auto; }
+  & > .ibox-content { padding: 30px 0 0 0; }
 }
 
-.ticket-descr {
-  padding-bottom: 20px;
-  padding-top: 20px;
+// Placeholder for ticket
+.ticket-pholder {
+  background: #fff;
+  height: 100%;
+  margin-top: -30px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
 
-// Row with basic ticket info
-.ticket-info-row {
+.ticket-pholder-content {
+  position: relative;
+  top: 35%;
 }
 
-// Ticket info
-.ticket-info {
-  // Primary info: Status, Author, Clients, Teams, Agents
-  &.primary {
-    margin: 0 auto 20px auto;
-    max-width: 650px;
-    width: 100%;
-
-    > ul > li { margin-bottom: 5px; }
-  }
-  // Extra info: Priority, Deadline, Project files
-  &.secondary > li { margin-bottom: 10px; }
-};
+// Ticket info row
+.ticket-info-row { margin-bottom: 20px; }
 
 // Ticket tabs panel
 .ticket-tabs {
@@ -1095,8 +1077,16 @@ a.compose-mail {
     }
   }
 
-  > .tab-content { padding: 20px 15px; }
+  > .tab-content {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
 }
+
+// .ticket-tab-header, .ticket-tab-body {
+//   padding-left: 15px;
+//   padding-right: 15px;
+// }
 
 // Tickets.Detail.Email tab
 // Ticket attached email
