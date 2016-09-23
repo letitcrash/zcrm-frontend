@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2};
+    vm.loadStats = {page: 2, del: 1};
 
     // Tab panel
     vm.tabs = [
@@ -24,6 +24,9 @@ angular
       {icon: 'fa-history', title: 'History', disabled: true}
     ];
     vm.activeTab = 3;
+
+    // Togglers for UI elements
+    vm.uiTogglers = {options: false, del: false}
 
     // Model
     vm.model = ticketModel.model;
@@ -54,6 +57,21 @@ angular
           item.mail.active = false;
         });
       }, function(res) { $log.log(res); });
+    };
+
+    // Delete ticket
+    vm.deleteTicket = function deleteTicket() {
+      vm.uiTogglers.del = false;
+      vm.uiTogglers.options = false;
+      vm.loadStats.del = 2;
+
+      ticketsAPI.delete(vm.model).then(function(res) {
+        $log.log(res);
+        $state.go('^.list');
+      }, function(res) {
+        $log.log(res);
+        vm.loadStats.del = 0;
+      });
     };
 
     vm.getTicket();
