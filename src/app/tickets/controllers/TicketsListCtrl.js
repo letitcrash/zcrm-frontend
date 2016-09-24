@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketsListCtrl', function($log, ticketsAPI, ticketPriorityConf) {
+  .controller('TicketsListCtrl', function($log, $scope, ticketsAPI, ticketPriorityConf) {
     // View
     var vm = this;
 
@@ -14,6 +14,8 @@ angular
       {param: 'created', title: 'Creation date'},
       {param: 'deadline', title: 'Deadline'}
     ];
+    // Sort order options
+    vm.sortOrders = ['asc', 'desc'];
     // Actions for selected tickets
     vm.ticketsActions = ['Delete'];
     // Tickets list
@@ -37,48 +39,30 @@ angular
     vm.today = new Date();
 
     // GET params for ticket list
-    vm.getParams = {sTerm: '', sortField: 'id', sortAsc: false, priority: -1};
+    vm.getParams = {sort: 'id', order: 'desc', priority: null, pageSize: 0, pageNr: 0};
 
-    // Pages settings
-    vm.pages = {current: 1, onPage: 10, total: 0};
+    // Pagination settings
+    vm.pages = {current: 1, size: 10, itemsTotal: 0};
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
     vm.loadStats = {list: 1};
 
-    // Get tickets on sort options change
-    vm.onSortChange = function onSortChange(opt) {
-      vm.getParams.sortField = opt.param;
-      vm.getTickets();
-    };
-
-    // Filter tickets by priority
-    vm.filterByPriority = function filterByPriority(id) {
-      vm.getParams.priority = vm.getParams.priority === id ? -1 : id;
-      vm.getTickets();
-    };
-
-    // Toggle sort order and get tickets
-    vm.toggleSortOrder = function toggleSortOrder() {
-      vm.getParams.sortAsc = !vm.getParams.sortAsc;
-      vm.getTickets();
-    };
+    // Get tickets on sorting, pagination or priority change
+    $scope.$watchGroup(['ts.getParams.order', 'ts.getParams.priority', 'ts.getParams.sort', 'ts.pages.current'],
+        function() { vm.getTickets(); });
 
     // Get tickets
     vm.getTickets = function getTickets() {
-      var req = ticketsAPI.getList();
-
-      if (vm.getParams.sTerm.length > 0) { ticketsAPI.list.search(vm.getParams.sTerm); }
-      if (vm.getParams.sortField.length > 0) { req.sort(vm.getParams.sortField, vm.getParams.sortAsc); }
-      if (vm.getParams.priority > -1) { req.priority(vm.getParams.priority); }
-
       vm.loadStats.list = 2;
+      vm.getParams.pageSize = vm.pages.size;
+      vm.getParams.pageNr = vm.pages.current;
 
-      req.get(vm.pages.onPage, vm.pages.current).then(function(res) {
+      ticketsAPI.getList(vm.getParams).then(function(res) {
         $log.log(res);
         if (res.hasOwnProperty('data')) {
           vm.tickets = res.data;
-          vm.pages.total = res.totalCount;
+          vm.pages.itemsTotal = res.totalCount;
           vm.loadStats.list = 1;
         } else {
           vm.loadStats.list = 0;
@@ -89,6 +73,4 @@ angular
         $log.log(res);
       });
     };
-
-    vm.getTickets();
   });

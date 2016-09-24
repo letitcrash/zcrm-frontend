@@ -49,7 +49,7 @@ angular
 
     // TODO: Run on tab activation
     vm.getAttachedEmails = function getAttachedEmails() {
-      ticketsAPI.getActions(vm.ticketId, [1]).then(function(res) {
+      ticketsAPI.getActions(vm.ticketId, {actionTypes: 1}).then(function(res) {
         $log.log(res);
         vm.emails = res;
         vm.emails.forEach(function(item) {
@@ -65,7 +65,7 @@ angular
       vm.uiTogglers.options = false;
       vm.loadStats.del = 2;
 
-      ticketsAPI.delete(vm.model).then(function(res) {
+      ticketsAPI.delete(vm.ticketId).then(function(res) {
         $log.log(res);
         $state.go('^.list');
       }, function(res) {
