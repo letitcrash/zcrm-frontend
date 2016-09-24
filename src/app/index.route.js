@@ -158,18 +158,21 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     .state('index.tickets.list', {
       parent: 'index.tickets',
       url: '/list',
+      authenticate: true,
       templateUrl: 'app/tickets/list.html',
       controller: 'TicketsListCtrl as ts'
     })
     .state('index.tickets.detail', {
       parent: 'index.tickets',
       url: '/browse/:ticketId',
+      authenticate: true,
       templateUrl: 'app/tickets/detail.html',
       controller: 'TicketDetailCtrl as tsDetail'
     })
     .state('index.tickets.create', {
       parent: 'index.tickets',
       url: '/create',
+      authenticate: true,
       templateUrl: 'app/tickets/create.html',
       controller: 'TicketCreateCtrl as tsCreate'
     })
