@@ -63,26 +63,6 @@ angular
   
   var ThisDate = new Date().getTime();
 
-  $scope.create = function(addNews) {
-    
-    
-    $scope.addNews.date = ThisDate;
-    $scope.addNews.author = $scope.user.contactProfile.id;
-    $scope.addNews.permission = 99;
-    $scope.addNews.description = $scope.addNews.text.split("<hr>")[0];
-    cmsService.post(addNews).then(function(response) {
-      
-      
-      
-      console.log("News posted");
-      console.log(response);
-      $scope.news.push(response);
-      $scope.userFormStep = undefined;
-    }, function(response) {
-      console.log("News could not be created");
-      $scope.useralert = "News could not be created";
-    });
-  };
   
   $scope.dateoptions = {
   dateDisabled: true,
@@ -113,6 +93,7 @@ $scope.inlineOptions = {
     $scope.addPage.date = ThisDate;
     $scope.addPage.author = $scope.user.contactProfile.id;
     $scope.addPage.permission = 99;
+    $scope.addPage.companyId = $scope.currentCompanyId;
     $scope.addPage.description = $scope.addPage.text.split("<hr>")[0];
     cmsService.postPage(addPage).then(function(response) {
       
