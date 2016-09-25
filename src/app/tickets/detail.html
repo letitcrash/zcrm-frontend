@@ -20,7 +20,7 @@
         </li>
       </ul>
     </span>
-    <h3 class="ibox-title-text pull-left" ng-bind="tsDetail.model.subject"></h3>
+    <h3 class="ibox-title-text pull-left" ng-bind="tsDetail.origModel.subject"></h3>
   </div>
   <!-- Content box body -->
   <div class="ibox-content clearfix">
@@ -60,24 +60,24 @@
       <!-- Creator -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Created by' | translate }}:</label>
-        <span class="dsp-inline-block col-sm-6">{{ tsDetail.model.createdByUser | crmUserDisplayName }}</span>
+        <span class="dsp-inline-block col-sm-6">{{ tsDetail.origModel.createdByUser | crmUserDisplayName }}</span>
       </li>
       <!-- Status -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Status' | translate }}:</label>
-        <div class="dsp-inline-block col-sm-6" crm-ticket-status-dropdown ng-model="tsDetail.model.status"
+        <div class="dsp-inline-block col-sm-6" crm-ticket-status-dropdown ng-model="tsDetail.formModel.status"
              dropdown-class="btn-group-sm"></div>
       </li>
       <!-- Priority -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Priority' | translate }}:</label>
-        <div class="dsp-inline-block col-sm-6" crm-ticket-priority-dropdown ng-model="tsDetail.model.priority"
+        <div class="dsp-inline-block col-sm-6" crm-ticket-priority-dropdown ng-model="tsDetail.formModel.priority"
              dropdown-class="btn-group-sm"></div>
       </li>
       <!-- Deadline -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Deadline' | translate }}:</label>
-        <span class="dsp-inline-block col-sm-6" ng-bind="tsDetail.model.deadline | date:'MM.dd.yyyy HH:mm'"></span>
+        <span class="dsp-inline-block col-sm-6" ng-bind="tsDetail.origModel.deadline | date:'MM.dd.yyyy HH:mm'"></span>
       </li>
       <!-- Last update -->
       <li class="ticket-info-row clearfix">
@@ -90,39 +90,39 @@
       <!-- Teams -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
-        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.teams.length > 0">
-          <li ng-repeat="team in tsDetail.model.teams | limitTo:3"><span ng-bind="team.name"></span></li>
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.origModel.teams.length > 0">
+          <li ng-repeat="team in tsDetail.origModel.teams | limitTo:3"><span ng-bind="team.name"></span></li>
           <li ng-show="tsDeatil.model.teams.length > 3">
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-sm-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.origModel.teams.length > 0">-</span>
       </li>
       <!-- Clients -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
-        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.clients.length > 0">
-          <li ng-repeat="client in tsDetail.model.clients | limitTo:3">
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.origModel.clients.length > 0">
+          <li ng-repeat="client in tsDetail.origModel.clients | limitTo:3">
             <span ng-bind="client | crmUserDisplayName"></span>
           </li>
           <li ng-show="tsDeatil.model.clients.length > 3">
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-sm-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.origModel.clients.length > 0">-</span>
       </li>
       <!-- Agents -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
-        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.model.agents.length > 0">
-          <li ng-repeat="agent in tsDetail.model.agents | limitTo:3">
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.origModel.agents.length > 0">
+          <li ng-repeat="agent in tsDetail.origModel.agents | limitTo:3">
             <span ng-bind="agent | crmUserDisplayName"></span>
           </li>
           <li ng-show="tsDeatil.model.agents.length > 3">
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-sm-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.origModel.agents.length > 0">-</span>
       </li>
     </ul>
     <span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>

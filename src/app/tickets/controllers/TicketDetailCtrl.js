@@ -28,24 +28,36 @@ angular
     // Togglers for UI elements
     vm.uiTogglers = {options: false, del: false}
 
-    // Model
-    vm.model = ticketModel.model;
+    // Models
+    // Original
+    vm.origModel = ticketModel.model;
+    // For on page editing
+    vm.formModel = ticketModel.model;
+    // For sending to server
+    vm.sendModel = ticketModel.model;
     ticketModel.clear();
 
-    // Attached emails
-    vm.emails = [];
+    // Map received model to scope models;
+    function mapModels(newModel) {
+      vm.origModel = newModel;
+      angular.copy(newModel, vm.formModel);
+      angular.copy(newModel, vm.sendModel);
+    }
 
     // Get ticket
     vm.getTicket = function getTicket() {
       ticketsAPI.get(vm.ticketId).then(function(res) {
         $log.log(res);
-        vm.model = res;
+        mapModels(res);
         vm.loadStats.page = 1;
       }, function(res) {
         $log.log(res);
         vm.loadStats.page = 0;
       });
     };
+
+    // Attached emails
+    vm.emails = [];
 
     // TODO: Run on tab activation
     vm.getAttachedEmails = function getAttachedEmails() {
