@@ -34,7 +34,18 @@ angular
     };
 
     // Assign ticket to current user
-    vm.assignToMe = function assignToMe() { vm.model.agents.push({user: dataService.getUser()}); }
+    vm.assignToMe = function assignToMe() {
+      var user = dataService.getUser();
+      var alreadyAssigned = false;
+
+      for (var i = 0; i < vm.model.agents.length; i++) {
+        if (vm.model.agents[i].id === user.id)
+          alreadyAssigned = true;
+      }
+
+      if (!alreadyAssigned)
+        vm.model.agents.push(user);
+    }
 
     // Create ticket
     vm.createTicket = function createTicket() {
