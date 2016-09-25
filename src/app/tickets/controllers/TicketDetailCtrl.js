@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1};
+    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1};
 
     // Tab panel
     vm.tabs = [
@@ -26,7 +26,7 @@ angular
     vm.activeTab = 3;
 
     // Togglers for UI elements
-    vm.uiTogglers = {options: false, del: false, description: false}
+    vm.uiTogglers = {options: false, del: false, description: false, subject: false};
 
     // Models
     // Original

@@ -20,7 +20,29 @@
         </li>
       </ul>
     </span>
-    <h3 class="ibox-title-text pull-left" ng-bind="tsDetail.origModel.subject"></h3>
+    <div class="pull-left" ng-show="tsDetail.loadStats.subject === 1 && !uitglrs.subject">
+      <h3 class="ibox-title-text dsp-inline-block" ng-bind="tsDetail.origModel.subject"></h3>
+      &nbsp;
+      <a href="" class="dsp-inline-block" role="button" ng-click="uitglrs.subject = true"
+        ng-hide="">
+        {{ 'Edit' | translate }}
+      </a>
+    </div>
+    <div class="col-sm-5 p-h-none" ng-show="tsDetail.loadStats.subject === 1 && uitglrs.subject">
+      <input type="text" class="form-control" ng-model="tsDetail.formModel.subject">
+    </div>
+    <div class="col-sm-3" ng-show="tsDetail.loadStats.subject === 1 && uitglrs.subject">
+      <button class="btn btn-primary" role="button" ng-click="tsDetail.updateTicket('subject')"
+              ng-bind="'Update' | translate">
+      </button>
+      <button class="btn btn-default" role="button" ng-click="tsDetail.rollbackField('subject')"
+              ng-bind="'Cancel' | translate">
+      </button>
+    </div>
+    <div class="pull-left ibox-title-text" ng-show="tsDetail.loadStats.subject === 2">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      <span class="valign-middle">{{ 'Saving' | translate }}...</span>
+    </div>
   </div>
   <!-- Content box body -->
   <div class="ibox-content clearfix">
