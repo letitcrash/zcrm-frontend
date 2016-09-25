@@ -63,8 +63,8 @@
         <button class="btn btn-default btn-block" type="button" ng-bind="'Assign to me' | translate"
                 ng-click="tsCreate.assignToMe()"></button>
       </div>
-      <div class="col-md-6" crm-select-employees="tsCreate.model.agents" placeholder="Enter name or username here">
-      </div>
+      <div class="col-md-6" crm-user-select="tsCreate.model.agents" crm-employee-select
+           placeholder="Enter name or username here"></div>
     </div>
     <!-- Ticket teams -->
     <div class="form-group ticket-form-group clearfix">

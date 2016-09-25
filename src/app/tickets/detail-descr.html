@@ -1,13 +1,24 @@
-<h3 class="col-xs-12" ng-bind="'Ticket description' | translate"></h3>
-&nbsp;
-<!-- <a href="" class="dsp-inline-block" role="button" ng-click="forms.descr.active = true"> -->
-<!--   {{ 'Edit' | translate }} -->
-<!-- </a> -->
-<div class="col-xs-12" ng-bind-html="tsDetail.model.description"></div>
-<!-- <div ng-show="forms.descr.active"> -->
-<!--   <div data-summernote data-height="200" name="body" ng-model="models.descr"></div> -->
-<!--   <button class="btn btn-primary">{{ 'Publish' | translate }}</button> -->
-<!--   <button class="btn btn-default" ng-click="forms.descr.clear()"> -->
-<!--     {{ 'Cancel' | translate }} -->
-<!--   </button> -->
-<!-- </div> -->
+<div  class="col-xs-12">
+  <h3 class="dsp-inline-block" ng-bind="'Ticket description' | translate"></h3>
+  &nbsp;
+  <a href="" class="dsp-inline-block" role="button" ng-click="tsDetail.uiTogglers.description = true"
+     ng-hide="tsDetail.uiTogglers.description">
+    {{ 'Edit' | translate }}
+  </a>
+</div>
+<div class="col-xs-12" ng-show="tsDetail.loadStats.description === 1">
+  <div ng-bind-html="tsDetail.origModel.description" ng-hide="tsDetail.uiTogglers.description"></div>
+  <div ng-show="tsDetail.uiTogglers.description">
+    <div data-summernote data-height="250" name="body" ng-model="tsDetail.formModel.description"></div>
+    <button class="btn btn-primary" role="button" ng-click="tsDetail.updateTicket('description')"
+            ng-bind="'Update' | translate">
+    </button>
+    <button class="btn btn-default" role="button" ng-click="tsDetail.rollbackField('description')"
+            ng-bind="'Cancel' | translate">
+    </button>
+  </div>
+</div>
+<h4 class="col-xs-12 text-center" ng-show="tsDetail.loadStats.description === 2">
+  <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+  <span class="valign-middle">{{ 'Saving' | translate }}...</span>
+</h4>

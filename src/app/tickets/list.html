@@ -24,9 +24,9 @@
     <div class="form-group tickets-view col-md-6 col-lg-3">
       <div class="input-group">
         <label class="input-group-addon label" for="tickets_sort">{{ 'Sort by' | translate }}:</label>
-        <ui-select id="tickets_sort" data-ng-model="param" data-on-select="ts.onSortChange($item)">
+        <ui-select id="tickets_sort" data-ng-model="ts.getParams.sort">
           <ui-select-match placeholder="Choose an option">{{ $select.selected.title }}</ui-select-match>
-          <ui-select-choices repeat="opt in ::ts.sortOpts">{{ ::opt.title }}</ui-select-choices>
+          <ui-select-choices repeat="opt.param as opt in ::ts.sortOpts">{{ ::opt.title }}</ui-select-choices>
         </ui-select>
       </div>
     </div>
@@ -41,7 +41,7 @@
       <div class="btn-group">
         <button class="btn" data-ng-class="id === ts.getParams.priority ? 'btn-primary' : 'btn-default'"
                 data-ng-repeat="(id, label) in ::ts.ticketPriority"
-                data-ng-click="ts.filterByPriority(id)">
+                data-ng-click="ts.getParams.priority = ts.getParams.priority === id ? null : id">
           {{ ::label | translate }}
         </button>
       </div>
@@ -56,9 +56,9 @@
             <th data-ng-repeat="field in ::ts.ticketFields">
               <span data-ng-bind="::field.title | translate"></span>
               <a class="fa" href role="button" title="{{ 'Change sort ordering' | translate }}"
-                 data-ng-class="ts.getParams.sortAsc ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"
-                 data-ng-show="field.name === ts.getParams.sortField"
-                 data-ng-click="ts.toggleSortOrder()">
+                 data-ng-class="'fa-sort-amount-' + ts.getParams.order"
+                 data-ng-show="field.name === ts.getParams.sort"
+                 data-ng-click="ts.getParams.order = ts.getParams.order === 'asc' ? 'desc' : 'asc'">
               </a>
             </th>
           </tr>
@@ -144,10 +144,10 @@
         <ui-select-match placeholder="Do with chosen">{{ $select.selected }}</ui-select-match>
         <ui-select-choices repeat="opt in ::ts.ticketsActions">{{ ::opt }}</ui-select-choices>
       </ui-select>
-      <ul class="tickets-list-pagination" data-uib-pagination data-ng-model="ts.pages.current"
-          data-items-per-page="ts.pages.onPage" max-size="4" data-boundary-link-numbers="true"
-          data-ng-change="ts.getTickets()" data-total-items="ts.pages.total" data-previous-text="&#xf053;"
-          data-next-text="&#xf054;">
+      <ul class="tickets-list-pagination" uib-pagination ng-model="ts.pages.current"
+          items-per-page="ts.pages.size" max-size="4" boundary-link-numbers="true"
+          total-items="ts.pages.itemsTotal" previous-text="&#xf053;"
+          next-text="&#xf054;">
       </ul>
     </div>
   </div>

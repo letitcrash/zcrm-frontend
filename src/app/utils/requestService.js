@@ -59,8 +59,10 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
         if (hasOwnProperty.call(params, key)) {
           var val = params[key];
 
-          pCount += 1;
-          res = res + (pCount === 1 ? '?' : '&') + key + '=' + (angular.isArray(val) ? val.join() : val);
+          if (val != null && val !== '') {
+            pCount += 1;
+            res = res + (pCount === 1 ? '?' : '&') + key + '=' + (angular.isArray(val) ? val.join() : val);
+          }
         }
       }
     }
@@ -87,7 +89,7 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
         },
         withCredentials: true
       };
-  };
+  }
 
   function doRequest(operation, request) {
       $log.log("Making " + request.method + " request to " + request.url);
@@ -107,7 +109,7 @@ angular.module('inspinia').factory('requestService', function($log, $http, $q, $
       });
 
       return deferred.promise;
-  };
+  }
 
   return {
     ttPost: function(suburl, data) {

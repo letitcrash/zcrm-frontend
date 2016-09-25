@@ -37,7 +37,7 @@ angular
 
     // Get tickets list
     vm.getTickets = function getTickets() {
-      ticketsAPI.getList().get(20, 1).then(function(res) {
+      ticketsAPI.getList({pageSize: 1000, pageNr: 1}).then(function(res) {
         $log.log(res);
         if (res.hasOwnProperty('data')) { vm.tickets = res.data; }
       }, function() { $log.log("Could not get tickets"); });

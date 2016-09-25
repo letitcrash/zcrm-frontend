@@ -3,38 +3,29 @@
 <!-- Teams -->
 <div class="ticket-info-row col-xs-6 col-md-4 clearfix">
   <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.teams.length > 0">
-    <li ng-repeat="team in tsDetail.model.teams | limitTo:3"><span ng-bind="team.name"></span></li>
-    <li ng-show="tsDeatil.model.teams.length > 3">
-      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
-    </li>
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.teams.length > 0">
+    <li ng-repeat="team in tsDetail.formModel.teams | limitTo:3"><span ng-bind="team.name"></span></li>
   </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.model.teams.length > 0">-</span>
+  <span class="col-sm-6" ng-hide="tsDetail.formModel.teams.length > 0">-</span>
 </div>
 <!-- Clients -->
 <div class="ticket-info-row col-xs-6 col-md-4 clearfix">
   <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.clients.length > 0">
-    <li ng-repeat="client in tsDetail.model.clients | limitTo:3">
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.clients.length > 0">
+    <li ng-repeat="client in tsDetail.formModel.clients | limitTo:3">
       <span ng-bind="client | crmUserDisplayName"></span>
     </li>
-    <li ng-show="tsDeatil.model.clients.length > 3">
-      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
-    </li>
   </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.model.clients.length > 0">-</span>
+  <span class="col-sm-6" ng-hide="tsDetail.formModel.clients.length > 0">-</span>
 </div>
 <span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>
 <!-- Agents -->
 <div class="ticket-info-row col-xs-6 col-md-4 clearfix">
   <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.model.agents.length > 0">
-    <li ng-repeat="agent in tsDetail.model.agents | limitTo:3">
+  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.agents.length > 0">
+    <li ng-repeat="agent in tsDetail.formModel.agents | limitTo:3">
       <span ng-bind="agent | crmUserDisplayName"></span>
     </li>
-    <li ng-show="tsDeatil.model.agents.length > 3">
-      <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
-    </li>
   </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.model.agents.length > 0">-</span>
+  <span class="col-sm-6" ng-hide="tsDetail.formModel.agents.length > 0">-</span>
 </div>

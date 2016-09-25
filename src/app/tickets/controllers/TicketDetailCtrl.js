@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, del: 1};
+    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1};
 
     // Tab panel
     vm.tabs = [
@@ -26,20 +26,50 @@ angular
     vm.activeTab = 3;
 
     // Togglers for UI elements
-    vm.uiTogglers = {options: false, del: false}
+    vm.uiTogglers = {options: false, del: false, description: false, subject: false};
 
-    // Model
-    vm.model = ticketModel.model;
+    // Models
+    // Original
+    vm.origModel = ticketModel.model;
+    // For on page editing
+    vm.formModel = ticketModel.model;
+    // For sending to server
+    vm.sendModel = ticketModel.model;
     ticketModel.clear();
 
-    // Attached emails
-    vm.emails = [];
+    // Map received model to scope models;
+    function mapModels(newModel) {
+      vm.origModel = newModel;
+      angular.copy(newModel, vm.formModel);
+      angular.copy(newModel, vm.sendModel);
+    }
+
+    // Rollback formModel field value
+    vm.rollbackField = function rollbackField(field) {
+      vm.formModel[field] = vm.origModel[field];
+      vm.uiTogglers[field] = false;
+    };
+
+    // Update ticket after status and priority changes
+    $scope.$watch('tsDetail.formModel.status', function(val) {
+      if (val !== vm.origModel.status) {
+        vm.sendModel.status = val;
+        vm.updateTicket('status');
+      }
+    });
+
+    $scope.$watch('tsDetail.formModel.priority', function(val) {
+      if (val !== vm.origModel.priority) {
+        vm.sendModel.priority = val;
+        vm.updateTicket('priority');
+      }
+    });
 
     // Get ticket
     vm.getTicket = function getTicket() {
       ticketsAPI.get(vm.ticketId).then(function(res) {
         $log.log(res);
-        vm.model = res;
+        mapModels(res);
         vm.loadStats.page = 1;
       }, function(res) {
         $log.log(res);
@@ -47,16 +77,20 @@ angular
       });
     };
 
-    // TODO: Run on tab activation
-    vm.getAttachedEmails = function getAttachedEmails() {
-      ticketsAPI.getActions(vm.ticketId, [1]).then(function(res) {
+    // Update ticket
+    vm.updateTicket = function updateTicket(field) {
+      vm.loadStats[field] = 2;
+
+      if (vm.uiTogglers.hasOwnProperty(field))
+        vm.uiTogglers[field] = false;
+
+      ticketsAPI.update(vm.sendModel).then(function(res) {
+        vm.loadStats[field] = 1;
+        mapModels(res);
+      }, function(res) {
         $log.log(res);
-        vm.emails = res;
-        vm.emails.forEach(function(item) {
-          item.mail.preview = textFromHTMLFilter(item.mail.body);
-          item.mail.active = false;
-        });
-      }, function(res) { $log.log(res); });
+        vm.loadStats[field] = 0;
+      });
     };
 
     // Delete ticket
@@ -65,13 +99,28 @@ angular
       vm.uiTogglers.options = false;
       vm.loadStats.del = 2;
 
-      ticketsAPI.delete(vm.model).then(function(res) {
+      ticketsAPI.delete(vm.ticketId).then(function(res) {
         $log.log(res);
         $state.go('^.list');
       }, function(res) {
         $log.log(res);
         vm.loadStats.del = 0;
       });
+    };
+
+    // Attached emails
+    vm.emails = [];
+
+    // TODO: Run on tab activation
+    vm.getAttachedEmails = function getAttachedEmails() {
+      ticketsAPI.getActions(vm.ticketId, {actionTypes: 1}).then(function(res) {
+        $log.log(res);
+        vm.emails = res;
+        vm.emails.forEach(function(item) {
+          item.mail.preview = textFromHTMLFilter(item.mail.body);
+          item.mail.active = false;
+        });
+      }, function(res) { $log.log(res); });
     };
 
     vm.getTicket();
