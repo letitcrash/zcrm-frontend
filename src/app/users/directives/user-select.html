@@ -1,6 +1,6 @@
 <div ui-select ng-model="$parent.selected" multiple crm-select-multiple>
   <div ui-select-choices
-       repeat="user in usrSelect.users | filter: $select.search track by user.id"
+       repeat="user in usrSelect.users | crmUserSearch: $select.search track by user.id"
        refresh="usrSelect.getUsers($select.search)" refresh-delay="500"
        minimum-input-length="2">
      <h4 class="dsp-inline-block">
