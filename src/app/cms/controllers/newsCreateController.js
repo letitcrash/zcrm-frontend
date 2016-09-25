@@ -39,6 +39,8 @@ angular
     $scope.addNews.author = $scope.user.contactProfile.id;
     $scope.addNews.permission = 99;
     $scope.addNews.description = $scope.addNews.text.split("<hr>")[0];
+    $scope.addNews.companyId =  dataService.getCurrentCompanyId();
+
     if($scope.article)
       $scope.addNews.image = $scope.article.image;
 

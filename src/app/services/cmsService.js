@@ -27,8 +27,9 @@ angular.module('inspinia').factory('cmsService', function(requestService) {
         args.text =         addNews.text;
         args.tags =         addNews.tags;
         args.permission =   addNews.permission;
+        args.companyId =    Number(addNews.companyId);
         if(addNews.image)
-          args.image = addNews.image;
+          args.image = addNews.image.path;
 
       return requestService.ttPost(url, args);
     },
