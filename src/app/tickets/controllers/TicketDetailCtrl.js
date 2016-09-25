@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1};
+    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1};
 
     // Tab panel
     vm.tabs = [
@@ -26,7 +26,7 @@ angular
     vm.activeTab = 3;
 
     // Togglers for UI elements
-    vm.uiTogglers = {options: false, del: false}
+    vm.uiTogglers = {options: false, del: false, description: false}
 
     // Models
     // Original
@@ -43,6 +43,12 @@ angular
       angular.copy(newModel, vm.formModel);
       angular.copy(newModel, vm.sendModel);
     }
+
+    // Rollback formModel field value
+    vm.rollbackField = function rollbackField(field) {
+      vm.formModel[field] = vm.origModel[field];
+      vm.uiTogglers[field] = false;
+    };
 
     // Update ticket after status and priority changes
     $scope.$watch('tsDetail.formModel.status', function(val) {
@@ -74,6 +80,9 @@ angular
     // Update ticket
     vm.updateTicket = function updateTicket(field) {
       vm.loadStats[field] = 2;
+
+      if (vm.uiTogglers.hasOwnProperty(field))
+        vm.uiTogglers[field] = false;
 
       ticketsAPI.update(vm.sendModel).then(function(res) {
         vm.loadStats[field] = 1;
