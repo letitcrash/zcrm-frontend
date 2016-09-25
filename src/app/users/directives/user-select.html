@@ -1,0 +1,18 @@
+<div ui-select ng-model="$parent.selected" multiple crm-select-multiple>
+  <div ui-select-choices
+       repeat="user in usrSelect.users | filter: $select.search track by user.id"
+       refresh="usrSelect.getUsers($select.search)" refresh-delay="500"
+       minimum-input-length="2">
+     <h4 class="dsp-inline-block">
+       <span ng-bind-html="::user.contactProfile.firstname | highlight: $select.search"></span>
+       <span ng-bind-html="::user.contactProfile.lastname | highlight: $select.search"></span>
+     </h4></h4>
+     <span class="dsp-inline-block">({{ ::user.username }})</span>
+  </div>
+  <div ui-select-match placeholder="{{ placeholder }}">
+    <span ng-bind="$item.contactProfile.firstname"></span>
+    <span ng-bind="$item.contactProfile.lastname"></span>
+    <span ng-if="$item.contactProfile.firstname == null && $item.contactProfile.lastname == null"
+          ng-bind="$item.username"></span>
+  </div>
+</div>
