@@ -66,13 +66,23 @@
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Status' | translate }}:</label>
         <div class="dsp-inline-block col-sm-6" crm-ticket-status-dropdown ng-model="tsDetail.formModel.status"
-             dropdown-class="btn-group-sm"></div>
+             dropdown-class="btn-group-sm" ng-show="tsDetail.loadStats.status === 1">
+        </div>
+        <div class="dsp-inline-block col-sm-6"ng-show="tsDetail.loadStats.status === 2">
+          <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+          <span class="valign-middle">{{ 'Saving' | translate }}...</span>
+        </div>
       </li>
       <!-- Priority -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Priority' | translate }}:</label>
         <div class="dsp-inline-block col-sm-6" crm-ticket-priority-dropdown ng-model="tsDetail.formModel.priority"
-             dropdown-class="btn-group-sm"></div>
+             dropdown-class="btn-group-sm" ng-show="tsDetail.loadStats.priority === 1">
+        </div>
+        <div class="dsp-inline-block col-sm-6"ng-show="tsDetail.loadStats.priority === 2">
+          <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+          <span class="valign-middle">{{ 'Saving' | translate }}...</span>
+        </div>
       </li>
       <!-- Deadline -->
       <li class="ticket-info-row clearfix">
