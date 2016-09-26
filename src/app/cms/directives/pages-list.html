@@ -9,14 +9,12 @@
         </tr>
     </thead>
     <tbody>
-
-        <tr ng-repeat="pg in cms.pages">
+        <tr ng-repeat="page in cms.pages">
           <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-          <td><a ng-click="cmd.editPage(pg)"> {{ cms.pg.title }}</a></td>
-          <td>{{ pg.author }}</td>
-          <td>{{ pg.tags }}</td>
-          <td>{{ convertToDate(pg.date) }}</td>
+          <td><a ng-click="cms.editPage(page)">{{ page.title }}</a></td>
+          <td>{{ page.author }}</td>
+          <td>{{ page.tags }}</td>
+          <td>{{ cms.convertToDate(page.date) }}</td>
         </tr>
-
     </tbody>
 </table>

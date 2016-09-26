@@ -4,26 +4,40 @@ angular
   .module('inspinia')
   .controller('CmsPageEditCtrl', function ($state, $log, pagesApi) {
     var vm = this;
-    init();
 
-    vm.getPage = function (id) {
-      pagesApi.get(id).then(function (response) {
-        $log.log(response);
+    vm.getPage = function () {
+      pagesApi.get(vm.page.id).then(function (response) {
         vm.page = response.data;
-        vm.totalItems = response.totalSize;
       });
     };
 
-    vm.update = function (page) {
-      pagesApi.put(page).then(function (response) {
-        $log.log(response);
+    vm.update = function () {
+      if (!vm.page.desc)
+        return '';
+
+      pagesApi.put(vm.page).then(function (response) {
         $state.go('index.cms');
       });
     };
 
-    function init() {
-      vm.pageId = $state.params.pageId;
-      $log.log("PageId " + vm.pageId);
-      vm.get(vm.pageId);
+    vm.createPage = function () {
+      if (!vm.page.desc)
+        return '';
+
+      vm.page.date = new Date();
+
+      pagesApi.post(vm.page).then(function () {
+        $state.go('index.cms');
+      });
+    };
+
+    var init = function () {
+      vm.page = {
+        id: $state.params.pageId
+      };
+
+      vm.getPage(vm.page.id);
     }
+
+    init();
   });

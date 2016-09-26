@@ -15,9 +15,6 @@ angular
       if (!vm.article.desc)
         vm.article.desc = '';
 
-      if (!vm.article.tags)
-        vm.article.tags = [];
-
       newsApi.put(vm.article).then(function () {
         $state.go('index.cms');
       });
@@ -34,8 +31,8 @@ angular
     };
 
     vm.dropImageButtonClick = function () {
-      vm.attachedImage = undefined;
-      vm.article.image = undefined;
+      vm.attachedImage = null;
+      vm.article.image = null;
     };
 
     function init() {

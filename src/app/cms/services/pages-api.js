@@ -15,7 +15,7 @@ angular
       },
 
       post: function (addPage) {
-        var url = "pages/add";
+        var url = "pages/add"
         var args = {};
         args.title = addPage.title;
         args.date = addPage.date;

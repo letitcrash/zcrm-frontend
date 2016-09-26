@@ -59,14 +59,21 @@ angular
       opened: false
     };
 
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-
     vm.events = [{
-      date: tomorrow,
+      date: getTomorrow(),
       status: 'full'
     }];
+
+    function getTomorrow() {
+      var oneDay = 1;
+      var tomorrow = new Date();
+      return tomorrow.setDate(tomorrow.getDate() + oneDay);
+    }
+
+    function getAfterTomorow() {
+      var oneDay = 1;
+      var afterTomorrow = getTomorrow();
+
+      return afterTomorrow.setDate(afterTomorrow.getDate() + oneDay);
+    }
   });

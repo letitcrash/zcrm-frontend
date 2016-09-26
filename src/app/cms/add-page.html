@@ -12,20 +12,20 @@
             <div class="input-group col-sm-12">
               <div class="form-group">
                 <label class="font-noraml ng-binding">Page Title</label>
-                <input placeholder="Name of page.." type="text" class="form-control" ng-model="addPage.title">
+                <input placeholder="Name of page.." type="text" class="form-control" ng-model="cms.page.title">
               </div>
               <!-- 						Editor -->
               <div class="ibox-content no-padding" style="border: none">
                 <div class="ibox-content no-padding">
-                  <summernote config="summernote" ng-model="addPage.text"></summernote>
+                  <summernote config="summernote" ng-model="cms.page.text"></summernote>
                 </div>
               </div>
               <!-- 						/editor -->
               <div class="form-group">
                 <label class="font-noraml ng-binding">Tags</label>
-                <input placeholder="Enter tags here" type="text" class="form-control" ng-model="cms.addPage.tags">
+                <input placeholder="Enter tags here" type="text" class="form-control" ng-model="cms.page.tags">
               </div>
-              <button type="button" ng-click="cms.create(addPage)" ng-hide="cms.isCollapsed" class="btn btn-primary pull-right" aria-hidden="false">
+              <button type="button" ng-click="cms.createPage()" ng-hide="cms.isCollapsed" class="btn btn-primary pull-right" aria-hidden="false">
             <i class="fa fa-eye" style="padding-right:5px"></i>Create
           </button>
               <a ui-sref="index.cms"><button type="button" class="btn pull-right" style="margin-right: 20px;">
@@ -42,11 +42,11 @@
             <hr />
             <h4>Permission</h4>
             <br />
-            <input class="green-check" type="radio" id="bttne1" name="perm" value="9" ng-model="cms.addPage.permission" ng-disabled="true"><label for="bttne1">Employees</label>
+            <input class="green-check" type="radio" id="bttne1" name="perm" value="9" ng-model="cms.page.permission" ng-disabled="true"><label for="bttne1">Employees</label>
             <br />
-            <input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="cms.addPage.permission" checked><label for="bttne2">Public</label>
+            <input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="cms.page.permission" checked><label for="bttne2">Public</label>
             <br />
-            <input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-model="cms.addPage.permission" ng-disabled="true"><label for="bttne3">Draft</label>
+            <input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-model="cms.page.permission" ng-disabled="true"><label for="bttne3">Draft</label>
           </div>
         </div>
       </div>

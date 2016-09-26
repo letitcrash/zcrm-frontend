@@ -7,16 +7,22 @@ angular
 
       if (header)
         return header.response_code === RESPONSE_OK;
+
+      return false;
     }
 
     function getResponseBody(response) {
       if (response && response.data && response.data.body)
         return response.data.body;
+
+      return false;
     }
 
     function getResponseHeader(response) {
       if (response && response.data && response.data.header)
         return response.data.header;
+
+      return false;
     }
 
     function resolve(deferred, request, response) {
@@ -42,22 +48,22 @@ angular
     }];
 
     function buildGetParams(params) {
-      function getDelimiter(paramsCount) {
+      function getDelimiter() {
         if (paramsCount === 1)
           return '?';
 
         return '&';
       }
 
-      function getValue(value) {
+      function getValue() {
         if (angular.isArray(value))
           return value.join();
 
         return value;
       }
 
-      function buildParameter(paramsCount, value) {
-        return getDelimiter(pCount) + key + '=' + getValue(value);
+      function buildParameter() {
+        return getDelimiter(paramsCount) + key + '=' + getValue(value);
       }
 
       var res = '';
@@ -65,7 +71,7 @@ angular
       if (!params)
         return '';
 
-      var pCount = 0;
+      var paramsCount = 0;
 
       for (var key in params) {
         var value = params[key];
@@ -73,7 +79,7 @@ angular
         if (!value)
           continue;
 
-        res += buildParameter(++pCount, value);
+        res += buildParameter();
       }
 
       return res;
@@ -105,8 +111,7 @@ angular
       var deferred = $q.defer();
 
       operation(request).then(function (response) {
-        $log.log("got promise");
-        $log.log(response);
+        $log.log("Got response ", response);
 
         return resolve(deferred, request.data, response);
       }, function (response) {

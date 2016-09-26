@@ -21,7 +21,7 @@ angular
 
     vm.editPage = function (page) {
       $state.go('index.editpage', {
-        articleId: page.id
+        pageId: page.id
       });
     };
 
@@ -55,19 +55,17 @@ angular
       showWeeks: true
     };
 
-    vm.createPage = function (addPage) {
-      vm.addPage.date = new Date().getTime();
-      vm.addPage.author = vm.user.contactProfile.id;
-      vm.addPage.permission = 99;
-      vm.addPage.companyId = vm.currentCompanyId;
-      vm.addPage.description = vm.addPage.text.split("<hr>").first();
+    vm.createPage = function () {
+      vm.page.date = new Date().getTime();
+      vm.page.author = vm.user.contactProfile.id;
+      vm.page.permission = 99;
+      vm.page.companyId = vm.currentCompanyId;
+      vm.page.description = vm.page.text.split("<hr>")[0];
 
-      pagesApi.post(addPage).then(function (response) {
-        vm.page.push(response);
-        vm.userFormStep = undefined;
-      }, function () {
-        vm.useralert = "News could not be created";
-      })
+      if (!vm.page.description)
+        vm.page.description = '';
+
+      pagesApi.post(vm.page).then(getPagesList);
     };
 
     vm.summernote = {
@@ -93,13 +91,19 @@ angular
       vm.currentCompanyId = dataService.getCurrentCompanyId();
       vm.user = dataService.getUser();
       getNewsList();
+      getPagesList();
     }
 
     function getNewsList() {
       newsApi.getList().then(function (response) {
         vm.news = response.data;
-        vm.totalItems = response.totalSize;
       })
+    }
+
+    function getPagesList() {
+      pagesApi.getList().then(function (response) {
+        vm.pages = response.data;
+      });
     }
   });
 
