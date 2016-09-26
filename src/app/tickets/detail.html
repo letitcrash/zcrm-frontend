@@ -23,7 +23,8 @@
     <div class="pull-left" ng-show="tsDetail.loadStats.subject === 1 && !uitglrs.subject">
       <h3 class="ibox-title-text dsp-inline-block" ng-bind="tsDetail.origModel.subject"></h3>
       &nbsp;
-      <a href="" class="dsp-inline-block" role="button" ng-click="uitglrs.subject = true" ng-bind="'Edit' | translate">
+      <a href class="dsp-inline-block" role="button" ng-click="uitglrs.subject = true"
+         ng-show="tsDetail.loadStats.page === 1" ng-bind="'Edit' | translate">
       </a>
     </div>
     <div class="col-sm-5 p-h-none" ng-show="tsDetail.loadStats.subject === 1 && uitglrs.subject">
@@ -31,7 +32,7 @@
     </div>
     <div class="col-sm-3" ng-show="tsDetail.loadStats.subject === 1 && uitglrs.subject">
       <button class="btn btn-primary" role="button" ng-click="tsDetail.updateTicket('subject')"
-              ng-bind="'Update' | translate">
+              ng-disabled="tsDetail.formModel.subject.length === 0" ng-bind="'Update' | translate">
       </button>
       <button class="btn btn-default" role="button" ng-click="tsDetail.rollbackField('subject')"
               ng-bind="'Cancel' | translate">
