@@ -9,14 +9,12 @@
         </tr>
     </thead>
     <tbody>
-
-        <tr ng-repeat="nw in news">
+        <tr ng-repeat="nw in cms.news">
           <td><input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car"></td>
-          <td><a ng-click="editArticle(nw)"> {{ nw.title }}</a></td>
+          <td><a ng-click="cms.editArticle(nw)"> {{ nw.title }}</a></td>
           <td>{{ nw.author }}</td>
           <td>{{ nw.tags }}</td>
-          <td>{{ convertToDate(nw.date) }}</td>
+          <td>{{ cms.convertToDate(nw.date) }}</td>
         </tr>
-        
     </tbody>
 </table>
