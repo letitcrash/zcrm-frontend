@@ -896,13 +896,52 @@ a.compose-mail {
   .mailbox-tickets-list { overflow-y: auto; }
 }
 
-// Tickets
-// Tickets box content
-.ibox-content.tickets-view { padding: 20px 0 0 0; }
+// Common components for Employees, Tickets modules
+// TODO: Make it as general classes without module prefix
+
+// Box content
+.ibox-content.tickets-view, .ibox-content.employees-view, { padding: 20px 0 0 0; }
 
 // Form groups
-.form-group.tickets-view { margin-bottom: 20px; }
+.form-group.tickets-view, .form-group.employees-view { margin-bottom: 20px; }
 
+// Placeholder for list
+.tickets-list-pholder, .employees-list-pholder {
+  height: 250px;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.tickets-list-pholder-content, .employees-list-pholder-content {
+  position: relative;
+  top: 35%;
+}
+
+// List
+.tickets-list, .employees-list {
+  margin-bottom: 0;
+  margin-top: 15px;
+
+  & > thead .fa { padding-left: 5px; }
+}
+
+// List column
+.tickets-list > tbody > tr > td,
+.employees-list > tbody > tr > td {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+// List pagination
+.tickets-list-pagination, .employees-list-pagination {
+  float: right;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+
+// Tickets
 // Tickets list modes controls
 .tickets-list-modes {
   float: right;
@@ -912,46 +951,12 @@ a.compose-mail {
   > a { margin-left: 5px; }
 }
 
-// Tickets list
-.tickets-list {
-  margin-bottom: 0;
-  margin-top: 15px;
-
-  & > thead .fa { padding-left: 5px; }
-}
-
-// Placeholder for tickets list
-.tickets-list-pholder {
-  height: 250px;
-  text-align: center;
-  vertical-align: middle !important;
-}
-
-.tickets-list-pholder-content {
-  position: relative;
-  top: 35%;
-}
-
 // Tickets list actions
 .tickets-list-actions {
   float: left;
   margin-bottom: 15px;
   margin-top: 15px;
   min-width: 140px;
-}
-
-// Tickets list pagination
-.tickets-list-pagination {
-  float: right;
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
-// Tickets list column
-.tickets-list > tbody > tr > td {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 15px;
-  padding-top: 15px;
 }
 
 // Ticket row
@@ -1138,6 +1143,43 @@ a.compose-mail {
   padding-top: 6px;
   text-align: right;
 }
+
+
+// Employees
+// Employess list row
+.employee-row > td {
+  // Employee selection control
+  &:first-child { width: 30px; }
+  // Employee name
+  &:nth-child(2) {
+    min-width: 100px;
+    width: 100px;
+  }
+  // Employee phone
+  &:nth-child(3) { width: 80px; }
+  // Employee Email
+  &:nth-child(4) {
+    width: 100px;
+  }
+  // Employee union
+  &:nth-child(5) {
+    min-width: 150px;
+    width: 150px;
+  }
+  // Employee position
+  &:nth-child(6) {
+    min-width: 150px;
+    width: 150px;
+  }
+  // Employee department
+  &:nth-child(7) {
+    min-width: 100px;
+    width: 100px;
+  }
+  // Employee shift
+  &:last-child { width: 50px; }
+}
+
 
 /* PROJECTS */
 .project-people, .project-actions {
