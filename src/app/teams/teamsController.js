@@ -1,6 +1,6 @@
 'use strict';
 angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope, 
-  teamService, generalUtils, dataService, employeeService) {
+  teamService, generalUtils, dataService, employeesAPI) {
   var del, getEmployees, force, pageSize, pageNr, searchTerm;
 
 
@@ -208,7 +208,7 @@ angular.module('inspinia').controller("TeamCtrl", function($scope, $rootScope,
 
 
   $scope.getEmloyees = function(searchTerm) {
-    return employeeService.getTypeaheadList(searchTerm).then(function(response) {
+    return employeesAPI.getList({searchTerm: searchTerm}).then(function(response) {
       return response.map(function(item) {
         item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
         return item;
