@@ -189,6 +189,23 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       'authenticate': true
     })
 
+    // Employees
+
+    .state('index.employees', {
+      abstract: true,
+      url: '/employees',
+      data: {pageTitle: 'Employees'},
+      authenticate: true,
+      template: '<div data-ui-view></div>'
+    })
+    .state('index.employees.list', {
+      parent: 'index.employees',
+      url: '/list',
+      authenticate: true,
+      templateUrl: 'app/employees/list.html',
+      controller: 'EmployeesListCtrl as emp'
+    })
+
     // Templates; only html
 
     .state('index.companies-create', {
@@ -219,13 +236,6 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       url: '/landing',
       templateUrl: 'app/landing/landing.html',
       data: { pageTitle: 'landing' },
-      'authenticate': true
-
-    })
-    .state('index.employees', {
-      url: '/employees',
-      templateUrl: 'app/employees/employees.html',
-      data: { pageTitle: 'Employees' },
       'authenticate': true
 
     })
