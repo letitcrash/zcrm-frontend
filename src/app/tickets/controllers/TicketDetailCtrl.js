@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1};
+    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1, deadline: 1};
 
     // Tab panel
     vm.tabs = [
@@ -26,7 +26,7 @@ angular
     vm.activeTab = 3;
 
     // Togglers for UI elements
-    vm.uiTogglers = {options: false, del: false, description: false, subject: false};
+    vm.uiTogglers = {options: false, del: false, description: false, subject: false, deadline: false};
 
     // Models
     // Original
@@ -35,19 +35,31 @@ angular
     vm.formModel = ticketModel.model;
     // For sending to server
     vm.sendModel = ticketModel.model;
+    // Deadline time model
+    vm.deadlineTime = null;
     ticketModel.clear();
 
     // Map received model to scope models;
     function mapModels(newModel) {
       vm.origModel = newModel;
-      angular.copy(newModel, vm.formModel);
-      angular.copy(newModel, vm.sendModel);
+      angular.merge(vm.formModel, newModel);
+      angular.merge(vm.sendModel, newModel);
+
+      if (angular.isNumber(newModel.deadline))
+        vm.deadlineTime = new Date(newModel.deadline);
     }
 
     // Rollback formModel field value
     vm.rollbackField = function rollbackField(field) {
       vm.formModel[field] = vm.origModel[field];
       vm.uiTogglers[field] = false;
+    };
+
+    // Delete ticket deadline
+    vm.deleteDeadline = function deleteDeadline() {
+      vm.deadlineTime = null;
+      vm.formModel.deadline = vm.sendModel.deadline = null;
+      vm.updateTicket('deadline');
     };
 
     // Update ticket after status and priority changes
@@ -63,6 +75,18 @@ angular
         vm.sendModel.priority = val;
         vm.updateTicket('priority');
       }
+    });
+
+    // Update deadline date only if edited time is valid
+    $scope.$watch('tsDetail.deadlineTime', function(val) {
+      if (angular.isDate(val))
+        vm.formModel.deadline = val;
+    });
+
+    // Pass updated deadline as UNIX time
+    $scope.$watch('tsDetail.formModel.deadline', function(val) {
+      if (angular.isDate(val))
+        vm.sendModel.deadline = val.getTime();
     });
 
     // Get ticket
@@ -89,6 +113,7 @@ angular
         mapModels(res);
       }, function(res) {
         $log.log(res);
+        mapModels(res);
         vm.loadStats[field] = 0;
       });
     };
