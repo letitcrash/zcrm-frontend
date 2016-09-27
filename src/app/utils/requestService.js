@@ -2,11 +2,32 @@
 angular
   .module('inspinia')
   .factory('requestService', function ($log, $http, $q, dataService, Upload) {
+    function checkResponseHeader(header) {
+      var RESPONSE_OK = 0;
+
+      if (header)
+        return header.response_code === RESPONSE_OK;
+    }
+
+    function getResponseBody(response) {
+      if (response && response.data && response.data.body)
+        return response.data.body;
+    }
+
+    function getResponseHeader(response) {
+      if (response && response.data && response.data.header)
+        return response.data.header;
+    }
+
     function resolve(deferred, request, response) {
-      if (response.statusText === "OK") {
-        return deferred.resolve(response);
+      var header = getResponseHeader(response);
+      var body = getResponseBody(response);
+      var isSuccess = checkResponseHeader(header);
+
+      if (isSuccess) {
+        return deferred.resolve(body);
       } else {
-        $log.log("Request failed with response", response);
+        $log.log("Request failed with:", response);
         return deferred.resolve(response);
       }
     }
@@ -21,22 +42,22 @@ angular
     }];
 
     function buildGetParams(params) {
-      function getDelimiter() {
+      function getDelimiter(paramsCount) {
         if (paramsCount === 1)
           return '?';
 
         return '&';
       }
 
-      function getValue() {
+      function getValue(value) {
         if (angular.isArray(value))
           return value.join();
 
         return value;
       }
 
-      function buildParameter() {
-        return getDelimiter() + key + '=' + getValue();
+      function buildParameter(paramsCount, value) {
+        return getDelimiter(pCount) + key + '=' + getValue(value);
       }
 
       var res = '';
@@ -44,7 +65,7 @@ angular
       if (!params)
         return '';
 
-      var paramsCount = 0;
+      var pCount = 0;
 
       for (var key in params) {
         var value = params[key];
@@ -52,7 +73,7 @@ angular
         if (!value)
           continue;
 
-        res += buildParameter();
+        res += buildParameter(++pCount, value);
       }
 
       return res;
@@ -84,7 +105,8 @@ angular
       var deferred = $q.defer();
 
       operation(request).then(function (response) {
-        $log.log("Got response from ", request.url, " ", response);
+        $log.log("got promise");
+        $log.log(response);
 
         return resolve(deferred, request.data, response);
       }, function (response) {
