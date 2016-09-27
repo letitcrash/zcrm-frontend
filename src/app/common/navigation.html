@@ -47,8 +47,12 @@
     <li ui-sref-active="active">
       <a ui-sref="index.companies"><i class="fa fa-building"></i> <span class="nav-label">{{ 'Сompanies' | translate }}</span></a>
     </li>
-    <li ui-sref-active="active">
-      <a ui-sref="index.employees"><i class="fa fa-users"></i> <span class="nav-label">{{ 'Employees' | translate }}</span></a>
+    <!-- Employees -->
+    <li data-ng-class="{active: $state.includes('*.employees.*')}">
+      <a data-ui-sref="index.employees.list()">
+        <i class="fa fa-users"></i>
+        <span class="nav-label" data-ng-bind="'Employees' | translate "></span>
+      </a>
     </li>
     <li ui-sref-active="active">
       <a ui-sref="index.clients"><i class="fa fa-user"></i> <span class="nav-label">{{ 'Clients' | translate }}</span></a>
@@ -59,6 +63,7 @@
     <li ui-sref-active="active">
       <a ui-sref="index.projects"><i class="fa fa-tasks"></i> <span class="nav-label">{{ 'Projects' | translate }}</span></a>
     </li>
+    <!-- Tickets -->
     <li data-ng-class="{active: $state.includes('*.tickets.*')}">
       <a data-ui-sref="index.tickets.list()">
         <i class="fa fa-check"></i>

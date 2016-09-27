@@ -3,7 +3,7 @@
 angular
   .module('inspinia')
   // Directive for selecting Employees based on crmUserSelect
-  .directive('crmEmployeeSelect', function(employeeService) {
+  .directive('crmEmployeeSelect', function(employeesAPI) {
     return {
       restrict: 'A',
       require: '^crmUserSelect',
@@ -11,7 +11,7 @@ angular
         // Get employees
         userSelectCtrl.getUsers = function getUsers(search) {
           // TODO: Rewrite employeeService for pacing search term only
-          employeeService.getList(null, 1000, 1, search).then(function(res) {
+          employeesAPI.getList({searchTerm: search}).then(function(res) {
             // TODO: Get rid of map. Server need to return User model.
             userSelectCtrl.users = res.data.map(function(emp) { return emp.user; });
           });

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScope, $state, projectService, employeeService, dataService, teamService, clientService) {
+angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScope, $state, projectService, employeesAPI, dataService, teamService, clientService) {
   var getMail, getProjects, setProjectChange;
    $scope.selected = 1;
 
@@ -15,7 +15,7 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
   };
 
   $scope.getEmloyees = function(searchTerm) {
-    return employeeService.getTypeaheadList(searchTerm).then(function(response) {
+    return employeesAPI.getList({searchTerm: searchTerm}).then(function(response) {
       return response.map(function(item) {
         item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
         return item;
