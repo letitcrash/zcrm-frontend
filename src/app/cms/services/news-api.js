@@ -14,34 +14,23 @@ angular
         return requestService.ttGet(url);
       },
 
-      post: function (addNews) {
+      post: function (article) {
         var url = "news/add";
-        var args = {};
-        args.title = addNews.title;
-        args.date = addNews.date;
-        args.author = addNews.author;
-        args.description = addNews.description;
-        args.text = addNews.text;
-        args.tags = addNews.tags;
-        args.permission = addNews.permission;
-        args.companyId = Number(addNews.companyId);
-
-        if (addNews.image)
-          args.image = addNews.image.path;
-
-        return requestService.ttPost(url, args);
+        return requestService.ttPost(url, article);
       },
 
       put: function (article) {
         var url = "news/edit/" + article.id;
-        var args = {};
-        args.title = article.title;
-        args.desc = article.desc;
-        args.text = article.text;
-        args.tags = article.tags;
-        args.image = article.image;
 
-        return requestService.ttPut(url, args);
+        var request = {
+          title: article.title,
+          desc: article.description,
+          text: article.text,
+          tags: article.tags,
+          image: article.image
+        };
+
+        return requestService.ttPut(url, request);
       }
     };
   });

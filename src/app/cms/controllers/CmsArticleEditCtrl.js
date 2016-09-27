@@ -7,14 +7,11 @@ angular
 
     vm.getNewsArticle = function (id) {
       newsApi.get(id).then(function (response) {
-        vm.article = response.data;
+        Object.assign(vm.article, response.data);
       });
     };
 
     vm.update = function () {
-      if (!vm.article.desc)
-        vm.article.desc = '';
-
       newsApi.put(vm.article).then(function () {
         $state.go('index.cms');
       });
@@ -26,7 +23,7 @@ angular
 
       vm.attachedImage = attachedImage;
       imagesApi.upload(attachedImage).then(function (response) {
-        vm.article.image = response.data;
+        vm.article.image = response.data.path;
       });
     };
 
@@ -37,6 +34,7 @@ angular
 
     function init() {
       vm.articleId = $state.params.articleId;
+      vm.article = {};
       vm.baseServiceUrl = configurationService.staticBaseUrl;
       vm.getNewsArticle(vm.articleId);
     }

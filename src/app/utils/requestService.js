@@ -2,38 +2,11 @@
 angular
   .module('inspinia')
   .factory('requestService', function ($log, $http, $q, dataService, Upload) {
-    function checkResponseHeader(header) {
-      var RESPONSE_OK = 0;
-
-      if (header)
-        return header.response_code === RESPONSE_OK;
-
-      return false;
-    }
-
-    function getResponseBody(response) {
-      if (response && response.data && response.data.body)
-        return response.data.body;
-
-      return false;
-    }
-
-    function getResponseHeader(response) {
-      if (response && response.data && response.data.header)
-        return response.data.header;
-
-      return false;
-    }
-
     function resolve(deferred, request, response) {
-      var header = getResponseHeader(response);
-      var body = getResponseBody(response);
-      var isSuccess = checkResponseHeader(header);
-
-      if (isSuccess) {
-        return deferred.resolve(body);
+      if (response.statusText === "OK") {
+        return deferred.resolve(response);
       } else {
-        $log.log("Request failed with:", response);
+        $log.log("Request failed with response", response);
         return deferred.resolve(response);
       }
     }
@@ -63,7 +36,7 @@ angular
       }
 
       function buildParameter() {
-        return getDelimiter(paramsCount) + key + '=' + getValue(value);
+        return getDelimiter() + key + '=' + getValue();
       }
 
       var res = '';
@@ -111,7 +84,7 @@ angular
       var deferred = $q.defer();
 
       operation(request).then(function (response) {
-        $log.log("Got response ", response);
+        $log.log("Got response from ", request.url, " ", response);
 
         return resolve(deferred, request.data, response);
       }, function (response) {

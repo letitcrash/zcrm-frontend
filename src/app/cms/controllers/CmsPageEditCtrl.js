@@ -7,26 +7,20 @@ angular
 
     vm.getPage = function () {
       pagesApi.get(vm.page.id).then(function (response) {
-        vm.page = response.data;
+        Object.assign(vm.page, response.data);
       });
     };
 
     vm.update = function () {
-      if (!vm.page.desc)
-        return '';
+      var request = {
+        //image: vm.page.image
+        alias: vm.page.title,
+        title: vm.page.title,
+        desc: vm.page.description,
+        body: vm.page.body
+      };
 
-      pagesApi.put(vm.page).then(function (response) {
-        $state.go('index.cms');
-      });
-    };
-
-    vm.createPage = function () {
-      if (!vm.page.desc)
-        return '';
-
-      vm.page.date = new Date();
-
-      pagesApi.post(vm.page).then(function () {
+      pagesApi.put(vm.page.id, request).then(function () {
         $state.go('index.cms');
       });
     };
@@ -37,7 +31,7 @@ angular
       };
 
       vm.getPage(vm.page.id);
-    }
+    };
 
     init();
   });

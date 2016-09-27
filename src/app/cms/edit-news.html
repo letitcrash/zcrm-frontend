@@ -28,7 +28,7 @@
                 <label class="font-noraml ng-binding">Tags</label>
                 <input placeholder="Enter tags here" type="text" class="form-control" ng-model="cms.article.tags">
               </div>
-              <button type="button" ng-click="cms.update(article)" ng-hide="isCollapsed" class="btn btn-primary pull-right" aria-hidden="false">
+              <button type="button" ng-click="cms.update()" ng-hide="isCollapsed" class="btn btn-primary pull-right" aria-hidden="false">
                 <i class="fa fa-eye" style="padding-right:5px"></i>Update
               </button>
               <a ui-sref="index.cms">
@@ -47,11 +47,11 @@
             <hr />
             <h4>Permission</h4>
             <br />
-            <input class="green-check" type="radio" id="bttne1" name="perm" value="9" ng-model="cms.permission" ng-disabled="true"><label for="bttne1">Employees</label>
+            <input class="green-check" type="radio" id="bttne1" name="perm" value="9" ng-model="cms.article.permission" ng-disabled="true"><label for="bttne1">Employees</label>
             <br />
-            <input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="cms.addNews.permission" checked><label for="bttne2">Public</label>
+            <input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="cms.article.permission" checked><label for="bttne2">Public</label>
             <br />
-            <input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-model="cms.addNews.permission" ng-disabled="true"><label for="bttne3">Draft</label>
+            <input class="green-check" type="radio" id="bttne3" name="perm" value="999" ng-model="cms.article.permission" ng-disabled="true"><label for="bttne3">Draft</label>
           </div>
         </div>
       </div>

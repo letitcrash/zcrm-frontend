@@ -14,12 +14,7 @@ angular
 
       vm.attachedImage = attachedImage;
       imagesApi.upload(attachedImage).then(function (response) {
-        $log.log(response);
-        vm.article.image = response.data;
-
-        vm.article = {
-          image: response.data
-        };
+        vm.article.image = response.data.path;
       });
     };
 
@@ -36,7 +31,6 @@ angular
       vm.article.author = vm.user.contactProfile.id;
       vm.article.permission = 99;
       vm.article.description = vm.article.text.split("<hr>")[0];
-      vm.article.image = vm.article.image;
 
       if (!vm.article.description)
         vm.article.description = '';
@@ -68,7 +62,6 @@ angular
       vm.article = {};
       vm.tab = 1;
       vm.searchTerm = "";
-      vm.currentCompanyId = dataService.getCurrentCompanyId();
       vm.user = dataService.getUser();
     }
   });

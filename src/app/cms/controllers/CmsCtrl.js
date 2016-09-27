@@ -56,16 +56,24 @@ angular
     };
 
     vm.createPage = function () {
-      vm.page.date = new Date().getTime();
-      vm.page.author = vm.user.contactProfile.id;
-      vm.page.permission = 99;
-      vm.page.companyId = vm.currentCompanyId;
-      vm.page.description = vm.page.text.split("<hr>")[0];
+      var request = {
+        companyId: vm.currentCompanyId,
+        alias: vm.page.title,
+        title: vm.page.title,
+        date: new Date().getTime(),
+        author: vm.user.contactProfile.id,
+        description: vm.page.body.split("<hr>")[0],
+        //image: vm.page.image,
+        body: vm.page.body,
+        permission: 99
+      };
 
-      if (!vm.page.description)
-        vm.page.description = '';
+      if (!request.description)
+        request.description = '';
 
-      pagesApi.post(vm.page).then(getPagesList);
+      pagesApi.post(request).then(function () {
+        $state.go('index.cms')
+      });
     };
 
     vm.summernote = {
@@ -85,8 +93,6 @@ angular
 
     function init() {
       dateTime = new Date();
-
-      vm.addNews = {};
       vm.tab = vm.NEWS_TAB;
       vm.currentCompanyId = dataService.getCurrentCompanyId();
       vm.user = dataService.getUser();
