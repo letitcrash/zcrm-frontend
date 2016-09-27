@@ -205,6 +205,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/employees/list.html',
       controller: 'EmployeesListCtrl as emp'
     })
+    .state('index.employees.create', {
+      parent: 'index.employees',
+      url: '/create',
+      authenticate: true,
+      templateUrl: 'app/employees/create.html',
+      controller: 'EmployeeCreateCtrl as empCreate'
+    })
 
     // Templates; only html
 

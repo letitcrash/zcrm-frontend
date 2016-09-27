@@ -8,6 +8,9 @@ angular
     return {
       getList: function(params) {
         return requestService.ttGet(apiURL, params);
+      },
+      create: function(emp) {
+        return requestService.ttPost(apiURL, emp);
       }
     };
   });

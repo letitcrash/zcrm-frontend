@@ -1,0 +1,84 @@
+<!-- Form box -->
+<form name="form" class="ibox employee-form col-xs-12 col-lg-8 p-l-none">
+  <!-- Form title -->
+  <div class="ibox-title clearfix">
+    <a ui-sref="index.employees.list()" class="btn btn-default pull-left" ><i class="fa fa-chevron-left"></i></a>
+    <h3 class="ibox-title-text pull-left" ng-bind="'Create new employee' | translate"></h3>
+  </div>
+  <!-- Form body -->
+  <div class="ibox-content clearfix" ng-init="model = empCreate.model">
+    <!-- Employee name -->
+    <div class="form-group employee-form-group clearfix">
+      <label class="employee-form-label control-label col-md-3">{{ 'Full name' | translate }}:</label>
+      <div class="col-md-4">
+        <input class="form-control" type="text" name="firstname" placeholder="First name"
+               ng-model="model.contactProfile.firstname">
+      </div>
+      <div class="col-md-5">
+        <input class="form-control" type="text" name="lastname" placeholder="Last name"
+               ng-model="model.contactProfile.lastname">
+      </div>
+    </div>
+    <!-- Employee username -->
+    <div class="form-group employee-form-group clearfix"
+         ng-class="{'has-error': form.username.$touched && form.username.$invalid}">
+      <label class="employee-form-label control-label col-md-3">{{ 'Username' | translate }}*:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" name="username" required ng-model="model.username"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
+        <span class="help-block" ng-show="form.username.$touched && form.username.$error.required"
+              ng-bind="'This field is required' | translate">
+        </span>
+      </div>
+    </div>
+    <!-- Employee phone -->
+    <div class="form-group employee-form-group clearfix">
+      <label class="employee-form-label control-label col-md-3">{{ 'Phone' | translate }}:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" name="phone" placeholder="Example: +79991234567"
+               ng-model="model.contactProfile.phoneNumberMobile">
+      </div>
+    </div>
+    <!-- Employee email -->
+    <div class="form-group employee-form-group clearfix"
+         ng-class="{'has-error': form.email.$touched && form.email.$invalid}">
+      <label class="employee-form-label control-label col-md-3">{{ 'Email' | translate }}*:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="email" name="email" required ng-model="model.contactProfile.email"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
+        <span class="help-block" ng-show="form.email.$touched && form.email.$invalid"
+              ng-bind="'This field is required and must be in email format' | translate">
+        </span>
+      </div>
+    </div>
+    <!-- Employee address -->
+    <div class="form-group employee-form-group clearfix">
+      <label class="employee-form-label control-label col-md-3">{{ 'Address' | translate }}:</label>
+      <div class="col-md-9">
+        <textarea class="form-control" name="address" ng-model="model.contactProfile.address">
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <!-- Form footer -->
+  <div class="ibox-footer employee-form-footer clearfix">
+    <h4 class="text-center" data-ng-show="empCreate.loadStats.form === 2">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+      <span class="valign-middle">{{ 'Creating' | translate }}...</span>
+    </h4>
+    <div class="text-center" data-ng-show="empCreate.loadStats.form === 0">
+      <h4>
+        <span class="fa fa-ban text-danger"></span>
+        {{ 'Something goes wrong. Please try again.' | translate }}
+      </h4>
+      <button class="btn btn-default btn-sm" type="button" data-ng-click="empCreate.loadStats.form = 1"
+              data-ng-bind="'Try again' | translate "></button>
+    </div>
+    <div class="col-md-9 col-md-offset-3 pull-right" ng-show="empCreate.loadStats.form === 1">
+      <button class="btn btn-primary" type="submit" ng-click="empCreate.createEmployee(form)"
+              ng-disabled="form.$invalid" ng-bind="'Create' | translate">
+      </button>
+      <a ui-sref="index.employees.list()" class="btn btn-danger" ng-bind="'Discard' | translate"></a>
+    </div>
+  </div>
+</form>
