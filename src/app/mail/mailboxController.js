@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: Completly rewrite this. Move DOM specific operations to directives. Data specific operations to services.
 angular
   .module('inspinia')
   // TODO: Maybe we must create another module for general filters like this two bellow.
@@ -23,7 +24,7 @@ angular
       return text;
     }
   })
-  .controller("MailboxController", function($log, $state, $stateParams, mailboxService, $timeout) {
+  .controller("MailboxController", function($log, $state, $stateParams, mailboxService) {
     // View
     var vm = this;
 
@@ -146,6 +147,7 @@ angular
     };
 
     // Email model for compose form
+    // TODO: Use single Class for email model. Remove form specific properies from model
     var eModel = {
       sender: '',
       receiver: [],
@@ -170,9 +172,6 @@ angular
       clearEmailModel();
       vm.slidebox.active = true;
       vm.slidebox.title = 'Compose Email';
-      $log.log(eModel);
-      $log.log(vm.emailFormModel);
-      $log.log(vm.form);
     };
 
     // Open form for replying to email/conversation
@@ -214,9 +213,14 @@ angular
 
       if (force || (!eModel.emptySubj || !eModel.emptyBody)) {
         vm.loadStats.emailForm = 2;
-        $timeout(function() {
-          vm.loadStats.emailForm = 1
-        }, 3000);
+        // TODO: Use single Class for email model
+        mailboxService.messages.send(vm.mboxId, {to: [eModel.sender], subject: eModel.subject, body: eModel.body})
+          .then(function(res) {
+            vm.loadStats.emailForm = 1
+          }, function(res) {
+            $log.log(res);
+            vm.loadStats.emailForm = 2
+          });
       }
     };
   });

@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: Completly rewrite this service
 angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
   var apiURL = 'users/{usrId}/mailboxes';
   var re = /{usrId}/;
@@ -53,7 +54,7 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
         return requestService.ttGet(buildURLParams(mId, 'outbox', null, pSize, pNr));
       },
       get: function(mboxId, msgId) { return requestService.ttGet(buildURLParams(mboxId, 'mails', msgId)); },
-      create: function(mId, msg) { return requestService.ttPost(buildURLParams(mId, 'send'), msg); },
+      send: function(mId, msg) { return requestService.ttPost(buildURLParams(mId, 'send'), msg); },
       selected: selectedMsgs
     }
   };
