@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EmployeeCreateCtrl', function($log, $state, $stateParams, EmployeeModel, employeesAPI) {
+  .controller('EmployeeCreateCtrl', function($log, $state, $stateParams, employeeModel, employeesAPI, dataService) {
     // View
     var vm = this;
 
@@ -11,7 +11,28 @@ angular
     vm.loadStats = {form: 1};
 
     // Model
-    vm.model = new EmployeeModel();
+    vm.model = employeeModel.get();
+
+    // Current company
+    vm.company = dataService.getCurrentCompanyStr();
+
+    // Create ticket
+    vm.createEmployee = function createEmployee() {
+      vm.loadStats.form = 2;
+
+      employeesAPI.create(vm.model).then(function(res) {
+        if (res.hasOwnProperty('id')) {
+          vm.loadStats.form = 1;
+          $state.go('^.list');
+        } else {
+          vm.loadStats.form = 0;
+          $log.log(res);
+        }
+      }, function(res) {
+        vm.loadStats.form = 0;
+        $log.log(res);
+      });
+    };
 
     // Create ticket
     vm.createEmployee = function createEmployee() {
