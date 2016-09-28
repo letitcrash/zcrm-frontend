@@ -10,8 +10,7 @@ angular
       link: function(scope, elem, atts, userSelectCtrl) {
         // Get employees
         userSelectCtrl.getUsers = function getUsers(search) {
-          // TODO: Rewrite employeeService for pacing search term only
-          employeesAPI.getList({searchTerm: search}).then(function(res) {
+          employeesAPI.all({searchTerm: search}).then(function(res) {
             // TODO: Get rid of map. Server need to return User model.
             userSelectCtrl.users = res.data.map(function(emp) { return emp.user; });
           });

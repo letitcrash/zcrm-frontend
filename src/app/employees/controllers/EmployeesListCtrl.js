@@ -36,7 +36,7 @@ angular
       vm.getParams.pageSize = vm.pages.size;
       vm.getParams.pageNr = vm.pages.current;
 
-      employeesAPI.getList(vm.getParams).then(function(res) {
+      employeesAPI.all(vm.getParams).then(function(res) {
         $log.log(res);
         if (res.hasOwnProperty('data')) {
           vm.emps = res.data;

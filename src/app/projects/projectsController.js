@@ -15,7 +15,7 @@ angular.module('inspinia').controller("ProjectsCtrl", function($scope, $rootScop
   };
 
   $scope.getEmloyees = function(searchTerm) {
-    return employeesAPI.getList({searchTerm: searchTerm}).then(function(response) {
+    return employeesAPI.all({searchTerm: searchTerm}).then(function(response) {
       return response.map(function(item) {
         item.fullname = item.user.contactProfile.firstname + " " +item.user.contactProfile.lastname;
         return item;

@@ -6,8 +6,11 @@ angular
     var apiURL = 'companies/:companyId/employees';
 
     return {
-      getList: function(params) {
+      all: function(params) {
         return requestService.ttGet(apiURL, params);
+      },
+      get: function(empId) {
+        return requestService.ttGet(apiURL + '/' + empId);
       },
       create: function(emp) {
         return requestService.ttPost(apiURL, emp);
