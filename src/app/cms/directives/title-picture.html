@@ -15,9 +15,9 @@
           class="btn btn-white">
           {{ "Drop" | translate}}
   </button>
-  <img ng-show="cms.article.image && !cms.attachedImage" ng-src="{{cms.baseServiceUrl + cms.article.image}}">
+  <img ng-show="cms.article.image && !cms.attachedImage" ng-src="{{cms.baseServiceUrl + cms.article.image}}" class="cmsimage">
   <div ng-show="cms.article.image && cms.attachedImage">
-    <img ngf-thumbnail="cms.attachedImage">
+    <img ngf-thumbnail="cms.attachedImage" class="cmsimage">
     <i>{{cms.attachedImage.name}}</i>
   </div>
 </div>
