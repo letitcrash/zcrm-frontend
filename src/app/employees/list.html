@@ -37,7 +37,7 @@
             <td>
               <input class="green-check" type="checkbox">
             </td>
-            <td><a href="" ng-bind="::emp.user | crmUserDisplayName"></a></td>
+            <td><a ui-sref="index.employees.detail({empId: emp.id})" ng-bind="::emp.user | crmUserDisplayName"></a></td>
             <td ng-bind="::pfile.phoneNumberMobile"></td>
             <td ng-bind="::pfile.email"></td>
             <td ng-bind="::emp.union.name"></td>
