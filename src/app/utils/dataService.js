@@ -48,6 +48,7 @@ angular
         }
         return data.user;
       },
+
       setUser: function (user) {
         data.user = user;
         return $cookies.putObject(C_USER, user);

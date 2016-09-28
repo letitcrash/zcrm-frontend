@@ -1,25 +1,32 @@
 <div class="wrapper wrapper-content" ng-controller="CmsCtrl as cms">
   <div class="row">
-    <div class="col-sm-12" ng-class="{'hidden-lg visible-xl col-xl-8' : cms.activeEmp}">
-      <!--Employee page-->
+    <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
           <h2>{{ 'News' | translate }}
-            <a href="" ui-sref="index.addnews" >
-              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB)">{{ 'Create News' | translate }}</button></a>
-            <a href="" ui-sref="index.addpage" >
-              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.PAGES_TAB)">{{ 'Create Page' | translate }}</button></a>
-					</h2>
-          <br />
+            <a href="" ui-sref="index.addnews">
+              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB)">
+                {{ 'Create News' | translate }}
+              </button>
+            </a>
+            <a href="" ui-sref="index.addpage">
+              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.PAGES_TAB)">
+                {{ 'Create Page' | translate }}
+              </button>
+            </a>
+          </h2>
+          <br/>
           <div class="input-group">
-            <input type="text" placeholder="Search pages, news or articles..." class="input form-control" />
+            <input type="text" placeholder="Search pages, news or articles..." class="input form-control"/>
             <span class="input-group-btn">
-							<button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
-						</span>
+              <button type="button" class="btn btn btn-default"> <i class="fa fa-close"></i></button>
+          </span>
           </div>
           <ul class="nav nav-tabs" style="margin: 20px 0">
-            <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a href="" ng-click="cms.setTab(cms.NEWS_TAB)"><i class="fa fa-briefcase"></i>News</a></li>
-            <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a href="" ng-click="cms.setTab(cms.PAGES_TAB)"><i class="fa fa-envelope"></i>Pages</a></li>
+            <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a href="" ng-click="cms.setTab(cms.NEWS_TAB)">
+              <i class="fa fa-briefcase"></i>{{ 'News' | translate}}</a></li>
+            <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a href="" ng-click="cms.setTab(cms.PAGES_TAB)">
+              <i class="fa fa-envelope"></i>{{'Pages' | translate}}</a></li>
           </ul>
           <div class="clients-list">
             <div class="full-height-scroll" full-scroll>

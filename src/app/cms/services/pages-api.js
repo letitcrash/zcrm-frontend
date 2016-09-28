@@ -15,7 +15,7 @@ angular
       },
 
       post: function (page) {
-        var url = "pages/add"
+        var url = "pages/add";
         return requestService.ttPost(url, page);
       },
 

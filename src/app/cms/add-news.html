@@ -1,8 +1,7 @@
-<div class="wrapper wrapper-content" ng-controller="NewsCreateCtrl as cms">
+<div class="wrapper wrapper-content" ng-controller="CreateNewsCtrl as cms">
   <div class="row">
     <form>
       <div class="col-sm-8">
-      <!--Employee page-->
         <div class="ibox">
           <div class="ibox-title">
             <h5>
@@ -12,30 +11,7 @@
               {{ 'Create News' | translate }}
             </h5>
           </div>
-          <div class="ibox-content">
-            <div class="form-horizontal">
-              <div class="form-group" crm-title-editor></div>
-                <div class="hr-line-dashed"></div>
-                
-              <div class="form-group" cms-title-picture></div>
-                <div class="hr-line-dashed"></div>
-                
-              <div class="form-group">
-                <div class="col-sm-12">
-                  <summernote config="cms.summernote" ng-model="cms.article.text"></summernote>
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-              <div class="form-group" crm-tags-editor></div>
-              <div class="hr-line-solid"></div>
-              <div class="form-group text-right">
-                <div class="col-sm-12">
-                  <a ui-sref="index.cms" class="btn btn-white" style="margin-right: 10px;">{{ 'Cancel' | translate }}:</button></a>
-                  <button type="button" ng-click="cms.create()" ng-hide="cms.isCollapsed" class="btn btn-primary" aria-hidden="false">{{ 'Create' | translate }}:</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <cms-create-form></cms-create-form>
         </div>
       </div>
       <div class="col-sm-4">
@@ -43,33 +19,9 @@
           <div class="ibox-title">
             <h5>{{ 'Publish' | translate }}:</h5>
           </div>
-          <div class="ibox-content">
-            <div class="form-horizontal">
-              <div crm-permission-editor>
-              </div>
-              <div class="hr-line-dashed"></div>
-              <div class="form-group">
-                <label class="col-sm-12">{{ 'Time of publish' | translate }}:</label>
-                <div class="col-sm-12">
-                  <div class="input-group" ng-controller="DateCtrl as  date">
-                    <datepicker datepicker-options="date.options">
-                    <input class="form-control" ng-model="dateTime" type="text"/>
-                    </datepicker>
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  </div>
-                </div>
-                </div>
-              <div class="hr-line-dashed"></div>
-              <div class="form-group">
-              <div class="col-sm-12">
-              <input class="green-check" type="checkbox" id="bttne3">
-              <label for="bttne3" ng-click="today()">{{'Publish now' | translate}}</label>
-              </div>
-              </div>
-            </div>
-          </div>
+          <cms-publish-options></cms-publish-options>
         </div>
       </div>
     </form>
-    </div>
+  </div>
 </div>

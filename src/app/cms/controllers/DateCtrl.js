@@ -66,14 +66,15 @@ angular
 
     function getTomorrow() {
       var oneDay = 1;
-      var tomorrow = new Date();
-      return tomorrow.setDate(tomorrow.getDate() + oneDay);
+      var now = new Date();
+
+      return now.setDate(now.getDate() + oneDay);
     }
 
     function getAfterTomorow() {
       var oneDay = 1;
-      var afterTomorrow = getTomorrow();
+      var tomorrow = getTomorrow();
 
-      return afterTomorrow.setDate(afterTomorrow.getDate() + oneDay);
+      return tomorrow.setDate(tomorrow.getDate() + oneDay);
     }
   });

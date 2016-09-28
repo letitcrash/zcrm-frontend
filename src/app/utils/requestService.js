@@ -49,18 +49,18 @@ angular
         return '&';
       }
 
-      function getValue(value) {
+      function getValue() {
         if (angular.isArray(value))
           return value.join();
 
         return value;
       }
 
-      function buildParameter(paramsCount, value) {
-        return getDelimiter(pCount) + key + '=' + getValue(value);
+      function buildParameter() {
+        return getDelimiter(++pCount) + key + '=' + getValue();
       }
 
-      var res = '';
+      var result = '';
 
       if (!params)
         return '';
@@ -73,10 +73,10 @@ angular
         if (!value)
           continue;
 
-        res += buildParameter(++pCount, value);
+        result += buildParameter();
       }
 
-      return res;
+      return result;
     }
 
     function getBaseRequest(suburl, method) {
@@ -170,7 +170,7 @@ angular
         return doRequest($http, request);
       },
 
-      ttUploadFileRequest: function (suburl, method, fileBlob) {
+      uploadFileRequest: function (suburl, method, fileBlob) {
         var contentType = undefined;
         var request = getBaseRequest(suburl, method, contentType);
 
