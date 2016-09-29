@@ -12,7 +12,9 @@
   <tbody>
   <tr ng-repeat="nw in cms.news">
     <td><input class="green-check" type="checkbox" style="margin-left:10px;" ></td>
-    <td><a ng-click="cms.editArticle(nw)">{{ nw.title }}</a></td>
+    <td uib-tooltip="{{ nw.title }}">
+      <a ng-click="cms.editArticle(nw)">{{ nw.title }}</a>
+    </td>
     <td>{{ nw.author }}</td>
     <td>{{ nw.tags }}</td>
     <td>{{ cms.convertToDate(nw.date) }}</td>

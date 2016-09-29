@@ -16,10 +16,9 @@
     {{ "Drop" | translate}}
   </a>
   <img ng-show="cms.createForm.image && !cms.attachedImage" ng-src="{{cms.baseServiceUrl + cms.createForm.image}}" class="cmsimage">
-  <div ng-show="cms.createForm.image && cms.attachedImage" class="cms-image">
+  <div ng-show="cms.createForm.image && cms.attachedImage" class="pull-left cms-image">
     <img ngf-thumbnail="cms.attachedImage">
-    <a href="{{cms.createForm.image}}" uib-tooltip="{{cms.attachedImage.name}}" tooltip-placement="top"
-    >{{cms.attachedImage.name}}</a>
+    <a ng-href="{{cms.createForm.image}}" uib-tooltip="{{cms.attachedImage.name}}">{{cms.attachedImage.name}}</a>
     <i>{{cms.attachedImage.lastModified | date:'MM.dd.yy - H:mm'}}</i>
   </div>
 </div>
