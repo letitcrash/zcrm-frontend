@@ -10,8 +10,14 @@ angular
 
     vm.update = function () {
       newsApi.put(vm.article).then(function () {
-        $state.go('index.cms');
+        $state.go('index.cmsNews');
       });
+    };
+
+    vm.delete = function () {
+      newsApi.deleteNews(vm.article.id).then(function () {
+        $state.go('index.cmsNews');
+      })
     };
 
     vm.uploadImage = function (attachedImage) {

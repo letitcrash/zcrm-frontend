@@ -15,7 +15,7 @@
           ng-click="cms.dropImageButtonClick()">
     {{ "Drop" | translate}}
   </a>
-  <img ng-show="cms.createForm.image && !cms.attachedImage" ng-src="{{cms.baseServiceUrl + cms.createForm.image}}" class="cmsimage">
+  <img ng-show="cms.createForm.image && !cms.attachedImage" ng-src="{{cms.baseServiceUrl + cms.createForm.image}}" class="pull-left cmsimage">
   <div ng-show="cms.createForm.image && cms.attachedImage" class="pull-left cms-image">
     <img ngf-thumbnail="cms.attachedImage">
     <a ng-href="{{cms.createForm.image}}" uib-tooltip="{{cms.attachedImage.name}}">{{cms.attachedImage.name}}</a>

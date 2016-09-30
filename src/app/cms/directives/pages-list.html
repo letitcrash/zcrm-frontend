@@ -12,7 +12,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="page in cms.pages">
+  <tr ng-repeat="page in cms.pages |  orderBy:'-'">
     <td>
       <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
     </td>

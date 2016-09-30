@@ -31,6 +31,11 @@ angular
         };
 
         return requestService.ttPut(url, request);
+      },
+
+      deleteNews: function (id) {
+        var url = "news/delete/" + id;
+        return requestService.ttDelete(url);
       }
     };
   });

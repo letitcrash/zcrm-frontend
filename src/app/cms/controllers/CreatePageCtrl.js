@@ -25,7 +25,7 @@ angular
         request.description = '';
 
       pagesApi.post(request).then(function () {
-        $state.go('index.cms')
+        $state.go('index.cmsPages')
       });
     };
 
