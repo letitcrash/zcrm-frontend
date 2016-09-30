@@ -1,17 +1,15 @@
-<span class="pull-right dropdown" uib-dropdown="" auto-close="outsideClick" is-open="uitglrs.options" style="">
-  <button class="btn btn-default dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></button>
-  <ul class="dropdown-menu" uib-dropdown-menu="">
-    <li>
-      <a href="" role="button" ng-click="uitglrs.del = true" ng-hide="uitglrs.del" class="ng-binding" aria-hidden="false">
-        <i class="fa fa-trash-o"></i>&nbsp;Delete
-      </a>
-    </li>
-    <li class="col-xs-12 p-sm ng-hide" ng-show="uitglrs.del" aria-hidden="true">
-      <h4 ng-bind="'Delete a ticket?' | translate" class="ng-binding">Delete a ticket?</h4>
-      <button class="btn btn-default ng-binding" ng-click="cms.delete()">Ok</button>
-      <button class="btn btn-danger ng-binding">
-        Cancel
-      </button>
-    </li>
-  </ul>
-</span>
+<button class="btn btn-default dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></button>
+<ul class="dropdown-menu" uib-dropdown-menu="">
+  <li>
+    <a href="" role="button" ng-click="uitglrs.del = true" ng-hide="uitglrs.del" class="ng-binding" aria-hidden="false">
+      <i class="fa fa-trash-o"></i>&nbsp;Delete
+    </a>
+  </li>
+  <li class="col-xs-12 p-sm ng-hide" ng-show="uitglrs.del" aria-hidden="true">
+    <h4 ng-bind="'Delete a ticket?' | translate" class="ng-binding">Delete a ticket?</h4>
+    <button class="btn btn-default ng-binding" ng-click="cms.delete()">Ok</button>
+    <button class="btn btn-danger ng-binding">
+      Cancel
+    </button>
+  </li>
+</ul>
