@@ -5,8 +5,8 @@ angular
   .controller('CmsCtrl', function ($state, generalUtils, newsApi, pagesApi) {
     var vm = this;
 
-    vm.NEWS_TAB = 1;
-    vm.PAGES_TAB = 2;
+    vm.NEWS_TAB = "index.cmsNews";
+    vm.PAGES_TAB = "index.cmsPages";
 
     init();
 
@@ -24,17 +24,12 @@ angular
       });
     };
 
-    vm.setTab = function (newTab) {
-      vm.tab = newTab;
-    };
-
     vm.isSet = function (tabNum) {
       return vm.tab === tabNum;
     };
 
     function init() {
-      vm.tab = vm.NEWS_TAB;
-
+      initTab();
       getNewsList();
       getPagesList();
     }
@@ -49,6 +44,13 @@ angular
       pagesApi.getList().then(function (response) {
         vm.pages = response.data;
       });
+    }
+
+    function initTab() {
+      if($state.includes("index.cms"))
+        return(vm.tab = vm.NEWS_TAB);
+
+      vm.tab = $state.current.name;
     }
   });
 

@@ -18,8 +18,14 @@ angular
       };
 
       pagesApi.put(vm.page.id, request).then(function () {
-        $state.go('index.cms');
+        $state.go('index.cmsPages');
       });
+    };
+
+    vm.delete = function () {
+      pagesApi.deletePage(vm.page.id).then(function () {
+        $state.go('index.cmsPages');
+      })
     };
 
     vm.uploadImage = function (attachedImage) {

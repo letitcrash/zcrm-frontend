@@ -8,8 +8,6 @@ angular
 
     init();
 
-    vm.convertToDate = generalUtils.formatTimestampToDate;
-
     vm.uploadImage = function (attachedImage) {
       if (!attachedImage)
         return;
@@ -40,7 +38,7 @@ angular
       vm.article.companyId = dataService.getCurrentCompanyId();
 
       newsApi.post(vm.article).then(function () {
-        $state.go('index.cms');
+        $state.go('index.cmsNews');
       });
     };
 

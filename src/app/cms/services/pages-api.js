@@ -22,6 +22,11 @@ angular
       put: function (id, page) {
         var url = "pages/edit/" + id;
         return requestService.ttPut(url, page);
+      },
+
+      deletePage: function (id) {
+        var url = "pages/delete/" + id;
+        return requestService.ttDelete(url);
       }
     };
   });

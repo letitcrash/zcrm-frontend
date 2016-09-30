@@ -43,10 +43,22 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     // CMS
 
     .state('index.cms', {
+      url: '/cms',
+      templateUrl: 'app/cms/cms-index.html',
+      data: {pageTitle: 'Site'},
+      authenticate: true
+    })
+    .state('index.cmsNews', {
       url: '/cms/news',
-      templateUrl: 'app/cms/news-list.html',
-      data: { pageTitle: 'Site' },
-      'authenticate': true
+      templateUrl: 'app/cms/cms-index.html',
+      data: {pageTitle: 'Site'},
+      authenticate: true
+    })
+    .state('index.cmsPages', {
+      url: '/cms/pages',
+      templateUrl: 'app/cms/cms-index.html',
+      data: {pageTitle: 'Site'},
+      authenticate: true
     })
 
     // CMS news edit
