@@ -42,6 +42,10 @@ angular
       });
     };
 
+    vm.cancel = function () {
+      $state.go('index.cmsNews');
+    };
+
     function init() {
       vm.createForm = {};
       vm.summernote = summernoteConfig;

@@ -44,6 +44,10 @@ angular
       vm.page.image = null;
     };
 
+    vm.cancel = function () {
+      $state.go('index.cmsPages');
+    };
+
     function init() {
       vm.createForm = {};
       vm.page = vm.createForm;
