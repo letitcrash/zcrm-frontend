@@ -35,6 +35,10 @@ angular
       vm.article.image = null;
     };
 
+    vm.cancel = function () {
+      $state.go('index.cmsNews');
+    };
+
     function init() {
       vm.articleId = $state.params.articleId;
       vm.createForm = {};

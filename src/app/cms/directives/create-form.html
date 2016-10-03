@@ -12,7 +12,7 @@
     <div class="hr-line-solid"></div>
     <div class="form-group text-right">
       <div class="col-sm-12">
-        <a ui-sref="index.cms" class="btn btn-white" style="margin-right: 10px;">{{ 'Cancel' | translate }}</button></a>
+        <button  ng-click="cms.cancel()" class="btn btn-white" style="margin-right: 10px;">{{ 'Cancel' | translate }}</button>
         <button type="button"
                 ng-show="cms.NEW"
                 ng-click="cms.create()"
