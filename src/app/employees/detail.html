@@ -42,7 +42,11 @@
       <!-- <ul class="list-unstyled col-xs-6 col-md-7 col-lg-8"> -->
       <ul class="profile-info employee-profile-info list-unstyled">
         <li class="ticket-info-row">
-          <h2 class="employee-name" ng-bind="empDetail.origModel.user | crmUserDisplayName"></h2>
+          <h2 class="employee-name dsp-inline-block" ng-bind="empDetail.origModel.user | crmUserDisplayName"></h2>
+          &nbsp;
+          <a href class="dsp-inline-block" ng-click="empDetail.dialogs.mainInfo.open()"
+             ng-bind="'Edit' | translate">
+          </a>
         </li>
         <li class="ticket-info-row clearfix">
           <label class="col-sm-5 col-md-4 col-lg-3 text-right">{{ 'Phone' | translate }}:</label>
@@ -123,3 +127,45 @@
     </div>
   </div>
 </div>
+<!-- Dialog form for main profile info -->
+<script type="text/ng-template" id="mainInfoEdit.html">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+    <h3 class="modal-title" id="main_info_dlg_title" ng-bind="'Change main information' | translate"></h3>
+  </div>
+  <form name="form" class="form-horizontal modal-body" id="main_info_dlg_body">
+    <div class="form-group">
+      <label class="col-sm-2 control-label p-h-none">{{ 'Full name' | translate }}:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="firstname" ng-model="model.user.contactProfile.firstname">
+      </div>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="lastname" ng-model="model.user.contactProfile.lastname">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label p-h-none">{{ 'Phone' | translate }}:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="phone" ng-model="model.user.contactProfile.phoneNumberMobile">
+      </div>
+    </div>
+    <div class="form-group m-b-none" ng-class="{'has-error': form.email.$touched && form.email.$invalid}">
+      <label class="col-sm-2 control-label p-h-none">{{ 'Email' | translate }}:</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" name="email" ng-model="model.user.contactProfile.email"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
+        <span class="help-block" ng-show="form.email.$touched && form.email.$invalid"
+              ng-bind="'This field must be in email format' | translate">
+        </span>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
+            ng-bind="'Save' | translate">
+    </button>
+    <button class="btn btn-danger" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
+  </div>
+</script>

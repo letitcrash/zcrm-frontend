@@ -14,6 +14,9 @@ angular
       },
       create: function(emp) {
         return requestService.ttPost(apiURL, emp);
+      },
+      update: function(emp) {
+        return requestService.ttPut(apiURL + '/' + emp.id, emp);
       }
     };
   });
