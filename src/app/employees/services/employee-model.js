@@ -2,17 +2,7 @@
 
 angular
   .module('inspinia')
-  .factory('employeeModel', function () {
-    function ContactProfile() {
-      this.firstname = '';
-      this.lastname = '';
-      this.email = '';
-      this.address = '';
-      this.city = '';
-      this.zipCode = '';
-      this.phoneNumberMobile = '';
-    }
-
+  .factory('employeeModel', function (userModel) {
     // TODO: Delete after backend refactoring
     function EmpAdditionalInfo() {
       this.membershipNum = null;
@@ -37,7 +27,6 @@ angular
     }
 
     function Employee() {
-      this.username = '';
       this.baseUrl = '';
       this.employeeType = '';
       this.employeeLevel = null;
@@ -48,7 +37,7 @@ angular
       this.position = null;
       this.flypass = '';
 
-      this.contactProfile = new ContactProfile();
+      this.user = userModel.get();
       this.additionalInfo = new EmpAdditionalInfo();
     }
 

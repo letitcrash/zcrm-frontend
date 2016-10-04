@@ -24,7 +24,7 @@
          ng-class="{'has-error': form.username.$touched && form.username.$invalid}">
       <label class="employee-form-label control-label col-md-3">{{ 'Username' | translate }}*:</label>
       <div class="col-md-9">
-        <input class="form-control" type="text" name="username" required ng-model="model.username"
+        <input class="form-control" type="text" name="username" required ng-model="model.user.username"
                ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
         <span class="help-block" ng-show="form.username.$touched && form.username.$error.required"
               ng-bind="'This field is required' | translate">
