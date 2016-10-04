@@ -21,7 +21,6 @@ angular
 
     function User() {
       this.username = '';
-      this.baseUrl = '';
       this.userLevel = null;
       this.contactProfile = new ContactProfile();
     }

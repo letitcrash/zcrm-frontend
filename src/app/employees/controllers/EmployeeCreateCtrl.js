@@ -33,7 +33,9 @@ angular
     // Create employee
     vm.createEmployee = function createEmployee() {
       vm.loadStats.form = 2;
-      vm.model.user.username = vm.model.user.contactProfile.email;
+      vm.model.username = vm.model.user.contactProfile.email;
+      vm.model.contactProfile = vm.model.user.contactProfile;
+      delete vm.model.user;
       employeeModel.validate(vm.model);
 
       employeesAPI.create(vm.model).then(function(res) {
