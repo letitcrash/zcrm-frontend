@@ -16,6 +16,20 @@ angular
     // Current company
     vm.company = dataService.getCurrentCompanyStr();
 
+    // Land options
+    vm.land = [{name: 'Offshore', val: false}, {name: 'Onshore', val: true}];
+
+    // Visability togglers
+    vm.uiTogglers = {
+      resignedDate: false,
+      enrolledDept: false,
+      enrolledIE: false,
+      enrolledLO: false,
+      shopStewardCourses: false,
+      voCourses: false,
+      birthdate: false
+    };
+
     // Create ticket
     vm.createEmployee = function createEmployee() {
       vm.loadStats.form = 2;

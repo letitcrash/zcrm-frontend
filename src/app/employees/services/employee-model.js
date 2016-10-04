@@ -18,7 +18,7 @@ angular
       this.status = '';
       this.workplace = '';
       this.comment = '';
-      this.land = false;
+      this.land = true;
       this.seniorityDate = null;
       this.socialSecNumber = null;
       this.jacketSize = '';

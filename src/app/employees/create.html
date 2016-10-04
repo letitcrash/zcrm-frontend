@@ -1,97 +1,284 @@
 <!-- Form box -->
-<form name="form" class="ibox employee-form col-xs-12 col-lg-8 p-l-none">
+<form name="form" class="ibox employee-form form-horizontal col-xs-12 col-lg-8 p-l-none">
   <!-- Form title -->
   <div class="ibox-title clearfix">
     <a ui-sref="index.employees.list()" class="btn btn-default pull-left" ><i class="fa fa-chevron-left"></i></a>
     <h3 class="ibox-title-text pull-left" ng-bind="'Create new employee' | translate"></h3>
   </div>
   <!-- Form body -->
-  <div class="ibox-content clearfix" ng-init="model = empCreate.model">
-    <!-- Employee name -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Full name' | translate }}:</label>
+  <div class="ibox-content clearfix" ng-init="model = empCreate.model; addInf = empCreate.model.additionalInfo;
+       pfile = empCreate.model.user.contactProfile">
+    <!-- Fullname -->
+    <div class="form-group clearfix" ng-class="{'has-error': (form.firstname.$touched && form.firstname.$invalid) ||
+        (form.lastname.$touched && form.lastname.$invalid)}">
+      <label class="control-label col-md-3">{{ 'Full name' | translate }}:</label>
       <div class="col-md-4">
-        <input class="form-control" type="text" name="firstname" placeholder="First name"
-               ng-model="model.contactProfile.firstname">
-      </div>
-      <div class="col-md-5">
-        <input class="form-control" type="text" name="lastname" placeholder="Last name"
-               ng-model="model.contactProfile.lastname">
-      </div>
-    </div>
-    <!-- Employee username -->
-    <div class="form-group employee-form-group clearfix"
-         ng-class="{'has-error': form.username.$touched && form.username.$invalid}">
-      <label class="employee-form-label control-label col-md-3">{{ 'Username' | translate }}*:</label>
-      <div class="col-md-9">
-        <input class="form-control" type="text" name="username" required ng-model="model.user.username"
-               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
-        <span class="help-block" ng-show="form.username.$touched && form.username.$error.required"
-              ng-bind="'This field is required' | translate">
+        <input class="form-control" type="text" name="firstname" placeholder="First name" required
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}"
+               ng-model="pfile.firstname">
+        <span class="help-block" ng-show="(form.firstname.$touched && form.firstname.$invalid) ||
+              (form.lastname.$touched && form.lastname.$invalid)" ng-bind="'This fields are required' | translate">
         </span>
       </div>
-    </div>
-    <!-- Employee phone -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Phone' | translate }}:</label>
-      <div class="col-md-9">
-        <input class="form-control" type="text" name="phone" placeholder="Example: +79991234567"
-               ng-model="model.contactProfile.phoneNumberMobile">
+      <div class="col-md-5">
+        <input class="form-control" type="text" name="lastname" placeholder="Last name" required
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}"
+               ng-model="pfile.lastname">
       </div>
     </div>
-    <!-- Employee email -->
-    <div class="form-group employee-form-group clearfix"
-         ng-class="{'has-error': form.email.$touched && form.email.$invalid}">
-      <label class="employee-form-label control-label col-md-3">{{ 'Email' | translate }}*:</label>
+    <!-- Phone -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Phone' | translate }}:</label>
       <div class="col-md-9">
-        <input class="form-control" type="email" name="email" required ng-model="model.contactProfile.email"
+        <input class="form-control" type="text" name="phone" placeholder="Example: +79991234567"
+               ng-model="pfile.phoneNumberMobile">
+      </div>
+    </div>
+    <!-- Email -->
+    <div class="form-group clearfix" ng-class="{'has-error': form.email.$touched && form.email.$invalid}">
+      <label class="control-label col-md-3">{{ 'Email' | translate }}:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="email" name="email" ng-model="pfile.email"
                ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
         <span class="help-block" ng-show="form.email.$touched && form.email.$invalid"
               ng-bind="'This field is required and must be in email format' | translate">
         </span>
       </div>
     </div>
-    <!-- Employee address -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Address' | translate }}:</label>
+    <hr class="hr-line-dashed">
+    <!-- Membership number and resigned date -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Membership number' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="membershipNumber" ng-model="addInf.membershipNumber">
+      </div>
+      <label class="control-label col-md-3">{{ 'Resigned date' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.resignedDate"
+                 is-open="empCreate.uiTogglers.resignedDate" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.resignedDate = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Enrolled dept and steward courses -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Enrolled Dept' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledDept"
+                 is-open="empCreate.uiTogglers.enrolledDept" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.enrolledDept = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="control-label col-md-3">{{ 'Steward courses' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.shopStewardCourses"
+                 is-open="empCreate.uiTogglers.shopStewardCourses" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.shopStewardCourses = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Enrolled IE and referred by -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Enrolled IE' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledIE"
+                 is-open="empCreate.uiTogglers.enrolledIE" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.enrolledIE = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="control-label col-md-3">{{ 'Referred by' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="refBy" ng-model="addInf.refBy">
+      </div>
+    </div>
+    <!-- Enrolled LO and union -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Enrolled LO' | translate }}:</label>
+      <div class="col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledLO"
+                 is-open="empCreate.uiTogglers.enrolledLO" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.enrolledLO = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="control-label col-md-3">{{ 'Union' | translate }}:</label>
+      <div class="m-b col-md-3" crm-union-select="model.union"></div>
+    </div>
+    <!-- Agreement -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Agreement' | translate }}:</label>
       <div class="col-md-9">
-        <textarea class="form-control rsize-v" name="address" ng-model="model.contactProfile.address">
-        </textarea>
+        <input type="text" class="form-control" name="agreement" ng-model="addInf.agreement">
+      </div>
+    </div>
+    <!-- Comment -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Comment' | translate }}:</label>
+      <div class="col-md-9">
+        <textarea class="form-control rsize-v" name="comment" ng-model="addInf.comment"></textarea>
       </div>
     </div>
     <hr class="hr-line-dashed">
-    <!-- Employee company -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Company' | translate }}:</label>
-      <div class="col-md-9">
-        <input class="form-control" type="text" name="company" disabled ng-model="empCreate.company">
+    <!-- Employee number and workplace -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Employee number' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="emplNumber" ng-model="addInf.emplNumber">
+      </div>
+      <label class="control-label col-md-3">{{ 'Workplace' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="workplace" ng-model="addInf.workplace">
       </div>
     </div>
-    <!-- Employee position -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Posiiton' | translate }}:</label>
-      <div class="col-md-9" crm-pos-select="empCreate.model.position"></div>
+    <!-- Position and VO Courses -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Position' | translate }}:</label>
+      <div class="m-b col-md-3" crm-pos-select="model.position"></div>
+      <label class="control-label col-md-3">{{ 'VO Courses' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.voCourses"
+                 is-open="empCreate.uiTogglers.voCourses" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.voCourses = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
     </div>
-    <!-- Employee union -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Union' | translate }}:</label>
-      <div class="col-md-9" crm-union-select="empCreate.model.union"></div>
+    <!-- Company and shift -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Company' | translate }}:</label>
+      <div class="form-control-static m-b col-md-3" ng-bind="empCreate.company"></div>
+      <label class="control-label col-md-3">{{ 'Shift' | translate }}:</label>
+      <div class="m-b col-md-3" crm-shift-select="model.shift"></div>
     </div>
-    <!-- Employee department -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Department' | translate }}:</label>
-      <div class="col-md-9" crm-dep-select="empCreate.model.department"></div>
+    <!-- Status and onshore/offshore -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Status' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="addInf.status" ng-model="addInf.status">
+      </div>
+      <label class="control-label col-md-3">{{ 'Offshore / Onshore' | translate }}:</label>
+      <div class="m-b col-md-3" ui-select ng-model="addInf.land" search-enabled="false">
+        <div ui-select-match placeholder="{{ 'Choose option' | translate }}"> {{ $select.selected.name }}</div>
+        <div ui-select-choices repeat="opt.val as opt in empCreate.land">
+          <h4 ng-bind="::opt.name | translate"></h4>
+        </div>
+      </div>
     </div>
-    <!-- Employee shift -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Shift' | translate }}:</label>
-      <div class="col-md-9" crm-shift-select="empCreate.model.shift"></div>
+    <!-- Department and seniority date -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Department' | translate }}:</label>
+      <div class="m-b col-md-3" crm-dep-select="model.department"></div>
+      <label class="control-label col-md-3">{{ 'Seniority date' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.seniorityDate"
+                 is-open="empCreate.uiTogglers.seniorityDate" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.seniorityDate = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
     </div>
-    <!-- Employee flypass -->
-    <div class="form-group employee-form-group clearfix">
-      <label class="employee-form-label control-label col-md-3">{{ 'Flypass' | translate }}:</label>
+    <hr class="hr-line-dashed">
+    <!-- Social security number and airport -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Social security number' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="socialSecNumber" ng-model="addInf.socialSecNumber">
+      </div>
+      <label class="control-label col-md-3">{{ 'Airport' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="airport" ng-model="addInf.airport">
+      </div>
+    </div>
+    <!-- Birthdate and city -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Date of birth' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="pfile.birthdate"
+                 is-open="empCreate.uiTogglers.birthdate" placeholder="Enter date here">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.birthdate = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <label class="control-label col-md-3">{{ 'City' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="city" ng-model="pfile.city">
+      </div>
+    </div>
+    <!-- Private email and jacket size -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'Privat Email' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="email" class="form-control" name="emailHome" ng-model="pfile.emailHome">
+      </div>
+      <label class="control-label col-md-3">{{ 'Jacket size' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="airport" ng-model="addInf.jacketSize">
+      </div>
+    </div>
+    <!-- Individual paid -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Individual paid' | translate }} I:</label>
       <div class="col-md-9">
-        <input class="form-control" type="text" name="flypass" ng-model="empCreate.model.flypass">
+        <label class="radio-inline">
+          <input type="radio" class="green-radio-check" name="indivPaid" ng-model="addInf.indivPaid" value="true"
+                 ng-checked="addInf.indivPaid">
+          &nbsp;{{ 'Yes' | translate }}
+        </label>
+        <label class="radio-inline">
+          <input type="radio" class="green-radio-check" name="indivPaid" ng-model="addInf.indivPaid" value="false"
+                 ng-checked="!addInf.indivPaid">
+          &nbsp;{{ 'No' | translate }}
+        </label>
+      </div>
+    </div>
+    <!-- Address I -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Address' | translate }} I:</label>
+      <div class="col-md-9">
+        <textarea class="form-control rsize-v" name="address" ng-model="pfile.address"></textarea>
+      </div>
+    </div>
+    <!-- Address II -->
+    <div class="form-group clearfix">
+      <label class="control-label col-md-3">{{ 'Address' | translate }} II:</label>
+      <div class="col-md-9">
+        <textarea class="form-control rsize-v" name="secondAddress" ng-model="pfile.secondAddress"></textarea>
       </div>
     </div>
   </div>
