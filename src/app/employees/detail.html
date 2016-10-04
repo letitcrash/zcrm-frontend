@@ -27,7 +27,7 @@
       </div>
     </div>
     <!-- Employee personal info -->
-    <div class="col-xs-12 col-lg-6">
+    <div class="col-xs-12 col-lg-6 m-b-md">
       <!-- <div class="col-xs-6 col-sm-4 col-md-5 col-lg-4 p-h-none text-right"> -->
       <div class="profile-image employee-profile-image">
         <!-- Avatar -->
@@ -39,7 +39,6 @@
           <i class="fa fa-envelope"></i>&nbsp;{{ 'Send message' | translate }}
         </button>
       </div>
-      <!-- <ul class="list-unstyled col-xs-6 col-md-7 col-lg-8"> -->
       <ul class="profile-info employee-profile-info list-unstyled">
         <li class="ticket-info-row">
           <h2 class="employee-name dsp-inline-block" ng-bind="empDetail.origModel.user | crmUserDisplayName"></h2>
@@ -51,7 +50,7 @@
         <li class="ticket-info-row clearfix">
           <label class="col-sm-5 col-md-4 col-lg-3 text-right">{{ 'Phone' | translate }}:</label>
           <span class="dsp-inline-block col-sm-7 col-md-8 col-lg-9"
-                ng-bind="empDetail.origModel.user.contactProfile.phoneNumberMobile">
+                ng-bind="empDetail.origModel.user.contactProfile['phoneNumberMobile']">
           </span>
         </li>
         <li class="ticket-info-row clearfix">
@@ -62,62 +61,179 @@
         </li>
       </ul>
     </div>
-    <div class="col-xs-12 col-lg-6">
-      <h4 ng-bind="'EMPLOYMENT INFORMATION' | translate"></h4>
-      <ul class="list-unstyled">
-        <!-- Company -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Company' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-bind="empDetail.company"></span>
-        </li>
-        <!-- Shift -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Shift' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.shift"
-                ng-bind="empDetail.origModel.shift.name"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.shift">-</span>
-        </li>
-        <!-- Position -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Position' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.position"
-                ng-bind="empDetail.origModel.position.name"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.position">-</span>
-        </li>
-        <!-- Flypass -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Flypass' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.flypass"
-                ng-bind="empDetail.origModel.flypass"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.flypass">-</span>
-        </li>
-        <!-- Union -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Union' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.union"
-                ng-bind="empDetail.origModel.union.name"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.union">-</span>
-        </li>
-        <!-- Address -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Address' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.user.contactProfile.address"
-                ng-bind="empDetail.origModel.user.contactProfile.address"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.user.contactProfile.address">-</span>
-        </li>
-        <!-- Department -->
-        <li class="ticket-info-row col-xs-6">
-          <label class="col-sm-5 text-right">{{ 'Department' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7" ng-show="empDetail.origModel.department"
-                ng-bind="empDetail.origModel.department.name"></span>
-          <span class="dsp-inline-block col-sm-7" ng-hide="empDetail.origModel.department">-</span>
-        </li>
-      </ul>
-    </div>
-    <span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>
-    <!-- Employment information -->
-    <div class="col-xs-6 col-md-4">
-    </div>
+    <!-- Additional information -->
+    <ul uib-tabset class="employee-add-info col-xs-12 col-lg-6 m-b-md" type="pills"
+        ng-init="addInf = empDetail.origModel.additionalInfo; pfile = empDetail.origModel.user.contactProfile">
+      <li class="pull-left">{{ 'Show' | translate }}:</li>
+      <li uib-tab index="0" heading="{{ 'Union info' | translate }}">
+        <table class="employee-add-info-list">
+          <tbody>
+            <tr>
+              <td>{{ 'Membership number' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.membershipNum" ng-bind="addInf.membershipNum"></span>
+                <span ng-hide="addInf.membershipNum">-</span>
+              </td>
+              <td>{{ 'Resigned date' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.resignedDate" ng-bind="addInf.resignedDate | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.resignedDate">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Enrolled Dept' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.enrolledDept" ng-bind="addInf.enrolledDept | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledDept">-</span>
+              </td>
+              <td>{{ 'Shop steward courses' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.shopStewardCourses" ng-bind="addInf.shopStewardCourses | date:'dd.mm.yyyy'">
+                </span>
+                <span ng-hide="addInf.shopStewardCourses">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Enrolled IE' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.enrolledIE" ng-bind="addInf.enrolledIE | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledIE">-</span>
+              </td>
+              <td>{{ 'Agreement' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.agreement" ng-bind="addInf.agreement"></span>
+                <span ng-hide="addInf.agreement">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Enrolled LO' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.enrolledLO" ng-bind="addInf.enrolledLO | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledLO">-</span>
+              </td>
+              <td>{{ 'Referred by' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.refBy" ng-bind="addInf.refBy"></span>
+                <span ng-hide="addInf.refBy">-</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li uib-tab index="1" heading="{{ 'Working info' | translate }}">
+        <table class="employee-add-info-list">
+          <tbody>
+            <tr>
+              <td>{{ 'Employee number' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.emplNumber" ng-bind="addInf.emplNumber"></span>
+                <span ng-hide="addInf.emplNumber">-</span>
+              </td>
+              <td>{{ 'Workplace' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.workplace" ng-bind="addInf.workplace"></span>
+                <span ng-hide="addInf.workplace">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Position' | translate }}:</td>
+              <td>
+                <span ng-show="empDetail.origModel.position" ng-bind="empDetail.origModel.position.name"></span>
+                <span ng-hide="empDetail.origModel.position">-</span>
+              </td>
+              <td>{{ 'VO Courses' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.voCourses" ng-bind="addInf.voCourses | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.voCourses">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Company' | translate }}:</td>
+              <td ng-bind="empDetail.company"></td>
+              <td>{{ 'Shift' | translate }}:</td>
+              <td>
+                <span ng-show="empDetail.origModel.shift" ng-bind="empDetail.origModel.shift.name"></span>
+                <span ng-hide="empDetail.origModel.shift">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Status' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.status" ng-bind="addInf.status"></span>
+                <span ng-hide="addInf.status">-</span>
+              </td>
+              <td>{{ 'Onshore / Offshore' | translate }}:</td>
+              <td ng-bind="addInf.land ? 'Onshore' : 'Offshore' | translate"></td>
+            </tr>
+            <tr>
+              <td>{{ 'Department' | translate }}:</td>
+              <td>
+                <span ng-show="empDetail.origModel.department" ng-bind="empDetail.origModel.department.name"></span>
+                <span ng-hide="empDetail.origModel.department">-</span>
+              </td>
+              <td>{{ 'Seniority date' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.seniorityDate" ng-bind="addInf.seniorityDate | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.seniorityDate">-</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li uib-tab index="2" heading="{{ 'Privat info' | translate }}">
+        <table class="employee-add-info-list">
+          <tbody>
+            <tr>
+              <td>{{ 'Social security number' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.socialSecNumber" ng-bind="addInf.socialSecNumber"></span>
+                <span ng-hide="addInf.socialSecNumber">-</span>
+              </td>
+              <td>{{ 'Airport' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.airport" ng-bind="addInf.airport"></span>
+                <span ng-hide="addInf.airport">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Date of birth' | translate }}:</td>
+              <td>-</td>
+              <td>{{ 'City/Post Place' | translate }}:</td>
+              <td>
+                <span ng-show="pfile.city" ng-bind="pfile.city"></span>
+                <span ng-show="pfile.zipCode" ng-bind="pfile.zipCode"></span>
+                <span ng-hide="pfile.city || pfile.zipCode">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Privat Email' | translate }}:</td>
+              <td>
+                <span ng-show="pfile.email" ng-bind="pfile.email"></span>
+                <span ng-hide="pfile.email">-</span>
+              </td>
+              <td>{{ 'Jacket size' | translate }}:</td>
+              <td>
+                <span ng-show="addInf.jacketSize" ng-bind="addInf.jacketSize"></span>
+                <span ng-hide="addInf.jacketSize">-</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ 'Address I' | translate }}:</td>
+              <td>
+                <span ng-show="pfile.address" ng-bind="pfile.address"></span>
+                <span ng-hide="pfile.address">-</span>
+              </td>
+              <td>{{ 'Individual paid' | translate }}:</td>
+              <td ng-bind="addInf.indivPaid ? 'Yes' : 'No' | translate"></td>
+            </tr>
+            <tr>
+              <td>{{ 'Address II' | translate }}:</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
     <!-- Ticket tabs -->
     <div uib-tabset class="ticket-tabs employee-tabs col-xs-12 p-h-none" active="3">
       <div uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::empDetail.tabs">

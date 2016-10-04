@@ -70,8 +70,8 @@ angular
 
     // Map received model to scope models;
     function mapModels(newModel) {
-      vm.origModel = newModel;
-      angular.copy(newModel, vm.formModel);
+      angular.merge(vm.origModel, newModel);
+      angular.copy(vm.origModel, vm.formModel);
     }
 
     // Get Employee
