@@ -11,7 +11,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2};
+    vm.loadStats = {page: 2, edit: 1};
 
     // Tab panel
     vm.tabs = [
@@ -34,10 +34,26 @@ angular
     // Dialog edit forms
     vm.dialogs = {
       mainInfo: {
-        field: 'contactProfile',
         templateUrl: 'mainInfoEdit.html',
-        labelBy: 'main_info_dlg_title',
-        descrBy: 'main_info_dlg_body',
+        label: 'main',
+        open: createDialog
+      },
+      unionInfo: {
+        templateUrl: 'unionInfoEdit.html',
+        label: 'union',
+        size: 'lg',
+        open: createDialog
+      },
+      workInfo: {
+        templateUrl: 'workInfoEdit.html',
+        label: 'work',
+        size: 'lg',
+        open: createDialog
+      },
+      privatInfo: {
+        templateUrl: 'privatInfoEdit.html',
+        label: 'privat',
+        size: 'lg',
         open: createDialog
       }
     };
@@ -46,10 +62,14 @@ angular
     function createDialog() {
       /* eslint-disable angular/controller-as-vm, angular/controller-as */
       angular.extend(this, $uibModal.open({
-        ariaLabelledBy: this.labelBy,
-        ariaDescribedBy: this.descrBy,
+        ariaLabelledBy: this.label + '_info_dlg_title',
+        ariaDescribedBy: this.label + '_info_dlg_body',
+        size: this.hasOwnProperty('size') ? this.size : '',
         controller: function($scope) {
           $scope.model = vm.formModel;
+
+          // Land options
+          $scope.land = [{name: 'Offshore', val: false}, {name: 'Onshore', val: true}];
 
           // Subscribe to modal close event
           $scope.$on('modal.closing', function(evt, res, isClosed) {
@@ -78,6 +98,11 @@ angular
     vm.getEmp = function getEmp() {
       employeesAPI.get(vm.empId).then(function(res) {
         $log.log(res);
+
+        // TODO: Delete after backend refactor
+        if (!res.hasOwnProperty('additionalInfo'))
+          res.additionalInfo = {emplId: res.id};
+
         mapModels(res);
         vm.loadStats.page = 1;
       }, function(res) {
@@ -88,15 +113,16 @@ angular
 
     // Update Employee
     vm.updateEmp = function updateEmp() {
-      vm.loadStats.page = 2;
+      vm.loadStats.edit = 2;
+      employeeModel.validate(vm.formModel);
 
       employeesAPI.update(vm.formModel).then(function(res) {
         $log.log(res);
         mapModels(res);
-        vm.loadStats.page = 1;
+        vm.loadStats.edit = 1;
       }, function(res) {
         $log.log(res);
-        vm.loadStats.page = 0;
+        vm.loadStats.edit = 0;
       });
     };
 

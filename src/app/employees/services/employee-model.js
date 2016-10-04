@@ -41,7 +41,23 @@ angular
       this.additionalInfo = new EmpAdditionalInfo();
     }
 
+    function validateInt(val) {
+      var num = parseInt(val);
+
+      return angular.isNumber(num) ? num : null;
+    }
+
+    function validateBool(val) { return !!val; }
+
     return {
-      get: function() { return new Employee(); }
+      get: function() { return new Employee(); },
+      validate: function(model) {
+        if (model instanceof Employee) {
+          model.additionalInfo.membershipNum = validateInt(model.additionalInfo.membershipNum);
+          model.additionalInfo.socialSecNumber = validateInt(model.additionalInfo.socialSecNumber);
+          model.additionalInfo.indivPaid = validateBool(model.additionalInfo.indivPaid);
+          model.additionalInfo.land = validateBool(model.additionalInfo.land);
+        }
+      }
     }
   });
