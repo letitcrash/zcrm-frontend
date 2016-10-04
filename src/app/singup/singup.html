@@ -1,43 +1,168 @@
-<div class="middle-box text-center loginscreen   animated fadeInDown" ng-controller="SignupUserCtrl">
+<div class="middle-box text-center loginscreen animated fadeInDown">
+  <div>
     <div>
-        <div>
 
-            <h1 class="logo-name">CRM</h1>
+      <h1 class="logo-name">CRM</h1>
 
-        </div>
-        <h3>Register to IN+</h3>
-        <p>Create account to see it in action. {{email}} </p>
-
-        <form class="m-t" role="form" ng-submit="createUser()">
-            <div class="form-group">
-                <input type="hidden" class="form-control" placeholder="token" ng-model="token" value="{{token}}">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="First Name" ng-model="contactProfile.firstname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Last Name" ng-model="contactProfile.lastname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Email" ng-model="email" value="{{email}}">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Company name" ng-model="companyName">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" ng-model="password">
-            </div>
-            <div class="form-group">
-                <div class="checkbox i-checks">
-                    <label>
-                        <input type="checkbox"><i></i> Agree the terms and policy </label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
-
-            <p class="text-muted text-center"><small>Already have an account?</small></p>
-            <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
-        </form>
-        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2016</small> </p>
     </div>
+    <h3>Register to IN+</h3>
+    <p>Create account to see it in action. {{signup.email}} </p>
+
+    <form class="m-t" role="form" name="form" ng-submit="createUser()">
+      <div class="form-group">
+        <input type="hidden" class="form-control" placeholder="token" ng-model="token" value="{{signup.token}}">
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.firstname.$dirty && form.firstname.$invalid}">
+        <input type="text" class="form-control" placeholder="{{ 'First Name' | translate}}" name="firstname"
+               ng-model="contactProfile.firstname"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" name-validator required>
+        <span class="help-block" ng-show="form.firstname.$dirty && form.firstname.$error.required">
+          {{ 'This field is required' | translate }}
+        </span>
+        <span class="help-block" ng-show="form.firstname.$dirty && form.firstname.$error.nameValid &&
+              !form.firstname.$error.required">
+          {{ 'This field must contain only letters' | translate }}
+        </span>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.lastname.$dirty && form.lastname.$invalid}">
+        <input type="text" class="form-control" placeholder="{{ 'Last name' | translate }}" name="lastname"
+               ng-model="contactProfile.lastname"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" name-validator required>
+        <span class="help-block" ng-show="form.lastname.$dirty && form.lastname.$error.required">
+          {{ 'This field is required' | translate }}
+        </span>
+        <span class="help-block" ng-show="form.lastname.$dirty && form.lastname.$error.nameValid &&
+              !form.lastname.$error.required">
+          {{ 'This field must contain only letters' | translate }}
+        </span>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.email.$dirty && form.email.$invalid}">
+        <input type="email" class="form-control" placeholder="{{ 'Email' | translate }}" name="email" ng-model="email"
+               required>
+        <span class="help-block" ng-show="form.email.$dirty && form.email.$error.required">
+          {{ 'This field is required' | translate }}
+        </span>
+        <span class="help-block" ng-show="form.email.$dirty && form.email.$error.email">
+          {{ 'E-mail must be in correct format' | translate }}
+        </span>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.companyName.$dirty && form.companyName.$invalid}">
+        <input type="text" class="form-control" placeholder="{{ 'Company name' | translate }}" name="companyName"
+               ng-model="companyName" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+               required>
+        <span class="help-block" ng-show="form.companyName.$dirty && form.companyName.$error.required">
+          {{ 'This field is required' | translate }}
+        </span>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$invalid}">
+        <input type="password" class="form-control" placeholder="{{ 'Password' | translate }}" name="password"
+               ng-model="password" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+               ng-minlength="8" required>
+        <span class="help-block"
+              ng-show="form.password.$dirty && form.password.$error.minlength || form.password.$dirty &&
+              form.password.$error.required">
+          {{ 'Password must be at least 8 characters' | translate }}
+        </span>
+      </div>
+      <div class="form-group"
+           ng-class="{'has-error': form.confirmPassword.$dirty && form.confirmPassword.$error.compareTo}">
+        <input type="password" class="form-control" placeholder="{{ 'Confirm password' | translate }}"
+               name="confirmPassword" ng-model="confirmPassword"
+               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" required
+               compare-to="password">
+        <span class="help-block"
+              ng-show="form.confirmPassword.$dirty && form.confirmPassword.$error.compareTo">
+          {{ 'Your password and confirmation password do not match' | translate }}
+        </span>
+      </div>
+      <div class="form-group">
+        <div class="checkbox i-checks">
+          <label>
+            <input type="checkbox" required><i></i> Agree the <a data-toggle="modal" data-target="#myModal">terms and
+            policy</a> </label>
+        </div>
+      </div>
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Terms and policy</h4>
+            </div>
+            <div class="modal-body">
+              <p>Lorem ipsum non quisque bibendum arcu odio sem tellus sapien urna&nbsp;&mdash; quam sed.
+                Integer, quam maecenas, ut eget massa et nibh&nbsp;&mdash; pharetra ornare, sit lorem metus lorem
+                urna, ut at curabitur&nbsp;&mdash; amet pharetra mattis et elementum. Sit massa, maecenas nec
+                lorem&nbsp;&mdash;
+                nam et metus amet risus ut et leo nam adipiscing amet proin donec enim sagittis justo quam bibendum
+                diam. Lectus
+                elementum quisque sodales eros risus sapien quisque sagittis enim in ipsum leo, fusce sed sem massa arcu
+                porttitor
+                gravida arcu. Quisque congue sit massa fusce ligula, pellentesque rutrum orci massa. Duis lorem: rutrum
+                nibh et,
+                justo nibh nec gravida sagittis auctor ultricies nulla elementum, nec duis et enim urna porta donec
+                justo, fusce.
+                Orci enim tempus eget mauris, tellus maecenas sagittis urna in duis mauris maecenas.</p>
+              <p>Ornare sapien porta
+                nulla et cursus in non morbi ut mauris adipiscing. Sapien diam sem leo justo lorem quam molestie mauris,
+                vivamus
+                lectus magna maecenas nec quam porttitor gravida ut tempus ligula justo pellentesque. Gravida: vitae
+                mauris maecenas
+                malesuada ultricies fusce porta maecenas ligula metus proin sem, et commodo urna sodales sed orci
+                integer auctor
+                elementum. Metus gravida cursus molestie nec mauris sapien lorem proin nam eget adipiscing ultricies
+                adipiscing,
+                elementum ultricies morbi curabitur.</p>
+              <p>Non urna: maecenas enim massa arcu at arcu commodo adipiscing vitae fusce
+                vivamus. Ornare, leo adipiscing orci et: donec ipsum mauris lectus integer maecenas curabitur nulla
+                magna metus
+                integer elementum eu ipsum at duis: magna. Ligula leo sagittis amet congue risus magna tempus vivamus
+                magna ultricies
+                vivamus&nbsp;&mdash; integer sodales, urna sagittis malesuada tellus justo mauris eros. Leo congue
+                rutrum mattis pellentesque
+                elementum ut vitae gravida morbi nam ornare vivamus nibh ornare quisque gravida sodales non orci eu.</p>
+              <p>Nam mauris sem
+                cursus nibh morbi, maecenas odio nibh molestie risus magna justo congue adipiscing pellentesque vivamus
+                nulla, nibh mattis
+                quam. Lorem mauris sodales eget malesuada&nbsp;&mdash; amet magna bibendum auctor adipiscing lorem
+                congue nulla porta sem
+                sodales ultricies curabitur vitae sit maecenas. Sed ornare vulputate amet non, sit cursus ornare, nam,
+                morbi risus donec
+                eget. Mattis porttitor gravida integer pellentesque nec, gravida amet massa tempus&nbsp;&mdash; fusce
+                eros vivamus tempus
+                commodo. Justo leo massa arcu ligula vulputate eu pellentesque curabitur morbi maecenas magna maecenas
+                malesuada commodo
+                donec magna, mattis.</p>
+              <p>Quam fusce cursus ultricies lectus enim at rutrum, ipsum curabitur eget, integer. At nam gravida,
+                porta auctor quam nec: eu massa nulla a ornare adipiscing. Integer leo risus fusce pellentesque lectus
+                morbi eu proin sapien
+                curabitur adipiscing. Nibh elementum lorem arcu congue commodo&nbsp;&mdash; tellus arcu urna risus
+                tempus metus in porttitor
+                sagittis metus mattis sed justo pharetra integer nibh urna et. Eros maecenas vulputate justo eu eros,
+                mattis eu sagittis
+                justo quisque lorem nulla lorem pellentesque justo quam ultricies. Quam eget, sit amet sagittis eros
+                tellus, ut sodales
+                sapien urna: proin. Donec commodo vulputate, nec malesuada nec orci enim nec vitae maecenas, non enim,
+                molestie,
+                in eget mattis pellentesque porttitor non.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="form.$invalid"
+              ng-bind="'Register' | translate">
+      </button>
+
+      <p class="text-muted text-center">
+        <small>Already have an account?</small>
+      </p>
+      <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
+    </form>
+    <p class="m-t">
+      <small>Inspinia we app framework base on Bootstrap 3 &copy; 2016</small>
+    </p>
+  </div>
 </div>

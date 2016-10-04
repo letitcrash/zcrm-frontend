@@ -29,7 +29,8 @@ angular
         url: '/signup/user?token&email',
         templateUrl: 'app/singup/singup.html',
         data: {pageTitle: 'Wizard form'},
-        'authenticate': false
+        'authenticate': false,
+        controller: 'SignupUserCtrl as signup'
       })
       .state('index', {
         abstract: true,
