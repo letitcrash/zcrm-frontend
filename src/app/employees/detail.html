@@ -62,34 +62,60 @@
       </ul>
     </div>
     <!-- Additional information -->
-    <ul uib-tabset class="employee-add-info col-xs-12 col-lg-6 m-b-md" type="pills">
+    <ul uib-tabset class="employee-add-info col-xs-12 col-lg-6 m-b-md" type="pills"
+        ng-init="addInf = empDetail.origModel.additionalInfo; pfile = empDetail.origModel.user.contactProfile">
       <li class="pull-left">{{ 'Show' | translate }}:</li>
       <li uib-tab index="0" heading="{{ 'Union info' | translate }}">
         <table class="employee-add-info-list">
           <tbody>
             <tr>
               <td>{{ 'Membership number' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.membershipNum" ng-bind="addInf.membershipNum"></span>
+                <span ng-hide="addInf.membershipNum">-</span>
+              </td>
               <td>{{ 'Resigned date' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.resignedDate" ng-bind="addInf.resignedDate | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.resignedDate">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Enrolled Dept' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.enrolledDept" ng-bind="addInf.enrolledDept | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledDept">-</span>
+              </td>
               <td>{{ 'Shop steward courses' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.shopStewardCourses" ng-bind="addInf.shopStewardCourses | date:'dd.mm.yyyy'">
+                </span>
+                <span ng-hide="addInf.shopStewardCourses">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Enrolled IE' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.enrolledIE" ng-bind="addInf.enrolledIE | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledIE">-</span>
+              </td>
               <td>{{ 'Agreement' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.agreement" ng-bind="addInf.agreement"></span>
+                <span ng-hide="addInf.agreement">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Enrolled LO' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.enrolledLO" ng-bind="addInf.enrolledLO | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.enrolledLO">-</span>
+              </td>
               <td>{{ 'Referred by' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.refBy" ng-bind="addInf.refBy"></span>
+                <span ng-hide="addInf.refBy">-</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -99,33 +125,57 @@
           <tbody>
             <tr>
               <td>{{ 'Employee number' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.emplNumber" ng-bind="addInf.emplNumber"></span>
+                <span ng-hide="addInf.emplNumber">-</span>
+              </td>
               <td>{{ 'Workplace' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.workplace" ng-bind="addInf.workplace"></span>
+                <span ng-hide="addInf.workplace">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Position' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="empDetail.origModel.position" ng-bind="empDetail.origModel.position.name"></span>
+                <span ng-hide="empDetail.origModel.position">-</span>
+              </td>
               <td>{{ 'VO Courses' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.voCourses" ng-bind="addInf.voCourses | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.voCourses">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Company' | translate }}:</td>
-              <td>-</td>
+              <td ng-bind="empDetail.company"></td>
               <td>{{ 'Shift' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="empDetail.origModel.shift" ng-bind="empDetail.origModel.shift.name"></span>
+                <span ng-hide="empDetail.origModel.shift">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Status' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.status" ng-bind="addInf.status"></span>
+                <span ng-hide="addInf.status">-</span>
+              </td>
               <td>{{ 'Onshore / Offshore' | translate }}:</td>
-              <td>-</td>
+              <td ng-bind="addInf.land ? 'Onshore' : 'Offshore' | translate"></td>
             </tr>
             <tr>
               <td>{{ 'Department' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="empDetail.origModel.department" ng-bind="empDetail.origModel.department.name"></span>
+                <span ng-hide="empDetail.origModel.department">-</span>
+              </td>
               <td>{{ 'Seniority date' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.seniorityDate" ng-bind="addInf.seniorityDate | date:'dd.mm.yyyy'"></span>
+                <span ng-hide="addInf.seniorityDate">-</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -135,27 +185,46 @@
           <tbody>
             <tr>
               <td>{{ 'Social security number' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.socialSecNumber" ng-bind="addInf.socialSecNumber"></span>
+                <span ng-hide="addInf.socialSecNumber">-</span>
+              </td>
               <td>{{ 'Airport' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.airport" ng-bind="addInf.airport"></span>
+                <span ng-hide="addInf.airport">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Date of birth' | translate }}:</td>
               <td>-</td>
-              <td>{{ 'City\Post Place' | translate }}:</td>
-              <td>-</td>
+              <td>{{ 'City/Post Place' | translate }}:</td>
+              <td>
+                <span ng-show="pfile.city" ng-bind="pfile.city"></span>
+                <span ng-show="pfile.zipCode" ng-bind="pfile.zipCode"></span>
+                <span ng-hide="pfile.city || pfile.zipCode">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Privat Email' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="pfile.email" ng-bind="pfile.email"></span>
+                <span ng-hide="pfile.email">-</span>
+              </td>
               <td>{{ 'Jacket size' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="addInf.jacketSize" ng-bind="addInf.jacketSize"></span>
+                <span ng-hide="addInf.jacketSize">-</span>
+              </td>
             </tr>
             <tr>
               <td>{{ 'Address I' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="pfile.address" ng-bind="pfile.address"></span>
+                <span ng-hide="pfile.address">-</span>
+              </td>
               <td>{{ 'Individual paid' | translate }}:</td>
-              <td>-</td>
+              <td ng-bind="addInf.indivPaid ? 'Yes' : 'No' | translate"></td>
             </tr>
             <tr>
               <td>{{ 'Address II' | translate }}:</td>
