@@ -30,29 +30,12 @@ angular
       birthdate: false
     };
 
-    // Create ticket
+    // Create employee
     vm.createEmployee = function createEmployee() {
       vm.loadStats.form = 2;
+      vm.model.user.username = vm.model.user.contactProfile.email;
+      employeeModel.validate(vm.model);
 
-      employeesAPI.create(vm.model).then(function(res) {
-        if (res.hasOwnProperty('id')) {
-          vm.loadStats.form = 1;
-          $state.go('^.list');
-        } else {
-          vm.loadStats.form = 0;
-          $log.log(res);
-        }
-      }, function(res) {
-        vm.loadStats.form = 0;
-        $log.log(res);
-      });
-    };
-
-    // Create ticket
-    vm.createEmployee = function createEmployee() {
-      vm.loadStats.form = 2;
-
-      $log.log(vm.model);
       employeesAPI.create(vm.model).then(function(res) {
         if (res.hasOwnProperty('id')) {
           vm.loadStats.form = 1;

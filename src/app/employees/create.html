@@ -50,7 +50,7 @@
     <div class="row">
       <label class="control-label col-md-3">{{ 'Membership number' | translate }}:</label>
       <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="membershipNumber" ng-model="addInf.membershipNumber">
+        <input type="text" class="form-control" name="membershipNum" ng-model="addInf.membershipNum">
       </div>
       <label class="control-label col-md-3">{{ 'Resigned date' | translate }}:</label>
       <div class="m-b col-md-3">
@@ -221,40 +221,44 @@
         <input type="text" class="form-control" name="airport" ng-model="addInf.airport">
       </div>
     </div>
-    <!-- Birthdate and city -->
+    <!-- Birthdate and privat email -->
     <div class="row">
       <label class="control-label col-md-3">{{ 'Date of birth' | translate }}:</label>
       <div class="m-b col-md-3">
         <div class="input-group">
           <input type="text" class="form-control" uib-datepicker-popup ng-model="pfile.birthdate"
-                 is-open="empCreate.uiTogglers.birthdate" placeholder="Enter date here">
+                 is-open="empDetail.uiTogglers.birthdate" placeholder="Enter date here">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="empCreate.uiTogglers.birthdate = true">
+            <button class="btn btn-default" type="button" ng-click="empDetail.uiTogglers.birthdate = true">
               <i class="glyphicon glyphicon-calendar"></i>
             </button>
           </span>
         </div>
       </div>
-      <label class="control-label col-md-3">{{ 'City' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="city" ng-model="pfile.city">
-      </div>
-    </div>
-    <!-- Private email and jacket size -->
-    <div class="row">
       <label class="control-label col-md-3">{{ 'Privat Email' | translate }}:</label>
       <div class="m-b col-md-3">
         <input type="email" class="form-control" name="emailHome" ng-model="pfile.emailHome">
       </div>
+    </div>
+    <!-- City and zip code -->
+    <div class="row">
+      <label class="control-label col-md-3">{{ 'City' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="city" ng-model="pfile.city">
+      </div>
+      <label class="control-label col-md-3">{{ 'ZIP Code' | translate }}:</label>
+      <div class="m-b col-md-3">
+        <input type="text" class="form-control" name="zipCode" ng-model="pfile.zipCode">
+      </div>
+    </div>
+    <!-- Jacket size and individual paid -->
+    <div class="row">
       <label class="control-label col-md-3">{{ 'Jacket size' | translate }}:</label>
       <div class="m-b col-md-3">
         <input type="text" class="form-control" name="airport" ng-model="addInf.jacketSize">
       </div>
-    </div>
-    <!-- Individual paid -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Individual paid' | translate }} I:</label>
-      <div class="col-md-9">
+      <label class="control-label col-md-3">{{ 'Individual paid' | translate }}:</label>
+      <div class="m-b col-md-3">
         <label class="radio-inline">
           <input type="radio" class="green-radio-check" name="indivPaid" ng-model="addInf.indivPaid" value="true"
                  ng-checked="addInf.indivPaid">

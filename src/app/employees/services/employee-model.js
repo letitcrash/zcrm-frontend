@@ -27,7 +27,6 @@ angular
     }
 
     function Employee() {
-      this.baseUrl = '';
       this.employeeType = '';
       this.employeeLevel = null;
       this.employeeType = '';
