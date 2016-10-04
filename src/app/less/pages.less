@@ -1213,6 +1213,35 @@ a.compose-mail {
   margin-left: 15px;
 }
 
+// Employee additional info
+.employee-add-info > .nav-pills > li {
+  &.active { background: none !important; }
+  &:first-child { padding: 5px 5px 5px 0; }
+  & > a {
+    border: 1px solid @border-color;
+    padding: 5px;
+  }
+  &.active > a { background-color: @navy; }
+}
+
+// List of Employee addition info fields
+.employee-add-info-list {
+  width: 100%;
+
+  & td {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    vertical-align: middle;
+    width: 25%;
+
+    &:nth-child(2n+1) {
+      font-weight: bold;
+      padding-right: 10px;
+      text-align: right;
+    }
+  }
+}
+
 
 /* PROJECTS */
 .project-people, .project-actions {
