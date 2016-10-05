@@ -2,7 +2,9 @@
 
 angular
   .module('inspinia')
-  .controller('CreateNewsCtrl', function ($state, $log, dataService, generalUtils, newsApi, imagesApi, summernoteConfig) {
+  .controller('CreateNewsCtrl', function ($state, $log, dataService, generalUtils, newsApi, imagesApi, cmsPermissions, summernoteConfig) {
+    cmsPermissions.call(this);
+
     var vm = this;
     vm.NEW = true;
 
@@ -27,19 +29,18 @@ angular
       if (!vm.article.text)
         vm.article.text = '';
 
+      vm.article.title = vm.article.title.substring(0,255);
       vm.article.date = new Date().getTime();
       vm.article.author = dataService.getUser().contactProfile.id;
       vm.article.permission = 99;
-      vm.article.description = vm.article.text.split("<hr>")[0];
+      vm.article.description = vm.article.text.split("<hr>")[0].substring(0, 254);
 
       if (!vm.article.description)
         vm.article.description = '';
 
       vm.article.companyId = dataService.getCurrentCompanyId();
 
-      newsApi.post(vm.article).then(function () {
-        $state.go('index.cmsNews');
-      });
+      newsApi.post(vm.article).then($state.go('index.cmsNews'));
     };
 
     vm.cancel = function () {

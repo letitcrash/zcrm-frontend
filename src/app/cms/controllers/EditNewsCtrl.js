@@ -2,22 +2,20 @@
 
 angular
   .module('inspinia')
-  .controller('EditNewsCtrl', function ($state, newsApi, imagesApi, configurationService) {
+  .controller('EditNewsCtrl', function ($state, newsApi, imagesApi, cmsPermissions, configurationService) {
+    cmsPermissions.call(this);
+
     var vm = this;
     vm.UPDATE = true;
 
     init();
 
     vm.update = function () {
-      newsApi.put(vm.article).then(function () {
-        $state.go('index.cmsNews');
-      });
+      newsApi.put(vm.article).then($state.go('index.cmsNews'));
     };
 
     vm.delete = function () {
-      newsApi.deleteNews(vm.article.id).then(function () {
-        $state.go('index.cmsNews');
-      })
+      newsApi.deleteNews(vm.article.id).then($state.go('index.cmsNews'));
     };
 
     vm.uploadImage = function (attachedImage) {
@@ -30,13 +28,13 @@ angular
       });
     };
 
+    vm.cancel = function () {
+      $state.go('index.cmsNews');
+    };
+
     vm.dropImageButtonClick = function () {
       vm.attachedImage = null;
       vm.article.image = null;
-    };
-
-    vm.cancel = function () {
-      $state.go('index.cmsNews');
     };
 
     function init() {

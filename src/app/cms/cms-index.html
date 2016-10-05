@@ -23,9 +23,9 @@
           </span>
           </div>
           <ul class="nav nav-tabs" style="margin: 20px 0">
-            <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a href="#/index/cms/news">
+            <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a ui-sref="index.cmsNews">
               <i class="fa fa-briefcase"></i>{{ 'News' | translate}}</a></li>
-            <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a href="#/index/cms/pages">
+            <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a ui-sref="index.cmsPages">
               <i class="fa fa-envelope"></i>{{'Pages' | translate}}</a></li>
           </ul>
           <div class="clients-list">

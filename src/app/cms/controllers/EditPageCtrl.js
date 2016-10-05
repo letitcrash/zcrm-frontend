@@ -2,7 +2,9 @@
 
 angular
   .module('inspinia')
-  .controller('EditPageCtrl', function ($state, $log, pagesApi, imagesApi, configurationService) {
+  .controller('EditPageCtrl', function ($state, $log, pagesApi, imagesApi, cmsPermissions, configurationService) {
+    cmsPermissions.call(this);
+
     var vm = this;
     vm.UPDATE = true;
 
@@ -13,19 +15,15 @@ angular
         image: vm.page.image,
         alias: vm.page.title,
         title: vm.page.title,
-        desc: vm.page.description,
+        desc: vm.page.description.substring(0, 255),
         body: vm.page.text
       };
 
-      pagesApi.put(vm.page.id, request).then(function () {
-        $state.go('index.cmsPages');
-      });
+      pagesApi.put(vm.page.id, request).then($state.go('index.cmsPages'));
     };
 
     vm.delete = function () {
-      pagesApi.deletePage(vm.page.id).then(function () {
-        $state.go('index.cmsPages');
-      })
+      pagesApi.deletePage(vm.page.id).then($state.go('index.cmsPages'));
     };
 
     vm.uploadImage = function (attachedImage) {
