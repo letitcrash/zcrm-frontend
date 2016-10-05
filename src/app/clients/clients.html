@@ -8,7 +8,7 @@
           <!--settings btn-->
           <div class="btn-group pull-right m-l-sm" uib-dropdown is-open="status.isopen">
             <button id="single-button" type="button" class="btn btn-sm btn-white m-l-sm" uib-dropdown-toggle ng-disabled="disabled">
-              <i class="fa fa-cog"></i> 
+              <i class="fa fa-cog"></i>
             </button>
             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
               <li role="menuitem"><a href></a></li>
@@ -26,7 +26,7 @@
           <button ng-click="createClientAction()" type="button" class="btn btn-sm btn-primary pull-right" uib-dropdown-toggle ng-disabled="disabled">
             <i class="fa fa-user-plus"></i> {{ 'Create client' | translate }}
           </button>
-          <!--BUTTONS end--> 
+          <!--BUTTONS end-->
 
           <h2>{{ 'Clients' | translate }}</h2>
 
@@ -50,14 +50,14 @@
           <button type="button" ng-click="isCollapsed = false" ng-hide="isCollapsed==false" class="btn btn-warning">
             <i class="fa fa-eye-slash" style="padding-right:5px;"></i>Hide filters
           </button>
-          
+
           <button type="button" ng-click="filterClear" ng-hide="isCollapsed==false" class="btn btn-info">
             <i class="fa fa-trash" style="padding-right:5px;"></i>Clear filters
           </button>
 
           <button type="button" class="btn btn-info" ng-hide="isCollapsed==false">
             <i class="fa fa-floppy-o" style="padding-right:5px;"></i>Save filters
-          </button> 
+          </button>
           <!--advanced filters start-->
           <div ng-if="isCollapsed">
             <!--top search fields-->
@@ -68,8 +68,8 @@
                 <h4>{{ 'Union' | translate }}</h4>
                 <div class="input-group">
                   <input id="unionFilter" type="text" ng-model="currentFilters.union" uib-typeahead="union as union.name for union in mycp.unions | filter:$viewValue | limitTo:8" class="form-control" placeholder="{{ 'Union' | translate }}" value="{{filter.unions[1].name}}">
-                  </div> 
-                  
+                  </div>
+
                   <ul>
                     <li ng-repeat="union in filter.unions" ng-if="" ng-repeat-end>{{union.name}}</li>
                   </ul>
@@ -97,13 +97,13 @@
                   <div class="input-group">
                     <input type="text" placeholder="Shift..." class="form-control" />
                   </div>
-                </div>    
+                </div>
 
               </form>
             </div>
             <!--advanced filters end-->
             <div class="clients-list">
-            
+
             <div class="text-center" ng-if="!page.loaded" >
               <div class="sk-spinner sk-spinner-circle">
                 <div class="sk-circle1 sk-circle"></div>
@@ -158,7 +158,7 @@
                             <td ng-hide="page.mode == 2">{{client.contactProfile.email}}</td>
                             <td ng-hide="page.mode == 2">{{client.contactProfile.phoneNumberMobile}}</td>
                             <td>{{client.companyId}}</td>
-                          </tr>                                                
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -173,8 +173,8 @@
                 </div>
 
                 <!--tab 2 content-->
-                
-                
+
+
                 <!--<div id="tab-2" class="tab-pane active" ng-show="tab == 2">
                   <div class="full-height-scroll" full-scroll>
                     <div class="table-responsive">
@@ -204,21 +204,21 @@
                     <!--<uib-pagination class="pull-right" total-items="totalDelegates"
                       ng-model="pageDl" items-per-page="pageSize" ng-change="changePage()"
                       max-size="10" boundary-link-numbers="true" rotate="true"></uib-pagination>-->
-                    
+
                         <!--Need make new ng model for delegates:
                             total-items="totalDelegates"
                             ng-model="pageDl" -->
-                    
+
                     <!--PAGINATION end-->
 
-                  <!--</div>-->                              
+                  <!--</div>-->
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!--EMPLOYEE PAGE end--> 
+        <!--EMPLOYEE PAGE end-->
 
         <!--NEW EMPLOYEE start-->
 
@@ -262,13 +262,13 @@
                 <li class="list-group-item" ng-mouseenter="editPhone = true" ng-mouseleave="editPhone = false">
                   <div class="row">
                     <div class="col-sm-4" ng-class="{'col-sm-12' : editPhoneAction}">
-                      Telefon
+                      {{'Phone' | translate}}
                     </div>
                     <div class="col-sm-8">
 
 
                       <input type="text" ng-model="currentClient.contactProfile.phoneNumberMobile" class="form-control m-b-sm">
-                      <a><i class="fa fa-plus"></i> Add another telefon </a>
+                      <a><i class="fa fa-plus"></i>&nbsp;{{'Add another phone' | translate}}</a>
 
                     </div>
                   </div>
@@ -277,13 +277,13 @@
                 <li class="list-group-item" ng-mouseenter="editEmail = true" ng-mouseleave="editEmail = false">
                   <div class="row">
                     <div class="col-sm-4" ng-class="{'col-sm-12' : editEmailAction}">
-                      E-post
+                      {{'E-mail' | translate}}
                     </div>
                     <div class="col-sm-8">
 
 
                       <input type="text" ng-model="currentClient.contactProfile.email" class="form-control m-b-sm">
-                      <a><i class="fa fa-plus"></i> Add another e-post </a>
+                      <a><i class="fa fa-plus"></i>&nbsp;{{'Add another e-mail' | translate}}</a>
 
 
                     </div>
@@ -312,7 +312,7 @@
                     </div>
                     <div class="col-sm-8">
 
-                      <input style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.city"></input>
+                      <input style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.city">
 
 
                     </div>
@@ -326,7 +326,7 @@
                     </div>
                     <div class="col-sm-8">
 
-                      <input style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.zipCode"></input>
+                      <input style="width: 100%;border: 1px solid #E5E6E7;" ng-model="currentClient.contactProfile.zipCode">
 
 
                     </div>
@@ -356,15 +356,15 @@
                     <span ng-if="page.mode == 2">{{ 'Info' | translate }}</span></a></li>
                 <li uib-popover="{{ 'Teams' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 2}">
                   <a data-toggle="tab" ng-click="subtab = 2" > <i class="fa fa-user"></i>
-                    <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a></li> 
+                    <span ng-if="page.mode == 2">{{ 'Teams' | translate }}</span></a></li>
                 <li uib-popover="{{ 'Tickets' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 3}">
                   <a data-toggle="tab" ng-click="subtab = 3" > <i class="fa fa-check"></i>
                     <span ng-if="page.mode == 2">{{ 'Tickets' | translate }}</span></a></li>
                 <li uib-popover="{{ 'Mail settings' | translate }}" popover-enable="page.mode == 1" popover-trigger="mouseenter"  ng-class="{active:subtab == 4}">
                   <a data-toggle="tab" ng-click="subtab = 4" > <i class="fa fa-envelope"></i>
                     <span ng-if="page.mode == 2">{{ 'Mail settings' | translate }}</span></a></li>
-                
-                
+
+
                 <div class="pull-right">
                   <button type="button" class="btn btn-sm btn-white pull-right" ng-click="page.mode = 0" style="margin: 8px"> <i class="fa fa-times"></i> </button>
 
@@ -376,14 +376,14 @@
                   <button type="button" class="btn btn-sm btn-white pull-right"  ng-click="page.mode = 2" ng-show="page.mode == 1" style="margin: 8px"> <i class="fa fa-expand"></i> </button>
 
 
-                  
+
                 </div>
-                
+
                 </ul>
 
 
                 <button type="button" class="btn btn-w-m btn-primary btn-sm pull-right" ng-click="save(currentClient)" ng-show="editUser"><i class="fa fa-times"></i> Save</button>
-          
+
 
             </div>
             <div class="tab-content panel-body contact-box center-version" style="border-top: none">
@@ -433,7 +433,7 @@
                         <div class="form-group"><input type="text" ng-model="currentClient.contactProfile.firstname" placeholder="First name" class="form-control"></div>
                         <div class="form-group"><input type="text" ng-model="currentClient.contactProfile.lastname" placeholder="Last name" class="form-control"></div>
                         <div>
-                          <div class="alert alert-danger alert-dismissable" ng-show="useralert"> 
+                          <div class="alert alert-danger alert-dismissable" ng-show="useralert">
                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button" ng-click="useralert = undefined">×</button>
                             {{useralert}}. <a class="alert-link">check</a>.
                           </div>
@@ -629,7 +629,7 @@
                   No assigned roles, please add one
                 </li>
                 <li class="list-group-item" ng-repeat="role in currentEmp.delegates">
-                  {{role.name}}<span class="pull-right">{{timeConverter(role.startDate)}} - {{timeConverter(role.endDate)}}</td>
+                  {{role.name}}<span class="pull-right">{{timeConverter(role.startDate)}} - {{timeConverter(role.endDate)}}</span>></td>
                 </li>
 
               </ul>
