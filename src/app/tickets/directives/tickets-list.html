@@ -1,0 +1,92 @@
+<!-- Tickets list container -->
+<div class="col-xs-12 table-responsive">
+  <!-- Tickets list -->
+  <table class="tickets-list table table-stripped">
+    <thead>
+      <tr>
+        <th></th>
+        <th ng-repeat="field in ::fields">
+          <span ng-bind="::field.title | translate"></span>
+          <a class="fa" href role="button" title="{{ 'Change sort ordering' | translate }}"
+             ng-class="'fa-sort-amount-' + params.order"
+             ng-show="field.name === params.sort"
+             ng-click="params.order = params.order === 'asc' ? 'desc' : 'asc'">
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody ng-show="loadStats.list === 1">
+      <tr class="ticket-row" ng-repeat="ticket in tickets"
+          ng-class="{'overdue': ticket.deadline <= today.getTime()}">
+        <td>
+          <input class="green-check" type="checkbox">
+        </td>
+        <td><a ui-sref="index.tickets.detail({ticketId: ticket.id})" ng-bind="::ticket.id"></a></td>
+        <td crm-ticket-status-label ng-model="ticket.status"></td>
+        <td crm-ticket-priority-label ng-model="ticket.priority"></td>
+        <td>
+          <a ui-sref="index.tickets.detail({ticketId: ticket.id})"
+             ng-bind="::ticket.subject | cutLongText:25:'...'"></a>
+        </td>
+        <td>
+          <span ng-repeat="pfile in ::ticket.clients" ng-if="ticket.clients.length === 1"
+                ng-bind="pfile | crmUserDisplayName"></span>
+          <span ng-repeat="pfile in ::ticket.clients | limitTo:3" ng-if="ticket.clients.length > 1"
+                title="{{ pfile | crmUserDisplayName }}">
+            {{ pfile | crmUserDisplayName:true }}{{ !$last ? ',' : '' }}
+          </span>
+          <a href="" role="button" ng-if="ticket.clients.length > 3">...</a>
+        </td>
+        <td>
+          <span>{{ ::ticket.teams[0].name }}{{ ticket.teams.length > 1 ? ',' : '' }}</span>
+          <a href="" role="button" ng-if="ticket.teams.length > 1">...</a>
+        </td>
+        <td>
+          <span ng-repeat="pfile in ::ticket.agents" ng-if="ticket.agents.length === 1"
+                ng-bind="pfile | crmUserDisplayName"></span>
+          <span ng-repeat="pfile in ::ticket.agents | limitTo:3" ng-if="ticket.agents.length > 1"
+                title="{{ pfile | crmUserDisplayName }}">
+            {{ pfile | crmUserDisplayName:true }}{{ !$last ? ',' : '' }}
+          </span>
+          <a href="" role="button" ng-if="ticket.agents.length > 3">...</a>
+        </td>
+        <td ng-bind="::ticket.project.name"></td>
+        <td ng-bind="::ticket.createdAt | date:'mediumDate'"></td>
+        <td>
+          <span ng-bind="::ticket.deadline | date:'mediumDate'"></span>
+          &nbsp;
+          <span class="ticket-row-tip fa fa-question" ng-if="ticket.deadline <= today.getTime()"
+                uib-popover="This ticket is passed the deadline and not been closed yet"
+                popover-append-to-body="true" popover-placement="bottom-right" popover-trigger="mouseenter">
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Loading status -->
+<div class="tickets-list-pholder col-xs-12" ng-show="loadStats.list === 2">
+  <h4 class="tickets-list-pholder-content">
+    <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+    <span class="valign-middle">{{ 'Loading tickets' | translate }}...</span>
+  </h4>
+</div>
+<!-- Error box -->
+<div class="tickets-list-pholder col-xs-12" ng-show="loadStats.list === 0">
+  <div class="tickets-list-pholder-content">
+    <h4>
+      <span class="fa fa-ban text-danger"></span>
+      {{ 'Unable to get tickets list. Please try again.' | translate }}
+    </h4>
+    <button class="btn btn-default" type="button" ng-bind="'Try again' | translate"
+            ng-click="getTickets(pages.current)">
+    </button>
+  </div>
+</div>
+<!-- Empty tickets list -->
+<div class="tickets-list-pholder col-xs-12" ng-show="loadStats.list === 1 && tickets.length === 0">
+  <div class="tickets-list-pholder-content">
+    <h4 ng-bind="'There are no tickets' | translate"></h4>
+    <a ui-sref="index.tickets.create()" class="btn btn-primary" ng-bind="'Create' | translate"></a>
+  </div>
+</div>
