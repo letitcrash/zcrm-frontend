@@ -3,9 +3,8 @@
 angular
   .module('inspinia')
   .controller('CreateNewsCtrl', function ($state, $log, dataService, generalUtils, newsApi, imagesApi, cmsPermissions, summernoteConfig) {
-    cmsPermissions.call(this);
-
     var vm = this;
+    cmsPermissions.call(vm);
     vm.NEW = true;
 
     init();
@@ -32,8 +31,8 @@ angular
       vm.article.title = vm.article.title.substring(0,255);
       vm.article.date = new Date().getTime();
       vm.article.author = dataService.getUser().contactProfile.id;
-      vm.article.permission = 99;
-      vm.article.description = vm.article.text.split("<hr>")[0].substring(0, 254);
+      vm.article.permission = vm.getPermissions();
+      vm.article.description = vm.article.text.split("<hr>")[0].substring(0, 255);
 
       if (!vm.article.description)
         vm.article.description = '';

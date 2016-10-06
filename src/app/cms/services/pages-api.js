@@ -19,9 +19,9 @@ angular
         return requestService.ttPost(url, page);
       },
 
-      put: function (id, page) {
-        var url = "pages/edit/" + id;
-        return requestService.ttPut(url, page);
+      put: function (request) {
+        var url = "pages/edit/" + request.id;
+        return requestService.ttPut(url, request);
       },
 
       deletePage: function (id) {

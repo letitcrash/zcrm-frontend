@@ -3,23 +3,24 @@
 angular
   .module('inspinia')
   .controller('EditPageCtrl', function ($state, $log, pagesApi, imagesApi, cmsPermissions, configurationService) {
-    cmsPermissions.call(this);
-
     var vm = this;
+    cmsPermissions.call(vm);
     vm.UPDATE = true;
 
     init();
 
     vm.update = function () {
       var request = {
+        id: vm.page.id,
         image: vm.page.image,
         alias: vm.page.title,
         title: vm.page.title,
         desc: vm.page.description.substring(0, 255),
-        body: vm.page.text
+        body: vm.page.text,
+        permission: vm.getPermissions()
       };
 
-      pagesApi.put(vm.page.id, request).then($state.go('index.cmsPages'));
+      pagesApi.put(request).then($state.go('index.cmsPages'));
     };
 
     vm.delete = function () {
@@ -59,6 +60,7 @@ angular
       pagesApi.get(vm.page.id).then(function (response) {
         Object.assign(vm.page, response.data);
         vm.page.text = vm.page.body;
+        vm.setPermissions(vm.page.permission);
       });
     }
   });

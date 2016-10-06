@@ -3,15 +3,24 @@
 angular
   .module('inspinia')
   .controller('EditNewsCtrl', function ($state, newsApi, imagesApi, cmsPermissions, configurationService) {
-    cmsPermissions.call(this);
-
     var vm = this;
+    cmsPermissions.call(vm);
     vm.UPDATE = true;
 
     init();
 
     vm.update = function () {
-      newsApi.put(vm.article).then($state.go('index.cmsNews'));
+      var updateRequest = {
+        id: vm.article.id,
+        title: vm.article.title,
+        desc: vm.article.description,
+        text: vm.article.text,
+        tags: vm.article.tags,
+        image: vm.article.image,
+        permission: vm.getPermissions()
+      };
+
+      newsApi.put(updateRequest).then($state.go('index.cmsNews'));
     };
 
     vm.delete = function () {
@@ -49,6 +58,7 @@ angular
     function getNewsArticle(id) {
       newsApi.get(id).then(function (response) {
         Object.assign(vm.article, response.data);
+        vm.setPermissions(vm.article.permission);
       });
     }
   });

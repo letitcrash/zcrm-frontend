@@ -19,17 +19,8 @@ angular
         return requestService.ttPost(url, article);
       },
 
-      put: function (article) {
-        var url = "news/edit/" + article.id;
-
-        var request = {
-          title: article.title,
-          desc: article.description,
-          text: article.text,
-          tags: article.tags,
-          image: article.image
-        };
-
+      put: function (request) {
+        var url = "news/edit/" + request.id;
         return requestService.ttPut(url, request);
       },
 

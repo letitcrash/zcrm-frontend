@@ -22,6 +22,10 @@ angular
         return permissions;
       };
 
+      this.isSetPermissions = function (perm) {
+        return permissions === perm;
+      };
+
       Object.freeze(this.permission);
     }
   });
