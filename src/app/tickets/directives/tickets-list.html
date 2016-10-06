@@ -5,11 +5,11 @@
     <thead>
       <tr>
         <th></th>
-        <th ng-repeat="field in ::fields">
+        <th ng-repeat="(name, field) in ::fields" ng-if="field.active">
           <span ng-bind="::field.title | translate"></span>
           <a class="fa" href role="button" title="{{ 'Change sort ordering' | translate }}"
              ng-class="'fa-sort-amount-' + params.order"
-             ng-show="field.name === params.sort"
+             ng-show="name === params.sort"
              ng-click="params.order = params.order === 'asc' ? 'desc' : 'asc'">
           </a>
         </th>
@@ -19,16 +19,18 @@
       <tr class="ticket-row" ng-repeat="ticket in tickets"
           ng-class="{'overdue': ticket.deadline <= today.getTime()}">
         <td>
-          <input class="green-check" type="checkbox">
+          <input class="green-check" type="checkbox" ng-checked="ticket.selected" ng-click="selectTicket(ticket)">
         </td>
-        <td><a ui-sref="index.tickets.detail({ticketId: ticket.id})" ng-bind="::ticket.id"></a></td>
-        <td crm-ticket-status-label ng-model="ticket.status"></td>
-        <td crm-ticket-priority-label ng-model="ticket.priority"></td>
-        <td>
+        <td ng-if="fields.id.active">
+          <a ui-sref="index.tickets.detail({ticketId: ticket.id})" ng-bind="::ticket.id"></a>
+        </td>
+        <td crm-ticket-status-label ng-if="fields.status.active" ng-model="ticket.status"></td>
+        <td crm-ticket-priority-label ng-if="fields.priority.active" ng-model="ticket.priority"></td>
+        <td ng-if="fields.subj.active">
           <a ui-sref="index.tickets.detail({ticketId: ticket.id})"
              ng-bind="::ticket.subject | cutLongText:25:'...'"></a>
         </td>
-        <td>
+        <td ng-if="fields.clients.active">
           <span ng-repeat="pfile in ::ticket.clients" ng-if="ticket.clients.length === 1"
                 ng-bind="pfile | crmUserDisplayName"></span>
           <span ng-repeat="pfile in ::ticket.clients | limitTo:3" ng-if="ticket.clients.length > 1"
@@ -37,11 +39,11 @@
           </span>
           <a href="" role="button" ng-if="ticket.clients.length > 3">...</a>
         </td>
-        <td>
+        <td ng-if="fields.teams.active">
           <span>{{ ::ticket.teams[0].name }}{{ ticket.teams.length > 1 ? ',' : '' }}</span>
           <a href="" role="button" ng-if="ticket.teams.length > 1">...</a>
         </td>
-        <td>
+        <td ng-if="fields.agents.active">
           <span ng-repeat="pfile in ::ticket.agents" ng-if="ticket.agents.length === 1"
                 ng-bind="pfile | crmUserDisplayName"></span>
           <span ng-repeat="pfile in ::ticket.agents | limitTo:3" ng-if="ticket.agents.length > 1"
@@ -50,9 +52,9 @@
           </span>
           <a href="" role="button" ng-if="ticket.agents.length > 3">...</a>
         </td>
-        <td ng-bind="::ticket.project.name"></td>
-        <td ng-bind="::ticket.createdAt | date:'mediumDate'"></td>
-        <td>
+        <td ng-if="fields.project.active" ng-bind="::ticket.project.name"></td>
+        <td ng-if="fields.created.active" ng-bind="::ticket.createdAt | date:'mediumDate'"></td>
+        <td ng-if="fields.deadline.active">
           <span ng-bind="::ticket.deadline | date:'mediumDate'"></span>
           &nbsp;
           <span class="ticket-row-tip fa fa-question" ng-if="ticket.deadline <= today.getTime()"

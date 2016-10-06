@@ -6,7 +6,7 @@ angular
   .directive('crmTicketsList', function($log, ticketsListConf, ticketsAPI) {
     return {
       restrict: 'A',
-      scope: {},
+      scope: {tickets: '=?crmTicketsList', dspFields: '@?fields', onTicketSelect: '&?'},
       templateUrl: 'app/tickets/directives/tickets-list.html',
       link: function(scope) {
         // Loading statuses
@@ -14,23 +14,47 @@ angular
         scope.loadStats = {list: 1};
 
         // Ticket fields(Ticket list columns)
-        scope.fields = [
-          {name: 'id', title: '#'},
-          {name: 'status', title: 'Status'},
-          {name: 'priority', title: 'Priority'},
-          {name: 'subj', title: 'Title'},
-          {name: 'requesters', title: 'Client(s)'},
-          {name: 'teams', title: 'Team(s)'},
-          {name: 'members', title: 'Agent(s)'},
-          {name: 'project', title: 'Project'},
-          {name: 'created', title: 'Created'},
-          {name: 'deadline', title: 'Deadline'}
-        ];
+        scope.fields = {
+          id: {title: '#', active: true},
+          status: {title: 'Status', active: true},
+          priority: {title: 'Priority', active: true},
+          subj: {title: 'Title', active: true},
+          clients: {title: 'Client(s)', active: true},
+          teams: {title: 'Team(s)', active: true},
+          agents: {title: 'Agent(s)', active: true},
+          project: {title: 'Project', active: true},
+          created: {title: 'Created', active: true},
+          deadline: {title: 'Deadline', active: true}
+        };
+
+        if (angular.isString(scope.dspFields)) {
+          scope.dspFields = scope.dspFields.split(',');
+
+          for (var f in scope.fields) {
+            if (hasOwnProperty.call(scope.fields, f)) {
+              if (scope.dspFields.indexOf(f) === -1)
+                scope.fields[f].active = false;
+            }
+          }
+        }
 
         scope.today = new Date();
 
-        // Tickets list
-        scope.tickets = [];
+        scope.selectTicket = function selectTicket(ticket) {
+          // TODO: Remove when multiple tickets deletion will be implemented in backend
+          scope.tickets.forEach(function(t) {
+            if (t.id !== ticket.id)
+              t.selected = false;
+          });
+          // TODO: Remove when multiple tickets deletion will be implemented in backend
+          ticket.selected = ticket.hasOwnProperty('selected') && ticket.selected ? false : true;
+
+          if (angular.isFunction(scope.onTicketSelect))
+            scope.onTicketSelect({ticket: ticket});
+        };
+
+        if (!angular.isArray(scope.tickets))
+          scope.tickets = [];
 
         // GET params for ticket list
         scope.params = ticketsListConf.params;
@@ -38,7 +62,6 @@ angular
         // Pagination settings
         scope.pages = ticketsListConf.pages;
 
-        // Get tickets
         scope.getTickets = function getTickets() {
           scope.loadStats.list = 2;
           scope.params.pageSize = scope.pages.size;
