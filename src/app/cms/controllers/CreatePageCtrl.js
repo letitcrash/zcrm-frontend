@@ -2,9 +2,12 @@
 
 angular
   .module('inspinia')
-  .controller('CreatePageCtrl', function ($state, pagesApi, imagesApi, dataService, cmsPermissions, summernoteConfig) {
+  .controller('CreatePageCtrl', function ($state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig) {
     var vm = this;
+
     cmsPermissions.call(vm);
+    uploadImage.call(vm);
+
     vm.NEW = true;
 
     init();
@@ -25,30 +28,16 @@ angular
       if (!request.description)
         request.description = '';
 
-      pagesApi.post(request).then($state.go('index.cmsPages'));
+      pagesApi.post(request).then(goBack);
     };
 
-    vm.cancel = function () {
+    vm.cancel = goBack;
+
+    function goBack() {
       $state.go('index.cmsPages');
-    };
-
-    vm.uploadImage = function (attachedImage) {
-      if (!attachedImage)
-        return;
-
-      vm.attachedImage = attachedImage;
-      imagesApi.upload(attachedImage).then(function (response) {
-        vm.page.image = response.data.path;
-      });
-    };
-
-    vm.dropImageButtonClick = function () {
-      vm.attachedImage = null;
-      vm.page.image = null;
-    };
+    }
 
     function init() {
-      vm.createForm = {};
       vm.page = vm.createForm;
       vm.summernote = summernoteConfig;
     }

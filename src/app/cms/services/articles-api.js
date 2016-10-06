@@ -2,35 +2,30 @@
 
 angular
   .module('inspinia')
-  .factory('newsApi', function (requestService) {
+  .factory('articlesApi', function (requestService) {
     return {
       getList: function () {
-        var url = "company/:companyId/news/search";
-        return requestService.ttGet(url);
-      },
-
-      getEmployeeList: function () {
-        var url = "company/:companyId/news/search";
+        var url = "company/:companyId/articles/search";
         return requestService.ttGet(url);
       },
 
       get: function (id) {
-        var url = "news/get/" + id;
+        var url = "articles/get/" + id;
         return requestService.ttGet(url);
       },
 
       post: function (article) {
-        var url = "news/add";
+        var url = "articles/add";
         return requestService.ttPost(url, article);
       },
 
       put: function (request) {
-        var url = "news/edit/" + request.id;
+        var url = "articles/edit/" + request.id;
         return requestService.ttPut(url, request);
       },
 
-      deleteNews: function (id) {
-        var url = "news/delete/" + id;
+      deleteArticle: function (id) {
+        var url = "articles/delete/" + id;
         return requestService.ttDelete(url);
       }
     };

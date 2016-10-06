@@ -58,15 +58,18 @@ angular
         data: {pageTitle: 'Site'},
         authenticate: true
       })
+      .state('index.cmsArticles', {
+        url: '/cms/articles',
+        templateUrl: 'app/cms/cms-index.html',
+        data: {pageTitle: 'Site'},
+        authenticate: true
+      })
       .state('index.cmsPages', {
         url: '/cms/pages',
         templateUrl: 'app/cms/cms-index.html',
         data: {pageTitle: 'Site'},
         authenticate: true
       })
-
-      // CMS news edit
-
       .state('index.addnews', {
         url: '/cms/news/add',
         templateUrl: 'app/cms/add-news.html',
@@ -79,13 +82,6 @@ angular
         data: {pageTitle: 'Edit article'},
         'authenticate': true
       })
-      .state('index.cmsarticle', {
-        url: '/cms/article',
-        templateUrl: 'app/cms/article.html'
-      })
-
-      // CMS page edit
-
       .state('index.editpage', {
         url: '/cms/page/edit?pageId',
         templateUrl: 'app/cms/edit-page.html',
@@ -99,7 +95,19 @@ angular
         "authenticate": true
       })
 
-      // CMS
+      // CMS Articles
+      .state('index.editArticle', {
+        url: '/cms/article/edit?articleId',
+        templateUrl: 'app/cms/edit-article.html',
+        data: {pageTitle: 'Page edit'},
+        "authenticate": true
+      })
+      .state('index.addArticle', {
+        url: '/cms/article/add',
+        templateUrl: 'app/cms/add-article.html',
+        data: {pageTitle: 'Create article'},
+        "authenticate": true
+      })
 
       .state('index.mail', {
         templateUrl: 'app/mail/mailbox.html',

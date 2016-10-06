@@ -2,20 +2,21 @@
 
 angular
   .module('inspinia')
-  .controller('CmsCtrl', function ($state, generalUtils, newsApi, pagesApi, cmsPermissions) {
+  .controller('CmsCtrl', function ($state, generalUtils, newsApi, pagesApi, articlesApi, cmsPermissions) {
     var vm = this;
     cmsPermissions.call(vm);
 
-    vm.INDEX_CMS = "index.cms";
+    vm.INDEX_TAB = "index.cms";
     vm.NEWS_TAB = "index.cmsNews";
     vm.PAGES_TAB = "index.cmsPages";
     vm.EMPLOYEES_TAB = "index.cmsEmployees";
+    vm.ARTICLES_TAB = "index.cmsArticles";
 
     init();
 
     vm.convertToDate = generalUtils.formatTimestampToDate;
 
-    vm.editArticle = function (article) {
+    vm.editNews = function (article) {
       $state.go('index.editnews', {
         articleId: article.id
       });
@@ -27,17 +28,24 @@ angular
       });
     };
 
+    vm.editArticle = function (article) {
+      $state.go('index.editArticle', {
+        articleId: article.id
+      });
+    };
+
     vm.isSet = function (tabNum) {
       return vm.tab === tabNum;
     };
 
-    function init() {
-      initTab();
-      getPagesList();
+    function getArticlesList() {
+      articlesApi.getList().then(function (response) {
+        vm.articles = response.data;
+      })
     }
 
     function getNewsList() {
-      newsApi.getList().then(function (response) {
+      newsApi.getEmployeeList().then(function (response) {
         vm.news = response.data;
       })
     }
@@ -56,21 +64,18 @@ angular
       });
     }
 
-    function initTab() {
-      if($state.includes(vm.INDEX_CMS) || $state.includes(vm.NEWS_TAB)) {
-        vm.tab = vm.NEWS_TAB;
-        return getNewsList();
-      }
+    function init() {
+      if($state.includes(vm.INDEX_TAB) || $state.includes(vm.NEWS_TAB))
+        getNewsList();
 
-      if($state.includes(vm.EMPLOYEES_TAB)) {
-        vm.tab = vm.EMPLOYEES_TAB;
-        return getEmployeesNewsList();
-      }
+      if($state.includes(vm.EMPLOYEES_TAB))
+        getEmployeesNewsList();
 
-      if($state.includes(vm.PAGES_TAB)) {
-        vm.tab = vm.PAGES_TAB;
-        return getPagesList();
-      }
+      if($state.includes(vm.PAGES_TAB))
+         getPagesList();
+
+      if($state.includes(vm.ARTICLES_TAB))
+         getArticlesList();
 
       vm.tab = $state.current.name;
     }

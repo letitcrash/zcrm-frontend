@@ -7,7 +7,6 @@
     <th>{{'Title' | translate }}</th>
     <th>{{'Author' | translate }}<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a>
     </th>
-    <th>{{'Tags' | translate }}</th>
     <th>{{'Date' | translate }}</th>
   </tr>
   </thead>
@@ -18,7 +17,6 @@
     </td>
     <td><a ng-click="cms.editPage(page)">{{ page.title }}</a></td>
     <td>{{ page.author }}</td>
-    <td>{{ page.tags }}</td>
     <td>{{ cms.convertToDate(page.date) }}</td>
   </tr>
   </tbody>
