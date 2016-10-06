@@ -1,0 +1,25 @@
+<div class="wrapper wrapper-content" ng-controller="CreateArticleCtrl as cms">
+  <div class="row">
+    <form>
+      <div class="col-sm-8">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>
+              <cms-back-button></cms-back-button>
+              {{ 'Create Article' | translate }}
+            </h5>
+          </div>
+          <cms-create-form></cms-create-form>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>{{ 'Publish' | translate }}:</h5>
+          </div>
+          <cms-publish-options></cms-publish-options>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

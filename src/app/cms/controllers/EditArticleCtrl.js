@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EditNewsCtrl', function ($state, newsApi, uploadImage, cmsPermissions, configurationService) {
+  .controller('EditArticleCtrl', function ($state, articlesApi, uploadImage, cmsPermissions, configurationService) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -23,18 +23,17 @@ angular
         permission: vm.getPermissions()
       };
 
-      newsApi.put(updateRequest).then(goBack);
+      articlesApi.put(updateRequest).then(goBack);
     };
 
     vm.delete = function () {
-      newsApi.deleteNews(vm.article.id).then(goBack);
+      articlesApi.deleteArticle(vm.article.id).then(goBack);
     };
 
     vm.cancel = goBack;
 
     function init() {
       vm.articleId = $state.params.articleId;
-      vm.createForm = {};
       vm.article = vm.createForm;
       vm.baseServiceUrl = configurationService.staticBaseUrl;
 
@@ -42,14 +41,14 @@ angular
     }
 
     function getNewsArticle(id) {
-      newsApi.get(id).then(function (response) {
+      articlesApi.get(id).then(function (response) {
         Object.assign(vm.article, response.data);
         vm.setPermissions(vm.article.permission);
       });
     }
 
     function goBack() {
-      $state.go('index.cmsNews');
+      $state.go('index.cmsArticles');
     }
   });
 

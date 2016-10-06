@@ -2,27 +2,15 @@
 
 angular
   .module('inspinia')
-  .controller('CreateNewsCtrl', function ($state, $log, dataService, generalUtils, newsApi, imagesApi, cmsPermissions, summernoteConfig) {
+  .controller('CreateNewsCtrl', function ($state, dataService, newsApi, uploadImage, cmsPermissions, summernoteConfig) {
     var vm = this;
+
     cmsPermissions.call(vm);
+    uploadImage.call(vm);
+
     vm.NEW = true;
 
     init();
-
-    vm.uploadImage = function (attachedImage) {
-      if (!attachedImage)
-        return;
-
-      vm.attachedImage = attachedImage;
-      imagesApi.upload(attachedImage).then(function (response) {
-        vm.article.image = response.data.path;
-      });
-    };
-
-    vm.dropImageButtonClick = function () {
-      vm.attachedImage = null;
-      vm.article.image = null;
-    };
 
     vm.create = function () {
       if (!vm.article.text)
@@ -39,17 +27,18 @@ angular
 
       vm.article.companyId = dataService.getCurrentCompanyId();
 
-      newsApi.post(vm.article).then($state.go('index.cmsNews'));
+      newsApi.post(vm.article).then(goBack);
     };
 
-    vm.cancel = function () {
-      $state.go('index.cmsNews');
-    };
+    vm.cancel = goBack;
 
     function init() {
-      vm.createForm = {};
       vm.summernote = summernoteConfig;
       vm.article = vm.createForm;
+    }
+
+    function goBack() {
+      $state.go('index.cmsNews');
     }
   });
 

@@ -10,14 +10,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="nw in cms.news | orderBy:'-'">
+  <tr ng-repeat="article in cms.articles | orderBy:'-'">
     <td><input class="green-check" type="checkbox" style="margin-left:10px;" ></td>
     <td>
-      <a ng-click="cms.editNews(nw)">{{ nw.title }}</a>
+      <a ng-click="cms.editArticle(article)">{{ article.title }}</a>
     </td>
     <td>{{ nw.author }}</td>
     <td>{{ nw.tags }}</td>
-    <td>{{ cms.convertToDate(nw.date) }}</td>
+    <td>{{ cms.convertToDate(article.date) }}</td>
   </tr>
   </tbody>
 </table>

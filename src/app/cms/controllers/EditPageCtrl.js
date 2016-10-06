@@ -2,9 +2,12 @@
 
 angular
   .module('inspinia')
-  .controller('EditPageCtrl', function ($state, $log, pagesApi, imagesApi, cmsPermissions, configurationService) {
+  .controller('EditPageCtrl', function ($state, $log, pagesApi, uploadImage, cmsPermissions, configurationService) {
     var vm = this;
+
     cmsPermissions.call(vm);
+    uploadImage.call(vm);
+
     vm.UPDATE = true;
 
     init();
@@ -20,34 +23,16 @@ angular
         permission: vm.getPermissions()
       };
 
-      pagesApi.put(request).then($state.go('index.cmsPages'));
+      pagesApi.put(request).then(goBack);
     };
 
     vm.delete = function () {
-      pagesApi.deletePage(vm.page.id).then($state.go('index.cmsPages'));
+      pagesApi.deletePage(vm.page.id).then(goBack);
     };
 
-    vm.uploadImage = function (attachedImage) {
-      if (!attachedImage)
-        return;
-
-      vm.attachedImage = attachedImage;
-      imagesApi.upload(attachedImage).then(function (response) {
-        vm.createForm.image = response.data.path;
-      });
-    };
-
-    vm.dropImageButtonClick = function () {
-      vm.attachedImage = null;
-      vm.page.image = null;
-    };
-
-    vm.cancel = function () {
-      $state.go('index.cmsPages');
-    };
+    vm.cancel = goBack;
 
     function init() {
-      vm.createForm = {};
       vm.page = vm.createForm;
       vm.createForm.text = vm.page.body;
       vm.page.id = $state.params.pageId;
@@ -63,4 +48,10 @@ angular
         vm.setPermissions(vm.page.permission);
       });
     }
+
+    function goBack() {
+      $state.go('index.cmsPages');
+    }
   });
+
+//# sourceMappingURL=EditPageCtrl.js.map

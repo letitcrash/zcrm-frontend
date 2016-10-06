@@ -5,13 +5,18 @@
         <div class="ibox-content">
           <h2>{{ 'News' | translate }}
             <a href="" ui-sref="index.addnews">
-              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB) || cms.isSet(cms.EMPLOYEES_TAB)">
+              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB) || cms.isSet(cms.EMPLOYEES_TAB) || cms.isSet(cms.INDEX_TAB)">
                 {{ 'Create News' | translate }}
               </button>
             </a>
             <a href="" ui-sref="index.addpage">
               <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.PAGES_TAB)">
                 {{ 'Create Page' | translate }}
+              </button>
+            </a>
+            <a href="" ui-sref="index.addArticle">
+              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.ARTICLES_TAB)">
+                {{ 'Create Article' | translate }}
               </button>
             </a>
           </h2>
@@ -23,10 +28,12 @@
           </span>
           </div>
           <ul class="nav nav-tabs" style="margin: 20px 0">
-            <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a ui-sref="index.cmsNews">
+            <li ng-class="{active: cms.isSet(cms.NEWS_TAB) || cms.isSet(cms. vm.INDEX_TAB)}"><a ui-sref="index.cmsNews">
               <i class="fa fa-briefcase"></i>{{ 'News' | translate}}</a></li>
             <li ng-class="{active: cms.isSet(cms.EMPLOYEES_TAB)}"><a ui-sref="index.cmsEmployees">
               <i class="fa fa-briefcase"></i>{{ 'Employees news' | translate}}</a></li>
+            <li ng-class="{active: cms.isSet(cms.ARTICLES_TAB)}"><a ui-sref="index.cmsArticles">
+              <i class="fa fa-envelope"></i>{{'Articles' | translate}}</a></li>
             <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a ui-sref="index.cmsPages">
               <i class="fa fa-envelope"></i>{{'Pages' | translate}}</a></li>
           </ul>
@@ -40,6 +47,9 @@
               </div>
               <!-- Employees news list -->
               <div class="table-responsive" id="tab-3" ng-show="cms.isSet(cms.EMPLOYEES_TAB)" crm-news-list>
+              </div>
+              <!-- Articles list -->
+              <div class="table-responsive" id="tab-4" ng-show="cms.isSet(cms.ARTICLES_TAB)" cms-articles-list>
               </div>
             </div>
           </div>
