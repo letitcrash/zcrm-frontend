@@ -1,40 +1,18 @@
 <div class="mailbox-tickets-header clearfix">
-  <button class="btn btn-default pull-right" ng-click="vm.getTickets()">
-    <i class="fa fa-refresh"></i>
-  </button>
   <button class="btn btn-default pull-left hidden-lg" ng-click="vm.showTickets = false">
     <i class="fa fa-chevron-left"></i>&nbsp;{{ 'Messages' | translate }}
   </button>
   <h2 class="m-n pull-left">{{ 'Select a ticket' | translate }}</h2>
 </div>
-<div class="mailbox-tickets-list">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th><i class="fa fa-hashtag"></i>&nbsp;ID</th>
-        <th><i class="fa fa-check"></i>&nbsp;{{ 'Status' | translate }}</th>
-        <th><i class="fa fa-exclamation-circle"></i>&nbsp;{{ 'Priority' | translate }}</th>
-        <th><i class="fa fa-bullhorn"></i>&nbsp;{{ 'Title' | translate }}</th>
-        <th><i class="fa fa-tasks"></i>&nbsp;{{ 'Project' | translate }}</th>
-        <th><i class="fa fa-calendar"></i>&nbsp;{{ 'Created' | translate }}</th>
-        <th><i class="fa fa-calendar"></i>&nbsp;{{ 'Deadline' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="mailbox-ticket" ng-repeat="ticket in vm.tickets">
-        <td>
-          <input id="ticket_{{ ticket.id }}" class="green-check" type="checkbox" ng-model="ticket.selected"
-                 ng-checked="ticket.id === vm.selectedTicket.id" ng-change="vm.selectTicket(ticket)">
-        </td>
-        <td><a href="">{{ '#' + ticket.id }}</a></td>
-        <td data-ticket-status ng-model="ticket.status"></td>
-        <td data-ticket-priority ng-model="ticket.priority"></td>
-        <td><a href="">{{ ticket.subject }}</a></td>
-        <td>{{ ticket.project.name }}</td>
-        <td>{{ ticket.createdAt | date:'MMM d, yyyy' }}</td>
-        <td>{{ ticket.deadline | date:'MMM d, yyyy' }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="mailbox-tickets-list clearfix">
+  <!-- Sort -->
+  <div class="form-group col-md-6 col-lg-3" crm-tickets-list-sort></div>
+  <!-- Priority filter -->
+  <div class="col-xs-6 col-md-12 col-lg-4" crm-tickets-list-filter></div>
+  <!-- Tickets list -->
+  <div class="col-xs-12 p-h-none" crm-tickets-list fields="id,status,priority,subj,project,deadline"
+       on-ticket-select="vm.selectTicket(ticket)">
+  </div>
+  <!-- Pagination -->
+  <div class="col-xs-12" crm-tickets-list-pager></div>
 </div>

@@ -3,7 +3,7 @@
 angular
   .module('inspinia')
   .controller("MailboxAttachMsgsController", function($log, $scope, $state, $stateParams, mailboxService,
-        ticketsAPI, $timeout) {
+        ticketsAPI) {
     // View
     var vm = this;
 
@@ -18,13 +18,10 @@ angular
     pheader.search.placeholder = 'Search tickets';
     // Create mailbox
     pheader.createNew.title = 'New ticket';
+    pheader.createNew.func = function() { return false; };
 
     // Selected messages
     vm.msgs = $scope.mbox.selectedMsgs;
-    // Tickets
-    vm.tickets = [];
-    // Show tickets list
-    vm.showTickets = true;
     // Show action menu
     $scope.mbox.showActionMenu = false;
     // Selected ticket
@@ -35,16 +32,11 @@ angular
     // Show attach confirmation dialog
     vm.showAttachConfirm = true;
 
-    // Get tickets list
-    vm.getTickets = function getTickets() {
-      ticketsAPI.getList({pageSize: 1000, pageNr: 1}).then(function(res) {
-        $log.log(res);
-        if (res.hasOwnProperty('data')) { vm.tickets = res.data; }
-      }, function() { $log.log("Could not get tickets"); });
-    };
+    vm.showTickets = false;
 
     // Select ticket
     vm.selectTicket = function selectTicket(ticket) {
+      $log.log(ticket);
       vm.selectedTicket = ticket.selected ? ticket : null;
       $scope.mbox.showActionMenu = ticket.selected ? true : false;
     };
@@ -98,6 +90,4 @@ angular
     //   id: 267
     // }];
     // TODO: disable test data
-
-    vm.getTickets();
   });

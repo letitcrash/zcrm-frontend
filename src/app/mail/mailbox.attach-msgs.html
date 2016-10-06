@@ -31,6 +31,17 @@
       </button>
     </div>
   </div>
+  <div ng-show="ambox.loadStats.attachForm === 0">
+    <h4 class="mailbox-actions-title clearfix">
+      <i class="fa fa-check text-success valign-middle"></i>
+      {{ 'Something gone wrong. Please, try again' | translate }}
+    </h4>
+    <div class="pull-right">
+      <button class="mailbox-actions-ctrl btn btn-default" ng-click="ambox.loading.attachForm = 1">
+        {{ 'Ok' | translate }}
+      </button>
+    </div>
+  </div>
 </div>
 <!-- Messages -->
 <ul class="mailbox-attach-msgs mailbox-scroll-box list-unstyled col-lg-4"
