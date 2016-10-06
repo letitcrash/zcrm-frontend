@@ -3,9 +3,8 @@
 angular
   .module('inspinia')
   .controller('CreatePageCtrl', function ($state, pagesApi, imagesApi, dataService, cmsPermissions, summernoteConfig) {
-    cmsPermissions.call(this);
-
     var vm = this;
+    cmsPermissions.call(vm);
     vm.NEW = true;
 
     init();
@@ -17,7 +16,7 @@ angular
         title: vm.page.title.substring(0, 255),
         date: new Date().getTime(),
         author: dataService.getUser().contactProfile.id,
-        description: vm.page.text.split("<hr>")[0].substring(0,254),
+        description: vm.page.text.split("<hr>")[0].substring(0,255),
         image: vm.page.image,
         body: vm.page.text,
         permission: vm.getPermissions()

@@ -1,17 +1,29 @@
-<div class="form-group"> <label class="col-sm-4 control-label ng-binding">Show:</label>
+<div class="form-group"> <label class="col-sm-4 control-label ng-binding">{{"Show" | translate}}:</label>
   <div class="col-sm-8">
     <div class="line-check">
       <input type="radio" ng-model="cms.createForm.title" name="show" id="schow1" checked>
       <input type="radio" ng-model="cms.createForm.title" name="show" id="schow2">
-      <div> <label for="schow1">Yes</label> <label for="schow2">No</label> </div>
+      <div> <label for="schow1">{{"Yes" | translate}}</label> <label for="schow2">{{"No" | translate}}</label> </div>
     </div>
   </div>
 </div>
 <div class="hr-line-dashed"></div>
-<div class="form-group"> <label class="col-sm-12 ng-binding">Permission:</label>
-  <div class="col-sm-12"> <input class="green-check" type="radio" id="bttne1" ng-model="anymodel" ng-change="cms.setPermissions(cms.permission.EMPLOYEE)">
-    <label for="bttne1">Employees</label> <br />
-    <input class="green-check" type="radio" id="bttne2" name="perm" value="99" ng-model="anymodel" ng-change="cms.setPermissions(cms.permission.EMPLOYEE)" checked>
-    <label for="bttne2">Public</label>
+<div class="form-group"> <label class="col-sm-12 ng-binding">{{"Permission" | translate}}:</label>
+  <div class="col-sm-12">
+    <input class="green-check"
+           type="radio"
+           id="bttne1"
+           ng-model="cms.checked"
+           ng-click="cms.setPermissions(cms.permission.EMPLOYEE)"
+           ng-checked="cms.isSetPermissions(cms.permission.EMPLOYEE)">
+
+    <label for="bttne1">{{"Employees" | translate}}</label> <br />
+    <input class="green-check"
+           type="radio"
+           id="bttne2"
+           ng-model="cms.checked"
+           ng-click="cms.setPermissions(cms.permission.PUBLIC)"
+           ng-checked="cms.isSetPermissions(cms.permission.PUBLIC)">
+    <label for="bttne2">{{"Public" | translate}}</label>
   </div>
 </div>

@@ -2,11 +2,14 @@
 
 angular
   .module('inspinia')
-  .controller('CmsCtrl', function ($state, generalUtils, newsApi, pagesApi) {
+  .controller('CmsCtrl', function ($state, generalUtils, newsApi, pagesApi, cmsPermissions) {
     var vm = this;
+    cmsPermissions.call(vm);
 
+    vm.INDEX_CMS = "index.cms";
     vm.NEWS_TAB = "index.cmsNews";
     vm.PAGES_TAB = "index.cmsPages";
+    vm.EMPLOYEES_TAB = "index.cmsEmployees";
 
     init();
 
@@ -30,13 +33,20 @@ angular
 
     function init() {
       initTab();
-      getNewsList();
       getPagesList();
     }
 
     function getNewsList() {
       newsApi.getList().then(function (response) {
         vm.news = response.data;
+      })
+    }
+
+    function getEmployeesNewsList() {
+      newsApi.getList().then(function (response) {
+        vm.news = response.data.filter(function (article) {
+          return article.permission === vm.permission.EMPLOYEE;
+        });
       })
     }
 
@@ -47,8 +57,20 @@ angular
     }
 
     function initTab() {
-      if($state.includes("index.cms"))
-        return(vm.tab = vm.NEWS_TAB);
+      if($state.includes(vm.INDEX_CMS) || $state.includes(vm.NEWS_TAB)) {
+        vm.tab = vm.NEWS_TAB;
+        return getNewsList();
+      }
+
+      if($state.includes(vm.EMPLOYEES_TAB)) {
+        vm.tab = vm.EMPLOYEES_TAB;
+        return getEmployeesNewsList();
+      }
+
+      if($state.includes(vm.PAGES_TAB)) {
+        vm.tab = vm.PAGES_TAB;
+        return getPagesList();
+      }
 
       vm.tab = $state.current.name;
     }

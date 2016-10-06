@@ -5,7 +5,7 @@
         <div class="ibox-content">
           <h2>{{ 'News' | translate }}
             <a href="" ui-sref="index.addnews">
-              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB)">
+              <button type="button" class="btn btn-primary pull-right" ng-show="cms.isSet(cms.NEWS_TAB) || cms.isSet(cms.EMPLOYEES_TAB)">
                 {{ 'Create News' | translate }}
               </button>
             </a>
@@ -25,6 +25,8 @@
           <ul class="nav nav-tabs" style="margin: 20px 0">
             <li ng-class="{active: cms.isSet(cms.NEWS_TAB)}"><a ui-sref="index.cmsNews">
               <i class="fa fa-briefcase"></i>{{ 'News' | translate}}</a></li>
+            <li ng-class="{active: cms.isSet(cms.EMPLOYEES_TAB)}"><a ui-sref="index.cmsEmployees">
+              <i class="fa fa-briefcase"></i>{{ 'Employees news' | translate}}</a></li>
             <li ng-class="{active: cms.isSet(cms.PAGES_TAB)}"><a ui-sref="index.cmsPages">
               <i class="fa fa-envelope"></i>{{'Pages' | translate}}</a></li>
           </ul>
@@ -35,6 +37,9 @@
               </div>
               <!-- Pages list-->
               <div class="table-responsive" id="tab-2" ng-show="cms.isSet(cms.PAGES_TAB)" crm-pages-list>
+              </div>
+              <!-- Employees news list -->
+              <div class="table-responsive" id="tab-3" ng-show="cms.isSet(cms.EMPLOYEES_TAB)" crm-news-list>
               </div>
             </div>
           </div>
