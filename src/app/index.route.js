@@ -9,27 +9,27 @@ angular
         abstract: false,
         templateUrl: 'app/login/login_two_columns.html',
         data: {pageTitle: 'Register', specialClass: 'gray-bg'},
-        'authenticate': false
+        authenticate: false
       })
       .state('apply', {
         url: '/apply',
         templateUrl: 'app/singup/apply.html',
         data: {pageTitle: 'Wizard form'},
         //controller: 'SignupCtrl',
-        'authenticate': false
+        authenticate: false
       })
       .state('passwordrecovery', {
         url: '/password-recovery/{userId}/{token}',
         templateUrl: 'app/singup/password-recovery.html',
         data: {pageTitle: 'Wizard form'},
         //controller: 'SignupCtrl',
-        'authenticate': false
+        authenticate: false
       })
       .state('signup', {
         url: '/signup/user?token&email',
         templateUrl: 'app/singup/singup.html',
         data: {pageTitle: 'Wizard form'},
-        'authenticate': false,
+        authenticate: false,
         controller: 'SignupUserCtrl as signup'
       })
       .state('index', {
@@ -75,25 +75,25 @@ angular
         url: '/cms/news/add',
         templateUrl: 'app/cms/add-news.html',
         data: {pageTitle: 'Site'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.editnews', {
         url: '/cms/news/edit?articleId',
         templateUrl: 'app/cms/edit-news.html',
         data: {pageTitle: 'Edit article'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.editpage', {
         url: '/cms/page/edit?pageId',
         templateUrl: 'app/cms/edit-page.html',
         data: {pageTitle: 'Page edit'},
-        "authenticate": true
+        authenticate: true
       })
       .state('index.addpage', {
         url: '/cms/pages/add',
         templateUrl: 'app/cms/add-page.html',
         data: {pageTitle: 'Create page'},
-        "authenticate": true
+        authenticate: true
       })
 
       // CMS Articles
@@ -101,13 +101,13 @@ angular
         url: '/cms/article/edit?articleId',
         templateUrl: 'app/cms/edit-article.html',
         data: {pageTitle: 'Page edit'},
-        "authenticate": true
+        authenticate: true
       })
       .state('index.addArticle', {
         url: '/cms/article/add',
         templateUrl: 'app/cms/add-article.html',
         data: {pageTitle: 'Create article'},
-        "authenticate": true
+        authenticate: true
       })
 
       .state('index.mail', {
@@ -120,50 +120,54 @@ angular
         parent: 'index.mail',
         url: '/mailbox/:mailboxId/inbox',
         templateUrl: 'app/mail/mailbox.inbox.html',
-        controller: 'MailboxInboxController as inbox'
+        controller: 'MailboxInboxController as inbox',
+        authenticate: true
       })
       .state('index.mail.list', {
         parent: 'index.mail',
         url: '/mailbox/list',
         templateUrl: 'app/mail/mailbox.mbox-list.html',
-        controller: 'MailboxListController as lstbox'
+        controller: 'MailboxListController as lstbox',
+        authenticate: true
       })
       .state('index.mail.attachMsgs', {
         parent: 'index.mail',
         url: '/mailbox/:mailboxId/attach-msgs',
         templateUrl: 'app/mail/mailbox.attach-msgs.html',
-        controller: 'MailboxAttachMsgsController as ambox'
+        controller: 'MailboxAttachMsgsController as ambox',
+        authenticate: true
       })
       .state('outlook', {
         url: '/outlook',
         templateUrl: 'app/mail/outlook.html',
-        data: {pageTitle: 'Outlook view', specialClass: 'fixed-sidebar'}
+        data: {pageTitle: 'Outlook view', specialClass: 'fixed-sidebar'},
+        authenticate: true
       })
       .state('index.teams', {
         url: '/teams',
         templateUrl: 'app/teams/teams.html',
         data: {pageTitle: 'Teams'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.clients', {
         url: '/clients',
         templateUrl: 'app/clients/clients.html',
         data: {pageTitle: 'Clients'},
-        'authenticate': true
+        authenticate: true
 
       })
       .state('index.docs', {
         url: '/documents',
         templateUrl: 'app/docs/docs.html',
         data: {pageTitle: 'Documents'},
-        'authenticate': true
+        authenticate: true
 
       })
       .state('index.calendar', {
         url: '/calendar',
         templateUrl: 'app/calendar/calendar.html',
         data: {pageTitle: 'Calendar'},
-        'authenticate': true
+        authenticate: true
 
       })
       .state('index.projects', {
@@ -171,7 +175,7 @@ angular
         templateUrl: 'app/projects/projects.html',
         controller: 'ProjectsCtrl',
         data: {pageTitle: 'projects'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.tickets', {
         abstract: true,
@@ -205,13 +209,13 @@ angular
         url: '/settings',
         templateUrl: 'app/settings/setting.html',
         data: {pageTitle: 'Settings'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.companies', {
         url: '/companies',
         templateUrl: 'app/companies/companies.html',
         data: {pageTitle: 'companies'},
-        'authenticate': true
+        authenticate: true
       })
 
       // Employees
@@ -249,17 +253,19 @@ angular
 
       .state('index.companies-create', {
         url: '/companies-create',
-        templateUrl: 'app/companies/companies.create.html'
+        templateUrl: 'app/companies/companies.create.html',
+        authenticate: true
       })
       .state('index.companies.detail', {
         url: '/companies/:companyId',
         templateUrl: 'app/companies/company.detail.html',
         data: {pageTitle: 'companies'},
-        'authenticate': true
+        authenticate: true
       })
       .state('index.companies-detail', {
         url: '/companies-detail',
-        templateUrl: 'app/companies/company.detail.html'
+        templateUrl: 'app/companies/company.detail.html',
+        authenticate: true
       })
 
       // Templates
@@ -268,21 +274,21 @@ angular
         url: '/timer',
         templateUrl: 'app/timer/timer.html',
         data: {pageTitle: 'timer'},
-        'authenticate': true
+        authenticate: true
 
       })
       .state('index.landing', {
         url: '/landing',
         templateUrl: 'app/landing/landing.html',
         data: {pageTitle: 'landing'},
-        'authenticate': true
+        authenticate: true
 
       })
       .state('index.404', {
         url: '/404',
         templateUrl: 'app/404/404.html',
         data: {pageTitle: '404 Page not found'},
-        'authenticate': true
+        authenticate: true
       });
 
     $urlRouterProvider.otherwise('/index/tickets/list');
