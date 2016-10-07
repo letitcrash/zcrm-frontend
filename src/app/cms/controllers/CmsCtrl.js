@@ -45,13 +45,13 @@ angular
     }
 
     function getNewsList() {
-      newsApi.getEmployeeList().then(function (response) {
+      newsApi.getList().then(function (response) {
         vm.news = response.data;
       })
     }
 
     function getEmployeesNewsList() {
-      newsApi.getList().then(function (response) {
+      newsApi.getEmployeeList().then(function (response) {
         vm.news = response.data.filter(function (article) {
           return article.permission === vm.permission.EMPLOYEE;
         });

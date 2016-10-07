@@ -28,7 +28,7 @@
           </span>
           </div>
           <ul class="nav nav-tabs" style="margin: 20px 0">
-            <li ng-class="{active: cms.isSet(cms.NEWS_TAB) || cms.isSet(cms. vm.INDEX_TAB)}"><a ui-sref="index.cmsNews">
+            <li ng-class="{active: cms.isSet(cms.NEWS_TAB) || cms.isSet(cms.INDEX_TAB)}"><a ui-sref="index.cmsNews">
               <i class="fa fa-briefcase"></i>{{ 'News' | translate}}</a></li>
             <li ng-class="{active: cms.isSet(cms.EMPLOYEES_TAB)}"><a ui-sref="index.cmsEmployees">
               <i class="fa fa-briefcase"></i>{{ 'Employees news' | translate}}</a></li>
@@ -40,7 +40,7 @@
           <div class="clients-list">
             <div class="full-height-scroll" full-scroll>
               <!-- News list -->
-              <div class="table-responsive" id="tab-1" ng-show="cms.isSet(cms.NEWS_TAB)" crm-news-list>
+              <div class="table-responsive" id="tab-1" ng-show="cms.isSet(cms.INDEX_TAB) || cms.isSet(cms.NEWS_TAB)" crm-news-list>
               </div>
               <!-- Pages list-->
               <div class="table-responsive" id="tab-2" ng-show="cms.isSet(cms.PAGES_TAB)" crm-pages-list>
