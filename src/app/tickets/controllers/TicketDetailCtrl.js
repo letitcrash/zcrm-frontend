@@ -30,14 +30,13 @@ angular
 
     // Models
     // Original
-    vm.origModel = ticketModel.model;
+    vm.origModel = ticketModel.get();
     // For on page editing
-    vm.formModel = ticketModel.model;
+    vm.formModel = ticketModel.get();
     // For sending to server
-    vm.sendModel = ticketModel.model;
+    vm.sendModel = ticketModel.get();
     // Deadline time model
     vm.deadlineTime = null;
-    ticketModel.clear();
 
     // Map received model to scope models;
     function mapModels(newModel) {

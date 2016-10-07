@@ -12,8 +12,7 @@ angular
     vm.loadStats = {form: 1};
 
     // Model
-    vm.model = ticketModel.model;
-    ticketModel.clear();
+    vm.model = ticketModel.get();
 
     // Projects
     vm.projects = [];
