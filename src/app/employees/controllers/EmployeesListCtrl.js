@@ -21,7 +21,7 @@ angular
     ];
 
     // GET params for employees list
-    vm.getParams = {pageSize: 0, pageNr: 0};
+    vm.getParams = {pageSize: 0, pageNr: 0, searchTerm: ''};
 
     // Pagination settings
     vm.pages = {current: 1, size: 10, itemsTotal: 0};
@@ -29,6 +29,10 @@ angular
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
     vm.loadStats = {list: 1};
+
+    // TODO: Delete after implementing full featured search
+    // Basic employees search
+    vm.onSearch = function onSearch() { vm.getEmps(); };
 
     // Get employees
     vm.getEmps = function getEmps() {

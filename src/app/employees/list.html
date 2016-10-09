@@ -16,7 +16,9 @@
     <div class="form-group employees-view col-xs-12">
       <div class="input-group">
         <label class="input-group-addon label" for="employee_search"><b>{{ 'Search' | translate }}:</b></label>
-        <input type="text" class="form-control" id="employee_search">
+        <input type="text" class="form-control" id="employee_search" ng-model="emp.getParams.searchTerm"
+               ng-model-options="{updateOn: 'default', debounce: {default: 500}}"
+               ng-change="emp.onSearch()">
         <span class="input-group-addon fa fa-search"></span>
       </div>
     </div>
