@@ -2,8 +2,8 @@
 
 angular
   .module('inspinia')
-  .controller('TicketCreateCtrl', function($log, $state, $stateParams, ticketModel, ticketsAPI, dataService,
-        projectService, teamService) {
+  .controller('TicketCreateCtrl', function($log, $state, $stateParams, $scope, ticketModel, ticketsAPI, dataService,
+        projectService) {
     // View
     var vm = this;
 
@@ -23,28 +23,7 @@ angular
       projectService.getList(null, 1000, 1, search).then(function(res) { vm.projects = res.data; });
     };
 
-    // Teams
-    vm.teams = [];
-
-    // Get teams
-    vm.getTeams = function getTeams(search) {
-      // TODO: Rewrite teamService for pacing search term only
-      teamService.getList(null, 1000, 1, search).then(function(res) { vm.teams = res.data; });
-    };
-
-    // Assign ticket to current user
-    vm.assignToMe = function assignToMe() {
-      var user = dataService.getUser();
-      var alreadyAssigned = false;
-
-      for (var i = 0; i < vm.model.agents.length; i++) {
-        if (vm.model.agents[i].id === user.id)
-          alreadyAssigned = true;
-      }
-
-      if (!alreadyAssigned)
-        vm.model.agents.push(user);
-    }
+    vm.getProjects();
 
     // Create ticket
     vm.createTicket = function createTicket() {

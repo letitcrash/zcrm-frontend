@@ -7,7 +7,7 @@
       <button class="btn btn-default" uib-dropdown-toggle><i class="fa fa-cog"></i></button>
       <ul class="dropdown-menu" uib-dropdown-menu>
         <li>
-          <a href role="button" ng-click="uitglrs.del = true" ng-hide="uitglrs.del">
+          <a href role="button" ng-click="tsDetail.dialogs.ticketDel.open()" ng-hide="uitglrs.del">
             <i class="fa fa-trash-o"></i>&nbsp;{{ 'Delete' | translate }}
           </a>
         </li>
@@ -87,7 +87,7 @@
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Status' | translate }}:</label>
         <div class="dsp-inline-block col-sm-6" crm-ticket-status-dropdown ng-model="tsDetail.formModel.status"
-             dropdown-class="btn-group-sm" ng-show="loadStats.status === 1">
+             dropdown-class="btn-group-sm" ng-show="loadStats.status !== 2">
         </div>
         <div class="dsp-inline-block col-sm-6"ng-show="loadStats.status === 2">
           <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
@@ -98,7 +98,7 @@
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Priority' | translate }}:</label>
         <div class="dsp-inline-block col-sm-6" crm-ticket-priority-dropdown ng-model="tsDetail.formModel.priority"
-             dropdown-class="btn-group-sm" ng-show="loadStats.priority === 1">
+             dropdown-class="btn-group-sm" ng-show="loadStats.priority !== 2">
         </div>
         <div class="dsp-inline-block col-sm-6"ng-show="loadStats.priority === 2">
           <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
@@ -108,17 +108,16 @@
       <!-- Deadline -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Deadline' | translate }}:</label>
-        <div class="dsp-inline-block col-sm-6" ng-show="loadStats.deadline === 1">
-          <span uib-popover-template="'datetimepicker.html'" popover-is-open="uitglrs.deadline" popover-trigger="'none'"
-                ng-show="tsDetail.formModel.deadline" ng-bind="tsDetail.formModel.deadline | date:'MM.dd.yyyy HH:mm'">
+        <div class="dsp-inline-block col-sm-6" ng-show="loadStats.deadline !== 2">
+          <span ng-show="tsDetail.origModel.deadline" ng-bind="tsDetail.origModel.deadline | date:'MM.dd.yyyy HH:mm'">
           </span>
-          <span ng-hide="tsDetail.formModel.deadline">-</span>
+          <span ng-hide="tsDetail.origModel.deadline">-</span>
           &nbsp;
-          <a href="" class="dsp-inline-block" role="button" ng-click="uitglrs.deadline = true"
-             ng-hide="uitglrs.deadline" ng-bind="'Edit' | translate">
+          <a href="" class="dsp-inline-block" role="button" ng-click="tsDetail.dialogs.deadline.open()"
+             ng-bind="'Edit' | translate">
           </a>
         </div>
-        <div class="dsp-inline-block col-sm-6"ng-show="loadStats.deadline === 2">
+        <div class="dsp-inline-block col-sm-6" ng-show="loadStats.deadline === 2">
           <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
           <span class="valign-middle">{{ 'Saving' | translate }}...</span>
         </div>
@@ -145,15 +144,15 @@
       <!-- Clients -->
       <li class="ticket-info-row clearfix">
         <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
-        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.origModel.clients.length > 0">
-          <li ng-repeat="client in tsDetail.origModel.clients | limitTo:3">
+        <ul class="list-unstyled col-sm-6" ng-show="tsDetail.origModel.emplClients.length > 0">
+          <li ng-repeat="client in tsDetail.origModel.emplClients | limitTo:3">
             <span ng-bind="client | crmUserDisplayName"></span>
           </li>
-          <li ng-show="tsDeatil.model.clients.length > 3">
+          <li ng-show="tsDeatil.model.emplClients.length > 3">
             <a role="button" ng-click="tsDetail.activeTab = 2" ng-bind="'See more' | translate"></a>
           </li>
         </ul>
-        <span class="col-sm-6" ng-hide="tsDetail.origModel.clients.length > 0">-</span>
+        <span class="col-sm-6" ng-hide="tsDetail.origModel.emplClients.length > 0">-</span>
       </li>
       <!-- Agents -->
       <li class="ticket-info-row clearfix">
@@ -186,36 +185,51 @@
     </uib-tabset>
   </div>
 </div>
-<!-- Popup whith form for setting ticket deadline -->
-<script type="text/ng-template" id="datetimepicker.html">
-  <div class="full-width">
-    <div class="form-group">
+<!-- Form for ticket deadline -->
+<script type="text/ng-template" id="ticketDeadlineDlg.html">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+    <h3 class="modal-title" id="deadline_dlg_title" ng-bind="'Change ticket deadline' | translate"></h3>
+  </div>
+  <form name="form" class="modal-body form-horizontal clearfix" id="deadline_dlg_body">
+    <div class="form-group col-md-6">
       <div class="input-group">
-        <input type="text" class="form-control" uib-datepicker-popup ng-model="tsDetail.formModel.deadline"
-               is-open="datepickerOpened"
-               placeholder="Enter date here">
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="model.deadline"
+               is-open="uiTogglers.deadline" placeholder="Enter date here">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" ng-click="datepickerOpened = true">
+          <button class="btn btn-default" type="button" ng-click="uiTogglers.deadline = true">
             <i class="fa fa-calendar"></i>
           </button>
         </span>
       </div>
     </div>
-    <div class="full-width form-group">
-      <div class="ticket-deadline-timepicker" uib-timepicker ng-model="tsDetail.deadlineTime" show-spinners="false"
-           show-meridian="false">
+    <div class="form-group col-md-6">
+      <label class="control-label col-md-7 p-l-none">{{ 'Enter time' | translate }}:</label>
+      <div class="col-md-5 p-h-none">
+        <div uib-timepicker ng-model="model.deadlineTime" ng-model-options="{getterSetter: true}"
+             show-spinners="false" show-meridian="false"></div>
       </div>
     </div>
-    <div class="full-width text-center">
-      <button class="btn btn-primary" role="button" ng-click="tsDetail.updateTicket('deadline')"
-              ng-bind="'Update' | translate">
-      </button>
-      <button class="btn btn-danger" role="button" ng-click="tsDetail.deleteDeadline()"
-              ng-bind="'Delete' | translate">
-      </button>
-      <button class="btn btn-default" role="button" ng-click="tsDetail.rollbackField('deadline')"
-              ng-bind="'Cancel' | translate">
-      </button>
-    </div>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
+            ng-bind="'Save' | translate">
+    </button>
+    <button class="btn btn-danger" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
+    <button class="btn btn-default" role="button" ng-click="model.deadline = null" ng-hide="model.deadline == null"
+            ng-bind="'Clear' | translate">
+    </button>
+  </div>
+</script>
+<!-- Dialog form for ticket people -->
+<script type="text/ng-template" id="ticketDelDlg.html">
+  <div class="modal-body" id="delete_dlg_body">
+    <h3 ng-bind="'Delete a ticket ?' | translate"></h3>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="$close()" ng-bind="'Delete' | translate"></button>
+    <button class="btn btn-default" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
   </div>
 </script>

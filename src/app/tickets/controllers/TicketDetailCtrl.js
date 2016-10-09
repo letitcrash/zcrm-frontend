@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('TicketDetailCtrl', function($log, $state, $stateParams, $scope, ticketsAPI, ticketModel,
+  .controller('TicketDetailCtrl', function($log, $state, $stateParams, $scope, $uibModal, ticketsAPI, ticketModel,
         textFromHTMLFilter) {
     // View
     var vm = this;
@@ -12,7 +12,7 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1, deadline: 1};
+    vm.loadStats = {page: 2, del: 1, status: 1, priority: 1, description: 1, subject: 1, deadline: 1, people: 1};
 
     // Tab panel
     vm.tabs = [
@@ -26,15 +26,13 @@ angular
     vm.activeTab = 3;
 
     // Togglers for UI elements
-    vm.uiTogglers = {options: false, del: false, description: false, subject: false, deadline: false};
+    vm.uiTogglers = {options: false, description: false, subject: false, deadline: false};
 
     // Models
     // Original
     vm.origModel = ticketModel.get();
     // For on page editing
     vm.formModel = ticketModel.get();
-    // For sending to server
-    vm.sendModel = ticketModel.get();
     // Deadline time model
     vm.deadlineTime = null;
 
@@ -42,10 +40,6 @@ angular
     function mapModels(newModel) {
       vm.origModel = newModel;
       angular.merge(vm.formModel, newModel);
-      angular.merge(vm.sendModel, newModel);
-
-      if (angular.isNumber(newModel.deadline))
-        vm.deadlineTime = new Date(newModel.deadline);
     }
 
     // Rollback formModel field value
@@ -62,31 +56,67 @@ angular
     };
 
     // Update ticket after status and priority changes
-    $scope.$watch('tsDetail.formModel.status', function(val) {
-      if (val !== vm.origModel.status) {
-        vm.sendModel.status = val;
+    var watcher = $scope.$watchGroup(['tsDetail.formModel.status', 'tsDetail.formModel.priority'], function(val) {
+      if (val[0] !== vm.origModel.status)
         vm.updateTicket('status');
-      }
-    });
-
-    $scope.$watch('tsDetail.formModel.priority', function(val) {
-      if (val !== vm.origModel.priority) {
-        vm.sendModel.priority = val;
+      else if (val[1] !== vm.origModel.priority)
         vm.updateTicket('priority');
+    });
+
+    $scope.$on('$destroy', function() { watcher(); });
+
+    // Dialog edit forms
+    vm.dialogs = {
+      people: {
+        templateUrl: 'peopleEditDlg.html',
+        label: 'people',
+        open: createDialog
+      },
+      deadline: {
+        templateUrl: 'ticketDeadlineDlg.html',
+        label: 'deadline',
+        open: createDialog
+      },
+      ticketDel: {
+        templateUrl: 'ticketDelDlg.html',
+        label: 'delete',
+        size: 'sm',
+        resultMethod: 'delete',
+        open: createDialog
       }
-    });
+    };
 
-    // Update deadline date only if edited time is valid
-    $scope.$watch('tsDetail.deadlineTime', function(val) {
-      if (angular.isDate(val))
-        vm.formModel.deadline = val;
-    });
+    // Create instance of $uibModal
+    function createDialog() {
+      /* eslint-disable angular/controller-as-vm, angular/controller-as */
+      angular.extend(this, $uibModal.open({
+        ariaLabelledBy: this.label + '_dlg_title',
+        ariaDescribedBy: this.label + '_dlg_body',
+        size: this.hasOwnProperty('size') ? this.size : '',
+        controller: function($scope) {
+          $scope.model = vm.formModel;
 
-    // Pass updated deadline as UNIX time
-    $scope.$watch('tsDetail.formModel.deadline', function(val) {
-      if (angular.isDate(val))
-        vm.sendModel.deadline = val.getTime();
-    });
+          // Subscribe to modal close event
+          $scope.$on('modal.closing', function(evt, res, isClosed) {
+            if (!isClosed && $scope.form.$dirty) {
+              // Dismiss dialog and rollback formModel field
+              angular.copy(vm.origModel, vm.formModel);
+              $scope.form.$setUntouched();
+            }
+          });
+        },
+        templateUrl: this.templateUrl
+      }));
+
+      // Update Ticket when formModel changed
+      this.result.then(function() {
+        if (this.hasOwnProperty('resultMethod') && this.resultMethod === 'delete')
+          vm.deleteTicket();
+        else
+          vm.updateTicket(this.label);
+      }.bind(this));
+      /* eslint-enable angular/controller-as-vm, angular/controller-as */
+    }
 
     // Get ticket
     vm.getTicket = function getTicket() {
@@ -107,21 +137,23 @@ angular
       if (vm.uiTogglers.hasOwnProperty(field))
         vm.uiTogglers[field] = false;
 
-      ticketsAPI.update(vm.sendModel).then(function(res) {
+      // TODO: Delete after backend refactor
+      if (angular.isDate(vm.formModel.deadline))
+        vm.formModel.deadline = vm.formModel.deadline.getTime();
+
+      ticketsAPI.update(vm.formModel).then(function(res) {
         vm.loadStats[field] = 1;
         mapModels(res);
       }, function(res) {
         $log.log(res);
-        mapModels(res);
         vm.loadStats[field] = 0;
       });
     };
 
     // Delete ticket
     vm.deleteTicket = function deleteTicket() {
-      vm.uiTogglers.del = false;
-      vm.uiTogglers.options = false;
       vm.loadStats.del = 2;
+      $log.log('Deleting');
 
       ticketsAPI.delete(vm.ticketId).then(function(res) {
         $log.log(res);

@@ -1,1 +1,21 @@
-<div data-ng-view></div>
+<div ui-view></div>
+<!-- Form fields for agents, clients and teams info -->
+<script type="text/ng-template" id="peopleForm.html">
+  <!-- Ticket agents -->
+  <div class="row clearfix">
+    <label class="control-label col-md-3">{{ 'Agent(s)' | translate }}:</label>
+    <input type="text" name="agents" id="agents" hidden ng-model="model.agents">
+    <div class="col-md-9" crm-agents-select="model.agents"></div>
+  </div>
+  <!-- Ticket clients -->
+  <div class="row clearfix">
+    <label class="control-label col-md-3">{{ 'Client(s)' | translate }}:</label>
+    <div class="col-md-9 m-b" crm-user-select="model.emplClients" crm-employee-select
+         placeholder="Enter name or username here"></div>
+  </div>
+  <!-- Ticket teams -->
+  <div class="row clearfix">
+    <label class="control-label col-md-3">{{ 'Team(s)' | translate }}:</label>
+    <div class="col-md-9 m-b" crm-teams-select="model.teams"></div>
+  </div>
+</script>

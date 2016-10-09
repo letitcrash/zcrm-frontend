@@ -1,31 +1,67 @@
 <!-- People tab content -->
-<h3 class="col-xs-12">People</h3>
-<!-- Teams -->
-<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
-  <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.teams.length > 0">
-    <li ng-repeat="team in tsDetail.formModel.teams | limitTo:3"><span ng-bind="team.name"></span></li>
-  </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.formModel.teams.length > 0">-</span>
+<div class="col-xs-12 m-b">
+  <h3 class="ibox-title-text dsp-inline-block" ng-bind="'People' | translate"></h3>
+  &nbsp;
+  <a href class="dsp-inline-block" role="button" ng-click="tsDetail.dialogs.people.open()" ng-bind="'Edit' | translate">
+  </a>
 </div>
-<!-- Clients -->
-<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
-  <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.clients.length > 0">
-    <li ng-repeat="client in tsDetail.formModel.clients | limitTo:3">
-      <span ng-bind="client | crmUserDisplayName"></span>
-    </li>
-  </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.formModel.clients.length > 0">-</span>
+<div class="clearfix" ng-show="tsDetail.loadStats.people === 1">
+  <!-- Teams -->
+  <div class="ticket-info-row col-xs-6 col-lg-4 clearfix">
+    <label class="col-sm-6 text-right">{{ 'Team(s)' | translate }}:</label>
+    <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.origModel.teams.length > 0">
+      <li ng-repeat="team in tsDetail.origModel.teams | limitTo:3"><span ng-bind="team.name"></span></li>
+    </ul>
+    <span class="col-sm-6" ng-hide="tsDetail.origModel.teams.length > 0">-</span>
+  </div>
+  <!-- Clients -->
+  <div class="ticket-info-row col-xs-6 col-lg-4 clearfix">
+    <label class="col-sm-6 text-right">{{ 'Client(s)' | translate }}:</label>
+    <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.origModel.emplClients.length > 0">
+      <li ng-repeat="client in tsDetail.origModel.emplClients | limitTo:3">
+        <span ng-bind="client | crmUserDisplayName"></span>
+      </li>
+    </ul>
+    <span class="col-sm-6" ng-hide="tsDetail.origModel.emplClients.length > 0">-</span>
+  </div>
+  <span class="m-n col-xs-12 clearfix hidden-lg"></span>
+  <!-- Agents -->
+  <div class="ticket-info-row col-xs-6 col-lg-4 clearfix">
+    <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
+    <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.origModel.agents.length > 0">
+      <li ng-repeat="agent in tsDetail.origModel.agents | limitTo:3">
+        <span ng-bind="agent | crmUserDisplayName"></span>
+      </li>
+    </ul>
+    <span class="col-sm-6" ng-hide="tsDetail.formModel.agents.length > 0">-</span>
+  </div>
 </div>
-<span class="m-n col-xs-12 clearfix hidden-md hidden-lg"></span>
-<!-- Agents -->
-<div class="ticket-info-row col-xs-6 col-md-4 clearfix">
-  <label class="col-sm-6 text-right">{{ 'Agent(s)' | translate }}:</label>
-  <ul class="dsp-inline-block list-unstyled col-sm-6" ng-show="tsDetail.formModel.agents.length > 0">
-    <li ng-repeat="agent in tsDetail.formModel.agents | limitTo:3">
-      <span ng-bind="agent | crmUserDisplayName"></span>
-    </li>
-  </ul>
-  <span class="col-sm-6" ng-hide="tsDetail.formModel.agents.length > 0">-</span>
-</div>
+<h4 class="col-xs-12 text-center" ng-show="tsDetail.loadStats.people === 2">
+  <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+  <span class="valign-middle">{{ 'Saving' | translate }}...</span>
+</h4>
+<h4 class="col-xs-12 text-center" ng-show="tsDetail.loadStats.people === 0">
+  <span class="m-b">{{ 'Something gone wrong. Please try again.' | translate }}...</span>
+  <br>
+  <button class="btn btn-default" role="button" ng-click="tsDetail.loadStats.people = 1"
+          ng-bind="'Try again' | translate">
+  </button>
+</h4>
+<!-- Dialog form for ticket people -->
+<script type="text/ng-template" id="peopleEditDlg.html">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+    <h3 class="modal-title" id="people_dlg_title" ng-bind="'Change ticket people' | translate"></h3>
+  </div>
+  <form name="form" class="form-horizontal modal-body" id="people_dlg_body">
+    <div class="clearfix" ng-include="'peopleForm.html'"></div>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
+            ng-bind="'Save' | translate">
+    </button>
+    <button class="btn btn-danger" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
+  </div>
+</script>

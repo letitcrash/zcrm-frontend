@@ -1,0 +1,8 @@
+<div ui-select name="teams" ng-model="$parent.selected" multiple crm-select-multiple>
+  <div ui-select-choices repeat="team in teams | filter: $select.search track by team.id"
+       refresh="getTeams($select.search)" refresh-delay="500" minimum-input-length="1">
+       <h4 class="dsp-inline-block" ng-bind-html="::team.name | highlight: $select.search"></h4>
+       <span class="dsp-inline-block" ng-if="team.description.length > 0">({{ ::team.description }})</span>
+  </div>
+  <div ui-select-match placeholder="Enter name of the team here">{{ $item.name }}</div>
+</div>

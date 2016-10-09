@@ -31,13 +31,13 @@
              ng-bind="::ticket.subject | cutLongText:25:'...'"></a>
         </td>
         <td ng-if="fields.clients.active">
-          <span ng-repeat="pfile in ::ticket.clients" ng-if="ticket.clients.length === 1"
+          <span ng-repeat="pfile in ::ticket.emplClients" ng-if="ticket.emplClients.length === 1"
                 ng-bind="pfile | crmUserDisplayName"></span>
-          <span ng-repeat="pfile in ::ticket.clients | limitTo:3" ng-if="ticket.clients.length > 1"
+          <span ng-repeat="pfile in ::ticket.emplClients | limitTo:3" ng-if="ticket.emplClients.length > 1"
                 title="{{ pfile | crmUserDisplayName }}">
             {{ pfile | crmUserDisplayName:true }}{{ !$last ? ',' : '' }}
           </span>
-          <a href="" role="button" ng-if="ticket.clients.length > 3">...</a>
+          <a href="" role="button" ng-if="ticket.emplClients.length > 3">...</a>
         </td>
         <td ng-if="fields.teams.active">
           <span>{{ ::ticket.teams[0].name }}{{ ticket.teams.length > 1 ? ',' : '' }}</span>

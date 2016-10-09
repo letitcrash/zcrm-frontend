@@ -177,12 +177,16 @@ angular
         data: {pageTitle: 'projects'},
         authenticate: true
       })
+
+      // Tickets
+
       .state('index.tickets', {
         abstract: true,
         url: '/tickets',
         data: {pageTitle: 'Tickets'},
         authenticate: true,
-        template: '<div data-ui-view></div>'
+        // template: '<div data-ui-view></div>'
+        templateUrl: 'app/tickets/base.html'
       })
       .state('index.tickets.list', {
         parent: 'index.tickets',
@@ -225,7 +229,7 @@ angular
         url: '/employees',
         data: {pageTitle: 'Employees'},
         authenticate: true,
-        template: '<div data-ui-view></div>'
+        template: '<div ui-view></div>',
       })
       .state('index.employees.list', {
         parent: 'index.employees',
