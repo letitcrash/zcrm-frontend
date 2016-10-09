@@ -17,6 +17,9 @@ angular
       },
       update: function(emp) {
         return requestService.ttPut(apiURL + '/' + emp.id, emp);
+      },
+      delete: function(empId) {
+        return requestService.ttDelete(apiURL + '/' + empId);
       }
     };
   });

@@ -11,12 +11,12 @@ angular
 
     // Loading statuses
     // 0 - error, 1 - success, 2 - loading
-    vm.loadStats = {page: 2, edit: 1};
+    vm.loadStats = {page: 2, edit: 1, del: 1};
 
     // Tab panel
     vm.tabs = [
       {icon: 'fa-users', title: 'Teams', disabled: true},
-      {icon: 'fa-check', title: 'Tickets', disabled: true},
+      {icon: 'fa-check', title: 'Tickets', disabled: false, template: 'app/employees/detail-tickets.html'},
       {icon: 'fa-history', title: 'History', disabled: true},
       {icon: 'fa-clock-o', title: 'Time log', disabled: true}
     ];
@@ -33,27 +33,34 @@ angular
 
     // Dialog edit forms
     vm.dialogs = {
-      mainInfo: {
-        templateUrl: 'mainInfoEdit.html',
+      pfileInfo: {
+        templateUrl: 'pfileInfoEditDlg.html',
         label: 'main',
         open: createDialog
       },
       unionInfo: {
-        templateUrl: 'unionInfoEdit.html',
+        templateUrl: 'unionInfoEditDlg.html',
         label: 'union',
         size: 'lg',
         open: createDialog
       },
       workInfo: {
-        templateUrl: 'workInfoEdit.html',
+        templateUrl: 'workInfoEditDlg.html',
         label: 'work',
         size: 'lg',
         open: createDialog
       },
-      privatInfo: {
-        templateUrl: 'privatInfoEdit.html',
+      privateInfo: {
+        templateUrl: 'privateInfoEditDlg.html',
         label: 'privat',
         size: 'lg',
+        open: createDialog
+      },
+      empDel: {
+        templateUrl: 'empDelDlg.html',
+        label: 'delete',
+        size: 'sm',
+        resultMethod: 'delete',
         open: createDialog
       }
     };
@@ -83,8 +90,13 @@ angular
         templateUrl: this.templateUrl
       }));
 
-      // Update Employee with changed formModel
-      this.result.then(function() { vm.updateEmp(); });
+      // Delete or update Employee when formModel has changed
+      this.result.then(function() {
+        if (this.hasOwnProperty('resultMethod') && this.resultMethod === 'delete')
+          vm.deleteEmp();
+        else
+          vm.updateEmp();
+      }.bind(this));
       /* eslint-enable angular/controller-as-vm, angular/controller-as */
     }
 
@@ -122,6 +134,19 @@ angular
       }, function(res) {
         $log.log(res);
         vm.loadStats.edit = 0;
+      });
+    };
+
+    // Delete Employee
+    vm.deleteEmp = function deleteEmp() {
+      vm.loadStats.del = 2;
+
+      employeesAPI.delete(vm.empId).then(function(res) {
+        $log.log(res);
+        $state.go('^.list');
+      }, function(res) {
+        $log.log(res);
+        vm.loadStats.del = 0;
       });
     };
 

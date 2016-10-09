@@ -1,0 +1,12 @@
+<div class="clearfix">
+  <!-- Sort -->
+  <div class="form-group col-md-6 col-lg-3" crm-tickets-list-sort></div>
+  <!-- Priority filter -->
+  <div class="col-xs-6 col-md-12 col-lg-4" crm-tickets-list-filter></div>
+  <!-- Tickets list -->
+  <div class="col-xs-12 p-h-none" crm-tickets-list fields="id,status,priority,subj,project,deadline"
+       on-ticket-select="vm.selectTicket(ticket)">
+  </div>
+  <!-- Pagination -->
+  <div class="col-xs-12" crm-tickets-list-pager></div>
+</div>

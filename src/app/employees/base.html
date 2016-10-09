@@ -1,6 +1,6 @@
 <div ui-view></div>
 <!-- Form fields for profile info -->
-<script type="text/ng-template" id="pfileForm.html">
+<script type="text/ng-template" id="pfileInfoForm.html">
   <!-- Fullname -->
   <div class="form-group clearfix" ng-class="{'has-error': (form.firstname.$touched && form.firstname.$invalid) ||
       (form.lastname.$touched && form.lastname.$invalid)}">
@@ -39,7 +39,7 @@
   </div>
 </script>
 <!-- Form fields for union info -->
-<script type="text/ng-template" id="unionInfForm.html">
+<script type="text/ng-template" id="unionInfoForm.html">
   <!-- Membership number and resigned date -->
   <div class="col-xs-12">
     <div class="form-group col-md-6">
@@ -160,7 +160,7 @@
   </div>
 </script>
 <!-- Form fields for working info -->
-<script type="text/ng-template" id="workInfForm.html">
+<script type="text/ng-template" id="workInfoForm.html">
   <!-- Employee number and workplace -->
   <div class="col-xs-12">
     <div class="form-group col-md-6">
@@ -221,7 +221,7 @@
       <label class="control-label col-md-6">{{ 'Offshore / Onshore' | translate }}:</label>
       <div class="col-md-6" ui-select ng-model="addInf.land" search-enabled="false">
         <div ui-select-match placeholder="{{ 'Choose option' | translate }}"> {{ $select.selected.name }}</div>
-        <div ui-select-choices repeat="opt.val as opt in empCreate.land">
+        <div ui-select-choices repeat="opt.val as opt in land">
           <h4 ng-bind="::opt.name | translate"></h4>
         </div>
       </div>
@@ -251,7 +251,7 @@
   </div>
 </script>
 <!-- Form fields for private info -->
-<script type="text/ng-template" id="privInfForm.html">
+<script type="text/ng-template" id="privateInfoForm.html">
   <!-- Social security number and airport -->
   <div class="col-xs-12">
     <div class="form-group col-md-6">
@@ -285,7 +285,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6" ng-class="{'has-error': form.emailHome.$dirty && form.emailHome.$invalid}">
       <label class="control-label col-md-6">{{ 'Privat Email' | translate }}:</label>
       <div class="col-md-6">
         <input type="email" class="form-control" name="emailHome" maxlength="255" ng-model="pfile.emailHome">

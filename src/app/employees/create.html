@@ -9,16 +9,16 @@
   <div class="ibox-content clearfix" ng-init="model = empCreate.model; addInf = empCreate.model.additionalInfo;
        pfile = empCreate.model.user.contactProfile">
     <!-- Profile info -->
-    <div class="clearfix" ng-include="'pfileForm.html'"></div>
+    <div class="clearfix" ng-include="'pfileInfoForm.html'"></div>
     <hr class="hr-line-dashed">
     <!-- Union info -->
-    <div class="clearfix" ng-include="'unionInfForm.html'"></div>
+    <div class="clearfix" ng-include="'unionInfoForm.html'"></div>
     <hr class="hr-line-dashed">
     <!-- Working info -->
-    <div class="clearfix" ng-include="'workInfForm.html'"></div>
+    <div class="clearfix" ng-include="'workInfoForm.html'" ng-init="land = empCreate.land"></div>
     <hr class="hr-line-dashed">
     <!-- Private info -->
-    <div class="clearfix" ng-include="'privInfForm.html'"></div>
+    <div class="clearfix" ng-include="'privateInfoForm.html'"></div>
   </div>
   <!-- Form footer -->
   <div class="ibox-footer employee-form-footer clearfix">

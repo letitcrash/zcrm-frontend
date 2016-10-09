@@ -3,8 +3,15 @@
   <!-- Content box title -->
   <div class="ibox-title clearfix">
     <a ui-sref="index.employees.list()" class="btn btn-default pull-left" ><i class="fa fa-chevron-left"></i></a>
-    <span class="pull-right">
-      <button class="btn btn-default"><i class="fa fa-cog"></i></button>
+    <span class="pull-right" uib-dropdown auto-close="outsideClick" is-open="options">
+      <button class="btn btn-default" uib-dropdown-toggle><i class="fa fa-cog"></i></button>
+      <ul class="dropdown-menu" uib-dropdown-menu>
+        <li>
+          <a href role="button" ng-click="empDetail.dialogs.empDel.open()">
+            <i class="fa fa-trash-o"></i>&nbsp;{{ 'Delete' | translate }}
+          </a>
+        </li>
+      </ul>
     </span>
     <h3 class="ibox-title-text pull-left" ng-bind="'Profile detail' | translate"></h3>
   </div>
@@ -41,7 +48,22 @@
         </button>
       </div>
     </div>
-    <!-- Employee personal info -->
+    <div class="ticket-pholder text-center" ng-hide="loadStats.del === 1">
+      <h4 class="ticket-pholder-content" ng-show="loadStats.del === 2">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw fa-spin valign-middle"></i>
+        <span class="valign-middle">{{ 'Deleting profile' | translate }}...</span>
+      </h4>
+      <div class="ticket-pholder-content" ng-show="loadStats.del === 0">
+        <h4>
+          <span class="fa fa-ban text-danger"></span>
+          {{ 'Something went wrong. Please try again.' | translate }}
+        </h4>
+        <button class="btn btn-default" type="button" ng-bind="'Try again' | translate"
+                ng-click="loadStats.del = 1">
+        </button>
+      </div>
+    </div>
+    <!-- Profile info -->
     <div class="col-xs-12 col-lg-6 m-b-md">
       <!-- <div class="col-xs-6 col-sm-4 col-md-5 col-lg-4 p-h-none text-right"> -->
       <div class="profile-image employee-profile-image">
@@ -54,23 +76,24 @@
           <i class="fa fa-envelope"></i>&nbsp;{{ 'Send message' | translate }}
         </button>
       </div>
-      <ul class="profile-info employee-profile-info list-unstyled">
+      <ul class="profile-info employee-profile-info col-md-6 list-unstyled">
         <li class="ticket-info-row">
-          <h2 class="employee-name dsp-inline-block" ng-bind="empDetail.origModel.user | crmUserDisplayName"></h2>
-          &nbsp;
-          <a href class="dsp-inline-block" ng-click="empDetail.dialogs.mainInfo.open()"
-             ng-bind="'Edit' | translate">
-          </a>
+          <h2 class="employee-name dsp-inline-block full-width br-word">
+            {{ empDetail.origModel.user | crmUserDisplayName }}&nbsp;
+            <a href class="dsp-inline-block font-base" ng-click="empDetail.dialogs.pfileInfo.open()"
+               ng-bind="'Edit' | translate">
+            </a>
+          </h2>
         </li>
         <li class="ticket-info-row clearfix">
           <label class="col-sm-5 col-md-4 col-lg-3 text-right">{{ 'Phone' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7 col-md-8 col-lg-9"
+          <span class="dsp-inline-block col-sm-7 col-md-8 col-lg-9 br-word"
                 ng-bind="empDetail.origModel.user.contactProfile['phoneNumberMobile']">
           </span>
         </li>
         <li class="ticket-info-row clearfix">
           <label class="col-sm-5 col-md-4 col-lg-3 text-right">{{ 'Email' | translate }}:</label>
-          <span class="dsp-inline-block col-sm-7 col-md-8 col-lg-9"
+          <span class="dsp-inline-block col-sm-7 col-md-8 col-lg-9 br-word"
                 ng-bind="empDetail.origModel.user.contactProfile.email">
           </span>
         </li>
@@ -134,12 +157,14 @@
             </tr>
             <tr>
               <td>{{ 'Union' | translate }}:</td>
-              <td>
+              <td colspan="3">
                 <span ng-show="empDetail.origModel.union" ng-bind="empDetail.origModel.union.name"></span>
                 <span ng-hide="empDetail.origModel.union">-</span>
               </td>
+            </tr>
+            <tr>
               <td>{{ 'Comment' | translate }}:</td>
-              <td>
+              <td colspan="3">
                 <span ng-show="addInf.comment" ng-bind="addInf.comment"></span>
                 <span ng-hide="addInf.comment">-</span>
               </td>
@@ -207,7 +232,7 @@
           </tbody>
         </table>
       </li>
-      <li uib-tab index="2" heading="{{ 'Privat info' | translate }}" select="empDetail.addInfTab = 'privatInfo'">
+      <li uib-tab index="2" heading="{{ 'Private info' | translate }}" select="empDetail.addInfTab = 'privateInfo'">
         <table class="employee-add-info-list">
           <tbody>
             <tr>
@@ -234,10 +259,10 @@
               </td>
             </tr>
             <tr>
-              <td>{{ 'Privat Email' | translate }}:</td>
+              <td>{{ 'Private Email' | translate }}:</td>
               <td>
-                <span ng-show="pfile.email" ng-bind="pfile.email"></span>
-                <span ng-hide="pfile.email">-</span>
+                <span ng-show="pfile.emailHome" ng-bind="pfile.emailHome"></span>
+                <span ng-hide="pfile.emailHome">-</span>
               </td>
               <td>{{ 'Jacket size' | translate }}:</td>
               <td>
@@ -256,7 +281,10 @@
             </tr>
             <tr>
               <td>{{ 'Address II' | translate }}:</td>
-              <td>-</td>
+              <td>
+                <span ng-show="pfile.secondAddress" ng-bind="pfile.secondAddress"></span>
+                <span ng-hide="pfile.secondAddress">-</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -269,7 +297,7 @@
       </li>
     </ul>
     <!-- Ticket tabs -->
-    <div uib-tabset class="ticket-tabs employee-tabs col-xs-12 p-h-none" active="3">
+    <div uib-tabset class="ticket-tabs employee-tabs col-xs-12 p-h-none" active="empDetail.activeTab">
       <div uib-tab index="$index" disable="tab.disabled" ng-repeat="tab in ::empDetail.tabs">
         <span uib-tab-heading><i class="fa" ng-class="::tab.icon"></i>{{ ::tab.title | translate }}</span>
         <div class="clearfix" ng-include="tab.template"></div>
@@ -278,39 +306,16 @@
   </div>
 </div>
 <!-- Dialog form for main profile info -->
-<script type="text/ng-template" id="mainInfoEdit.html">
+<script type="text/ng-template" id="pfileInfoEditDlg.html">
   <div class="modal-header">
     <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
       <i class="fa fa-close" aria-hidden="true"></i>
     </button>
-    <h3 class="modal-title" id="main_info_dlg_title" ng-bind="'Change main information' | translate"></h3>
+    <h3 class="modal-title" id="pfile_info_dlg_title" ng-bind="'Change main information' | translate"></h3>
   </div>
-  <form name="form" class="form-horizontal modal-body" id="main_info_dlg_body">
-    <div class="form-group">
-      <label class="col-sm-2 control-label p-h-none">{{ 'Full name' | translate }}:</label>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" name="firstname" ng-model="model.user.contactProfile.firstname">
-      </div>
-      <div class="col-sm-5">
-        <input type="text" class="form-control" name="lastname" ng-model="model.user.contactProfile.lastname">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label p-h-none">{{ 'Phone' | translate }}:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" name="phone" ng-model="model.user.contactProfile.phoneNumberMobile">
-      </div>
-    </div>
-    <div class="form-group m-b-none" ng-class="{'has-error': form.email.$touched && form.email.$invalid}">
-      <label class="col-sm-2 control-label p-h-none">{{ 'Email' | translate }}:</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" name="email" ng-model="model.user.contactProfile.email"
-               ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 100}}">
-        <span class="help-block" ng-show="form.email.$touched && form.email.$invalid"
-              ng-bind="'This field must be in email format' | translate">
-        </span>
-      </div>
-    </div>
+  <form name="form" class="form-horizontal modal-body" id="pfile_info_dlg_body"
+        ng-init="pfile = model.user.contactProfile">
+    <div class="clearfix" ng-include="'pfileInfoForm.html'"></div>
   </form>
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
@@ -320,7 +325,7 @@
   </div>
 </script>
 <!-- Dialog form for union info -->
-<script type="text/ng-template" id="unionInfoEdit.html">
+<script type="text/ng-template" id="unionInfoEditDlg.html">
   <div class="modal-header">
     <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
       <i class="fa fa-close" aria-hidden="true"></i>
@@ -328,102 +333,7 @@
     <h3 class="modal-title" id="union_info_dlg_title" ng-bind="'Change union information' | translate"></h3>
   </div>
   <form name="form" class="form-horizontal modal-body" id="union_info_dlg_body" ng-init="addInf = model.additionalInfo">
-    <!-- Membership number and resigned date -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Membership number' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="membershipNum" ng-model="addInf.membershipNum">
-      </div>
-      <label class="control-label col-md-3">{{ 'Resigned date' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.resignedDate"
-                 is-open="uiTogglers.resignedDate" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.resignedDate = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- Enrolled dept and steward courses -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Enrolled Dept' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledDept"
-                 is-open="uiTogglers.enrolledDept" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.enrolledDept = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-      <label class="control-label col-md-3">{{ 'Steward courses' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.shopStewardCourses"
-                 is-open="uiTogglers.shopStewardCourses" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.shopStewardCourses = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- Enrolled IE and referred by -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Enrolled IE' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledIE"
-                 is-open="uiTogglers.enrolledIE" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.enrolledIE = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-      <label class="control-label col-md-3">{{ 'Referred by' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="refBy" ng-model="addInf.refBy">
-      </div>
-    </div>
-    <!-- Enrolled LO and union -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Enrolled LO' | translate }}:</label>
-      <div class="col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.enrolledLO"
-                 is-open="uiTogglers.enrolledLO" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.enrolledLO = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-      <label class="control-label col-md-3">{{ 'Union' | translate }}:</label>
-      <div class="m-b col-md-3" crm-union-select="model.union"></div>
-    </div>
-    <!-- Agreement -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Agreement' | translate }}:</label>
-      <div class="col-md-9">
-        <input type="text" class="form-control" name="agreement" ng-model="addInf.agreement">
-      </div>
-    </div>
-    <!-- Comment -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Comment' | translate }}:</label>
-      <div class="col-md-9">
-        <textarea class="form-control rsize-v" name="comment" ng-model="addInf.comment"></textarea>
-      </div>
-    </div>
+    <div class="clearfix" ng-include="'unionInfoForm.html'"></div>
   </form>
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
@@ -433,7 +343,7 @@
   </div>
 </script>
 <!-- Dialog form for working info -->
-<script type="text/ng-template" id="workInfoEdit.html">
+<script type="text/ng-template" id="workInfoEditDlg.html">
   <div class="modal-header">
     <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
       <i class="fa fa-close" aria-hidden="true"></i>
@@ -441,70 +351,7 @@
     <h3 class="modal-title" id="work_info_dlg_title" ng-bind="'Change working information' | translate"></h3>
   </div>
   <form name="form" class="form-horizontal modal-body" id="work_info_dlg_body" ng-init="addInf = model.additionalInfo">
-    <!-- Employee number and workplace -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Employee number' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="emplNumber" ng-model="addInf.emplNumber">
-      </div>
-      <label class="control-label col-md-3">{{ 'Workplace' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="workplace" ng-model="addInf.workplace">
-      </div>
-    </div>
-    <!-- Position and VO Courses -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Position' | translate }}:</label>
-      <div class="m-b col-md-3" crm-pos-select="model.position"></div>
-      <label class="control-label col-md-3">{{ 'VO Courses' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.voCourses"
-                 is-open="uiTogglers.voCourses" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.voCourses = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- Shift and status -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Shift' | translate }}:</label>
-      <div class="m-b col-md-3" crm-shift-select="model.shift"></div>
-      <label class="control-label col-md-3">{{ 'Status' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="addInf.status" ng-model="addInf.status">
-      </div>
-    </div>
-    <!-- Onshore/offshore and department -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Offshore / Onshore' | translate }}:</label>
-      <div class="m-b col-md-3" ui-select ng-model="addInf.land" search-enabled="false">
-        <div ui-select-match placeholder="{{ 'Choose option' | translate }}"> {{ $select.selected.name }}</div>
-        <div ui-select-choices repeat="opt.val as opt in land">
-          <h4 ng-bind="::opt.name | translate"></h4>
-        </div>
-      </div>
-      <label class="control-label col-md-3">{{ 'Department' | translate }}:</label>
-      <div class="m-b col-md-3" crm-dep-select="model.department"></div>
-    </div>
-    <!-- Seniority date -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Seniority date' | translate }}:</label>
-      <div class="col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="addInf.seniorityDate"
-                 is-open="uiTogglers.seniorityDate" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.seniorityDate = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
+    <div class="clearfix" ng-include="'workInfoForm.html'"></div>
   </form>
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
@@ -513,96 +360,32 @@
     <button class="btn btn-danger" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
   </div>
 </script>
-<!-- Dialog form for privat info -->
-<script type="text/ng-template" id="privatInfoEdit.html">
+<!-- Dialog form for private info -->
+<script type="text/ng-template" id="privateInfoEditDlg.html">
   <div class="modal-header">
     <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
       <i class="fa fa-close" aria-hidden="true"></i>
     </button>
-    <h3 class="modal-title" id="privat_info_dlg_title" ng-bind="'Change privat information' | translate"></h3>
+    <h3 class="modal-title" id="private_info_dlg_title" ng-bind="'Change private information' | translate"></h3>
   </div>
-  <form name="form" class="form-horizontal modal-body" id="privat_info_dlg_body"
+  <form name="form" class="form-horizontal modal-body" id="private_info_dlg_body"
         ng-init="addInf = model.additionalInfo; pfile = model.user.contactProfile">
-    <!-- Social security number and airport -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Social security number' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="socialSecNumber" ng-model="addInf.socialSecNumber">
-      </div>
-      <label class="control-label col-md-3">{{ 'Airport' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="airport" ng-model="addInf.airport">
-      </div>
-    </div>
-    <!-- Birthdate and privat email -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Date of birth' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <div class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="pfile.birthdate"
-                 is-open="uiTogglers.birthdate" placeholder="Enter date here">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="uiTogglers.birthdate = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-        </div>
-      </div>
-      <label class="control-label col-md-3">{{ 'Privat Email' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="email" class="form-control" name="emailHome" ng-model="pfile.emailHome">
-      </div>
-    </div>
-    <!-- City and zip code -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'City' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="city" ng-model="pfile.city">
-      </div>
-      <label class="control-label col-md-3">{{ 'ZIP Code' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="zipCode" ng-model="pfile.zipCode">
-      </div>
-    </div>
-    <!-- Jacket size and individual paid -->
-    <div class="row">
-      <label class="control-label col-md-3">{{ 'Jacket size' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <input type="text" class="form-control" name="airport" ng-model="addInf.jacketSize">
-      </div>
-      <label class="control-label col-md-3">{{ 'Individual paid' | translate }}:</label>
-      <div class="m-b col-md-3">
-        <label class="radio-inline">
-          <input type="radio" class="green-radio-check" name="indivPaid" ng-model="addInf.indivPaid" value="true"
-                 ng-checked="addInf.indivPaid">
-          &nbsp;{{ 'Yes' | translate }}
-        </label>
-        <label class="radio-inline">
-          <input type="radio" class="green-radio-check" name="indivPaid" ng-model="addInf.indivPaid" value="false"
-                 ng-checked="!addInf.indivPaid">
-          &nbsp;{{ 'No' | translate }}
-        </label>
-      </div>
-    </div>
-    <!-- Address I -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Address' | translate }} I:</label>
-      <div class="col-md-9">
-        <textarea class="form-control rsize-v" name="address" ng-model="pfile.address"></textarea>
-      </div>
-    </div>
-    <!-- Address II -->
-    <div class="form-group clearfix">
-      <label class="control-label col-md-3">{{ 'Address' | translate }} II:</label>
-      <div class="col-md-9">
-        <textarea class="form-control rsize-v" name="secondAddress" ng-model="pfile.secondAddress"></textarea>
-      </div>
-    </div>
+    <div class="clearfix" ng-include="'privateInfoForm.html'"></div>
   </form>
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="$close()" ng-disabled="form.$invalid || form.$pristine"
             ng-bind="'Save' | translate">
     </button>
     <button class="btn btn-danger" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
+  </div>
+</script>
+<!-- Dialog form for employee deleting -->
+<script type="text/ng-template" id="empDelDlg.html">
+  <div class="modal-body" id="delete_info_dlg_body">
+    <h3 ng-bind="'Delete a profile ?' | translate"></h3>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="$close()" ng-bind="'Delete' | translate"></button>
+    <button class="btn btn-default" type="button" ng-click="$dismiss()" ng-bind="'Cancel' | translate"></button>
   </div>
 </script>
