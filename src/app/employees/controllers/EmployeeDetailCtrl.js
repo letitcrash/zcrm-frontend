@@ -114,7 +114,6 @@ angular
     // Update Employee
     vm.updateEmp = function updateEmp() {
       vm.loadStats.edit = 2;
-      employeeModel.validate(vm.formModel);
 
       employeesAPI.update(vm.formModel).then(function(res) {
         $log.log(res);

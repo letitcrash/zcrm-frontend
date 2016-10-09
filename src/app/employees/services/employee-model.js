@@ -5,7 +5,6 @@ angular
   .factory('employeeModel', function (userModel) {
     // TODO: Delete after backend refactoring
     function EmpAdditionalInfo() {
-      // TODO: Delete after backend refactor
       this.emplId = 0;
       this.membershipNum = null;
       this.enrolledDept = null;
@@ -31,7 +30,6 @@ angular
     function Employee() {
       // TODO: Delete after backend refactor
       this.baseUrl = 'baseUrl';
-      // TODO: Delete after backend refactor
       this.username = '';
       this.union = null;
       this.shift = null;
@@ -43,25 +41,7 @@ angular
       this.additionalInfo = new EmpAdditionalInfo();
     }
 
-    function validateInt(val) {
-      var num = parseInt(val);
-
-      return angular.isNumber(num) ? num : null;
-    }
-
-    function validateBool(val) { return val === 'true' ? true : false; }
-
     return {
-      get: function() { return new Employee(); },
-      // TODO: Delete it
-      validate: function(model) {
-        if (model instanceof Employee) {
-          model.additionalInfo.membershipNum = validateInt(model.additionalInfo.membershipNum);
-          model.additionalInfo.socialSecNumber = validateInt(model.additionalInfo.socialSecNumber);
-          model.additionalInfo.emplNumber = validateInt(model.additionalInfo.emplNumber);
-          model.additionalInfo.indivPaid = validateBool(model.additionalInfo.indivPaid);
-          model.additionalInfo.land = validateBool(model.additionalInfo.land);
-        }
-      }
+      get: function() { return new Employee(); }
     }
   });

@@ -229,7 +229,7 @@ angular
         url: '/employees',
         data: {pageTitle: 'Employees'},
         authenticate: true,
-        template: '<div ui-view></div>',
+        templateUrl: 'app/employees/base.html'
       })
       .state('index.employees.list', {
         parent: 'index.employees',

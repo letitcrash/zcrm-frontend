@@ -19,24 +19,13 @@ angular
     // Land options
     vm.land = [{name: 'Offshore', val: false}, {name: 'Onshore', val: true}];
 
-    // Visability togglers
-    vm.uiTogglers = {
-      resignedDate: false,
-      enrolledDept: false,
-      enrolledIE: false,
-      enrolledLO: false,
-      shopStewardCourses: false,
-      voCourses: false,
-      birthdate: false
-    };
-
     // Create employee
     vm.createEmployee = function createEmployee() {
       vm.loadStats.form = 2;
+      // TODO: Delete after refactoring
       vm.model.username = vm.model.user.contactProfile.email;
       vm.model.contactProfile = vm.model.user.contactProfile;
       delete vm.model.user;
-      employeeModel.validate(vm.model);
 
       employeesAPI.create(vm.model).then(function(res) {
         if (res.hasOwnProperty('id')) {
