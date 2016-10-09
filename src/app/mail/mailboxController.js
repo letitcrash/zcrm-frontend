@@ -100,13 +100,38 @@ angular
     // Add or remove message from selected
     function updateSelectedMsgs(msg) {
       if (msg.selected)
+        vm.selectedMsgs[0] = msg;
+      else
+        vm.selectedMsgs.splice(0, 1);
+      /*
+      if (msg.selected)
         vm.selectedMsgs.push(msg);
       else
         vm.selectedMsgs.splice(vm.selectedMsgs.indexOf(msg), 1);
+      */
     }
 
     // Toggle selection of message or all of messages in conversation
     vm.toggleMsgSelection = function toggleMsgSelection(conv, msg) {
+      vm.convList.forEach(function(elem) {
+        if (elem.conversationId !== conv.conversationId)
+          elem.selected = false;
+      });
+
+      if (msg == null) {
+        msg = conv.mails[conv.mails.length - 1];
+        msg.selected = conv.selected;
+      } else {
+        conv.selected = msg.selected;
+      }
+
+      conv.mails.forEach(function(elem) {
+        if (elem.id !== msg.id)
+          elem.selected = false;
+      });
+
+      updateSelectedMsgs(msg);
+      /*
       if (msg != null) {
         conv.selectedMsgs = msg.selected ? conv.selectedMsgs + 1 : conv.selectedMsgs - 1;
         conv.selected = conv.selectedMsgs === conv.mails.length ? true : false;
@@ -118,6 +143,7 @@ angular
           updateSelectedMsgs(msg);
         });
       }
+      */
 
       vm.showActionMenu = vm.selectedMsgs.length > 0 ? true : false;
     };

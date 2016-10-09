@@ -43,6 +43,7 @@ angular
 
     // Remove message from selected list
     vm.removeMsg = function removeMsg(idx) {
+      vm.msgs[idx].selected = false;
       vm.msgs.splice(idx, 1);
 
       if (vm.msgs.length === 0)
