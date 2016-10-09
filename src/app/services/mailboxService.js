@@ -44,7 +44,11 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
 
         return requestService.ttPost(buildURLParams(), mbox);
       },
-      update: function(mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); }
+      update: function(mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); },
+      // TODO: Delete after backend refactoring
+      sync: function() {
+        return requestService.ttGet('mailboxes/synchronize/' + dataService.getUserId());
+      }
     },
     messages: {
       inbox: function(mId, pSize, pNr, sTerm) {

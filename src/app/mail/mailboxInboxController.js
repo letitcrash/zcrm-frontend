@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller("MailboxInboxController", function($log, $scope, $state, $stateParams, mailboxService,
+  .controller("MailboxInboxController", function($log, $scope, $state, $stateParams, $interval, mailboxService,
         ticketsAPI, dataService, textFromHTMLFilter) {
     // View
     var vm = this;
@@ -100,4 +100,9 @@ angular
     vm.getInbox = getInbox;
 
     getInbox();
+
+    // TODO: Delete after backend refactor
+    $interval(function() {
+      mailboxService.mailboxes.sync().then(function() { getInbox(); });
+    }, 600000);
   });

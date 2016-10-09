@@ -180,13 +180,14 @@ angular
 
       if (angular.isObject(msg) && msg.hasOwnProperty('sender')) {
         eModel.receiver.push(msg.sender);
+        eModel.subject = msg.subject;
       } else {
         vm.convView.msgList.forEach(function(msg) {
           if (eModel.receiver.indexOf(msg.sender) === -1) { eModel.receiver.push(msg.sender); }
         });
+        eModel.subject = vm.convView.msgList[0].subject;
       }
 
-      eModel.subject = msg.subject;
       vm.slidebox.title = 'Reply';
       vm.slidebox.active = true;
     };
@@ -214,7 +215,7 @@ angular
       if (force || (!eModel.emptySubj || !eModel.emptyBody)) {
         vm.loadStats.emailForm = 2;
         // TODO: Use single Class for email model
-        mailboxService.messages.send(vm.mboxId, {to: [eModel.sender], subject: eModel.subject, body: eModel.body})
+        mailboxService.messages.send(vm.mboxId, {to: eModel.receiver, subject: eModel.subject, body: eModel.body})
           .then(function(res) {
             vm.loadStats.emailForm = 1
           }, function(res) {
