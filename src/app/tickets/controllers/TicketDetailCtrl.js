@@ -142,8 +142,9 @@ angular
         vm.formModel.deadline = vm.formModel.deadline.getTime();
 
       ticketsAPI.update(vm.formModel).then(function(res) {
+        $log.log(res);
+        angular.copy(vm.formModel, vm.origModel);
         vm.loadStats[field] = 1;
-        mapModels(res);
       }, function(res) {
         $log.log(res);
         vm.loadStats[field] = 0;
