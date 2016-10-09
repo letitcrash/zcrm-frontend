@@ -300,10 +300,11 @@
         <input type="text" class="form-control" name="city" maxlength="255" ng-model="pfile.city">
       </div>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6" ng-class="{'has-error': form.zipCode.$dirty && form.zipCode.$invalid}">
       <label class="control-label col-md-6">{{ 'ZIP Code' | translate }}:</label>
       <div class="col-md-6">
-        <input type="number" class="form-control" name="zipCode" maxlength="33" ng-model="pfile.zipCode">
+        <input type="string" class="form-control" name="zipCode" maxlength="255" ng-model="pfile.zipCode"
+               ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/">
       </div>
     </div>
   </div>
