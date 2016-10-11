@@ -32,7 +32,7 @@ angular
       if (angular.isDate(vm.model.deadline))
         vm.model.deadline = vm.model.deadline.getTime();
 
-      ticketsAPI.create(vm.model.project.id, vm.model).then(function(res) {
+      ticketsAPI.create(vm.model).then(function(res) {
         if (res.hasOwnProperty('id')) {
           vm.loadStats.form = 1;
           $state.go('^.detail', {ticketId: res.id});

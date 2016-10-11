@@ -11,11 +11,11 @@ angular
       getActions: function(ticketId, params) {
         return requestService.ttGet(apiURL + '/' + ticketId + '/actions', params);
       },
-      create: function(projectId, ticket) {
+      create: function(ticket) {
         ticket.companyId = parseInt(dataService.getCurrentCompanyId());
         ticket.createdByUserId = dataService.getUserId();
 
-        return requestService.ttPost(apiURL + '/' + projectId, ticket);
+        return requestService.ttPost(apiURL, ticket);
       },
       update: function(ticket) {
         return requestService.ttPut(apiURL + '/' + ticket.id, ticket);
