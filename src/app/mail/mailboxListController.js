@@ -124,6 +124,9 @@ angular
 
       mailboxService.mailboxes.create(box).then(function(res) {
         vm.loadStats.mboxForm = 1;
+        // TODO: Delete after backend refactor
+        mailboxService.mailboxes.sync();
+        vm.getMailboxes();
         $log.log(res);
       }, function(res) {
         vm.loadStats.mboxForm = 0;
@@ -152,6 +155,15 @@ angular
       }
 
       $log.log(form);
+    };
+
+    // Delete mailbox
+    vm.delMbox = function delMbox(id) {
+      mailboxService.mailboxes.delete(id).then(function() {
+        $log.log('Successfully deleted');
+        mailboxService.mailboxes.sync();
+        vm.getMailboxes();
+      }, function() { $log.log('Error while deleting mailbox'); });
     };
 
     vm.getMailboxes();

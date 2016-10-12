@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO: Completly rewrite this service
-angular.module('inspinia').factory('mailboxService', function(requestService, dataService) {
+angular.module('inspinia').factory('mailboxService', function(requestService, dataService, $interval) {
   var apiURL = 'users/{usrId}/mailboxes';
   var re = /{usrId}/;
   var mboxes = [];
@@ -31,6 +31,9 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
     return url;
   }
 
+  // TODO: Delete after backend refactor
+  $interval(function() { requestService.ttGet('mailboxes/synchronize/' + dataService.getUserId()); }, 600000);
+
   return {
     mailboxes: {
       list: mboxes,
@@ -44,6 +47,7 @@ angular.module('inspinia').factory('mailboxService', function(requestService, da
 
         return requestService.ttPost(buildURLParams(), mbox);
       },
+      delete: function(mId) { return requestService.ttDelete(buildURLParams(mId)); },
       update: function(mId, mbox) { return requestService.ttPut(buildURLParams(mId), mbox); },
       // TODO: Delete after backend refactoring
       sync: function() {
