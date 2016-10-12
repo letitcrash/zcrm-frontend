@@ -23,8 +23,8 @@
   <div class="form-group clearfix" ng-class="{'has-error': form.phone.$dirty && form.phone.$invalid}">
     <label class="control-label col-md-3">{{ 'Phone' | translate }}:</label>
     <div class="col-md-9">
-      <input class="form-control" type="phone" name="phone" placeholder="Example: +79991234567" maxlength="12"
-             ng-pattern="/^\+?\d{11}$/" ng-model="pfile.phoneNumberMobile">
+      <input class="form-control" type="phone" name="phone" placeholder="Example: +79991234567" maxlength="33"
+             ng-pattern="/^\+?\d*$/" ng-model="pfile.phoneNumberMobile">
     </div>
   </div>
   <!-- Email -->
