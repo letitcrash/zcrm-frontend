@@ -2,12 +2,13 @@
 
 angular
   .module('inspinia')
-  .controller('CreateArticleCtrl', function ($state, dataService, articlesApi, uploadImage, cmsPermissions, summernoteConfig) {
+  .controller('CreateArticleCtrl', function ($scope, $state, dataService, articlesApi, uploadImage, cmsPermissions, summernoteConfig) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
+    vm.watch($scope);
     vm.NEW = true;
 
     init();

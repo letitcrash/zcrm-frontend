@@ -2,12 +2,13 @@
 
 angular
   .module('inspinia')
-  .controller('EditNewsCtrl', function ($state, newsApi, uploadImage, cmsPermissions) {
+  .controller('EditNewsCtrl', function ($scope, $state, newsApi, uploadImage, cmsPermissions) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
+    vm.watch($scope);
     vm.UPDATE = true;
 
     init();

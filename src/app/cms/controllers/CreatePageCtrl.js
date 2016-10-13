@@ -2,12 +2,13 @@
 
 angular
   .module('inspinia')
-  .controller('CreatePageCtrl', function ($state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig) {
+  .controller('CreatePageCtrl', function ($scope, $state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
+    vm.watch($scope);
     vm.NEW = true;
 
     init();

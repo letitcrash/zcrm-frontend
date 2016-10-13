@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular
   .module("inspinia")
@@ -9,6 +9,17 @@ angular
 
       uploadImage.createForm = {};
       uploadImage.baseStaticApiUrl = configurationService.staticBaseUrl;
+
+      uploadImage.watch = function(scope) {
+        scope.$watch(angular.bind(uploadImage, function () {
+          return uploadImage.createForm.text;
+        }), function (changedTextValue) {
+          if(!changedTextValue)
+            return;
+
+          uploadImage.createForm.text = changedTextValue.replace("{{baseStaticApiUrl}}", uploadImage.baseStaticApiUrl)
+        });
+      };
 
       uploadImage.uploadTitleImage = function (attachedImage) {
         if (!attachedImage)
@@ -25,7 +36,7 @@ angular
 
         imagesApi.upload(image).then(function (response) {
           uploadImage.createForm.text += '<img src="' +
-            uploadImage.baseStaticApiUrl +
+            "{{baseStaticApiUrl}}" +
             response.data.path +
             '" alt="' +
             image.name +
@@ -36,6 +47,6 @@ angular
       uploadImage.dropImageButtonClick = function () {
         uploadImage.attachedImage = null;
         uploadImage.createForm.image = null;
-      }
+      };
     }
   });
