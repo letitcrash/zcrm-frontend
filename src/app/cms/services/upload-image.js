@@ -10,6 +10,7 @@ angular
       uploadImage.createForm = {};
 
       uploadImage.uploadImage = function (attachedImage) {
+        attachedImage = attachedImage[0];
         if (!attachedImage)
           return;
 
