@@ -3,7 +3,7 @@
 <div class="col-sm-10 text-left">
   <button ng-hide="cms.createForm.image"
           class="btn btn-white"
-          ngf-select="cms.uploadImage($file)"
+          ngf-select="cms.uploadTitleImage($file)"
           data-provides="fileinput"
           ngf-pattern="'image/*'"
           ngf-accept="'image/*'">
@@ -20,7 +20,7 @@
     <i>{{cms.attachedImage.lastModified | date:'MM.dd.yy - H:mm'}}</i>
   </div>
   <div ng-show="cms.createForm.image && !cms.attachedImage" class="pull-left cms-image">
-    <img ng-src="{{cms.baseServiceUrl + cms.createForm.image}}" />
+    <img ng-src="{{cms.baseStaticApiUrl + cms.createForm.image}}" />
     <a ng-href="{{cms.createForm.image}}" uib-tooltip="{{cms.attachedImage.name}}">{{cms.attachedImage.name}}</a>
     <i>{{cms.attachedImage.lastModified | date:'MM.dd.yy - H:mm'}}</i>
   </div>

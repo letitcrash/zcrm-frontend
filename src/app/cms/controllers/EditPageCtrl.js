@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EditPageCtrl', function ($state, $log, pagesApi, uploadImage, cmsPermissions, configurationService) {
+  .controller('EditPageCtrl', function ($state, $log, pagesApi, uploadImage, cmsPermissions) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -36,7 +36,6 @@ angular
       vm.page = vm.createForm;
       vm.createForm.text = vm.page.body;
       vm.page.id = $state.params.pageId;
-      vm.baseServiceUrl = configurationService.staticBaseUrl;
 
       getPage(vm.page.id);
     }

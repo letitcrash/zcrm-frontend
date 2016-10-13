@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EditNewsCtrl', function ($state, newsApi, uploadImage, cmsPermissions, configurationService) {
+  .controller('EditNewsCtrl', function ($state, newsApi, uploadImage, cmsPermissions) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -36,7 +36,6 @@ angular
       vm.articleId = $state.params.articleId;
       vm.createForm = {};
       vm.article = vm.createForm;
-      vm.baseServiceUrl = configurationService.staticBaseUrl;
 
       getNewsArticle(vm.articleId);
     }
