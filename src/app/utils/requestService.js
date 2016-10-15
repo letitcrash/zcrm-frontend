@@ -20,8 +20,8 @@ angular
     }
 
     function resolve(deferred, request, response) {
-      if(!response.body)
-        return deferred.resolve(response);
+      //if(!response.body)
+      //  return deferred.resolve(response);
 
       var header = getResponseHeader(response);
       var body = getResponseBody(response);
