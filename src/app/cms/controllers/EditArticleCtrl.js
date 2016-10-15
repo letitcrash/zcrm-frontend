@@ -8,23 +8,26 @@ angular
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
-    vm.watch($scope);
     vm.UPDATE = true;
 
     init();
 
     vm.update = function () {
-      var updateRequest = {
-        id: vm.article.id,
+      var body = vm.article.getTextWithTemplateUrls();
+
+      var article = {
         title: vm.article.title,
-        desc: vm.article.description,
-        text: vm.article.text,
-        tags: vm.article.tags,
-        image: vm.article.image,
-        permission: vm.getPermissions()
+        body: body,
+        tags: vm.article.tags
+        //permission: vm.getPermissions()
       };
 
-      articlesApi.put(updateRequest).then(goBack);
+      if(vm.article.image)
+        article.image = vm.article.image;
+      else
+        article.image = "";
+
+      articlesApi.put(vm.article.id, article).then(goBack);
     };
 
     vm.delete = function () {
@@ -43,6 +46,8 @@ angular
     function getNewsArticle(id) {
       articlesApi.get(id).then(function (response) {
         Object.assign(vm.article, response.data);
+        vm.article.text = vm.article.body;
+        vm.article.text = vm.article.getTextWithLocalUrls();
         vm.setPermissions(vm.article.permission);
       });
     }

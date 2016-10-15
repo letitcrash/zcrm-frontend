@@ -6,27 +6,27 @@ angular
     return {
       getList: function () {
         var url = "company/:companyId/articles/search";
-        return requestService.ttGet(url);
+        return requestService.get(url);
       },
 
       get: function (id) {
         var url = "articles/get/" + id;
-        return requestService.ttGet(url);
+        return requestService.get(url);
       },
 
       post: function (article) {
         var url = "articles/add";
-        return requestService.ttPost(url, article);
+        return requestService.post(url, article);
       },
 
-      put: function (request) {
-        var url = "articles/edit/" + request.id;
-        return requestService.ttPut(url, request);
+      put: function (id, request) {
+        var url = "articles/edit/" + id;
+        return requestService.put(url, request);
       },
 
       deleteArticle: function (id) {
         var url = "articles/delete/" + id;
-        return requestService.ttDelete(url);
+        return requestService.delete(url);
       }
     };
   });

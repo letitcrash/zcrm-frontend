@@ -20,6 +20,9 @@ angular
     }
 
     function resolve(deferred, request, response) {
+      if(!response.body)
+        return deferred.resolve(response);
+
       var header = getResponseHeader(response);
       var body = getResponseBody(response);
       var isSuccess = checkResponseHeader(header);
@@ -105,7 +108,7 @@ angular
       var deferred = $q.defer();
 
       operation(request).then(function (response) {
-        $log.log("got promise");
+        $log.log("Got response:");
         $log.log(response);
 
         return resolve(deferred, request.data, response);
@@ -121,19 +124,39 @@ angular
 
     return {
       ttPost: function (suburl, data) {
-        return this.ttRequest(suburl, 'POST', data);
+        $log.log("ttPost deprecated, use post");
+        return this.request(suburl, 'POST', data);
       },
 
       ttPut: function (suburl, data) {
-        return this.ttRequest(suburl, 'PUT', data);
+        $log.log("ttPut deprecated, use put");
+        return this.request(suburl, 'PUT', data);
       },
 
       ttGet: function (suburl, getParams) {
-        return this.ttRequest(suburl + buildGetParams(getParams), 'GET');
+        $log.log("ttGet deprecated, use get");
+        return this.request(suburl + buildGetParams(getParams), 'GET');
       },
 
       ttDelete: function (suburl) {
-        return this.ttRequest(suburl, 'DELETE');
+        $log.log("ttDelete deprecated, use delete");
+        return this.request(suburl, 'DELETE');
+      },
+
+      post: function (suburl, data) {
+        return this.request(suburl, 'POST', data);
+      },
+
+      put: function (suburl, data) {
+        return this.request(suburl, 'PUT', data);
+      },
+
+      get: function (suburl, getParams) {
+        return this.request(suburl + buildGetParams(getParams), 'GET');
+      },
+
+      delete: function (suburl) {
+        return this.request(suburl, 'DELETE');
       },
 
       octetStreamRequest: function (url, method, data, callback) {
@@ -159,6 +182,11 @@ angular
       },
 
       ttRequest: function (suburl, method, data, contentType) {
+        $log.log("ttRequest deprecated, use request");
+        return this.request(suburl,method,data,contentType);
+      },
+
+      request: function (suburl, method, data, contentType) {
         var request = getBaseRequest(suburl, method, data);
         request.data = data;
 

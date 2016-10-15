@@ -8,27 +8,25 @@ angular
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
-    vm.watch($scope);
     vm.NEW = true;
 
     init();
 
     vm.create = function () {
-      if (!vm.article.text)
-        vm.article.text = '';
+      var text = vm.article.getTextWithTemplateUrls();
 
-      vm.article.title = vm.article.title.substring(0,255);
-      vm.article.date = new Date().getTime();
-      vm.article.author = dataService.getUser().contactProfile.id;
-      vm.article.permission = vm.getPermissions();
-      vm.article.description = vm.article.text.split("<hr>")[0].substring(0, 255);
+      var article = {
+        title: vm.article.title.substring(0,255),
+        date: new Date().getTime(),
+        author: dataService.getUser().contactProfile.id,
+        permission: vm.getPermissions(),
+        description: text.split("<hr>")[0].substring(0, 255),
+        companyId: dataService.getCurrentCompanyId(),
+        text: text,
+        image: vm.article.image
+      };
 
-      if (!vm.article.description)
-        vm.article.description = '';
-
-      vm.article.companyId = dataService.getCurrentCompanyId();
-
-      newsApi.post(vm.article).then(goBack);
+      newsApi.post(article).then(goBack);
     };
 
     vm.cancel = goBack;

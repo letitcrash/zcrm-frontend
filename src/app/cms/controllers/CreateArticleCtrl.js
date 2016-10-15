@@ -8,12 +8,13 @@ angular
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
-    vm.watch($scope);
     vm.NEW = true;
 
     init();
 
     vm.create = function () {
+      var body = vm.article.getTextWithTemplateUrls();
+
       var article = {
         companyId: dataService.getCurrentCompanyId(),
         title: vm.article.title.substring(0,255),
@@ -21,7 +22,7 @@ angular
         author: dataService.getUser().contactProfile.id,
         permission: vm.getPermissions(),
         tags: vm.article.tags,
-        body: vm.article.text ? vm.article.text : '',
+        body: body,
         image: vm.article.image
       };
 

@@ -5,21 +5,27 @@ angular
   .factory("uploadImage", function (imagesApi, configurationService) {
     return function () {
 
+      var baseStaticApiUrlTemplate = "{{baseStaticApiUrl}}";
       var uploadImage = this;
 
-      uploadImage.createForm = {};
-      uploadImage.baseStaticApiUrl = configurationService.staticBaseUrl;
+      uploadImage.createForm = {
+        getTextWithLocalUrls: function () {
+          if(!uploadImage.createForm.text)
+            return "";
 
-      uploadImage.watch = function(scope) {
-        scope.$watch(angular.bind(uploadImage, function () {
-          return uploadImage.createForm.text;
-        }), function (changedTextValue) {
-          if(!changedTextValue)
-            return;
+          return uploadImage.createForm.text.replace(baseStaticApiUrlTemplate, uploadImage.baseStaticApiUrl);
+        },
 
-          uploadImage.createForm.text = changedTextValue.replace("{{baseStaticApiUrl}}", uploadImage.baseStaticApiUrl)
-        });
+        getTextWithTemplateUrls: function () {
+          if(!uploadImage.createForm.text)
+            return "";
+
+          return uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
+        }
       };
+
+      uploadImage.editor = {};
+      uploadImage.baseStaticApiUrl = configurationService.staticBaseUrl;
 
       uploadImage.uploadTitleImage = function (attachedImage) {
         if (!attachedImage)
@@ -35,12 +41,8 @@ angular
         image = image[0];
 
         imagesApi.upload(image).then(function (response) {
-          uploadImage.createForm.text += '<img src="' +
-            "{{baseStaticApiUrl}}" +
-            response.data.path +
-            '" alt="' +
-            image.name +
-            '">';
+          var url =  uploadImage.baseStaticApiUrl + response.data.path;
+          uploadImage.editor.summernote('editor.insertImage', url);
         });
       };
 

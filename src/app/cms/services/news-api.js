@@ -6,32 +6,32 @@ angular
     return {
       getList: function () {
         var url = "company/:companyId/news/search";
-        return requestService.ttGet(url);
+        return requestService.get(url);
       },
 
       getEmployeeList: function () {
         var url = "company/:companyId/news/search";
-        return requestService.ttGet(url);
+        return requestService.get(url);
       },
 
       get: function (id) {
         var url = "news/get/" + id;
-        return requestService.ttGet(url);
+        return requestService.get(url);
       },
 
       post: function (article) {
         var url = "news/add";
-        return requestService.ttPost(url, article);
+        return requestService.post(url, article);
       },
 
-      put: function (request) {
-        var url = "news/edit/" + request.id;
-        return requestService.ttPut(url, request);
+      put: function (id, request) {
+        var url = "news/edit/" + id;
+        return requestService.put(url, request);
       },
 
       deleteNews: function (id) {
         var url = "news/delete/" + id;
-        return requestService.ttDelete(url);
+        return requestService.delete(url);
       }
     };
   });

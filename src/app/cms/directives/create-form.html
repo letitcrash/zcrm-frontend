@@ -4,7 +4,12 @@
     <div class="form-group" cms-title-picture></div>
     <div class="form-group">
       <div class="col-sm-12">
-        <summernote config="cms.summernote" ng-model="cms.createForm.text" data-on-image-upload="cms.uploadEditorImage(files)"></summernote>
+        <summernote config="cms.summernote"
+                    ng-model="cms.createForm.text"
+                    data-on-image-upload="cms.uploadEditorImage(files)"
+                    editable="cms.editable"
+                    editor="cms.editor">
+        </summernote>
       </div>
     </div>
     <div class="hr-line-dashed"></div>

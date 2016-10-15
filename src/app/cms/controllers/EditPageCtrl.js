@@ -8,34 +8,31 @@ angular
     cmsPermissions.call(vm);
     uploadImage.call(vm);
 
-    vm.watch($scope);
     vm.UPDATE = true;
 
     init();
 
     vm.update = function () {
-      var request = {
-        id: vm.page.id,
-        image: vm.page.image,
+      var page = {
+        image: vm.page.image ? vm.page.image : "",
         alias: vm.page.title,
-        title: vm.page.title,
+        title: vm.page.title.substring(0, 255),
         desc: vm.page.description.substring(0, 255),
-        body: vm.page.text,
-        permission: vm.getPermissions()
+        body: vm.page.getTextWithTemplateUrls()
+        //permission: vm.getPermissions()
       };
 
-      pagesApi.put(request).then(goBack);
+      pagesApi.put(vm.page.id, page).then(goBack);
     };
 
     vm.delete = function () {
-      pagesApi.deletePage(vm.page.id).then(goBack);
+      pagesApi.delete(vm.page.id).then(goBack);
     };
 
     vm.cancel = goBack;
 
     function init() {
       vm.page = vm.createForm;
-      vm.createForm.text = vm.page.body;
       vm.page.id = $state.params.pageId;
 
       getPage(vm.page.id);
@@ -45,6 +42,7 @@ angular
       pagesApi.get(vm.page.id).then(function (response) {
         Object.assign(vm.page, response.data);
         vm.page.text = vm.page.body;
+        vm.page.text = vm.page.getTextWithLocalUrls();
         vm.setPermissions(vm.page.permission);
       });
     }
