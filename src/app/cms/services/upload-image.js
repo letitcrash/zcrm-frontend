@@ -11,16 +11,10 @@ angular
 
       uploadImage.createForm = {
         getTextWithLocalUrls: function () {
-          if(!uploadImage.createForm.text)
-            return "";
-
           return uploadImage.createForm.text.replace(baseStaticApiUrlTemplate, uploadImage.baseStaticApiUrl);
         },
 
         getTextWithTemplateUrls: function () {
-          if(!uploadImage.createForm.text)
-            return "";
-
           return uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
         },
 
@@ -33,7 +27,9 @@ angular
 
         set image(value) {
           image = value;
-        }
+        },
+
+        text: ""
       };
 
       uploadImage.editor = {};
