@@ -5,6 +5,7 @@ angular
   .factory("uploadImage", function (imagesApi, configurationService) {
     return function () {
 
+      var image;
       var baseStaticApiUrlTemplate = "{{baseStaticApiUrl}}";
       var uploadImage = this;
 
@@ -21,6 +22,17 @@ angular
             return "";
 
           return uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
+        },
+
+        get image() {
+          if(!image)
+            return "";
+
+          return image;
+        },
+
+        set image(value) {
+          image = value;
         }
       };
 

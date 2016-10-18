@@ -18,7 +18,7 @@ angular
         alias: vm.page.title,
         title: vm.page.title.substring(0, 255),
         desc: vm.page.description.substring(0, 255),
-        body: vm.page.getTextWithTemplateUrls()
+        body: vm.page.getTextWithTemplateUrls(),
         //permission: vm.getPermissions()
       };
 

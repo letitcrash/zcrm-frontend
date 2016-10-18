@@ -93,16 +93,15 @@ angular.module('inspinia').factory('generalUtils', function($rootScope, $timeout
       return new Date().getTime();
     },
     formatUser: function(user) {
-      var str;
-      str = '';
-      if ((user != null) && (user.contactProfile != null)) {
-        if ((user.contactProfile.firstname != null)) {
-          str = str + user.contactProfile.firstname + " ";
-        }
-        if ((user.contactProfile.lastname != null)) {
-          str = str + user.contactProfile.lastname;
-        }
+      var str = '';
+      if (user.contactProfile.firstname) {
+        str +=  user.contactProfile.firstname + " ";
       }
+
+      if (user.contactProfile.lastname) {
+        str += user.contactProfile.lastname;
+      }
+
       return str;
     },
     formatCompany: function(cp) {
@@ -137,9 +136,8 @@ angular.module('inspinia').factory('generalUtils', function($rootScope, $timeout
       }
     },
     formatTimestampToDate: function(timestamp) {
-      var date;
       if (timestamp) {
-        date = new Date(timestamp);
+        var date = new Date(timestamp);
         return $filter('date')(date, 'yyyy-MM-dd');
       }
     },

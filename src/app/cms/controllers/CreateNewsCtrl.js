@@ -17,9 +17,11 @@ angular
 
       var article = {
         title: vm.article.title.substring(0,255),
-        date: new Date().getTime(),
-        author: dataService.getUser().contactProfile.id,
-        permission: vm.getPermissions(),
+        author: {
+          id: dataService.getUser().contactProfile.id,
+          username: '',
+          userLevel: -1
+        },        permission: vm.getPermissions(),
         description: text.split("<hr>")[0].substring(0, 255),
         companyId: dataService.getCurrentCompanyId(),
         text: text,

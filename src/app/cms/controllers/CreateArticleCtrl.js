@@ -18,8 +18,11 @@ angular
       var article = {
         companyId: dataService.getCurrentCompanyId(),
         title: vm.article.title.substring(0,255),
-        date: new Date().getTime(),
-        author: dataService.getUser().contactProfile.id,
+        author: {
+          id: dataService.getUser().contactProfile.id,
+          username: '',
+          userLevel: -1
+        },
         permission: vm.getPermissions(),
         tags: vm.article.tags,
         body: body,

@@ -11,13 +11,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="page in cms.pages |  orderBy:'-'">
+  <tr ng-repeat="page in cms.pages.data">
     <td>
       <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
     </td>
     <td><a ng-click="cms.editPage(page)">{{ page.title }}</a></td>
-    <td>{{ page.author }}</td>
-    <td>{{ cms.convertToDate(page.date) }}</td>
+    <td>{{ cms.displayAuthor(page.author) }}</td>
+    <td>{{ cms.displayDate(page) }}</td>
   </tr>
   </tbody>
 </table>

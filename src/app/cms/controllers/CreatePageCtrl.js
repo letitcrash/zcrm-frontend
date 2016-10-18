@@ -19,8 +19,11 @@ angular
         companyId: dataService.getCurrentCompanyId(),
         alias: vm.page.title,
         title: vm.page.title.substring(0, 255),
-        date: new Date().getTime(),
-        author: dataService.getUser().contactProfile.id,
+        author: {
+          id: dataService.getUser().contactProfile.id,
+          username: '',
+          userLevel: -1
+        },
         description: body.split("<hr>")[0].substring(0,255),
         image: vm.page.image,
         body: body,

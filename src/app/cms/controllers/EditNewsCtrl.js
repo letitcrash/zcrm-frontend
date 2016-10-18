@@ -18,7 +18,7 @@ angular
         desc: vm.article.description,
         text: vm.article.getTextWithTemplateUrls(),
         tags: vm.article.tags,
-        image: vm.article.image
+        image: vm.article.image,
         //permission: vm.getPermissions()
       };
 

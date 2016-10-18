@@ -18,14 +18,9 @@ angular
       var article = {
         title: vm.article.title,
         body: body,
-        tags: vm.article.tags
+        tags: vm.article.tags,
         //permission: vm.getPermissions()
       };
-
-      if(vm.article.image)
-        article.image = vm.article.image;
-      else
-        article.image = "";
 
       articlesApi.put(vm.article.id, article).then(goBack);
     };

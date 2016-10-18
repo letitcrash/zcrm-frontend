@@ -14,8 +14,6 @@ angular
 
     init();
 
-    vm.convertToDate = generalUtils.formatTimestampToDate;
-
     vm.editNews = function (article) {
       $state.go('index.editnews', {
         articleId: article.id
@@ -38,6 +36,18 @@ angular
       return vm.tab === tabNum;
     };
 
+    vm.displayDate = function (article) {
+      var creationTime = generalUtils.formatTimestamp(article.creationTime);
+      var lastModified = generalUtils.formatTimestamp(article.lastModified);
+      var displayDate = creationTime;
+      if(lastModified && creationTime != lastModified)
+        displayDate += " (" + lastModified + ")";
+
+      return displayDate;
+    };
+
+    vm.displayAuthor = generalUtils.formatUser;
+
     function getArticlesList() {
       articlesApi.getList().then(function (response) {
         vm.articles = response.data;
@@ -52,9 +62,11 @@ angular
 
     function getEmployeesNewsList() {
       newsApi.getEmployeeList().then(function (response) {
-        vm.news = response.data.filter(function (article) {
+        response.data.data = response.data.data.filter(function (article) {
           return article.permission === vm.permission.EMPLOYEE;
         });
+
+        vm.news = response.data;
       })
     }
 
