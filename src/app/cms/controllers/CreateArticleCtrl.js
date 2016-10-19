@@ -19,7 +19,7 @@ angular
         companyId: dataService.getCurrentCompanyId(),
         title: vm.article.title.substring(0,255),
         author: {
-          id: dataService.getUser().contactProfile.id,
+          id: dataService.getUserId(),
           username: '',
           userLevel: -1
         },

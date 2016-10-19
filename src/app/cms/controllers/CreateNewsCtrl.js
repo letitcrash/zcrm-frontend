@@ -18,10 +18,11 @@ angular
       var article = {
         title: vm.article.title.substring(0,255),
         author: {
-          id: dataService.getUser().contactProfile.id,
+          id: dataService.getUserId(),
           username: '',
           userLevel: -1
-        },        permission: vm.getPermissions(),
+        },
+        permission: vm.getPermissions(),
         description: text.split("<hr>")[0].substring(0, 255),
         companyId: dataService.getCurrentCompanyId(),
         text: text,

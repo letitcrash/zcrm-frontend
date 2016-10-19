@@ -71,7 +71,7 @@ angular
       return now.setDate(now.getDate() + oneDay);
     }
 
-    function getAfterTomorow() {
+    function getAfterTomorrow() {
       var oneDay = 1;
       var tomorrow = getTomorrow();
 

@@ -20,7 +20,7 @@ angular
         alias: vm.page.title,
         title: vm.page.title.substring(0, 255),
         author: {
-          id: dataService.getUser().contactProfile.id,
+          id: dataService.getUserId(),
           username: '',
           userLevel: -1
         },

@@ -19,6 +19,7 @@ angular
         title: vm.article.title,
         body: body,
         tags: vm.article.tags,
+        image: vm.article.image
         //permission: vm.getPermissions()
       };
 
