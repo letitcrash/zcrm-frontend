@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var process = require('process');
 
 var browserSync = require('browser-sync');
 
@@ -11,7 +12,6 @@ function isOnlyChange(event) {
 }
 
 gulp.task('watch', ['inject'], function () {
-
   gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject-reload']);
 
   gulp.watch([
@@ -33,7 +33,9 @@ gulp.task('watch', ['inject'], function () {
     }
   });
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
-    browserSync.reload(event.path);
-  });
+  if (process.argv.indexOf('--reload-off') === -1) {
+    gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
+      browserSync.reload(event.path);
+    });
+  }
 });
