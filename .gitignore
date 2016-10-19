@@ -8,7 +8,10 @@ bower_components/*
 .kdev5/*
 npm-debug.log
 *.swp
+
+# IDEA project files
 .idea/*
+*.iml
 
 # TernJS project config
 .tern-project
