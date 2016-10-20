@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EditArticleCtrl', function ($scope, $state, articlesApi, uploadImage, cmsPermissions, datepicker) {
+  .controller('EditArticleCtrl', function ($state, articlesApi, uploadImage, cmsPermissions, tinymceConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -29,6 +29,7 @@ angular
     function init() {
       vm.articleId = $state.params.articleId;
       vm.article = vm.createForm;
+      vm.tinymceOptions = tinymceConfig.get(vm.article);
 
       getNewsArticle(vm.articleId);
     }

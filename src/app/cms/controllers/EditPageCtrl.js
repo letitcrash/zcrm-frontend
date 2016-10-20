@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('EditPageCtrl', function ($scope, $state, $log, pagesApi, uploadImage, cmsPermissions, datepicker) {
+  .controller('EditPageCtrl', function ($state, $log, pagesApi, uploadImage, cmsPermissions, tinymceConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -29,6 +29,7 @@ angular
     function init() {
       vm.page = vm.createForm;
       vm.page.id = $state.params.pageId;
+      vm.tinymceOptions = tinymceConfig.get(vm.page);
 
       getPage(vm.page.id);
     }

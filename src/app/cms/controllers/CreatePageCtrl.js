@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('CreatePageCtrl', function ($scope, $state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig, datepicker) {
+  .controller('CreatePageCtrl', function ($state, pagesApi, uploadImage, dataService, cmsPermissions, tinymceConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -42,6 +42,6 @@ angular
 
     function init() {
       vm.page = vm.createForm;
-      vm.summernote = summernoteConfig;
+      vm.tinymceOptions = tinymceConfig.get(vm.page);
     }
   });
