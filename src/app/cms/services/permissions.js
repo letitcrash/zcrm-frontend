@@ -6,10 +6,10 @@ angular
     return function () {
       var permissions;
 
-      this.permission = {
+      this.permission = Object.freeze({
         EMPLOYEE: 99,
         PUBLIC: 100
-      };
+      });
 
       this.setPermissions = function (perm) {
         permissions = perm;
@@ -25,7 +25,5 @@ angular
       this.isSetPermissions = function (perm) {
         return permissions === perm;
       };
-
-      Object.freeze(this.permission);
     }
   });

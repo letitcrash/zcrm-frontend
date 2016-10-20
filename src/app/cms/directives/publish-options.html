@@ -2,25 +2,15 @@
   <div class="form-horizontal">
     <div crm-permission-editor>
     </div>
-    <div ng-hide="cms.UPDATE">
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <label class="col-sm-12">{{ 'Time of publish' | translate }}:</label>
-        <div class="col-sm-12">
-          <div class="input-group" ng-controller="DateCtrl as  date">
-            <datepicker datepicker-options="date.options">
-              <input class="form-control" ng-model="date.dateTime" type="text"/>
-            </datepicker>
-            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-          </div>
-        </div>
-      </div>
-      <div class="hr-line-dashed"></div>
-      <div class="form-group">
-        <div class="col-sm-12">
-          <input class="green-check" type="checkbox" id="bttne3">
-          <!-- maybe some possible problem here-->
-          <label for="bttne3" ng-click="today()">{{'Publish now' | translate}}</label>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+      <label class="col-sm-12">{{ 'Time of publish' | translate }}:</label>
+      <div class="col-sm-12">
+        <div class="input-group">
+          <datepicker datepicker-options="cms.datepicker.options">
+            <input class="form-control" ng-model="cms.datepicker.input" type="text"/>
+          </datepicker>
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
       </div>
     </div>

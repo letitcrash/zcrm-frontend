@@ -2,17 +2,16 @@
 
 angular
   .module('inspinia')
-  .controller('CreateArticleCtrl', function ($scope, $state, dataService, articlesApi, uploadImage, cmsPermissions, summernoteConfig) {
+  .controller('CreateArticleCtrl', function ($scope, $state, dataService, articlesApi, uploadImage, cmsPermissions, summernoteConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
-
-    vm.NEW = true;
+    datepicker.call(vm);
 
     init();
 
-    vm.create = function () {
+    vm.submit = function () {
       var body = vm.article.getTextWithTemplateUrls();
 
       var article = {
@@ -26,7 +25,8 @@ angular
         permission: vm.getPermissions(),
         tags: vm.article.tags,
         body: body,
-        image: vm.article.image
+        image: vm.article.image,
+        publicationTime: vm.datepicker.input
       };
 
       articlesApi.post(article).then(goBack);

@@ -2,17 +2,16 @@
 
 angular
   .module('inspinia')
-  .controller('CreateNewsCtrl', function ($scope, $state, dataService, newsApi, uploadImage, cmsPermissions, summernoteConfig) {
+  .controller('CreateNewsCtrl', function ($scope, $state, dataService, newsApi, uploadImage, cmsPermissions, summernoteConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
-
-    vm.NEW = true;
+    datepicker.call(vm);
 
     init();
 
-    vm.create = function () {
+    vm.submit = function () {
       var text = vm.article.getTextWithTemplateUrls();
 
       var article = {
@@ -26,7 +25,8 @@ angular
         description: text.split("<hr>")[0].substring(0, 255),
         companyId: dataService.getCurrentCompanyId(),
         text: text,
-        image: vm.article.image
+        image: vm.article.image,
+        publicationTime: vm.datepicker.input
       };
 
       newsApi.post(article).then(goBack);

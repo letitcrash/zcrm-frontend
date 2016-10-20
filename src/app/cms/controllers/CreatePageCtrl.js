@@ -2,17 +2,16 @@
 
 angular
   .module('inspinia')
-  .controller('CreatePageCtrl', function ($scope, $state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig) {
+  .controller('CreatePageCtrl', function ($scope, $state, pagesApi, uploadImage, dataService, cmsPermissions, summernoteConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
-
-    vm.NEW = true;
+    datepicker.call(vm);
 
     init();
 
-    vm.create = function () {
+    vm.submit = function () {
       var body = vm.page.getTextWithTemplateUrls();
 
       var page = {
@@ -27,7 +26,8 @@ angular
         description: body.split("<hr>")[0].substring(0,255),
         image: vm.page.image,
         body: body,
-        permission: vm.getPermissions()
+        permission: vm.getPermissions(),
+        publicationTime: vm.datepicker.input
       };
 
       pagesApi.post(page).then(goBack);

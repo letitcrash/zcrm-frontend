@@ -2,24 +2,24 @@
 
 angular
   .module('inspinia')
-  .controller('EditArticleCtrl', function ($scope, $state, articlesApi, uploadImage, cmsPermissions) {
+  .controller('EditArticleCtrl', function ($scope, $state, articlesApi, uploadImage, cmsPermissions, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
     uploadImage.call(vm);
-
-    vm.UPDATE = true;
+    datepicker.call(vm);
 
     init();
 
-    vm.update = function () {
+    vm.submit = function () {
       var body = vm.article.getTextWithTemplateUrls();
 
       var article = {
         title: vm.article.title,
         body: body,
         tags: vm.article.tags,
-        image: vm.article.image
+        image: vm.article.image,
+        publicationTime: vm.datepicker.input
         //permission: vm.getPermissions()
       };
 

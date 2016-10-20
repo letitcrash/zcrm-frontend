@@ -20,18 +20,10 @@
       <div class="col-sm-12">
         <button  ng-click="cms.cancel()" class="btn btn-white" style="margin-right: 10px;">{{ 'Cancel' | translate }}</button>
         <button type="button"
-                ng-show="cms.NEW"
-                ng-click="cms.create()"
+                ng-click="cms.submit()"
                 class="btn btn-primary"
                 aria-hidden="false">
-          {{ 'Create' | translate }}
-        </button>
-        <button type="button"
-                ng-show="cms.UPDATE"
-                ng-click="cms.update()"
-                class="btn btn-primary"
-                aria-hidden="false">
-          {{ 'Update' | translate }}
+          {{ 'Submit' | translate }}
         </button>
       </div>
     </div>
