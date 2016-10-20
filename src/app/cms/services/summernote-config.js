@@ -14,7 +14,7 @@ angular
         ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
         ['height', ['height']],
         ['table', ['table']], 
-        ['insert', ['picture', 'hr']]
+        ['insert', ['link', 'picture', 'hr']]
       ]
     };
 

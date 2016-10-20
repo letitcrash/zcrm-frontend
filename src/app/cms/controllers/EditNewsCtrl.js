@@ -9,6 +9,8 @@ angular
     uploadImage.call(vm);
     datepicker.call(vm);
 
+    vm.UPDATE = true;
+
     init();
 
     vm.submit = function () {
