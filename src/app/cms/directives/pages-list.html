@@ -1,17 +1,23 @@
-<table class="table table-striped table-hover">
+<!-- Sort -->
+<div class="form-group col-md-6 col-lg-3" crm-pages-list-sort></div>
+<table class="table table-striped table-hover" ng-controller="CmsCtrl as cms">
   <thead>
   <tr>
     <th style="width:40px">
       <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
     </th>
-    <th>{{'Title' | translate }}</th>
-    <th>{{'Author' | translate }}<a class="list-refresh" href=""> <i class="fa fa-sort"></i></a>
+    <th ng-repeat="(name, field) in ::fields" ng-if="field.active">
+      <span ng-bind="::field.title | translate"></span>
+      <a class="fa" href role="button" title="{{ 'Change sort ordering' | translate }}"
+         ng-class="'fa-sort-amount-' + params.order"
+         ng-show="name === params.sort"
+         ng-click="params.order = params.order === 'asc' ? 'desc' : 'asc'">
+      </a>
     </th>
-    <th>{{'Date' | translate }}</th>
   </tr>
   </thead>
-  <tbody>
-  <tr ng-repeat="page in cms.pages.data">
+  <tbody ng-show="loadStats.list === 1">
+  <tr ng-repeat="page in pages.data">
     <td>
       <input class="green-check" type="checkbox" style="margin-left:10px;" name="vehicle" value="Car">
     </td>
