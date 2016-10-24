@@ -19,9 +19,9 @@ angular
         return requestService.post(url, page);
       },
 
-      put: function (id, request) {
-        var url = "pages/edit/" + id;
-        return requestService.put(url, request);
+      put: function (page) {
+        var url = "pages/edit";
+        return requestService.put(url, page);
       },
 
       delete: function (id) {

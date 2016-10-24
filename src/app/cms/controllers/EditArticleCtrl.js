@@ -12,18 +12,12 @@ angular
     init();
 
     vm.submit = function () {
-      var body = vm.article.getTextWithTemplateUrls();
+      vm.article.textToTemplateUrls();
+      vm.article.body = vm.article.text;
+      vm.article.permission = vm.getPermissions();
+      vm.article.creationTime = vm.datepicker.inputDate;
 
-      var article = {
-        title: vm.article.title,
-        body: body,
-        tags: vm.article.tags,
-        image: vm.article.image,
-        publicationTime: vm.datepicker.input
-        //permission: vm.getPermissions()
-      };
-
-      articlesApi.put(vm.article.id, article).then(goBack);
+      articlesApi.put(vm.article).then(goBack);
     };
 
     vm.delete = function () {
@@ -41,9 +35,9 @@ angular
 
     function getNewsArticle(id) {
       articlesApi.get(id).then(function (response) {
-        Object.assign(vm.article, response.data);
+        angular.merge(vm.article, response.data);
         vm.article.text = vm.article.body;
-        vm.article.text = vm.article.getTextWithLocalUrls();
+        vm.article.textToLocalUrls();
         vm.setPermissions(vm.article.permission);
       });
     }

@@ -14,17 +14,11 @@ angular
     init();
 
     vm.submit = function () {
-      var updateRequest = {
-        title: vm.article.title,
-        desc: vm.article.description,
-        text: vm.article.getTextWithTemplateUrls(),
-        tags: vm.article.tags,
-        image: vm.article.image,
-        publicationTime: vm.datepicker.input
-        //permission: vm.getPermissions()
-      };
+      vm.article.textToTemplateUrls();
+      vm.article.permission = vm.getPermissions();
+      vm.article.creationTime = vm.datepicker.inputDate;
 
-      newsApi.put(vm.article.id, updateRequest).then(goBack);
+      newsApi.put(vm.article).then(goBack);
     };
 
     vm.delete = function () {
@@ -42,8 +36,8 @@ angular
 
     function getNewsArticle(id) {
       newsApi.get(id).then(function (response) {
-        Object.assign(vm.article, response.data);
-        vm.article.text = vm.article.getTextWithLocalUrls();
+        angular.merge(vm.article, response.data);
+        vm.article.textToLocalUrls();
         vm.setPermissions(vm.article.permission);
       });
     }

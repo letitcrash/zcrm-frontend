@@ -48,47 +48,7 @@ angular
 
     vm.displayAuthor = generalUtils.formatUser;
 
-    function getArticlesList() {
-      articlesApi.getList().then(function (response) {
-        vm.articles = response.data;
-      })
-    }
-
-    function getNewsList() {
-      newsApi.getList().then(function (response) {
-        vm.news = response.data;
-      })
-    }
-
-    function getEmployeesNewsList() {
-      newsApi.getEmployeeList().then(function (response) {
-        response.data.data = response.data.data.filter(function (article) {
-          return article.permission === vm.permission.EMPLOYEE;
-        });
-
-        vm.news = response.data;
-      })
-    }
-
-    function getPagesList() {
-      pagesApi.getList().then(function (response) {
-        vm.pages = response.data;
-      });
-    }
-
     function init() {
-      if($state.includes(vm.INDEX_TAB) || $state.includes(vm.NEWS_TAB))
-        getNewsList();
-
-      if($state.includes(vm.EMPLOYEES_TAB))
-        getEmployeesNewsList();
-
-      if($state.includes(vm.PAGES_TAB))
-         getPagesList();
-
-      if($state.includes(vm.ARTICLES_TAB))
-         getArticlesList();
-
       vm.tab = $state.current.name;
     }
   });

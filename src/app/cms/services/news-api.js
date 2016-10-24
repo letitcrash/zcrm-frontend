@@ -24,9 +24,9 @@ angular
         return requestService.post(url, article);
       },
 
-      put: function (id, request) {
-        var url = "news/edit/" + id;
-        return requestService.put(url, request);
+      put: function (article) {
+        var url = "news/edit";
+        return requestService.put(url, article);
       },
 
       deleteNews: function (id) {

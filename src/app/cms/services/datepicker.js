@@ -5,19 +5,18 @@ angular
   .factory("datepicker", function () {
     return function () {
       var yearsToAdd = 2,
-        yearsToSub = 1,
-        publicationTime;
+        yearsToSub = 1;
 
-      var now = new Date();
+      var fullYear = new Date().getFullYear();
 
       var self = this;
 
       function getMaxDate() {
-        return (new Date()).setFullYear(now.getFullYear() + yearsToAdd)
+        return (new Date()).setFullYear(fullYear + yearsToAdd)
       }
 
       function getMinDate() {
-        return (new Date()).setFullYear(now.getFullYear() + yearsToSub)
+        return (new Date()).setFullYear(fullYear + yearsToSub)
       }
 
       self.datepicker = {
@@ -28,6 +27,12 @@ angular
           startingDay: 1,
           showWeeks: false
         }),
+        get inputDate() {
+          if(!this.input)
+            return new Date();
+
+          return new Date(this.input);
+        },
         input: ''
       }
     }

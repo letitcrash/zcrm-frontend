@@ -12,7 +12,8 @@ angular
     init();
 
     vm.submit = function () {
-      var body = vm.page.getTextWithTemplateUrls();
+      vm.page.textToTemplateUrls();
+      var body = vm.page.text;
 
       var page = {
         companyId: dataService.getCurrentCompanyId(),
@@ -27,7 +28,7 @@ angular
         image: vm.page.image,
         body: body,
         permission: vm.getPermissions(),
-        publicationTime: vm.datepicker.input
+        creationTime: vm.datepicker.inputDate
       };
 
       pagesApi.post(page).then(goBack);

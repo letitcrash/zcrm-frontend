@@ -12,17 +12,12 @@ angular
     init();
 
     vm.submit = function () {
-      var page = {
-        image: vm.page.image ? vm.page.image : "",
-        alias: vm.page.title,
-        title: vm.page.title.substring(0, 255),
-        desc: vm.page.description.substring(0, 255),
-        body: vm.page.getTextWithTemplateUrls(),
-        publicationTime: vm.datepicker.input
-        //permission: vm.getPermissions()
-      };
+      vm.page.textToTemplateUrls();
+      vm.page.body = vm.page.text;
+      vm.page.permission = vm.getPermissions();
+      vm.page.creationTime = vm.datepicker.inputDate;
 
-      pagesApi.put(vm.page.id, page).then(goBack);
+      pagesApi.put(vm.page).then(goBack);
     };
 
     vm.delete = function () {
@@ -40,9 +35,9 @@ angular
 
     function getPage() {
       pagesApi.get(vm.page.id).then(function (response) {
-        Object.assign(vm.page, response.data);
+        angular.merge(vm.page, response.data);
         vm.page.text = vm.page.body;
-        vm.page.text = vm.page.getTextWithLocalUrls();
+        vm.page.textToLocalUrls();
         vm.setPermissions(vm.page.permission);
       });
     }

@@ -44,17 +44,14 @@ angular
           scope.loadStats.list = 2;
 
           articlesApi.getList(scope.params).then(function(res) {
-            $log.log(res);
             if (res.hasOwnProperty('data')) {
               scope.articles = res.data;
               scope.loadStats.list = 1;
             } else {
               scope.loadStats.list = 0;
-              $log.log(res);
             }
           }, function(res) {
             scope.loadStats.list = 0;
-            $log.log(res);
           });
         };
 

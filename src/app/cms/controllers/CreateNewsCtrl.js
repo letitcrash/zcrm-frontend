@@ -12,7 +12,7 @@ angular
     init();
 
     vm.submit = function () {
-      var text = vm.article.getTextWithTemplateUrls();
+      vm.article.textToTemplateUrls();
 
       var article = {
         title: vm.article.title.substring(0,255),
@@ -22,11 +22,11 @@ angular
           userLevel: -1
         },
         permission: vm.getPermissions(),
-        description: text.split("<hr>")[0].substring(0, 255),
+        description: vm.article.text.split("<hr>")[0].substring(0, 255),
         companyId: dataService.getCurrentCompanyId(),
-        text: text,
+        text: vm.article.text,
         image: vm.article.image,
-        publicationTime: vm.datepicker.input
+        creationTime: vm.datepicker.inputDate
       };
 
       newsApi.post(article).then(goBack);

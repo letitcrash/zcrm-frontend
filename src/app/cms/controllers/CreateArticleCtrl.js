@@ -12,7 +12,8 @@ angular
     init();
 
     vm.submit = function () {
-      var body = vm.article.getTextWithTemplateUrls();
+      vm.article.textToTemplateUrls();
+      var body = vm.article.text;
 
       var article = {
         companyId: dataService.getCurrentCompanyId(),
@@ -26,7 +27,7 @@ angular
         tags: vm.article.tags,
         body: body,
         image: vm.article.image,
-        publicationTime: vm.datepicker.input
+        creationTime: vm.datepicker.inputDate
       };
 
       articlesApi.post(article).then(goBack);

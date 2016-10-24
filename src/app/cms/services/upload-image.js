@@ -10,12 +10,12 @@ angular
       var uploadImage = this;
 
       uploadImage.createForm = {
-        getTextWithLocalUrls: function () {
-          return uploadImage.createForm.text.replace(baseStaticApiUrlTemplate, uploadImage.baseStaticApiUrl);
+        textToLocalUrls: function () {
+          uploadImage.createForm.text = uploadImage.createForm.text.replace(baseStaticApiUrlTemplate, uploadImage.baseStaticApiUrl);
         },
 
-        getTextWithTemplateUrls: function () {
-          return uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
+        textToTemplateUrls: function () {
+          uploadImage.createForm.text = uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
         },
 
         get image() {
