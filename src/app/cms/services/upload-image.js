@@ -1,12 +1,12 @@
 'use strict';
 
 angular
-  .module("inspinia")
-  .factory("uploadImage", function (imagesApi, configurationService) {
+  .module('inspinia')
+  .factory('uploadImage', function (imagesApi, configurationService) {
     return function () {
 
       var image;
-      var baseStaticApiUrlTemplate = "{{baseStaticApiUrl}}";
+      var baseStaticApiUrlTemplate = '{{baseStaticApiUrl}}';
       var uploadImage = this;
 
       uploadImage.createForm = {
@@ -15,12 +15,23 @@ angular
         },
 
         textToTemplateUrls: function () {
-          uploadImage.createForm.text = uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate)
+          uploadImage.createForm.text = uploadImage.createForm.text.replace(uploadImage.baseStaticApiUrl, baseStaticApiUrlTemplate);
+        },
+
+        uploadEditorImage: function (image) {
+          imagesApi.upload(image).then(function (response) {
+            uploadImage.createForm.text += '<img src="' +
+              uploadImage.baseStaticApiUrl +
+              response.data.path +
+              '" alt="' +
+              image.name +
+              '">';
+          });
         },
 
         get image() {
           if(!image)
-            return "";
+            return '';
 
           return image;
         },
@@ -28,8 +39,7 @@ angular
         set image(value) {
           image = value;
         },
-
-        text: ""
+        text: ''
       };
 
       uploadImage.editor = {};
@@ -42,15 +52,6 @@ angular
         uploadImage.attachedImage = attachedImage;
         imagesApi.upload(attachedImage).then(function (response) {
           uploadImage.createForm.image = response.data.path;
-        });
-      };
-
-      uploadImage.uploadEditorImage = function (image) {
-        image = image[0];
-
-        imagesApi.upload(image).then(function (response) {
-          var url =  uploadImage.baseStaticApiUrl + response.data.path;
-          uploadImage.editor.summernote('editor.insertImage', url);
         });
       };
 

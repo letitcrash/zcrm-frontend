@@ -2,7 +2,7 @@
 
 angular
   .module('inspinia')
-  .controller('CreateNewsCtrl', function ($scope, $state, dataService, newsApi, uploadImage, cmsPermissions, summernoteConfig, datepicker) {
+  .controller('CreateNewsCtrl', function ($state, dataService, newsApi, uploadImage, cmsPermissions, tinymceConfig, datepicker) {
     var vm = this;
 
     cmsPermissions.call(vm);
@@ -35,8 +35,8 @@ angular
     vm.cancel = goBack;
 
     function init() {
-      vm.summernote = summernoteConfig;
       vm.article = vm.createForm;
+      vm.tinymceOptions = tinymceConfig.get(vm.article);
     }
 
     function goBack() {

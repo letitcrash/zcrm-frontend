@@ -4,7 +4,7 @@
   angular
     .module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'ngMessages', 'ngAria',
         'ngResource', 'ui.router', 'oc.lazyLoad',  'ui.calendar', 'ui.bootstrap', 'pascalprecht.translate', 'ui.select',
-        'ladda', 'ngFileUpload', '720kb.datepicker', 'summernote'])
+        'ladda', 'ngFileUpload', '720kb.datepicker', 'summernote', 'ui.tinymce'])
     .run(function ($log, $translate, $rootScope, $state, dataService, generalUtils, roleService) {
       var companyName, user;
 
@@ -35,7 +35,7 @@
       $translate.use($rootScope.language.alias);
 
       $rootScope.changeLanguage = function (language) {
-        $log.log(language)
+        $log.log(language);
           $translate.use(language.alias);
         $rootScope.language = language;
         dataService.setUserLanguage(language);
