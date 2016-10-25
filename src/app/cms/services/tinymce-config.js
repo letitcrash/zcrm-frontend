@@ -7,7 +7,11 @@ angular
       this.inline = false;
       this.selector = 'textarea';
       this.automatic_uploads = true;
-      this.plugins  = 'media emoticons table advlist autolink link image lists charmap print preview';
+      this.plugins  = 'media table advlist autolink link image lists charmap print preview fullscreen textcolor ' +
+                      'wordcount';
+      this.toolbar = 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright ' +
+                     'alignjustify | bullist numlist outdent indent | link image media | forecolor backcolor | ' +
+                     'preview';
       this.table_toolbar = false;
       this.file_browser_callback = function(field_name, url, type, win) {
         if(type=='image') {
