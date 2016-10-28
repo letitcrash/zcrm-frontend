@@ -1,3 +1,4 @@
+<span class="pull-right dropdown" uib-dropdown="" auto-close="outsideClick" is-open="cms.showDeletion">
 <button class="btn btn-default dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></button>
 <ul class="dropdown-menu" uib-dropdown-menu="">
   <li>
@@ -6,10 +7,11 @@
     </a>
   </li>
   <li class="col-xs-12 p-sm ng-hide" ng-show="cms.showDeletionConfirmation" aria-hidden="true">
-    <h4 ng-bind="'Delete an article?' | translate" class="ng-binding">{{'Delete an article?' | translate}}</h4>
-    <button class="btn btn-default ng-binding" ng-click="cms.delete()">Ok</button>
-    <button class="btn btn-danger ng-binding" ng-click="cms.showDeletionConfirmation = false">
-      Cancel
+    <h4 class="ng-binding">{{'Are you sure?' | translate}}</h4>
+    <button class="btn btn-default ng-binding" ng-click="cms.delete()">{{'Yes' | translate}}</button>
+    <button class="btn btn-danger ng-binding" ng-click="cms.showDeletionConfirmation = false; cms.showDeletion = false;">
+      {{'No' | translate}}
     </button>
   </li>
 </ul>
+</span>
