@@ -1,14 +1,14 @@
 <button class="btn btn-default dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></button>
 <ul class="dropdown-menu" uib-dropdown-menu="">
   <li>
-    <a href="" role="button" ng-click="uitglrs.del = true" ng-hide="uitglrs.del" class="ng-binding" aria-hidden="false">
-      <i class="fa fa-trash-o"></i>&nbsp;Delete
+    <a role="button" ng-click="cms.showDeletionConfirmation = true" ng-hide="cms.showDeletionConfirmation" class="ng-binding" aria-hidden="false">
+      <i class="fa fa-trash-o"></i>&nbsp{{'Delete' | translate}}
     </a>
   </li>
-  <li class="col-xs-12 p-sm ng-hide" ng-show="uitglrs.del" aria-hidden="true">
-    <h4 ng-bind="'Delete a ticket?' | translate" class="ng-binding">Delete a ticket?</h4>
+  <li class="col-xs-12 p-sm ng-hide" ng-show="cms.showDeletionConfirmation" aria-hidden="true">
+    <h4 ng-bind="'Delete an article?' | translate" class="ng-binding">{{'Delete an article?' | translate}}</h4>
     <button class="btn btn-default ng-binding" ng-click="cms.delete()">Ok</button>
-    <button class="btn btn-danger ng-binding">
+    <button class="btn btn-danger ng-binding" ng-click="cms.showDeletionConfirmation = false">
       Cancel
     </button>
   </li>
